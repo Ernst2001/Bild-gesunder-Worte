@@ -9,7 +9,7 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #8fbcd4, #f5e6c8); /* Pastel marineblau mit warmem Touch */
+  background: linear-gradient(135deg, #8fbcd4, #f5e6c8);
   color: #ffffff;
   text-align: center;
   overflow-x: hidden;
@@ -31,10 +31,11 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-shadow: 0.5px 0.
   display: flex;
   height: 100%;
   overflow-x: auto;
+  overflow-y: hidden;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
-  transform-origin: center center;
-  transition: transform 0.3s ease;
+  transform-origin: 0 0;
+  transition: transform 0.2s ease;
 }
 
 .timeline img {
@@ -42,7 +43,7 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-shadow: 0.5px 0.
   flex-shrink: 0;
   object-fit: cover;
   scroll-snap-align: start;
-  margin: 0; /* kein Zwischenraum */
+  margin: 0;
 }
 
 .arrow {
@@ -110,12 +111,12 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-shadow: 0.5px 0.
 
 <h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
 <h2>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</h2>
-<p>Scrollen Sie nach unten, um die Timeline in voller Breite zu sehen. Sie können horizontal mit den Pfeilen oder der Maus/Trackpad navigieren und hineinzoomen (Strg + Mausrad / Pinch-Geste).</p>
+<p>Scrollen Sie horizontal mit Pfeilen oder Maus/Trackpad und zoomen Sie hinein (Strg + Mausrad / Pinch-Geste). Alle Ränder sind sichtbar.</p>
 
 <div class="timeline-wrapper">
   <div class="arrow arrow-left" onclick="scrollTimeline(-1)">&#10094;</div>
   <div class="timeline" id="timeline">
-    <!-- 17 zugeschnittene PNG-Bilder hier einfügen -->
+    <!-- 17 zugeschnittene PNG-Bilder -->
     <img src="images/Seite1.png" alt="Seite 1">
     <img src="images/Seite2.png" alt="Seite 2">
     <img src="images/Seite3.png" alt="Seite 3">
@@ -152,52 +153,53 @@ const timeline = document.getElementById('timeline');
 const images = timeline.querySelectorAll('img');
 const preview = document.getElementById('preview');
 
-// Vorschau-Dots erstellen
 images.forEach((img, i) => {
   const dot = document.createElement('div');
   dot.classList.add('preview-dot');
   if(i === 0) dot.classList.add('active');
   dot.addEventListener('click', () => {
-    timeline.scrollTo({ left: i * timeline.clientWidth, behavior: 'smooth' });
+    timeline.scrollTo({ left: i * images[i].clientWidth, behavior: 'smooth' });
   });
   preview.appendChild(dot);
 });
 
 const dots = document.querySelectorAll('.preview-dot');
 
-// Pfeile scrollen
 function scrollTimeline(direction) {
-  const pageWidth = timeline.clientWidth;
+  const pageWidth = images[0].clientWidth;
   timeline.scrollBy({ left: direction * pageWidth, behavior: 'smooth' });
 }
 
-// Scroll-Event für aktive Dot
 timeline.addEventListener('scroll', () => {
-  const pageWidth = timeline.clientWidth;
+  const pageWidth = images[0].clientWidth;
   const pageIndex = Math.round(timeline.scrollLeft / pageWidth);
   dots.forEach(dot => dot.classList.remove('active'));
   if(dots[pageIndex]) dots[pageIndex].classList.add('active');
 });
 
-// Sanftes Zoomen (Strg + Mausrad / Pinch)
+// Zoom relativ zum Mauszeiger
 let scale = 1;
 timeline.addEventListener('wheel', (e) => {
   if(e.ctrlKey) {
     e.preventDefault();
+    const rect = timeline.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const originX = offsetX / scale;
     scale += e.deltaY * -0.0015;
     scale = Math.min(Math.max(0.5, scale), 5);
+    timeline.style.transformOrigin = `${originX}px 0px`;
     timeline.style.transform = `scale(${scale})`;
   }
 });
 
-// Optional: Touch Pinch-Zoom (für mobile Geräte)
+// Touch Pinch-Zoom für Mobile
 let initialDistance = null;
 timeline.addEventListener('touchmove', (e) => {
   if(e.touches.length === 2) {
     e.preventDefault();
-    const touch1 = e.touches[0];
-    const touch2 = e.touches[1];
-    const distance = Math.hypot(touch2.pageX - touch1.pageX, touch2.pageY - touch1.pageY);
+    const t1 = e.touches[0];
+    const t2 = e.touches[1];
+    const distance = Math.hypot(t2.pageX - t1.pageX, t2.pageY - t1.pageY);
     if(initialDistance !== null){
       let zoom = distance / initialDistance;
       let newScale = Math.min(Math.max(0.5, scale * zoom), 5);
