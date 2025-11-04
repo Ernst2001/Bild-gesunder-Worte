@@ -1,131 +1,118 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <!-- Zeichensatz und Sprache -->
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Language" content="de">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Suchmaschinen-Infos -->
-  <title>Musik & Bücher von Ernst Mohr – Offizielle Seite</title>
-  <meta name="description" content="Offizielle Webseite von Ernst Mohr. Hier findest du CDs, Bücher und aktuelle Projekte. Unterstütze mit einer Spende oder entdecke neue Musik.">
-  <meta name="keywords" content="Ernst Mohr, Timeline, Zeitstrahl, Musik, Bücher, CD, Spenden, Projekte, Bandcamp, Paypal, Amazon">
-  <meta name="author" content="Ernst Mohr">
-
-  <!-- Vorschau-Bild und Infos für Social Media (Facebook, WhatsApp, Twitter etc.) -->
-  <meta property="og:title" content="Musik & Bücher von Ernst Mohr">
-  <meta property="og:description" content="Besuche die offizielle Seite von Ernst Mohr – mit Musik, Büchern, Projekten und Spendenmöglichkeiten.">
-  <meta property="og:image" content="https://deinname.github.io/meine-webseite/vorschau.jpg">
-  <meta property="og:url" content="https://deinname.github.io/meine-webseite/">
-  <meta property="og:type" content="website">
-
-  <!-- Twitter-Vorschau -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Musik & Bücher von Max Mustermann">
-  <meta name="twitter:description" content="Offizielle Webseite von Max Mustermann – CDs, Bücher, Projekte und Spenden.">
-  <meta name="twitter:image" content="https://deinname.github.io/meine-webseite/vorschau.jpg">
-
-  <!-- Favicon (kleines Icon im Browser-Tab) -->
-  <link rel="icon" href="favicon.png" type="image/png">
-
-  <!-- Optional: Google darf die Seite indexieren -->
-  <meta name="robots" content="index, follow">
-
-  <!-- CSS / Design -->
+  <title>Meine Musik & Bücher</title>
+  
+  <!-- Neuer Style-Block -->
   <style>
+    /* Grundlayout */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      /* Farbverlauf: helles Pastell-Marineblau → warmes Beige */
+      background: linear-gradient(135deg, #8fbcd4, #f5e6c8);
+      color: #1a1a1a; /* dunkle Schrift für gute Lesbarkeit */
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
 
-  /* Grundlayout */
-  body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    /* Farbverlauf: helles Pastell-Marineblau → warmes Beige */
-    background: linear-gradient(135deg, #8fbcd4, #f5e6c8);
-    color: #1a1a1a; /* dunkle Schrift für gute Lesbarkeit */
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-  }
+    h1 {
+      margin-top: 30px;
+      font-size: 2.2em;
+      color: #1a1a1a;
+    }
 
-  h1 {
-    margin-top: 30px;
-    font-size: 2.2em;
-    color: #1a1a1a;
-  }
+    /* Galerie für Excel-Bilder */
+    .gallery {
+      display: flex;
+      overflow-x: auto; /* horizontal scrollen, wenn zu viele Bilder */
+      gap: 15px;
+      padding: 20px;
+      margin-bottom: 40px;
+    }
 
-  /* Galerie für Excel-Bilder */
-  .gallery {
-    display: flex;
-    overflow-x: auto; /* horizontal scrollen, wenn zu viele Bilder */
-    gap: 15px;
-    padding: 20px;
-    margin-bottom: 40px;
-  }
+    .gallery img {
+      height: 400px; /* gleiche Höhe für alle Bilder */
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
 
-  .gallery img {
-    height: 400px; /* gleiche Höhe für alle Bilder */
-    border-radius: 8px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-  }
+    /* Buttons-Bereich */
+    .buttons {
+      margin-bottom: 50px;
+    }
 
-  /* Buttons-Bereich */
-  .buttons {
-    margin-bottom: 50px;
-  }
+    .buttons a {
+      background-color: #ffb347; /* warmes Orange */
+      color: #1a1a1a;
+      padding: 12px 22px;
+      margin: 5px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
 
-  .buttons a {
-    background-color: #ffb347; /* warmes Orange */
-    color: #1a1a1a;
-    padding: 12px 22px;
-    margin: 5px;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-  }
+    .buttons a:hover {
+      background-color: #ff9f00; /* etwas dunkler beim Hover */
+    }
 
-  .buttons a:hover {
-    background-color: #ff9f00; /* etwas dunkler beim Hover */
-  }
+    /* Optional: Scrollbar in Galerie schöner */
+    .gallery::-webkit-scrollbar {
+      height: 8px;
+    }
 
-  /* Optional: Scrollbar in Galerie schöner */
-  .gallery::-webkit-scrollbar {
-    height: 8px;
-  }
+    .gallery::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.2);
+      border-radius: 4px;
+    }
 
-  .gallery::-webkit-scrollbar-track {
-    background: rgba(255,255,255,0.2);
-    border-radius: 4px;
-  }
+    .gallery::-webkit-scrollbar-thumb {
+      background-color: rgba(0,0,0,0.3);
+      border-radius: 4px;
+    }
 
-  .gallery::-webkit-scrollbar-thumb {
-    background-color: rgba(0,0,0,0.3);
-    border-radius: 4px;
-  }
-
-  /* Responsive Textanpassung */
-  @media (max-width: 768px) {
-    h1 { font-size: 1.8em; }
-    .gallery img { height: 250px; }
-    .buttons a { padding: 10px 18px; }
-  }
-</style>
-
+    /* Responsive Textanpassung */
+    @media (max-width: 768px) {
+      h1 { font-size: 1.8em; }
+      .gallery img { height: 250px; }
+      .buttons a { padding: 10px 18px; }
+    }
+  </style>
 </head>
-
 <body>
-  <h1>Willkommen auf meiner Seite!</h1>
-  <p>Hier findest du meine Projekte, Bücher und CDs.</p>
+  <h1>Meine Musik & Bücher</h1>
 
-  <div class="buttons">
-    <a href="https://paypal.me/DEINNAME" target="_blank">Spenden via PayPal</a>
-    <a href="https://bandcamp.com/DEINPROFIL" target="_blank">CD kaufen</a>
-    <a href="https://amazon.de/dein-buch" target="_blank">Buch kaufen</a>
+  <!-- Galerie -->
+  <div class="gallery">
+    <img src="seite1.jpg" alt="Seite 1">
+    <img src="seite2.jpg" alt="Seite 2">
+    <img src="seite3.jpg" alt="Seite 3">
+    <img src="seite4.jpg" alt="Seite 4">
+    <img src="seite5.jpg" alt="Seite 5">
+    <img src="seite6.jpg" alt="Seite 6">
+    <img src="seite7.jpg" alt="Seite 7">
+    <img src="seite8.jpg" alt="Seite 8">
+    <img src="seite9.jpg" alt="Seite 9">
+    <img src="seite10.jpg" alt="Seite 10">
+    <img src="seite11.jpg" alt="Seite 11">
+    <img src="seite12.jpg" alt="Seite 12">
+    <img src="seite13.jpg" alt="Seite 13">
+    <img src="seite14.jpg" alt="Seite 14">
+    <img src="seite15.jpg" alt="Seite 15">
+    <img src="seite16.jpg" alt="Seite 16">
+    <img src="seite17.jpg" alt="Seite 17">
+    <img src="seite18.jpg" alt="Seite 18">
+    <img src="seite19.jpg" alt="Seite 19">
+    <img src="seite20.jpg" alt="Seite 20">
   </div>
 
-  <div class="gallery">
-    <img src="seite1.jpg" alt="Excel-Seite 1">
-    <img src="seite2.jpg" alt="Excel-Seite 2">
-    <img src="seite3.jpg" alt="Excel-Seite 3">
+  <!-- Buttons -->
+  <div class="buttons">
+    <a href="#">Mehr Infos</a>
   </div>
 </body>
 </html>
