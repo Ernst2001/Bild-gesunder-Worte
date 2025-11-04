@@ -10,7 +10,6 @@ body {
   font-family: Arial, sans-serif;
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
   color: #fff;
-  overflow-x: hidden; /* horizontales Scrollen nur innerhalb der Timeline */
 }
 
 header {
@@ -32,19 +31,20 @@ header p {
 /* Timeline-Wrapper */
 #timeline-wrapper {
   width: 100%;
-  height: 80vh;
+  height: 70vh; /* Höhe der Timeline */
   overflow: hidden;
   position: relative;
   cursor: grab;
-  margin-bottom: 30px; /* Platz zum Footer */
+  margin: 20px 0;
+  border: 1px solid #ccc; /* Optional, hilft beim Testen */
 }
 
-/* Timeline selbst */
+/* Timeline */
 #timeline {
   display: flex;
   height: 100%;
-  transform-origin: 0 0; /* Zoom an Mausposition wird berechnet */
-  transition: transform 0.1s ease-out;
+  transform-origin: 0 0;
+  transition: transform 0.05s ease-out;
 }
 
 #timeline img {
@@ -116,8 +116,10 @@ const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
 
 let isDragging = false;
-let startX, startY;
-let translateX = 0, translateY = 0;
+let startX = 0;
+let startY = 0;
+let translateX = 0;
+let translateY = 0;
 let scale = 1;
 
 // Maus Drag
@@ -128,24 +130,19 @@ wrapper.addEventListener('mousedown', (e) => {
   wrapper.style.cursor = 'grabbing';
 });
 
-wrapper.addEventListener('mouseup', () => {
+document.addEventListener('mouseup', () => {
   isDragging = false;
   wrapper.style.cursor = 'grab';
 });
 
-wrapper.addEventListener('mouseleave', () => {
-  isDragging = false;
-  wrapper.style.cursor = 'grab';
-});
-
-wrapper.addEventListener('mousemove', (e) => {
+document.addEventListener('mousemove', (e) => {
   if(!isDragging) return;
   translateX = e.clientX - startX;
   translateY = e.clientY - startY;
   updateTransform();
 });
 
-// Zoom mit Mausrad (begrenzt)
+// Zoom per Mausrad
 wrapper.addEventListener('wheel', (e) => {
   e.preventDefault();
   const rect = timeline.getBoundingClientRect();
@@ -153,8 +150,9 @@ wrapper.addEventListener('wheel', (e) => {
   const offsetY = e.clientY - rect.top;
 
   const zoomFactor = 1 - e.deltaY * 0.0015;
-  const newScale = Math.min(Math.max(0.5, scale * zoomFactor), 2); // Zoom zwischen 50% und 200%
+  const newScale = Math.min(Math.max(0.5, scale * zoomFactor), 2); // Zoom-Limits
 
+  // Zoom um Mausposition
   translateX -= (offsetX / scale - offsetX / newScale);
   translateY -= (offsetY / scale - offsetY / newScale);
   scale = newScale;
