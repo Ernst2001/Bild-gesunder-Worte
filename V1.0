@@ -3,169 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fakten statt Mythen</title>
+<title>Fakten statt Mythen: Die Geschichte im Zeitstrahl</title>
 <style>
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #8fbcd4, #f5e6c8);
-  color: #fff;
-  overflow-x: hidden;
-  user-select: none;
-}
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(120deg, #a2c1d8, #c3d9e8); /* pastel marineblau mit warmem Touch */
+    color: #fff;
+    overflow-x: hidden;
+  }
 
-h1 { margin-top: 30px; font-size: 2.2em; text-align: center; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); }
-h2 { margin-top: 10px; font-size: 1.2em; font-weight: normal; text-align: center; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
-p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-align: center; text-shadow: 0.5px 0.5px 2px rgba(0,0,0,0.3); }
+  header {
+    text-align: center;
+    padding: 30px;
+  }
 
-.timeline-wrapper {
-  position: relative;
-  width: 100%;
-  height: 80vh;
-  overflow: hidden;
-  cursor: grab;
-  margin-top: 20px;
-}
+  header h1 {
+    margin: 0;
+    font-size: 2.5em;
+  }
 
-.timeline {
-  display: flex;
-  height: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
-  transform-origin: 0 0;
-  transition: transform 0.2s ease;
-}
+  header p {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #f0f0f0;
+  }
 
-.timeline img {
-  height: 100%;
-  flex-shrink: 0;
-  object-fit: contain;
-  background-color: #fafafa; /* leichtes Grau blendet weiße Kanten weicher ein */
-  margin: 0;
-  border: none;
-}
+  /* Timeline */
+  #timeline-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scroll-behavior: smooth; /* sanft gleitend */
+    padding-bottom: 20px;
+    cursor: grab;
+  }
 
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 3em;
-  color: rgba(255,255,255,0.7);
-  cursor: pointer;
-  user-select: none;
-  z-index: 10;
-  padding: 10px;
-}
-.arrow:hover { color: #ffd700; }
-.arrow-left { left: 10px; }
-.arrow-right { right: 10px; }
+  #timeline-wrapper::-webkit-scrollbar {
+    height: 12px;
+  }
+  #timeline-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.3);
+    border-radius: 6px;
+  }
 
-.buttons { margin: 30px 0; text-align: center; }
-.buttons a {
-  background: linear-gradient(135deg, #ffb347, #ffcc70);
-  color: #1a1a1a;
-  padding: 12px 22px;
-  margin: 5px;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  display: inline-block;
-}
-.buttons a:hover {
-  background: linear-gradient(135deg, #ffcc70, #ffb347);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.4);
-}
+  #timeline img {
+    display: inline-block;
+    height: 80vh;
+    margin: 0;
+    vertical-align: top;
+    user-select: none;
+  }
 
-.contact { margin: 20px 20px; font-size: 1em; color: #ffffff; text-align: center; text-shadow: 0.5px 0.5px 2px rgba(0,0,0,0.3); }
-.contact a { color: #ffd700; text-decoration: underline; }
+  footer {
+    padding: 20px;
+    text-align: center;
+    background: rgba(0,0,0,0.3);
+  }
 
-@media (max-width: 768px) {
-  h1 { font-size: 1.8em; }
-  h2 { font-size: 1em; }
-  p { font-size: 0.9em; padding: 0 10px; }
-  .arrow { font-size: 2em; }
-}
+  footer a, footer button {
+    color: #fff;
+    text-decoration: none;
+    margin: 5px;
+  }
+
+  footer button {
+    background-color: #0070ba;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
 </style>
 </head>
 <body>
 
-<h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
-<h2>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</h2>
-<p>Scrollen Sie horizontal mit Pfeilen, Maus/Trackpad oder Drag & Drop und zoomen Sie hinein (Strg + Mausrad / Pinch-Geste).</p>
+<header>
+  <h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
+  <p>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</p>
+</header>
 
-<div class="timeline-wrapper">
-  <div class="arrow arrow-left" onclick="scrollTimeline(-1)">&#10094;</div>
-  <div class="timeline" id="timeline"></div>
-  <div class="arrow arrow-right" onclick="scrollTimeline(1)">&#10095;</div>
+<div id="timeline-wrapper">
+  <div id="timeline">
+    <img src="images/Seite1.png" alt="Seite 1">
+    <img src="images/Seite2.png" alt="Seite 2">
+    <img src="images/Seite3.png" alt="Seite 3">
+    <img src="images/Seite4.png" alt="Seite 4">
+    <img src="images/Seite5.png" alt="Seite 5">
+    <img src="images/Seite6.png" alt="Seite 6">
+    <img src="images/Seite7.png" alt="Seite 7">
+    <img src="images/Seite8.png" alt="Seite 8">
+    <img src="images/Seite9.png" alt="Seite 9">
+    <img src="images/Seite10.png" alt="Seite 10">
+    <img src="images/Seite11.png" alt="Seite 11">
+    <img src="images/Seite12.png" alt="Seite 12">
+    <img src="images/Seite13.png" alt="Seite 13">
+    <img src="images/Seite14.png" alt="Seite 14">
+    <img src="images/Seite15.png" alt="Seite 15">
+    <img src="images/Seite16.png" alt="Seite 16">
+    <img src="images/Seite17.png" alt="Seite 17">
+  </div>
 </div>
 
-<div class="buttons">
-  <a href="https://www.paypal.com/donate?hosted_button_id=DEINE_BUTTON_ID" target="_blank">Jetzt Spenden</a>
-</div>
-
-<div class="contact">
-  <p>Bei Fragen und Anregungen: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
-</div>
+<footer>
+  <p>Hinweis: Bei Fragen und Anregungen gerne an <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a> schreiben.</p>
+  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Spenden</button>
+</footer>
 
 <script>
-const timeline = document.getElementById('timeline');
-const imageFiles = [
-  "images/Seite1.png","images/Seite2.png","images/Seite3.png",
-  "images/Seite4.png","images/Seite5.png","images/Seite6.png",
-  "images/Seite7.png","images/Seite8.png","images/Seite9.png",
-  "images/Seite10.png","images/Seite11.png","images/Seite12.png",
-  "images/Seite13.png","images/Seite14.png","images/Seite15.png",
-  "images/Seite16.png","images/Seite17.png"
-];
+  const wrapper = document.getElementById('timeline-wrapper');
+  let isDown = false;
+  let startX;
+  let scrollLeft;
 
-// Bilder direkt anzeigen
-function loadTimeline() {
-  imageFiles.forEach(src => {
-    const img = new Image();
-    img.src = src;
-    img.loading = "lazy";
-    timeline.appendChild(img);
+  wrapper.addEventListener('mousedown', (e) => {
+    isDown = true;
+    wrapper.style.cursor = 'grabbing';
+    startX = e.pageX - wrapper.offsetLeft;
+    scrollLeft = wrapper.scrollLeft;
   });
-}
-loadTimeline();
 
-// Scroll-Pfeile
-function scrollTimeline(direction) {
-  timeline.scrollBy({ left: direction * 300, behavior: 'smooth' });
-}
+  wrapper.addEventListener('mouseleave', () => { isDown = false; wrapper.style.cursor = 'grab'; });
+  wrapper.addEventListener('mouseup', () => { isDown = false; wrapper.style.cursor = 'grab'; });
 
-// Drag Scroll
-let isDown = false, startX, scrollLeft;
-timeline.addEventListener('mousedown', (e) => {
-  isDown = true;
-  startX = e.pageX - timeline.offsetLeft;
-  scrollLeft = timeline.scrollLeft;
-  timeline.style.cursor = 'grabbing';
-});
-timeline.addEventListener('mouseleave', () => { isDown = false; timeline.style.cursor = 'grab'; });
-timeline.addEventListener('mouseup', () => { isDown = false; timeline.style.cursor = 'grab'; });
-timeline.addEventListener('mousemove', (e) => {
-  if (!isDown) return;
-  e.preventDefault();
-  const x = e.pageX - timeline.offsetLeft;
-  const walk = startX - x;
-  timeline.scrollLeft = scrollLeft + walk;
-});
-
-// Zoom (Strg + Mausrad)
-let scale = 1;
-timeline.addEventListener('wheel', (e) => {
-  if (e.ctrlKey) {
+  wrapper.addEventListener('mousemove', (e) => {
+    if(!isDown) return;
     e.preventDefault();
-    scale += e.deltaY * -0.0015;
-    scale = Math.min(Math.max(0.5, scale), 5);
-    timeline.style.transform = `scale(${scale})`;
-  }
-});
+    const x = e.pageX - wrapper.offsetLeft;
+    const walk = (x - startX) * 0.5; // sehr feines Scrollen
+    wrapper.scrollLeft = scrollLeft - walk;
+  });
+
+  // Optional: Pfeiltasten fein scrollen
+  window.addEventListener('keydown', (e) => {
+    if(e.key === "ArrowRight") wrapper.scrollLeft += 10;
+    if(e.key === "ArrowLeft") wrapper.scrollLeft -= 10;
+  });
 </script>
 
 </body>
