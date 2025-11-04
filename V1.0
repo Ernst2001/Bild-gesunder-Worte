@@ -11,13 +11,13 @@ html, body {
   font-family: Arial, sans-serif;
   background: linear-gradient(135deg, #8fbcd4, #f5e6c8);
   color: #ffffff;
-  text-align: center;
   overflow-x: hidden;
+  user-select: none;
 }
 
-h1 { margin-top: 30px; font-size: 2.2em; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); }
-h2 { margin-top: 10px; font-size: 1.2em; font-weight: normal; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
-p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-shadow: 0.5px 0.5px 2px rgba(0,0,0,0.3); }
+h1 { margin-top: 30px; font-size: 2.2em; text-align: center; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); }
+h2 { margin-top: 10px; font-size: 1.2em; font-weight: normal; text-align: center; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-align: center; text-shadow: 0.5px 0.5px 2px rgba(0,0,0,0.3); }
 
 .timeline-wrapper {
   position: relative;
@@ -25,6 +25,7 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-shadow: 0.5px 0.
   height: 80vh;
   overflow: hidden;
   cursor: grab;
+  margin-top: 20px;
 }
 
 .timeline {
@@ -33,7 +34,6 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-shadow: 0.5px 0.
   overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
   transform-origin: 0 0;
   transition: transform 0.2s ease;
 }
@@ -42,7 +42,6 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-shadow: 0.5px 0.
   height: 100%;
   flex-shrink: 0;
   object-fit: cover;
-  scroll-snap-align: start;
   margin: 0;
 }
 
@@ -61,7 +60,7 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-shadow: 0.5px 0.
 .arrow-left { left: 10px; }
 .arrow-right { right: 10px; }
 
-.buttons { margin: 30px 0; }
+.buttons { margin: 30px 0; text-align: center; }
 .buttons a {
   background: linear-gradient(135deg, #ffb347, #ffcc70);
   color: #1a1a1a;
@@ -79,25 +78,8 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-shadow: 0.5px 0.
   box-shadow: 0 6px 14px rgba(0,0,0,0.4);
 }
 
-.contact { margin: 20px 20px; font-size: 1em; color: #ffffff; text-shadow: 0.5px 0.5px 2px rgba(0,0,0,0.3); }
+.contact { margin: 20px 20px; font-size: 1em; color: #ffffff; text-align: center; text-shadow: 0.5px 0.5px 2px rgba(0,0,0,0.3); }
 .contact a { color: #ffd700; text-decoration: underline; }
-
-.preview {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-.preview-dot {
-  width: 12px;
-  height: 12px;
-  background-color: rgba(255,255,255,0.5);
-  border-radius: 50%;
-  margin: 0 5px;
-  transition: background-color 0.3s;
-}
-.preview-dot.active {
-  background-color: #ffd700;
-}
 
 @media (max-width: 768px) {
   h1 { font-size: 1.8em; }
@@ -111,34 +93,13 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-shadow: 0.5px 0.
 
 <h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
 <h2>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</h2>
-<p>Scrollen Sie horizontal mit Pfeilen oder Maus/Trackpad und zoomen Sie hinein (Strg + Mausrad / Pinch-Geste). Alle Ränder sind sichtbar.</p>
+<p>Scrollen Sie horizontal mit Pfeilen, Maus/Trackpad oder Drag & Drop und zoomen Sie hinein (Strg + Mausrad / Pinch-Geste). Alle Ränder sind sichtbar.</p>
 
 <div class="timeline-wrapper">
   <div class="arrow arrow-left" onclick="scrollTimeline(-1)">&#10094;</div>
-  <div class="timeline" id="timeline">
-    <!-- 17 zugeschnittene PNG-Bilder -->
-    <img src="images/Seite1.png" alt="Seite 1">
-    <img src="images/Seite2.png" alt="Seite 2">
-    <img src="images/Seite3.png" alt="Seite 3">
-    <img src="images/Seite4.png" alt="Seite 4">
-    <img src="images/Seite5.png" alt="Seite 5">
-    <img src="images/Seite6.png" alt="Seite 6">
-    <img src="images/Seite7.png" alt="Seite 7">
-    <img src="images/Seite8.png" alt="Seite 8">
-    <img src="images/Seite9.png" alt="Seite 9">
-    <img src="images/Seite10.png" alt="Seite 10">
-    <img src="images/Seite11.png" alt="Seite 11">
-    <img src="images/Seite12.png" alt="Seite 12">
-    <img src="images/Seite13.png" alt="Seite 13">
-    <img src="images/Seite14.png" alt="Seite 14">
-    <img src="images/Seite15.png" alt="Seite 15">
-    <img src="images/Seite16.png" alt="Seite 16">
-    <img src="images/Seite17.png" alt="Seite 17">
-  </div>
+  <div class="timeline" id="timeline"></div>
   <div class="arrow arrow-right" onclick="scrollTimeline(1)">&#10095;</div>
 </div>
-
-<div class="preview" id="preview"></div>
 
 <div class="buttons">
   <a href="https://www.paypal.com/donate?hosted_button_id=DEINE_BUTTON_ID" target="_blank">Jetzt Spenden</a>
@@ -150,34 +111,89 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-shadow: 0.5px 0.
 
 <script>
 const timeline = document.getElementById('timeline');
-const images = timeline.querySelectorAll('img');
-const preview = document.getElementById('preview');
+const imageFiles = [
+  "images/Seite1.png","images/Seite2.png","images/Seite3.png",
+  "images/Seite4.png","images/Seite5.png","images/Seite6.png",
+  "images/Seite7.png","images/Seite8.png","images/Seite9.png",
+  "images/Seite10.png","images/Seite11.png","images/Seite12.png",
+  "images/Seite13.png","images/Seite14.png","images/Seite15.png",
+  "images/Seite16.png","images/Seite17.png"
+];
 
-images.forEach((img, i) => {
-  const dot = document.createElement('div');
-  dot.classList.add('preview-dot');
-  if(i === 0) dot.classList.add('active');
-  dot.addEventListener('click', () => {
-    timeline.scrollTo({ left: i * images[i].clientWidth, behavior: 'smooth' });
+// Funktion: Weißrand automatisch entfernen
+function loadImageTrimmed(src) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = src;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+
+      let left = canvas.width, right = 0;
+      for(let x=0; x<canvas.width; x++){
+        for(let y=0; y<canvas.height; y++){
+          const index = (y * canvas.width + x) * 4;
+          if(!(data[index] > 240 && data[index+1] > 240 && data[index+2] > 240)){
+            left = Math.min(left, x);
+            right = Math.max(right, x);
+          }
+        }
+      }
+
+      const trimmedCanvas = document.createElement('canvas');
+      const trimmedCtx = trimmedCanvas.getContext('2d');
+      trimmedCanvas.width = right-left+1;
+      trimmedCanvas.height = canvas.height;
+      trimmedCtx.drawImage(canvas, left, 0, right-left+1, canvas.height, 0, 0, right-left+1, canvas.height);
+
+      const trimmedImg = new Image();
+      trimmedImg.src = trimmedCanvas.toDataURL();
+      trimmedImg.style.height = "100%";
+      trimmedImg.style.flexShrink = 0;
+      resolve(trimmedImg);
+    };
   });
-  preview.appendChild(dot);
-});
-
-const dots = document.querySelectorAll('.preview-dot');
-
-function scrollTimeline(direction) {
-  const pageWidth = images[0].clientWidth;
-  timeline.scrollBy({ left: direction * pageWidth, behavior: 'smooth' });
 }
 
-timeline.addEventListener('scroll', () => {
-  const pageWidth = images[0].clientWidth;
-  const pageIndex = Math.round(timeline.scrollLeft / pageWidth);
-  dots.forEach(dot => dot.classList.remove('active'));
-  if(dots[pageIndex]) dots[pageIndex].classList.add('active');
+// Alle Bilder laden und Timeline befüllen
+async function loadTimeline() {
+  for(const file of imageFiles){
+    const img = await loadImageTrimmed(file);
+    timeline.appendChild(img);
+  }
+}
+loadTimeline();
+
+// Pfeile scrollen Timeline
+function scrollTimeline(direction) {
+  timeline.scrollBy({ left: direction * 200, behavior: 'smooth' });
+}
+
+// Drag-to-scroll
+let isDown = false, startX, scrollLeft;
+timeline.addEventListener('mousedown', (e) => {
+  isDown = true;
+  startX = e.pageX - timeline.offsetLeft;
+  scrollLeft = timeline.scrollLeft;
+  timeline.style.cursor = 'grabbing';
+});
+timeline.addEventListener('mouseleave', () => { isDown = false; timeline.style.cursor = 'grab'; });
+timeline.addEventListener('mouseup', () => { isDown = false; timeline.style.cursor = 'grab'; });
+timeline.addEventListener('mousemove', (e) => {
+  if(!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - timeline.offsetLeft;
+  const walk = (startX - x); 
+  timeline.scrollLeft = scrollLeft + walk;
 });
 
-// Zoom relativ zum Mauszeiger
+// Zoom relativ zur Maus
 let scale = 1;
 timeline.addEventListener('wheel', (e) => {
   if(e.ctrlKey) {
@@ -197,8 +213,7 @@ let initialDistance = null;
 timeline.addEventListener('touchmove', (e) => {
   if(e.touches.length === 2) {
     e.preventDefault();
-    const t1 = e.touches[0];
-    const t2 = e.touches[1];
+    const t1 = e.touches[0], t2 = e.touches[1];
     const distance = Math.hypot(t2.pageX - t1.pageX, t2.pageY - t1.pageY);
     if(initialDistance !== null){
       let zoom = distance / initialDistance;
@@ -208,8 +223,9 @@ timeline.addEventListener('touchmove', (e) => {
     initialDistance = distance;
   }
 }, { passive: false });
-
 timeline.addEventListener('touchend', (e) => { if(e.touches.length < 2) initialDistance = null; });
+
+window.addEventListener('load', () => { timeline.scrollLeft = 0; });
 </script>
 
 </body>
