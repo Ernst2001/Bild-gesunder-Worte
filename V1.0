@@ -10,7 +10,7 @@ html, body {
   padding: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(135deg, #8fbcd4, #f5e6c8);
-  color: #ffffff;
+  color: #fff;
   overflow-x: hidden;
   user-select: none;
 }
@@ -41,8 +41,10 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-align: center; t
 .timeline img {
   height: 100%;
   flex-shrink: 0;
-  object-fit: cover;
+  object-fit: contain;
+  background-color: #fafafa; /* leichtes Grau blendet weiße Kanten weicher ein */
   margin: 0;
+  border: none;
 }
 
 .arrow {
@@ -93,7 +95,7 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-align: center; t
 
 <h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
 <h2>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</h2>
-<p>Scrollen Sie horizontal mit Pfeilen, Maus/Trackpad oder Drag & Drop und zoomen Sie hinein (Strg + Mausrad / Pinch-Geste). Alle Ränder sind sichtbar.</p>
+<p>Scrollen Sie horizontal mit Pfeilen, Maus/Trackpad oder Drag & Drop und zoomen Sie hinein (Strg + Mausrad / Pinch-Geste).</p>
 
 <div class="timeline-wrapper">
   <div class="arrow arrow-left" onclick="scrollTimeline(-1)">&#10094;</div>
@@ -106,7 +108,7 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-align: center; t
 </div>
 
 <div class="contact">
-  <p>Hinweis: Bei Fragen und Anregungen gerne an <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a> schreiben.</p>
+  <p>Bei Fragen und Anregungen: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
 </div>
 
 <script>
@@ -120,73 +122,23 @@ const imageFiles = [
   "images/Seite16.png","images/Seite17.png"
 ];
 
-// ✂️ Sanfter Weißrand-Trim (mind. 95 % der Breite bleibt)
-function loadImageTrimmed(src) {
-  return new Promise((resolve) => {
+// Bilder direkt anzeigen
+function loadTimeline() {
+  imageFiles.forEach(src => {
     const img = new Image();
     img.src = src;
-    img.onload = () => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.drawImage(img, 0, 0);
-
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const data = imageData.data;
-
-      let left = canvas.width, right = 0;
-      for (let x = 0; x < canvas.width; x++) {
-        for (let y = 0; y < canvas.height; y++) {
-          const idx = (y * canvas.width + x) * 4;
-          if (!(data[idx] > 252 && data[idx + 1] > 252 && data[idx + 2] > 252)) {
-            left = Math.min(left, x);
-            right = Math.max(right, x);
-          }
-        }
-      }
-
-      // Sicherheit: Bild mindestens 95 % breit lassen
-      const minWidth = canvas.width * 0.95;
-      if (right - left + 1 < minWidth) {
-        left = Math.floor(canvas.width * 0.025);
-        right = Math.floor(canvas.width * 0.975);
-      }
-
-      const trimmedCanvas = document.createElement('canvas');
-      const trimmedCtx = trimmedCanvas.getContext('2d');
-      trimmedCanvas.width = right - left + 1;
-      trimmedCanvas.height = canvas.height;
-      trimmedCtx.drawImage(canvas, left, 0, right - left + 1, canvas.height, 0, 0, right - left + 1, canvas.height);
-
-      const trimmedImg = new Image();
-      trimmedImg.src = trimmedCanvas.toDataURL();
-      trimmedImg.style.height = "100%";
-      trimmedImg.style.flexShrink = 0;
-      resolve(trimmedImg);
-    };
-    img.onerror = () => {
-      console.error("Bild konnte nicht geladen werden:", src);
-      resolve(new Image());
-    };
-  });
-}
-
-// Timeline laden
-async function loadTimeline() {
-  for (const file of imageFiles) {
-    const img = await loadImageTrimmed(file);
+    img.loading = "lazy";
     timeline.appendChild(img);
-  }
+  });
 }
 loadTimeline();
 
-// Pfeile scrollen Timeline
+// Scroll-Pfeile
 function scrollTimeline(direction) {
-  timeline.scrollBy({ left: direction * 200, behavior: 'smooth' });
+  timeline.scrollBy({ left: direction * 300, behavior: 'smooth' });
 }
 
-// Drag-to-Scroll
+// Drag Scroll
 let isDown = false, startX, scrollLeft;
 timeline.addEventListener('mousedown', (e) => {
   isDown = true;
@@ -204,37 +156,16 @@ timeline.addEventListener('mousemove', (e) => {
   timeline.scrollLeft = scrollLeft + walk;
 });
 
-// Zoom (Maus)
+// Zoom (Strg + Mausrad)
 let scale = 1;
 timeline.addEventListener('wheel', (e) => {
   if (e.ctrlKey) {
     e.preventDefault();
-    const rect = timeline.getBoundingClientRect();
-    const offsetX = e.clientX - rect.left;
-    const originX = offsetX / scale;
     scale += e.deltaY * -0.0015;
     scale = Math.min(Math.max(0.5, scale), 5);
-    timeline.style.transformOrigin = `${originX}px 0px`;
     timeline.style.transform = `scale(${scale})`;
   }
 });
-
-// Zoom (Touch)
-let initialDistance = null;
-timeline.addEventListener('touchmove', (e) => {
-  if (e.touches.length === 2) {
-    e.preventDefault();
-    const t1 = e.touches[0], t2 = e.touches[1];
-    const distance = Math.hypot(t2.pageX - t1.pageX, t2.pageY - t1.pageY);
-    if (initialDistance !== null) {
-      let zoom = distance / initialDistance;
-      let newScale = Math.min(Math.max(0.5, scale * zoom), 5);
-      timeline.style.transform = `scale(${newScale})`;
-    }
-    initialDistance = distance;
-  }
-}, { passive: false });
-timeline.addEventListener('touchend', () => { initialDistance = null; });
 </script>
 
 </body>
