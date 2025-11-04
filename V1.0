@@ -6,17 +6,12 @@
   <title>Fakten statt Mythen</title>
   
   <style>
-    /* Alles auf 100% Höhe */
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
-    }
-
-    /* Hintergrund mit Farbverlauf auf beiden */
-    html, body {
-      background: linear-gradient(135deg, #8fbcd4, #f5e6c8);
       font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #8fbcd4, #f5e6c8);
       color: #1a1a1a;
       text-align: center;
     }
@@ -33,37 +28,25 @@
       color: #333;
     }
 
+    p {
+      max-width: 700px;
+      margin: 15px auto;
+      line-height: 1.5;
+    }
+
+    /* Timeline Galerie horizontal scrollbar */
     .gallery {
       display: flex;
       overflow-x: auto;
       gap: 15px;
       padding: 20px;
-      margin-bottom: 40px;
+      margin: 40px 0;
     }
 
     .gallery img {
       height: 400px;
       border-radius: 8px;
       box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-    }
-
-    .buttons {
-      margin-bottom: 50px;
-    }
-
-    .buttons a {
-      background-color: #ffb347;
-      color: #1a1a1a;
-      padding: 12px 22px;
-      margin: 5px;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
-    }
-
-    .buttons a:hover {
-      background-color: #ff9f00;
     }
 
     .gallery::-webkit-scrollbar {
@@ -80,43 +63,20 @@
       border-radius: 4px;
     }
 
-    @media (max-width: 768px) {
-      h1 { font-size: 1.8em; }
-      h2 { font-size: 1em; }
-      .gallery img { height: 250px; }
-      .buttons a { padding: 10px 18px; }
+    /* Buttons */
+    .buttons {
+      margin: 30px 0;
     }
-  </style>
-</head>
-<body>
-  <h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
-  <h2>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</h2>
 
-  <div class="gallery">
-    <img src="seite1.jpg" alt="Seite 1">
-    <img src="seite2.jpg" alt="Seite 2">
-    <img src="seite3.jpg" alt="Seite 3">
-    <img src="seite4.jpg" alt="Seite 4">
-    <img src="seite5.jpg" alt="Seite 5">
-    <img src="seite6.jpg" alt="Seite 6">
-    <img src="seite7.jpg" alt="Seite 7">
-    <img src="seite8.jpg" alt="Seite 8">
-    <img src="seite9.jpg" alt="Seite 9">
-    <img src="seite10.jpg" alt="Seite 10">
-    <img src="seite11.jpg" alt="Seite 11">
-    <img src="seite12.jpg" alt="Seite 12">
-    <img src="seite13.jpg" alt="Seite 13">
-    <img src="seite14.jpg" alt="Seite 14">
-    <img src="seite15.jpg" alt="Seite 15">
-    <img src="seite16.jpg" alt="Seite 16">
-    <img src="seite17.jpg" alt="Seite 17">
-    <img src="seite18.jpg" alt="Seite 18">
-    <img src="seite19.jpg" alt="Seite 19">
-    <img src="seite20.jpg" alt="Seite 20">
-  </div>
+    .buttons a {
+      background-color: #ffb347;
+      color: #1a1a1a;
+      padding: 12px 22px;
+      margin: 5px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
 
-  <div class="buttons">
-    <a href="#">Mehr Infos</a>
-  </div>
-</body>
-</html>
+    .
