@@ -79,4 +79,69 @@
       transition: background-color 0.3s ease;
     }
 
-    .
+    .buttons a:hover {
+      background-color: #ff9f00;
+    }
+
+    /* Kontakt */
+    .contact {
+      margin: 40px 20px;
+      font-size: 1em;
+      color: #1a1a1a;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 { font-size: 1.8em; }
+      h2 { font-size: 1em; }
+      p { font-size: 0.9em; padding: 0 10px; }
+      .gallery img { height: 250px; }
+      .buttons a { padding: 10px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Überschrift und Untertitel -->
+  <h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
+  <h2>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</h2>
+
+  <!-- Einführungstext -->
+  <p>Willkommen! Auf dieser Seite finden Sie eine übersichtliche Timeline, die die wahre Vergangenheit leichter nachvollziehbar macht. Scrollen Sie durch die Timeline, um die Zusammenhänge der Ereignisse zu erkennen.</p>
+
+  <!-- Timeline Galerie -->
+  <div class="gallery">
+    <img src="seite1.jpg" alt="Seite 1">
+    <img src="seite2.jpg" alt="Seite 2">
+    <img src="seite3.jpg" alt="Seite 3">
+    <img src="seite4.jpg" alt="Seite 4">
+    <img src="seite5.jpg" alt="Seite 5">
+    <img src="seite6.jpg" alt="Seite 6">
+    <img src="seite7.jpg" alt="Seite 7">
+    <img src="seite8.jpg" alt="Seite 8">
+    <img src="seite9.jpg" alt="Seite 9">
+    <img src="seite10.jpg" alt="Seite 10">
+    <img src="seite11.jpg" alt="Seite 11">
+    <img src="seite12.jpg" alt="Seite 12">
+    <img src="seite13.jpg" alt="Seite 13">
+    <img src="seite14.jpg" alt="Seite 14">
+    <img src="seite15.jpg" alt="Seite 15">
+    <img src="seite16.jpg" alt="Seite 16">
+    <img src="seite17.jpg" alt="Seite 17">
+    <img src="seite18.jpg" alt="Seite 18">
+    <img src="seite19.jpg" alt="Seite 19">
+    <img src="seite20.jpg" alt="Seite 20">
+  </div>
+
+  <!-- PayPal Spenden-Button -->
+  <div class="buttons">
+    <a href="https://www.paypal.com/donate?hosted_button_id=DEINE_BUTTON_ID" target="_blank">Jetzt Spenden</a>
+  </div>
+
+  <!-- Kontakt -->
+  <div class="contact">
+    <p>Hinweis: Bei Fragen und Anregungen gerne an <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a> schreiben.</p>
+  </div>
+
+</body>
+</html>
