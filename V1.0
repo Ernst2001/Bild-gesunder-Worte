@@ -8,15 +8,19 @@
   <!-- Neuer Style-Block -->
   <style>
     /* Grundlayout */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
     body {
       font-family: Arial, sans-serif;
       text-align: center;
       /* Farbverlauf: helles Pastell-Marineblau → warmes Beige */
       background: linear-gradient(135deg, #8fbcd4, #f5e6c8);
-      color: #1a1a1a; /* dunkle Schrift für gute Lesbarkeit */
+      color: #1a1a1a; /* dunkle Schrift für Lesbarkeit */
       min-height: 100vh;
-      margin: 0;
-      padding: 0;
     }
 
     h1 {
@@ -28,7 +32,7 @@
     /* Galerie für Excel-Bilder */
     .gallery {
       display: flex;
-      overflow-x: auto; /* horizontal scrollen, wenn zu viele Bilder */
+      overflow-x: auto; /* horizontal scrollen */
       gap: 15px;
       padding: 20px;
       margin-bottom: 40px;
@@ -57,10 +61,10 @@
     }
 
     .buttons a:hover {
-      background-color: #ff9f00; /* etwas dunkler beim Hover */
+      background-color: #ff9f00; /* Hover-Effekt */
     }
 
-    /* Optional: Scrollbar in Galerie schöner */
+    /* Scrollbar in Galerie schöner */
     .gallery::-webkit-scrollbar {
       height: 8px;
     }
@@ -75,7 +79,7 @@
       border-radius: 4px;
     }
 
-    /* Responsive Textanpassung */
+    /* Responsive Anpassungen */
     @media (max-width: 768px) {
       h1 { font-size: 1.8em; }
       .gallery img { height: 250px; }
@@ -110,7 +114,7 @@
     <img src="seite20.jpg" alt="Seite 20">
   </div>
 
-  <!-- Buttons -->
+  <!-- Optionaler Button -->
   <div class="buttons">
     <a href="#">Mehr Infos</a>
   </div>
