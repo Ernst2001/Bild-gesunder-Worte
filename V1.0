@@ -22,8 +22,9 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-shadow: 0.5px 0.
 .timeline-wrapper {
   position: relative;
   width: 100%;
-  height: 80vh; /* Timeline etwas kleiner, Vorschau unten */
+  height: 80vh;
   overflow: hidden;
+  cursor: grab;
 }
 
 .timeline {
@@ -32,6 +33,7 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-shadow: 0.5px 0.
   overflow-x: auto;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
+  transform-origin: center center;
 }
 
 .timeline img {
@@ -39,7 +41,8 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-shadow: 0.5px 0.
   flex-shrink: 0;
   object-fit: cover;
   scroll-snap-align: start;
-  margin: 0;
+  margin: 0; /* Kein Zwischenraum */
+  transition: transform 0.3s ease;
 }
 
 .arrow {
@@ -78,7 +81,6 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-shadow: 0.5px 0.
 .contact { margin: 20px 20px; font-size: 1em; color: #ffffff; text-shadow: 0.5px 0.5px 2px rgba(0,0,0,0.3); }
 .contact a { color: #ffd700; text-decoration: underline; }
 
-/* Vorschau-Leiste */
 .preview {
   display: flex;
   justify-content: center;
@@ -108,7 +110,7 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-shadow: 0.5px 0.
 
 <h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
 <h2>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</h2>
-<p>Scrollen Sie nach unten, um die Timeline in voller Breite zu sehen. Sie können horizontal mit den Pfeilen oder der Maus/Trackpad navigieren.</p>
+<p>Scrollen Sie nach unten, um die Timeline in voller Breite zu sehen. Sie können horizontal mit den Pfeilen oder der Maus/Trackpad navigieren und hineinzoomen.</p>
 
 <div class="timeline-wrapper">
   <div class="arrow arrow-left" onclick="scrollTimeline(-1)">&#10094;</div>
@@ -135,7 +137,6 @@ p { max-width: 700px; margin: 15px auto; line-height: 1.5; text-shadow: 0.5px 0.
   <div class="arrow arrow-right" onclick="scrollTimeline(1)">&#10095;</div>
 </div>
 
-<!-- Vorschau-Leiste -->
 <div class="preview" id="preview"></div>
 
 <div class="buttons">
@@ -176,6 +177,17 @@ timeline.addEventListener('scroll', () => {
   const pageIndex = Math.round(timeline.scrollLeft / pageWidth);
   dots.forEach(dot => dot.classList.remove('active'));
   if(dots[pageIndex]) dots[pageIndex].classList.add('active');
+});
+
+// Zoom-Funktion (Mausrad)
+let scale = 1;
+timeline.addEventListener('wheel', (e) => {
+  if(e.ctrlKey) { // nur bei Ctrl + Scroll
+    e.preventDefault();
+    scale += e.deltaY * -0.001;
+    scale = Math.min(Math.max(0.5, scale), 5); // min 0.5x, max 5x
+    timeline.style.transform = `scale(${scale})`;
+  }
 });
 </script>
 
