@@ -10,6 +10,7 @@ body {
   font-family: Arial, sans-serif;
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
   color: #fff;
+  overflow-x: hidden;
 }
 
 header {
@@ -28,10 +29,9 @@ header p {
   color: #f0f0f0;
 }
 
-/* Timeline-Wrapper */
 #timeline-wrapper {
   width: 100%;
-  height: 70vh; 
+  height: 70vh;
   overflow: hidden;
   position: relative;
   cursor: grab;
@@ -39,7 +39,6 @@ header p {
   border: 1px solid rgba(255,255,255,0.2);
 }
 
-/* Timeline */
 #timeline {
   display: flex;
   height: 100%;
@@ -54,6 +53,11 @@ header p {
   display: block;
   flex-shrink: 0;
   object-fit: cover;
+  user-drag: none;           /* Safari */
+  -webkit-user-drag: none;   /* Chrome/Opera */
+  -moz-user-drag: none;      /* Firefox */
+  -ms-user-drag: none;
+  pointer-events: all;
 }
 
 #controls {
@@ -100,7 +104,7 @@ footer button {
 </header>
 
 <div id="controls">
-  <button onclick="resetTimeline()">Standardansicht</button>
+  <button onclick="resetTimeline()">Ansicht zurücksetzen</button>
 </div>
 
 <div id="timeline-wrapper">
@@ -141,6 +145,19 @@ let translateX = 0;
 let translateY = 0;
 let scale = 1;
 
+// Verhindert Standard-Drag für Bilder
+timeline.querySelectorAll('img').forEach(img => {
+  img.ondragstart = () => false;
+});
+
+// Berechnung Timeline-Größe
+function getTimelineBounds() {
+  return {
+    width: timeline.scrollWidth * scale,
+    height: timeline.scrollHeight * scale
+  };
+}
+
 // Maus Drag
 wrapper.addEventListener('mousedown', (e) => {
   isDragging = true;
@@ -158,10 +175,11 @@ document.addEventListener('mousemove', (e) => {
   if(!isDragging) return;
   translateX = e.clientX - startX;
   translateY = e.clientY - startY;
+  applyBounds();
   updateTransform();
 });
 
-// Zoom per Mausrad, größerer Bereich
+// Zoom per Mausrad
 wrapper.addEventListener('wheel', (e) => {
   e.preventDefault();
   const rect = timeline.getBoundingClientRect();
@@ -169,27 +187,60 @@ wrapper.addEventListener('wheel', (e) => {
   const offsetY = e.clientY - rect.top;
 
   const zoomFactor = 1 - e.deltaY * 0.0015;
-  const newScale = Math.min(Math.max(0.1, scale * zoomFactor), 8); // Max 800%
+  const newScale = Math.min(Math.max(0.1, scale * zoomFactor), 8);
 
   // Zoom um Mausposition
   translateX -= (offsetX / scale - offsetX / newScale);
   translateY -= (offsetY / scale - offsetY / newScale);
   scale = newScale;
+
+  applyBounds();
   updateTransform();
 });
 
-// Funktion zum Aktualisieren der Transformation
+// Grenzen anwenden
+function applyBounds() {
+  const bounds = getTimelineBounds();
+  const wrapperRect = wrapper.getBoundingClientRect();
+
+  // Horizontal
+  if(bounds.width < wrapperRect.width) {
+    translateX = (wrapperRect.width - bounds.width)/2;
+  } else {
+    translateX = Math.min(0, Math.max(wrapperRect.width - bounds.width, translateX));
+  }
+
+  // Vertikal
+  if(bounds.height < wrapperRect.height) {
+    translateY = (wrapperRect.height - bounds.height)/2;
+  } else {
+    translateY = Math.min(0, Math.max(wrapperRect.height - bounds.height, translateY));
+  }
+}
+
+// Update Transformation
 function updateTransform() {
   timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
 }
 
-// Reset auf Standardansicht
+// Reset-Funktion
 function resetTimeline() {
-  translateX = 0;
-  translateY = 0;
   scale = 1;
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const targetImg = timeline.children[13]; // Blatt 14 = index 13
+  const imgRect = targetImg.getBoundingClientRect();
+
+  translateX = wrapperRect.width/2 - (imgRect.left + imgRect.width/2);
+  translateY = wrapperRect.height/2 - (imgRect.top + imgRect.height/2);
+
+  applyBounds();
   updateTransform();
 }
+
+// Initial Ansicht setzen
+window.onload = () => {
+  resetTimeline();
+};
 </script>
 
 </body>
