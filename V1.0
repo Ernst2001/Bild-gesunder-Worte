@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Musik & Bücher von Max Mustermann</title>
+  <meta name="description" content="Offizielle Seite von Max Mustermann – CDs, Bücher und Projekte. Mit Spendenlink und Galerie.">
+  <meta name="keywords" content="Musik, Bücher, CD, Spenden, Bandcamp, Max Mustermann">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f5f5f5;
+    }
+    h1 { color: #333; }
+    .gallery {
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      padding: 20px;
+    }
+    .gallery img {
+      height: 400px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .buttons {
+      margin: 30px;
+    }
+    .buttons a {
+      background-color: #0070ba;
+      color: white;
+      padding: 12px 20px;
+      margin: 5px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .buttons a:hover {
+      background-color: #005c99;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Willkommen auf meiner Seite!</h1>
+  <p>Hier findest du meine Projekte, Bücher und CDs.</p>
+
+  <div class="buttons">
+    <a href="https://paypal.me/DEINNAME" target="_blank">Spenden via PayPal</a>
+    <a href="https://bandcamp.com/DEINPROFIL" target="_blank">CD kaufen</a>
+    <a href="https://amazon.de/dein-buch" target="_blank">Buch kaufen</a>
+  </div>
+
+  <div class="gallery">
+    <img src="seite1.jpg" alt="Excel-Seite 1">
+    <img src="seite2.jpg" alt="Excel-Seite 2">
+    <img src="seite3.jpg" alt="Excel-Seite 3">
+  </div>
+</body>
+</html>
