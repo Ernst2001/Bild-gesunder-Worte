@@ -10,7 +10,7 @@ body {
   font-family: Arial, sans-serif;
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
   color: #fff;
-  overflow: hidden; /* verhindert das Zoomen der ganzen Seite */
+  overflow-x: hidden; /* horizontales Scrollen nur innerhalb der Timeline */
 }
 
 header {
@@ -36,13 +36,14 @@ header p {
   overflow: hidden;
   position: relative;
   cursor: grab;
+  margin-bottom: 30px; /* Platz zum Footer */
 }
 
 /* Timeline selbst */
 #timeline {
   display: flex;
   height: 100%;
-  transform-origin: 0 0; /* Zoom an Mausposition wird später berechnet */
+  transform-origin: 0 0; /* Zoom an Mausposition wird berechnet */
   transition: transform 0.1s ease-out;
 }
 
@@ -51,7 +52,7 @@ header p {
   margin: 0;
   padding: 0;
   display: block;
-  flex-shrink: 0; /* verhindert dass Bilder schrumpfen */
+  flex-shrink: 0;
   object-fit: cover;
 }
 
@@ -111,7 +112,7 @@ footer button {
 </footer>
 
 <script>
-const timelineWrapper = document.getElementById('timeline-wrapper');
+const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
 
 let isDragging = false;
@@ -119,42 +120,41 @@ let startX, startY;
 let translateX = 0, translateY = 0;
 let scale = 1;
 
-// Maus Drag für Verschieben
-timelineWrapper.addEventListener('mousedown', (e) => {
+// Maus Drag
+wrapper.addEventListener('mousedown', (e) => {
   isDragging = true;
   startX = e.clientX - translateX;
   startY = e.clientY - translateY;
-  timelineWrapper.style.cursor = 'grabbing';
+  wrapper.style.cursor = 'grabbing';
 });
 
-timelineWrapper.addEventListener('mouseup', () => {
+wrapper.addEventListener('mouseup', () => {
   isDragging = false;
-  timelineWrapper.style.cursor = 'grab';
+  wrapper.style.cursor = 'grab';
 });
 
-timelineWrapper.addEventListener('mouseleave', () => {
+wrapper.addEventListener('mouseleave', () => {
   isDragging = false;
-  timelineWrapper.style.cursor = 'grab';
+  wrapper.style.cursor = 'grab';
 });
 
-timelineWrapper.addEventListener('mousemove', (e) => {
+wrapper.addEventListener('mousemove', (e) => {
   if(!isDragging) return;
   translateX = e.clientX - startX;
   translateY = e.clientY - startY;
   updateTransform();
 });
 
-// Zoom mit Mausrad
-timelineWrapper.addEventListener('wheel', (e) => {
+// Zoom mit Mausrad (begrenzt)
+wrapper.addEventListener('wheel', (e) => {
   e.preventDefault();
   const rect = timeline.getBoundingClientRect();
-  const offsetX = e.clientX - rect.left; // Mausposition innerhalb der Timeline
+  const offsetX = e.clientX - rect.left;
   const offsetY = e.clientY - rect.top;
 
   const zoomFactor = 1 - e.deltaY * 0.0015;
-  const newScale = Math.min(Math.max(0.2, scale * zoomFactor), 5);
+  const newScale = Math.min(Math.max(0.5, scale * zoomFactor), 2); // Zoom zwischen 50% und 200%
 
-  // Zoom um Mausposition
   translateX -= (offsetX / scale - offsetX / newScale);
   translateY -= (offsetY / scale - offsetY / newScale);
   scale = newScale;
@@ -164,9 +164,6 @@ timelineWrapper.addEventListener('wheel', (e) => {
 function updateTransform() {
   timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
 }
-
-// Initial Cursor
-timelineWrapper.style.cursor = 'grab';
 </script>
 
 </body>
