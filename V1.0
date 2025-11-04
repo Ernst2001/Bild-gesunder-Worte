@@ -120,7 +120,7 @@ const imageFiles = [
   "images/Seite16.png","images/Seite17.png"
 ];
 
-// Stabilere Weißrand-Entfernung
+// ✂️ Sanfter Weißrand-Trim (mind. 95 % der Breite bleibt)
 function loadImageTrimmed(src) {
   return new Promise((resolve) => {
     const img = new Image();
@@ -136,18 +136,22 @@ function loadImageTrimmed(src) {
       const data = imageData.data;
 
       let left = canvas.width, right = 0;
-      for(let x = 0; x < canvas.width; x++){
-        for(let y = 0; y < canvas.height; y++){
+      for (let x = 0; x < canvas.width; x++) {
+        for (let y = 0; y < canvas.height; y++) {
           const idx = (y * canvas.width + x) * 4;
-          if(!(data[idx] > 250 && data[idx+1] > 250 && data[idx+2] > 250)){
+          if (!(data[idx] > 252 && data[idx + 1] > 252 && data[idx + 2] > 252)) {
             left = Math.min(left, x);
             right = Math.max(right, x);
           }
         }
       }
 
-      // Fallback: falls kein Nicht-Weiß gefunden wurde
-      if(right <= left) { left = 0; right = canvas.width - 1; }
+      // Sicherheit: Bild mindestens 95 % breit lassen
+      const minWidth = canvas.width * 0.95;
+      if (right - left + 1 < minWidth) {
+        left = Math.floor(canvas.width * 0.025);
+        right = Math.floor(canvas.width * 0.975);
+      }
 
       const trimmedCanvas = document.createElement('canvas');
       const trimmedCtx = trimmedCanvas.getContext('2d');
@@ -162,15 +166,15 @@ function loadImageTrimmed(src) {
       resolve(trimmedImg);
     };
     img.onerror = () => {
-      console.error("Bild konnte nicht geladen werden: " + src);
+      console.error("Bild konnte nicht geladen werden:", src);
       resolve(new Image());
     };
   });
 }
 
-// Bilder laden und Timeline füllen
+// Timeline laden
 async function loadTimeline() {
-  for(const file of imageFiles){
+  for (const file of imageFiles) {
     const img = await loadImageTrimmed(file);
     timeline.appendChild(img);
   }
@@ -182,7 +186,7 @@ function scrollTimeline(direction) {
   timeline.scrollBy({ left: direction * 200, behavior: 'smooth' });
 }
 
-// Drag-to-scroll
+// Drag-to-Scroll
 let isDown = false, startX, scrollLeft;
 timeline.addEventListener('mousedown', (e) => {
   isDown = true;
@@ -193,17 +197,17 @@ timeline.addEventListener('mousedown', (e) => {
 timeline.addEventListener('mouseleave', () => { isDown = false; timeline.style.cursor = 'grab'; });
 timeline.addEventListener('mouseup', () => { isDown = false; timeline.style.cursor = 'grab'; });
 timeline.addEventListener('mousemove', (e) => {
-  if(!isDown) return;
+  if (!isDown) return;
   e.preventDefault();
   const x = e.pageX - timeline.offsetLeft;
-  const walk = (startX - x); 
+  const walk = startX - x;
   timeline.scrollLeft = scrollLeft + walk;
 });
 
-// Zoom mit Maus
+// Zoom (Maus)
 let scale = 1;
 timeline.addEventListener('wheel', (e) => {
-  if(e.ctrlKey) {
+  if (e.ctrlKey) {
     e.preventDefault();
     const rect = timeline.getBoundingClientRect();
     const offsetX = e.clientX - rect.left;
@@ -215,14 +219,14 @@ timeline.addEventListener('wheel', (e) => {
   }
 });
 
-// Touch-Pinch-Zoom
+// Zoom (Touch)
 let initialDistance = null;
 timeline.addEventListener('touchmove', (e) => {
-  if(e.touches.length === 2) {
+  if (e.touches.length === 2) {
     e.preventDefault();
     const t1 = e.touches[0], t2 = e.touches[1];
     const distance = Math.hypot(t2.pageX - t1.pageX, t2.pageY - t1.pageY);
-    if(initialDistance !== null){
+    if (initialDistance !== null) {
       let zoom = distance / initialDistance;
       let newScale = Math.min(Math.max(0.5, scale * zoom), 5);
       timeline.style.transform = `scale(${newScale})`;
@@ -230,9 +234,7 @@ timeline.addEventListener('touchmove', (e) => {
     initialDistance = distance;
   }
 }, { passive: false });
-timeline.addEventListener('touchend', (e) => { if(e.touches.length < 2) initialDistance = null; });
-
-window.addEventListener('load', () => { timeline.scrollLeft = 0; });
+timeline.addEventListener('touchend', () => { initialDistance = null; });
 </script>
 
 </body>
