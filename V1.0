@@ -5,75 +5,75 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fakten statt Mythen: Die Geschichte im Zeitstrahl</title>
 <style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(120deg, #a2c1d8, #c3d9e8); /* pastel marineblau mit warmem Touch */
-    color: #fff;
-    overflow-x: hidden;
-  }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+  color: #fff;
+  overflow: hidden; /* verhindert das Zoomen der ganzen Seite */
+}
 
-  header {
-    text-align: center;
-    padding: 30px;
-  }
+header {
+  text-align: center;
+  padding: 30px;
+}
 
-  header h1 {
-    margin: 0;
-    font-size: 2.5em;
-  }
+header h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
 
-  header p {
-    margin-top: 10px;
-    font-size: 1.2em;
-    color: #f0f0f0;
-  }
+header p {
+  margin-top: 10px;
+  font-size: 1.2em;
+  color: #f0f0f0;
+}
 
-  /* Timeline */
-  #timeline-wrapper {
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
-    scroll-behavior: smooth; /* sanft gleitend */
-    padding-bottom: 20px;
-    cursor: grab;
-  }
+/* Timeline-Wrapper */
+#timeline-wrapper {
+  width: 100%;
+  height: 80vh;
+  overflow: hidden;
+  position: relative;
+  cursor: grab;
+}
 
-  #timeline-wrapper::-webkit-scrollbar {
-    height: 12px;
-  }
-  #timeline-wrapper::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.3);
-    border-radius: 6px;
-  }
+/* Timeline selbst */
+#timeline {
+  display: flex;
+  height: 100%;
+  transform-origin: 0 0; /* Zoom an Mausposition wird später berechnet */
+  transition: transform 0.1s ease-out;
+}
 
-  #timeline img {
-    display: inline-block;
-    height: 80vh;
-    margin: 0;
-    vertical-align: top;
-    user-select: none;
-  }
+#timeline img {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: block;
+  flex-shrink: 0; /* verhindert dass Bilder schrumpfen */
+  object-fit: cover;
+}
 
-  footer {
-    padding: 20px;
-    text-align: center;
-    background: rgba(0,0,0,0.3);
-  }
+footer {
+  padding: 20px;
+  text-align: center;
+  background: rgba(0,0,0,0.3);
+}
 
-  footer a, footer button {
-    color: #fff;
-    text-decoration: none;
-    margin: 5px;
-  }
+footer a, footer button {
+  color: #fff;
+  text-decoration: none;
+  margin: 5px;
+}
 
-  footer button {
-    background-color: #0070ba;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
+footer button {
+  background-color: #0070ba;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
 </style>
 </head>
 <body>
@@ -111,34 +111,62 @@
 </footer>
 
 <script>
-  const wrapper = document.getElementById('timeline-wrapper');
-  let isDown = false;
-  let startX;
-  let scrollLeft;
+const timelineWrapper = document.getElementById('timeline-wrapper');
+const timeline = document.getElementById('timeline');
 
-  wrapper.addEventListener('mousedown', (e) => {
-    isDown = true;
-    wrapper.style.cursor = 'grabbing';
-    startX = e.pageX - wrapper.offsetLeft;
-    scrollLeft = wrapper.scrollLeft;
-  });
+let isDragging = false;
+let startX, startY;
+let translateX = 0, translateY = 0;
+let scale = 1;
 
-  wrapper.addEventListener('mouseleave', () => { isDown = false; wrapper.style.cursor = 'grab'; });
-  wrapper.addEventListener('mouseup', () => { isDown = false; wrapper.style.cursor = 'grab'; });
+// Maus Drag für Verschieben
+timelineWrapper.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  startX = e.clientX - translateX;
+  startY = e.clientY - translateY;
+  timelineWrapper.style.cursor = 'grabbing';
+});
 
-  wrapper.addEventListener('mousemove', (e) => {
-    if(!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - wrapper.offsetLeft;
-    const walk = (x - startX) * 0.5; // sehr feines Scrollen
-    wrapper.scrollLeft = scrollLeft - walk;
-  });
+timelineWrapper.addEventListener('mouseup', () => {
+  isDragging = false;
+  timelineWrapper.style.cursor = 'grab';
+});
 
-  // Optional: Pfeiltasten fein scrollen
-  window.addEventListener('keydown', (e) => {
-    if(e.key === "ArrowRight") wrapper.scrollLeft += 10;
-    if(e.key === "ArrowLeft") wrapper.scrollLeft -= 10;
-  });
+timelineWrapper.addEventListener('mouseleave', () => {
+  isDragging = false;
+  timelineWrapper.style.cursor = 'grab';
+});
+
+timelineWrapper.addEventListener('mousemove', (e) => {
+  if(!isDragging) return;
+  translateX = e.clientX - startX;
+  translateY = e.clientY - startY;
+  updateTransform();
+});
+
+// Zoom mit Mausrad
+timelineWrapper.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  const rect = timeline.getBoundingClientRect();
+  const offsetX = e.clientX - rect.left; // Mausposition innerhalb der Timeline
+  const offsetY = e.clientY - rect.top;
+
+  const zoomFactor = 1 - e.deltaY * 0.0015;
+  const newScale = Math.min(Math.max(0.2, scale * zoomFactor), 5);
+
+  // Zoom um Mausposition
+  translateX -= (offsetX / scale - offsetX / newScale);
+  translateY -= (offsetY / scale - offsetY / newScale);
+  scale = newScale;
+  updateTransform();
+});
+
+function updateTransform() {
+  timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+}
+
+// Initial Cursor
+timelineWrapper.style.cursor = 'grab';
 </script>
 
 </body>
