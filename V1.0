@@ -36,6 +36,7 @@ header p {
   position: relative;
   cursor: grab;
   margin: 20px 0;
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
 /* Timeline */
@@ -43,7 +44,7 @@ header p {
   display: flex;
   height: 100%;
   transform-origin: 0 0;
-  transition: transform 0.05s ease-out;
+  user-select: none;
 }
 
 #timeline img {
@@ -53,6 +54,21 @@ header p {
   display: block;
   flex-shrink: 0;
   object-fit: cover;
+}
+
+#controls {
+  text-align: center;
+  margin: 10px;
+}
+
+#controls button {
+  background-color: #0070ba;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 footer {
@@ -82,6 +98,10 @@ footer button {
   <h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
   <p>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</p>
 </header>
+
+<div id="controls">
+  <button onclick="resetTimeline()">Standardansicht</button>
+</div>
 
 <div id="timeline-wrapper">
   <div id="timeline">
@@ -121,7 +141,7 @@ let translateX = 0;
 let translateY = 0;
 let scale = 1;
 
-// Maus Drag – direkt umsetzen, kein Momentum
+// Maus Drag
 wrapper.addEventListener('mousedown', (e) => {
   isDragging = true;
   startX = e.clientX - translateX;
@@ -141,7 +161,7 @@ document.addEventListener('mousemove', (e) => {
   updateTransform();
 });
 
-// Zoom per Mausrad
+// Zoom per Mausrad, größerer Bereich
 wrapper.addEventListener('wheel', (e) => {
   e.preventDefault();
   const rect = timeline.getBoundingClientRect();
@@ -149,7 +169,7 @@ wrapper.addEventListener('wheel', (e) => {
   const offsetY = e.clientY - rect.top;
 
   const zoomFactor = 1 - e.deltaY * 0.0015;
-  const newScale = Math.min(Math.max(0.25, scale * zoomFactor), 4); // Größeres Zoom-Level möglich
+  const newScale = Math.min(Math.max(0.1, scale * zoomFactor), 8); // Max 800%
 
   // Zoom um Mausposition
   translateX -= (offsetX / scale - offsetX / newScale);
@@ -158,8 +178,17 @@ wrapper.addEventListener('wheel', (e) => {
   updateTransform();
 });
 
+// Funktion zum Aktualisieren der Transformation
 function updateTransform() {
   timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+}
+
+// Reset auf Standardansicht
+function resetTimeline() {
+  translateX = 0;
+  translateY = 0;
+  scale = 1;
+  updateTransform();
 }
 </script>
 
