@@ -120,7 +120,7 @@ const imageFiles = [
   "images/Seite16.png","images/Seite17.png"
 ];
 
-// Funktion: Weißrand automatisch entfernen
+// Stabilere Weißrand-Entfernung
 function loadImageTrimmed(src) {
   return new Promise((resolve) => {
     const img = new Image();
@@ -136,21 +136,24 @@ function loadImageTrimmed(src) {
       const data = imageData.data;
 
       let left = canvas.width, right = 0;
-      for(let x=0; x<canvas.width; x++){
-        for(let y=0; y<canvas.height; y++){
-          const index = (y * canvas.width + x) * 4;
-          if(!(data[index] > 240 && data[index+1] > 240 && data[index+2] > 240)){
+      for(let x = 0; x < canvas.width; x++){
+        for(let y = 0; y < canvas.height; y++){
+          const idx = (y * canvas.width + x) * 4;
+          if(!(data[idx] > 250 && data[idx+1] > 250 && data[idx+2] > 250)){
             left = Math.min(left, x);
             right = Math.max(right, x);
           }
         }
       }
 
+      // Fallback: falls kein Nicht-Weiß gefunden wurde
+      if(right <= left) { left = 0; right = canvas.width - 1; }
+
       const trimmedCanvas = document.createElement('canvas');
       const trimmedCtx = trimmedCanvas.getContext('2d');
-      trimmedCanvas.width = right-left+1;
+      trimmedCanvas.width = right - left + 1;
       trimmedCanvas.height = canvas.height;
-      trimmedCtx.drawImage(canvas, left, 0, right-left+1, canvas.height, 0, 0, right-left+1, canvas.height);
+      trimmedCtx.drawImage(canvas, left, 0, right - left + 1, canvas.height, 0, 0, right - left + 1, canvas.height);
 
       const trimmedImg = new Image();
       trimmedImg.src = trimmedCanvas.toDataURL();
@@ -158,10 +161,14 @@ function loadImageTrimmed(src) {
       trimmedImg.style.flexShrink = 0;
       resolve(trimmedImg);
     };
+    img.onerror = () => {
+      console.error("Bild konnte nicht geladen werden: " + src);
+      resolve(new Image());
+    };
   });
 }
 
-// Alle Bilder laden und Timeline befüllen
+// Bilder laden und Timeline füllen
 async function loadTimeline() {
   for(const file of imageFiles){
     const img = await loadImageTrimmed(file);
@@ -193,7 +200,7 @@ timeline.addEventListener('mousemove', (e) => {
   timeline.scrollLeft = scrollLeft + walk;
 });
 
-// Zoom relativ zur Maus
+// Zoom mit Maus
 let scale = 1;
 timeline.addEventListener('wheel', (e) => {
   if(e.ctrlKey) {
@@ -208,7 +215,7 @@ timeline.addEventListener('wheel', (e) => {
   }
 });
 
-// Touch Pinch-Zoom für Mobile
+// Touch-Pinch-Zoom
 let initialDistance = null;
 timeline.addEventListener('touchmove', (e) => {
   if(e.touches.length === 2) {
