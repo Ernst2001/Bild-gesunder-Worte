@@ -1,12 +1,37 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+  <!-- Zeichensatz und Sprache -->
   <meta charset="UTF-8">
-  <title>Musik & Bücher von Max Mustermann</title>
-  <meta name="description" content="Offizielle Seite von Max Mustermann – CDs, Bücher und Projekte. Mit Spendenlink und Galerie.">
-  <meta name="keywords" content="Musik, Bücher, CD, Spenden, Bandcamp, Max Mustermann">
+  <meta http-equiv="Content-Language" content="de">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- Suchmaschinen-Infos -->
+  <title>Musik & Bücher von Max Mustermann – Offizielle Seite</title>
+  <meta name="description" content="Offizielle Webseite von Max Mustermann. Hier findest du CDs, Bücher und aktuelle Projekte. Unterstütze mit einer Spende oder entdecke neue Musik.">
+  <meta name="keywords" content="Max Mustermann, Musik, Bücher, CD, Spenden, Projekte, Bandcamp, Amazon">
+  <meta name="author" content="Max Mustermann">
+
+  <!-- Vorschau-Bild und Infos für Social Media (Facebook, WhatsApp, Twitter etc.) -->
+  <meta property="og:title" content="Musik & Bücher von Max Mustermann">
+  <meta property="og:description" content="Besuche die offizielle Seite von Max Mustermann – mit Musik, Büchern, Projekten und Spendenmöglichkeiten.">
+  <meta property="og:image" content="https://deinname.github.io/meine-webseite/vorschau.jpg">
+  <meta property="og:url" content="https://deinname.github.io/meine-webseite/">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter-Vorschau -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Musik & Bücher von Max Mustermann">
+  <meta name="twitter:description" content="Offizielle Webseite von Max Mustermann – CDs, Bücher, Projekte und Spenden.">
+  <meta name="twitter:image" content="https://deinname.github.io/meine-webseite/vorschau.jpg">
+
+  <!-- Favicon (kleines Icon im Browser-Tab) -->
+  <link rel="icon" href="favicon.png" type="image/png">
+
+  <!-- Optional: Google darf die Seite indexieren -->
+  <meta name="robots" content="index, follow">
+
+  <!-- CSS / Design -->
   <style>
     body {
       font-family: Arial, sans-serif;
