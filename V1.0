@@ -116,4 +116,44 @@
 
   <!-- Überschrift und Untertitel -->
   <h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
-  <
+  <h2>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</h2>
+
+  <!-- Einführungstext -->
+  <p>Willkommen! Auf dieser Seite finden Sie eine übersichtliche Timeline, die die wahre Vergangenheit leichter nachvollziehbar macht. Scrollen Sie durch die Timeline, um die Zusammenhänge der Ereignisse zu erkennen.</p>
+
+  <!-- Timeline Galerie mit Platzhalter-Bildern -->
+  <div class="gallery">
+    <img src="https://via.placeholder.com/400x400?text=Seite+1" alt="Seite 1">
+    <img src="https://via.placeholder.com/400x400?text=Seite+2" alt="Seite 2">
+    <img src="https://via.placeholder.com/400x400?text=Seite+3" alt="Seite 3">
+    <img src="https://via.placeholder.com/400x400?text=Seite+4" alt="Seite 4">
+    <img src="https://via.placeholder.com/400x400?text=Seite+5" alt="Seite 5">
+    <img src="https://via.placeholder.com/400x400?text=Seite+6" alt="Seite 6">
+    <img src="https://via.placeholder.com/400x400?text=Seite+7" alt="Seite 7">
+    <img src="https://via.placeholder.com/400x400?text=Seite+8" alt="Seite 8">
+    <img src="https://via.placeholder.com/400x400?text=Seite+9" alt="Seite 9">
+    <img src="https://via.placeholder.com/400x400?text=Seite+10" alt="Seite 10">
+    <img src="https://via.placeholder.com/400x400?text=Seite+11" alt="Seite 11">
+    <img src="https://via.placeholder.com/400x400?text=Seite+12" alt="Seite 12">
+    <img src="https://via.placeholder.com/400x400?text=Seite+13" alt="Seite 13">
+    <img src="https://via.placeholder.com/400x400?text=Seite+14" alt="Seite 14">
+    <img src="https://via.placeholder.com/400x400?text=Seite+15" alt="Seite 15">
+    <img src="https://via.placeholder.com/400x400?text=Seite+16" alt="Seite 16">
+    <img src="https://via.placeholder.com/400x400?text=Seite+17" alt="Seite 17">
+    <img src="https://via.placeholder.com/400x400?text=Seite+18" alt="Seite 18">
+    <img src="https://via.placeholder.com/400x400?text=Seite+19" alt="Seite 19">
+    <img src="https://via.placeholder.com/400x400?text=Seite+20" alt="Seite 20">
+  </div>
+
+  <!-- PayPal Spenden-Button -->
+  <div class="buttons">
+    <a href="https://www.paypal.com/donate?hosted_button_id=DEINE_BUTTON_ID" target="_blank">Jetzt Spenden</a>
+  </div>
+
+  <!-- Kontakt -->
+  <div class="contact">
+    <p>Hinweis: Bei Fragen und Anregungen gerne an <a href="mailto:bildgesunderworte@gmail.com" style="color: #ffd700; text-decoration: underline;">bildgesunderworte@gmail.com</a> schreiben.</p>
+  </div>
+
+</body>
+</html>
