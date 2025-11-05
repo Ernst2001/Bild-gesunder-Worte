@@ -20,20 +20,36 @@ header {
 
 header h1 {
   margin: 0;
-  font-size: 2.6em;
-  text-shadow: 2px 2px 4px #003366; /* dunkler Schatten */
+  font-size: 2.6em; /* +1 von letzter Version */
+  text-shadow: 2px 2px 4px #003366; /* dunklerer Schatten */
 }
 
 header p {
   margin-top: 10px;
-  font-size: 1.3em;
+  font-size: 1.3em; /* +1 */
   color: #f0f0f0;
-  text-shadow: 1px 1px 3px #003366;
+  text-shadow: 2px 2px 4px #003366;
+}
+
+#controls {
+  text-align: center;
+  margin: 10px;
+}
+
+#controls button {
+  background-color: #0070ba;
+  color: #fff;
+  border: none;
+  padding: 12px 22px; /* etwas größer */
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1em; /* +1 */
 }
 
 #timeline-wrapper {
   width: 100%;
-  height: 80vh;
+  height: 91vh;
   overflow: hidden;
   position: relative;
   cursor: grab;
@@ -56,25 +72,7 @@ header p {
   flex-shrink: 0;
   object-fit: cover;
   user-drag: none;
-  -webkit-user-drag: none;
-  -moz-user-drag: none;
-  -ms-user-drag: none;
   pointer-events: all;
-}
-
-#controls {
-  text-align: center;
-  margin: 10px;
-}
-
-#controls button {
-  background-color: #0070ba;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
 footer {
@@ -92,9 +90,10 @@ footer a, footer button {
 footer button {
   background-color: #0070ba;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 22px;
   cursor: pointer;
   border-radius: 5px;
+  font-size: 1.1em; /* +1 */
 }
 </style>
 </head>
@@ -106,10 +105,10 @@ footer button {
 </header>
 
 <div id="controls">
-  <button onclick="setView(1)">Ansicht Anfang</button>
-  <button onclick="setView(4)">Ansicht Sintflut</button>
-  <button onclick="setView(9)">Ansicht Zeitenwende</button>
-  <button onclick="setView(13)">Ansicht Moderne</button>
+  <button onclick="viewPage(1)">Ansicht Anfang</button>
+  <button onclick="viewPage(4)">Ansicht Sintflut</button>
+  <button onclick="viewPage(9)">Ansicht Zeitenwende</button>
+  <button onclick="viewPage(13)">Ansicht Moderne</button>
 </div>
 
 <div id="timeline-wrapper">
@@ -176,25 +175,24 @@ document.addEventListener('mousemove', (e) => {
   applyBounds();
 });
 
-// Zoom per Mausrad, feiner
+// Zoom per Mausrad, feinfühlig
 wrapper.addEventListener('wheel', (e) => {
   e.preventDefault();
-  const rect = wrapper.getBoundingClientRect();
+  const rect = timeline.getBoundingClientRect();
   const offsetX = e.clientX - rect.left;
   const offsetY = e.clientY - rect.top;
 
-  const zoomFactor = 1 - e.deltaY * 0.0007; // feinere Rate
-  const newScale = Math.min(Math.max(0.1, targetScale * zoomFactor), 2.5); // max Zoom
+  const zoomFactor = 1 - e.deltaY * 0.0008; // sehr fein
+  let newScale = Math.min(Math.max(0.1, targetScale * zoomFactor), 8);
 
   // Zoom um Mausposition
-  targetTranslateX = offsetX - ((offsetX - targetTranslateX) * newScale / targetScale);
-  targetTranslateY = offsetY - ((offsetY - targetTranslateY) * newScale / targetScale);
+  targetTranslateX -= (offsetX / targetScale - offsetX / newScale);
+  targetTranslateY -= (offsetY / targetScale - offsetY / newScale);
 
   targetScale = newScale;
   applyBounds();
 });
 
-// Grenzen anwenden
 function applyBounds() {
   const bounds = {
     width: timeline.scrollWidth * targetScale,
@@ -225,26 +223,24 @@ function animate() {
 }
 animate();
 
-// Ansicht setzen
-function setView(page) {
+// Ansichtsbutton-Funktion, bleibt beim Blatt
+function viewPage(pageNumber) {
   const wrapperRect = wrapper.getBoundingClientRect();
-  const img = timeline.children[page - 1];
+  const targetImg = timeline.children[pageNumber - 1];
+  const imgRect = targetImg.getBoundingClientRect();
 
-  const imgLeft = img.offsetLeft;
-  const imgTop = img.offsetTop;
-  const imgWidth = img.offsetWidth;
-  const imgHeight = img.offsetHeight;
-
-  targetScale = 0.7; // Start/Ansicht Zoomlevel
-
-  targetTranslateX = wrapperRect.width / 2 - (imgLeft + imgWidth / 2) * targetScale;
-  targetTranslateY = wrapperRect.height / 2 - (imgTop + imgHeight / 2) * targetScale;
+  // Zoom leicht zurücksetzen für Start
+  targetScale = 1;
+  targetTranslateX = wrapperRect.width/2 - (imgRect.left + imgRect.width/2);
+  targetTranslateY = wrapperRect.height/2 - (imgRect.top + imgRect.height/2);
 
   applyBounds();
 }
 
-// Initial Ansicht Moderne (Blatt 13)
-window.onload = () => setView(13);
+// Initial Ansicht Moderne Blatt 13
+window.onload = () => {
+  viewPage(13);
+};
 </script>
 
 </body>
