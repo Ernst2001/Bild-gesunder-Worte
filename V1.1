@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fakten statt Mythen: Die Geschichte im Zeitstrahl</title>
+<title>Bild gesunder Worte – Timeline</title>
 <style>
 body {
   margin: 0;
@@ -20,44 +20,38 @@ header {
 
 header h1 {
   margin: 0;
-  font-size: 2.5em;
+  font-size: 2em;
 }
 
 header p {
   margin-top: 10px;
-  font-size: 1.2em;
+  font-size: 1.1em;
   color: #f0f0f0;
 }
 
 #timeline-wrapper {
   width: 100%;
-  height: 91vh; /* Höhe um 30% erhöht */
+  height: 90vh;
   overflow: hidden;
   position: relative;
   cursor: grab;
-  margin: 20px 0;
+  margin: 10px 0;
   border: 1px solid rgba(255,255,255,0.2);
 }
 
 #timeline {
   display: flex;
-  height: 130%; /* Höhe der Bilder um 30% erhöht */
+  height: 130%;
   transform-origin: 0 0;
   user-select: none;
 }
 
 #timeline img {
   height: 100%;
-  margin: 0;
-  padding: 0;
-  display: block;
   flex-shrink: 0;
   object-fit: cover;
   user-drag: none;
   -webkit-user-drag: none;
-  -moz-user-drag: none;
-  -ms-user-drag: none;
-  pointer-events: all;
 }
 
 #controls {
@@ -99,8 +93,9 @@ footer button {
 <body>
 
 <header>
-  <h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
+  <h1>Die Geschichte im Zeitstrahl</h1>
   <p>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</p>
+  <p><a href="index.html" style="color:#fff; text-decoration:underline;">← Zurück zur Startseite</a></p>
 </header>
 
 <div id="controls">
@@ -130,7 +125,7 @@ footer button {
 </div>
 
 <footer>
-  <p>Hinweis: Bei Fragen und Anregungen gerne an <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a> schreiben.</p>
+  <p>Kontakt: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
   <button onclick="window.open('https://www.paypal.com/donate','_blank')">Spenden</button>
 </footer>
 
@@ -139,19 +134,13 @@ const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
 
 let isDragging = false;
-let startX = 0;
-let startY = 0;
-let translateX = 0;
-let translateY = 0;
-let targetTranslateX = 0;
-let targetTranslateY = 0;
-let scale = 1;
-let targetScale = 1;
+let startX = 0, startY = 0;
+let translateX = 0, translateY = 0;
+let targetTranslateX = 0, targetTranslateY = 0;
+let scale = 1, targetScale = 1;
 
-// Verhindert Standard-Drag für Bilder
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// Maus Drag
 wrapper.addEventListener('mousedown', (e) => {
   isDragging = true;
   startX = e.clientX - targetTranslateX;
@@ -159,10 +148,7 @@ wrapper.addEventListener('mousedown', (e) => {
   wrapper.style.cursor = 'grabbing';
 });
 
-document.addEventListener('mouseup', () => {
-  isDragging = false;
-  wrapper.style.cursor = 'grab';
-});
+document.addEventListener('mouseup', () => { isDragging = false; wrapper.style.cursor = 'grab'; });
 
 document.addEventListener('mousemove', (e) => {
   if(!isDragging) return;
@@ -171,24 +157,18 @@ document.addEventListener('mousemove', (e) => {
   applyBounds();
 });
 
-// Zoom per Mausrad
 wrapper.addEventListener('wheel', (e) => {
   e.preventDefault();
   const rect = timeline.getBoundingClientRect();
   const offsetX = e.clientX - rect.left;
   const offsetY = e.clientY - rect.top;
-
   const zoomFactor = 1 - e.deltaY * 0.0015;
   targetScale = Math.min(Math.max(0.1, targetScale * zoomFactor), 8);
-
-  // Zoom um Mausposition
   targetTranslateX -= (offsetX / scale - offsetX / targetScale);
   targetTranslateY -= (offsetY / scale - offsetY / targetScale);
-
   applyBounds();
 });
 
-// Grenzen anwenden
 function applyBounds() {
   const bounds = {
     width: timeline.scrollWidth * targetScale,
@@ -196,20 +176,13 @@ function applyBounds() {
   };
   const wrapperRect = wrapper.getBoundingClientRect();
 
-  if(bounds.width < wrapperRect.width) {
-    targetTranslateX = (wrapperRect.width - bounds.width)/2;
-  } else {
-    targetTranslateX = Math.min(0, Math.max(wrapperRect.width - bounds.width, targetTranslateX));
-  }
+  if(bounds.width < wrapperRect.width) targetTranslateX = (wrapperRect.width - bounds.width)/2;
+  else targetTranslateX = Math.min(0, Math.max(wrapperRect.width - bounds.width, targetTranslateX));
 
-  if(bounds.height < wrapperRect.height) {
-    targetTranslateY = (wrapperRect.height - bounds.height)/2;
-  } else {
-    targetTranslateY = Math.min(0, Math.max(wrapperRect.height - bounds.height, targetTranslateY));
-  }
+  if(bounds.height < wrapperRect.height) targetTranslateY = (wrapperRect.height - bounds.height)/2;
+  else targetTranslateY = Math.min(0, Math.max(wrapperRect.height - bounds.height, targetTranslateY));
 }
 
-// Tweening Animation
 function animate() {
   scale += (targetScale - scale) * 0.2;
   translateX += (targetTranslateX - translateX) * 0.2;
@@ -219,20 +192,16 @@ function animate() {
 }
 animate();
 
-// Reset-Funktion
 function resetTimeline() {
   targetScale = 1;
   const wrapperRect = wrapper.getBoundingClientRect();
-  const targetImg = timeline.children[9]; // Blatt 10
+  const targetImg = timeline.children[9]; // Seite 10 im Zentrum
   const imgRect = targetImg.getBoundingClientRect();
-
   targetTranslateX = wrapperRect.width/2 - (imgRect.left + imgRect.width/2);
   targetTranslateY = wrapperRect.height/2 - (imgRect.top + imgRect.height/2);
-
   applyBounds();
 }
 
-// Initial Ansicht
 window.onload = resetTimeline;
 </script>
 
