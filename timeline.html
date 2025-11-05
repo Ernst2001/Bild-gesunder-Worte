@@ -10,9 +10,9 @@ body {
   font-family: Arial, sans-serif;
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
   color: #fff;
-  font-size: 18px; /* übernommen vom Index */
-  text-shadow: 1px 1px 3px #00264d; /* übernommen vom Index */
-  text-align: center;
+  overflow-x: hidden;
+  font-size: 19px; /* Schrift +1 */
+  text-shadow: 2px 2px 5px #001a33; /* dunklerer Schatten */
 }
 
 /* Navigation */
@@ -25,7 +25,7 @@ nav {
   position: sticky;
   top: 0;
   z-index: 10;
-  font-size: 18px;
+  font-size: 19px;
 }
 
 nav a {
@@ -33,34 +33,16 @@ nav a {
   text-decoration: none;
   margin: 0 15px;
   font-weight: bold;
-  transition: color 0.3s;
 }
+nav a:hover { color: #ffd700; }
 
-nav a:hover {
-  color: #ffd700;
-}
-
-header {
-  text-align: center;
-  padding: 30px;
-}
-
-header h1 {
-  margin: 0;
-  font-size: 2.8em;
-}
-
-header p {
-  margin-top: 10px;
-  font-size: 1.4em;
-  color: #f0f0f0;
-}
+header { text-align: center; padding: 30px; }
+header h1 { margin: 0; font-size: 2.8em; }
+header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; }
 
 #controls {
-  text-align: center;
-  margin: 20px;
+  text-align: center; margin: 20px;
 }
-
 #controls button {
   background-color: #0070ba;
   color: #fff;
@@ -70,13 +52,9 @@ header p {
   border-radius: 6px;
   cursor: pointer;
   font-size: 1.1em;
-  text-shadow: 1px 1px 2px #00264d; /* übernommen vom Index */
-  transition: background-color 0.3s;
+  text-shadow: 1px 1px 3px #001a33;
 }
-
-#controls button:hover {
-  background-color: #005a94;
-}
+#controls button:hover { background-color: #005a94; }
 
 #timeline-wrapper {
   width: 100%;
@@ -108,29 +86,19 @@ footer {
   padding: 20px;
   text-align: center;
   background: rgba(0,0,0,0.3);
-  font-size: 17px; /* übernommen vom Index */
+  font-size: 18px;
 }
-
-footer a, footer button {
-  color: #fff;
-  text-decoration: none;
-  margin: 5px;
-}
-
+footer a, footer button { color: #fff; text-decoration: none; margin: 5px; }
 footer button {
   background-color: #0070ba;
   border: none;
   padding: 10px 25px;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 17px; /* übernommen vom Index */
-  text-shadow: 1px 1px 2px #00264d; /* übernommen vom Index */
-  transition: background-color 0.3s;
+  font-size: 18px;
+  text-shadow: 1px 1px 3px #001a33;
 }
-
-footer button:hover {
-  background-color: #005a94;
-}
+footer button:hover { background-color: #005a94; }
 </style>
 </head>
 <body>
@@ -184,7 +152,7 @@ footer button:hover {
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
 
-let scale = 0.7;       // Start-Zoom
+let scale = 0.7;
 let targetScale = 0.7;
 let translateX = 0;
 let translateY = 0;
@@ -211,48 +179,46 @@ document.addEventListener('mousemove', e => {
   if (!isDragging) return;
   targetTranslateX = e.clientX - startX;
   targetTranslateY = e.clientY - startY;
-  applyBounds();
 });
 
-// Prevent default ghost image
+// Prevent default image drag
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// Wheel Zoom (um Mausposition)
+// Wheel Zoom (fein)
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
-  const rect = wrapper.getBoundingClientRect();
-  const mouseX = e.clientX - rect.left;
-  const mouseY = e.clientY - rect.top;
+  const rect = timeline.getBoundingClientRect();
+  const offsetX = e.clientX - rect.left;
+  const offsetY = e.clientY - rect.top;
 
-  const zoomFactor = 1 - e.deltaY * 0.0015;
+  const zoomFactor = 1 - e.deltaY * 0.0005;
   const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 4);
 
-  targetTranslateX = mouseX - ((mouseX - targetTranslateX) / targetScale) * newScale;
-  targetTranslateY = mouseY - ((mouseY - targetTranslateY) / targetScale) * newScale;
+  targetTranslateX -= (offsetX / targetScale - offsetX / newScale);
+  targetTranslateY -= (offsetY / targetScale - offsetY / newScale);
 
   targetScale = newScale;
-
   applyBounds();
 });
 
-// Begrenzungen innerhalb des Wrappers
+// Grenzen innerhalb des Wrappers
 function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
 
-  // Horizontal
-  if (timelineWidth > wrapperRect.width) {
-    targetTranslateX = Math.min(0, Math.max(wrapperRect.width - timelineWidth, targetTranslateX));
-  } else {
+  // X-Achse
+  if (timelineWidth < wrapperRect.width) {
     targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
+  } else {
+    targetTranslateX = Math.min(0, Math.max(wrapperRect.width - timelineWidth, targetTranslateX));
   }
 
-  // Vertical
-  if (timelineHeight > wrapperRect.height) {
-    targetTranslateY = Math.min(0, Math.max(wrapperRect.height - timelineHeight, targetTranslateY));
-  } else {
+  // Y-Achse
+  if (timelineHeight < wrapperRect.height) {
     targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
+  } else {
+    targetTranslateY = Math.min(0, Math.max(wrapperRect.height - timelineHeight, targetTranslateY));
   }
 }
 
@@ -271,7 +237,7 @@ function setView(page) {
   const img = timeline.children[page - 1];
   const imgRect = img.getBoundingClientRect();
 
-  targetScale = 0.7; // Start Zoom
+  targetScale = 0.7;
   targetTranslateX = wrapperRect.width / 2 - (imgRect.left + imgRect.width / 2);
   targetTranslateY = wrapperRect.height / 2 - (imgRect.top + imgRect.height / 2);
 
@@ -279,9 +245,7 @@ function setView(page) {
 }
 
 animate();
-
-// Startansicht Moderne (Seite 13)
-window.onload = () => setView(13);
+window.onload = () => setView(13); // Startansicht Moderne
 </script>
 
 </body>
