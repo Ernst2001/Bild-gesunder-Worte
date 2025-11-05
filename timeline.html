@@ -12,6 +12,8 @@ body {
   color: #fff;
   overflow-x: hidden;
   text-align: center;
+  font-size: 17px; /* +1 größer */
+  text-shadow: 1px 1px 2px #003366; /* dezenter blauer Schatten */
 }
 
 /* Navigation */
@@ -24,6 +26,7 @@ nav {
   position: sticky;
   top: 0;
   z-index: 10;
+  font-size: 17px;
 }
 
 nav a {
@@ -31,7 +34,6 @@ nav a {
   text-decoration: none;
   margin: 0 15px;
   font-weight: bold;
-  font-size: 1em;
   transition: color 0.3s;
 }
 
@@ -40,17 +42,17 @@ nav a:hover {
 }
 
 header {
-  padding: 30px 20px;
+  padding: 25px 20px;
 }
 
 header h1 {
   margin: 0;
-  font-size: 2em;
+  font-size: 2.1em;
 }
 
 header p {
   margin-top: 10px;
-  font-size: 1.1em;
+  font-size: 1.15em;
   color: #f0f0f0;
 }
 
@@ -61,7 +63,7 @@ header p {
   position: relative;
   cursor: grab;
   margin: 10px 0;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
 }
 
 #timeline {
@@ -81,23 +83,30 @@ header p {
 
 #controls {
   text-align: center;
-  margin: 10px;
+  margin: 15px;
 }
 
 #controls button {
   background-color: #0070ba;
   color: #fff;
   border: none;
-  padding: 10px 20px;
-  margin: 5px;
+  padding: 10px 25px;
+  margin: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 16px;
+  text-shadow: 1px 1px 2px #003366;
+}
+
+#controls button:hover {
+  background-color: #005a94;
 }
 
 footer {
-  padding: 20px;
+  padding: 25px;
   text-align: center;
   background: rgba(0,0,0,0.3);
+  font-size: 16px;
 }
 
 footer a, footer button {
@@ -109,9 +118,14 @@ footer a, footer button {
 footer button {
   background-color: #0070ba;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 25px;
   cursor: pointer;
   border-radius: 5px;
+  font-size: 16px;
+}
+
+footer button:hover {
+  background-color: #005a94;
 }
 </style>
 </head>
@@ -122,7 +136,7 @@ footer button {
   <a href="timeline.html">Timeline / Zeitstrahl</a>
   <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">YouTube</a>
   <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
-  <a href="https://www.paypal.com/donate" target="_blank">Spenden</a>
+  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen mit PayPal</a>
 </nav>
 
 <header>
@@ -131,7 +145,8 @@ footer button {
 </header>
 
 <div id="controls">
-  <button onclick="resetTimeline()">Ansicht zurücksetzen</button>
+  <button onclick="resetToStart()">Ansicht Anfang</button>
+  <button onclick="resetToModern()">Ansicht Moderne</button>
 </div>
 
 <div id="timeline-wrapper">
@@ -158,7 +173,7 @@ footer button {
 
 <footer>
   <p>Kontakt: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
-  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Spenden</button>
+  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen mit PayPal</button>
 </footer>
 
 <script>
@@ -171,8 +186,12 @@ let translateX = 0, translateY = 0;
 let targetTranslateX = 0, targetTranslateY = 0;
 let scale = 1, targetScale = 1;
 
+// Standard-Zoomgeschwindigkeit
+const zoomSensitivity = 0.0007; // feiner Zoom
+
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
+// Drag-Bewegung
 wrapper.addEventListener('mousedown', (e) => {
   isDragging = true;
   startX = e.clientX - targetTranslateX;
@@ -180,7 +199,10 @@ wrapper.addEventListener('mousedown', (e) => {
   wrapper.style.cursor = 'grabbing';
 });
 
-document.addEventListener('mouseup', () => { isDragging = false; wrapper.style.cursor = 'grab'; });
+document.addEventListener('mouseup', () => {
+  isDragging = false;
+  wrapper.style.cursor = 'grab';
+});
 
 document.addEventListener('mousemove', (e) => {
   if(!isDragging) return;
@@ -189,15 +211,19 @@ document.addEventListener('mousemove', (e) => {
   applyBounds();
 });
 
+// Zoom per Mausrad (fein & Mausposition als Fokuspunkt)
 wrapper.addEventListener('wheel', (e) => {
   e.preventDefault();
   const rect = timeline.getBoundingClientRect();
   const offsetX = e.clientX - rect.left;
   const offsetY = e.clientY - rect.top;
-  const zoomFactor = 1 - e.deltaY * 0.0015;
-  targetScale = Math.min(Math.max(0.1, targetScale * zoomFactor), 8);
-  targetTranslateX -= (offsetX / scale - offsetX / targetScale);
-  targetTranslateY -= (offsetY / scale - offsetY / targetScale);
+  const zoomFactor = 1 - e.deltaY * zoomSensitivity;
+  const newScale = Math.min(Math.max(0.2, targetScale * zoomFactor), 8);
+
+  // Zoom auf Mauszeiger fokussieren
+  targetTranslateX -= (offsetX / scale - offsetX / newScale);
+  targetTranslateY -= (offsetY / scale - offsetY / newScale);
+  targetScale = newScale;
   applyBounds();
 });
 
@@ -208,33 +234,50 @@ function applyBounds() {
   };
   const wrapperRect = wrapper.getBoundingClientRect();
 
-  if(bounds.width < wrapperRect.width) targetTranslateX = (wrapperRect.width - bounds.width)/2;
-  else targetTranslateX = Math.min(0, Math.max(wrapperRect.width - bounds.width, targetTranslateX));
+  if(bounds.width < wrapperRect.width)
+    targetTranslateX = (wrapperRect.width - bounds.width)/2;
+  else
+    targetTranslateX = Math.min(0, Math.max(wrapperRect.width - bounds.width, targetTranslateX));
 
-  if(bounds.height < wrapperRect.height) targetTranslateY = (wrapperRect.height - bounds.height)/2;
-  else targetTranslateY = Math.min(0, Math.max(wrapperRect.height - bounds.height, targetTranslateY));
+  if(bounds.height < wrapperRect.height)
+    targetTranslateY = (wrapperRect.height - bounds.height)/2;
+  else
+    targetTranslateY = Math.min(0, Math.max(wrapperRect.height - bounds.height, targetTranslateY));
 }
 
+// Animation (sanftes Nachziehen)
 function animate() {
-  scale += (targetScale - scale) * 0.2;
-  translateX += (targetTranslateX - translateX) * 0.2;
-  translateY += (targetTranslateY - translateY) * 0.2;
+  scale += (targetScale - scale) * 0.15;
+  translateX += (targetTranslateX - translateX) * 0.15;
+  translateY += (targetTranslateY - translateY) * 0.15;
   timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
   requestAnimationFrame(animate);
 }
 animate();
 
-function resetTimeline() {
+// Ansicht: Anfang
+function resetToStart() {
+  resetView(0); // Blatt 1
+}
+
+// Ansicht: Moderne
+function resetToModern() {
+  resetView(14); // Blatt 15
+}
+
+// Positioniere bestimmte Seite
+function resetView(index) {
   targetScale = 1;
   const wrapperRect = wrapper.getBoundingClientRect();
-  const targetImg = timeline.children[9];
+  const targetImg = timeline.children[index];
   const imgRect = targetImg.getBoundingClientRect();
   targetTranslateX = wrapperRect.width/2 - (imgRect.left + imgRect.width/2);
   targetTranslateY = wrapperRect.height/2 - (imgRect.top + imgRect.height/2);
   applyBounds();
 }
 
-window.onload = resetTimeline;
+// Standardmäßig „Moderne“ zeigen
+window.onload = resetToModern;
 </script>
 
 </body>
