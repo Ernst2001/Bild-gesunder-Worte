@@ -33,7 +33,6 @@ nav a {
   text-decoration: none;
   margin: 0 15px;
   font-weight: bold;
-  transition: color 0.3s ease;
 }
 
 nav a:hover { color: #ffd700; }
@@ -106,14 +105,12 @@ footer button:hover { background-color: #005a94; }
 </head>
 <body>
 
-<!-- ✅ Reiterleiste (neu, identisch mit Index) -->
 <nav>
-  <a href="index.html">🏠 Startseite</a>
-  <a href="timeline.html">📜 Timeline / Zeitstrahl</a>
-  <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">▶️ BgW YouTube</a>
-  <a href="https://www.youtube.com/@LiederBgW" target="_blank">🎵 Lieder YouTube</a>
-  <a href="mailto:bildgesunderworte@gmail.com">📩 Kontakt</a>
-  <a href="https://www.paypal.com/donate" target="_blank">💙 Unterstützen über Paypal</a>
+  <a href="index.html">Startseite</a>
+  <a href="timeline.html">Timeline / Zeitstrahl</a>
+  <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">YouTube</a>
+  <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
+  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über Paypal</a>
 </nav>
 
 <header>
@@ -149,12 +146,10 @@ footer button:hover { background-color: #005a94; }
 </div>
 
 <footer>
-  <p>Bei Fragen oder Anregungen gerne an 
-     <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a> schreiben.</p>
+  <p>Kontakt: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
   <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über Paypal</button>
 </footer>
 
-<!-- ✅ Dein Original-Skript (unverändert) -->
 <script>
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
@@ -191,7 +186,7 @@ document.addEventListener('mousemove', e => {
 // Prevent default ghost image
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// Wheel Zoom (unverändert)
+// Wheel Zoom
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
   const rect = timeline.getBoundingClientRect();
