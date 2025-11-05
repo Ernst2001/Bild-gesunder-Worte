@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bild gesunder Worte – Timeline</title>
+<title>Fakten statt Mythen: Die Geschichte im Zeitstrahl</title>
 <style>
 body {
   margin: 0;
@@ -14,37 +14,20 @@ body {
   text-align: center;
   font-size: 18px;
   text-shadow: 1px 1px 3px #00264d;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
 }
-
-/* Navigation */
-nav {
-  background: rgba(0,0,0,0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 12px 0;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  font-size: 18px;
-}
-
-nav a {
-  color: #fff;
-  text-decoration: none;
-  margin: 0 15px;
-  font-weight: bold;
-  transition: color 0.3s;
-}
-nav a:hover { color: #ffd700; }
 
 header {
-  padding: 25px 20px;
+  text-align: center;
+  padding: 30px;
 }
+
 header h1 {
   margin: 0;
-  font-size: 2.2em;
+  font-size: 2.5em;
 }
+
 header p {
   margin-top: 10px;
   font-size: 1.2em;
@@ -53,66 +36,68 @@ header p {
 
 #timeline-wrapper {
   width: 100%;
-  height: 90vh;
+  height: 91vh;
   overflow: hidden;
   position: relative;
   cursor: grab;
-  margin: 10px 0;
-  border: 1px solid rgba(255,255,255,0.3);
+  margin: 20px 0;
+  border: 1px solid rgba(255,255,255,0.2);
 }
+
 #timeline {
   display: flex;
   height: 130%;
   transform-origin: 0 0;
   user-select: none;
 }
+
 #timeline img {
   height: 100%;
+  display: block;
   flex-shrink: 0;
   object-fit: cover;
-  user-drag: none;
-  -webkit-user-drag: none;
+  pointer-events: all;
 }
 
 #controls {
   text-align: center;
-  margin: 15px;
+  margin: 10px;
 }
+
 #controls button {
   background-color: #0070ba;
   color: #fff;
   border: none;
-  padding: 12px 28px;
-  margin: 5px 10px;
+  padding: 10px 20px;
+  margin: 5px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 17px;
-  text-shadow: 1px 1px 2px #00264d;
 }
+
 #controls button:hover {
   background-color: #005a94;
 }
 
 footer {
-  padding: 25px;
+  padding: 20px;
   text-align: center;
   background: rgba(0,0,0,0.3);
-  font-size: 17px;
 }
+
 footer a, footer button {
   color: #fff;
   text-decoration: none;
   margin: 5px;
 }
+
 footer button {
   background-color: #0070ba;
   border: none;
-  padding: 10px 25px;
+  padding: 10px 20px;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 17px;
-  text-shadow: 1px 1px 2px #00264d;
 }
+
 footer button:hover {
   background-color: #005a94;
 }
@@ -120,24 +105,16 @@ footer button:hover {
 </head>
 <body>
 
-<nav>
-  <a href="index.html">Startseite</a>
-  <a href="timeline.html">Timeline / Zeitstrahl</a>
-  <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">YouTube</a>
-  <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
-  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über PayPal</a>
-</nav>
-
 <header>
-  <h1>Die Geschichte im Zeitstrahl</h1>
+  <h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
   <p>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</p>
 </header>
 
 <div id="controls">
-  <button onclick="resetToStart()">Ansicht Anfang</button>
-  <button onclick="resetToFlood()">Ansicht Sintflut</button>
-  <button onclick="resetToTurn()">Ansicht Zeitenwende</button>
-  <button onclick="resetToModern()">Ansicht Moderne</button>
+  <button onclick="setView(1)">Ansicht Anfang</button>
+  <button onclick="setView(4)">Ansicht Sintflut</button>
+  <button onclick="setView(9)">Ansicht Zeitenwende</button>
+  <button onclick="setView(13)">Ansicht Moderne</button>
 </div>
 
 <div id="timeline-wrapper">
@@ -168,110 +145,59 @@ footer button:hover {
 </footer>
 
 <script>
+// Timeline Navigation (verkürzt)
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
 
-let isDragging = false;
-let startX = 0, startY = 0;
-let translateX = 0, translateY = 0;
-let targetTranslateX = 0, targetTranslateY = 0;
-let scale = 1, targetScale = 1;
+let targetScale = 0.8;
+let targetTranslateX = 0;
+let targetTranslateY = 0;
+let scale = targetScale;
+let translateX = 0;
+let translateY = 0;
 
-// sehr feiner Zoom
-const zoomSensitivity = 0.0004;
-
-// Drag-Steuerung
-timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
-
-wrapper.addEventListener('mousedown', (e) => {
-  isDragging = true;
-  startX = e.clientX - targetTranslateX;
-  startY = e.clientY - targetTranslateY;
-  wrapper.style.cursor = 'grabbing';
-});
-document.addEventListener('mouseup', () => { isDragging = false; wrapper.style.cursor = 'grab'; });
-document.addEventListener('mousemove', (e) => {
-  if(!isDragging) return;
-  targetTranslateX = e.clientX - startX;
-  targetTranslateY = e.clientY - startY;
-  applyBounds();
-});
-
-// präziser Zoom um Mauszeiger
-wrapper.addEventListener('wheel', (e) => {
-  e.preventDefault();
-  const rect = wrapper.getBoundingClientRect();
-  const mouseX = e.clientX - rect.left;
-  const mouseY = e.clientY - rect.top;
-
-  const zoomFactor = 1 - e.deltaY * zoomSensitivity;
-  const newScale = Math.min(Math.max(0.2, targetScale * zoomFactor), 8);
-
-  // aktuelle Weltposition der Maus (vor Zoom)
-  const worldX = (mouseX - targetTranslateX) / targetScale;
-  const worldY = (mouseY - targetTranslateY) / targetScale;
-
-  // Nach-Zoom-Position berechnen
-  targetTranslateX = mouseX - worldX * newScale;
-  targetTranslateY = mouseY - worldY * newScale;
-  targetScale = newScale;
-
-  applyBounds();
-});
-
-// Begrenzungen
-function applyBounds() {
-  const bounds = {
-    width: timeline.scrollWidth * targetScale,
-    height: timeline.scrollHeight * targetScale
-  };
+function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
-
-  if(bounds.width < wrapperRect.width)
-    targetTranslateX = (wrapperRect.width - bounds.width)/2;
-  else
-    targetTranslateX = Math.min(0, Math.max(wrapperRect.width - bounds.width, targetTranslateX));
-
-  if(bounds.height < wrapperRect.height)
-    targetTranslateY = (wrapperRect.height - bounds.height)/2;
-  else
-    targetTranslateY = Math.min(0, Math.max(wrapperRect.height - bounds.height, targetTranslateY));
+  const img = timeline.children[page - 1];
+  const imgRect = img.getBoundingClientRect();
+  targetScale = 0.8;
+  targetTranslateX = wrapperRect.width / 2 - (imgRect.left + imgRect.width / 2);
+  targetTranslateY = wrapperRect.height / 2 - (imgRect.top + imgRect.height / 2);
 }
 
-// sanfte Bewegung
 function animate() {
-  scale += (targetScale - scale) * 0.12;
-  translateX += (targetTranslateX - translateX) * 0.12;
-  translateY += (targetTranslateY - translateY) * 0.12;
+  scale += (targetScale - scale) * 0.2;
+  translateX += (targetTranslateX - translateX) * 0.2;
+  translateY += (targetTranslateY - translateY) * 0.2;
   timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
   requestAnimationFrame(animate);
 }
 animate();
 
-// Ansichts-Buttons
-function resetToStart()   { resetView(0, 0.85); }   // Blatt 1
-function resetToFlood()   { resetView(3, 0.85); }   // Blatt 4
-function resetToTurn()    { resetView(8, 0.85); }   // Blatt 9
-function resetToModern()  { resetView(12, 0.85); }  // Blatt 13
+// Start mit Ansicht Moderne
+window.onload = () => {
+  setView(13);
+  document.body.style.opacity = "1";
+};
 
-function resetView(index, zoomLevel) {
-  targetScale = zoomLevel;
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const targetImg = timeline.children[index];
-  if(!targetImg) return;
+// Fading zwischen Seiten
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('click', e => {
+    const target = el.getAttribute('href') || el.getAttribute('onclick');
+    if (!target || target.startsWith('#') || target.includes('javascript')) return;
 
-  // Weltkoordinaten des Bildzentrums
-  const worldCenterX = targetImg.offsetLeft + targetImg.offsetWidth / 2;
-  const worldCenterY = targetImg.offsetTop + targetImg.offsetHeight / 2;
-
-  targetTranslateX = wrapperRect.width / 2 - worldCenterX * zoomLevel;
-  targetTranslateY = wrapperRect.height / 2 - worldCenterY * zoomLevel;
-
-  applyBounds();
-}
-
-// Startansicht = Moderne (Blatt 13)
-window.onload = resetToModern;
+    e.preventDefault();
+    document.body.style.opacity = '0';
+    setTimeout(() => {
+      if (el.target === '_blank') {
+        window.open(target, '_blank');
+        document.body.style.opacity = '1';
+      } else {
+        window.location.href = target;
+      }
+    }, 400);
+  });
+});
 </script>
 
 </body>
