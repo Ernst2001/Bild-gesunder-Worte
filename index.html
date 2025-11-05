@@ -11,6 +11,8 @@ body {
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
   color: #fff;
   text-align: center;
+  font-size: 17px;
+  text-shadow: 1px 1px 3px #00264d; /* dunklerer Schatten */
 }
 
 /* Navigation */
@@ -23,6 +25,7 @@ nav {
   position: sticky;
   top: 0;
   z-index: 10;
+  font-size: 17px;
 }
 
 nav a {
@@ -30,7 +33,6 @@ nav a {
   text-decoration: none;
   margin: 0 15px;
   font-weight: bold;
-  font-size: 1em;
   transition: color 0.3s;
 }
 
@@ -49,7 +51,7 @@ h1 {
 
 h2 {
   font-weight: normal;
-  font-size: 1.2em;
+  font-size: 1.25em;
   max-width: 800px;
   margin: 0 auto 40px;
   line-height: 1.5;
@@ -70,6 +72,7 @@ button.main-btn {
   border-radius: 8px;
   cursor: pointer;
   margin-bottom: 50px;
+  text-shadow: 1px 1px 2px #00264d;
 }
 
 button.main-btn:hover {
@@ -89,6 +92,7 @@ button.main-btn:hover {
   color: #fff;
   font-size: 1.2em;
   text-decoration: none;
+  text-shadow: 1px 1px 2px #00264d;
 }
 
 .section a:hover {
@@ -100,12 +104,14 @@ button.main-btn:hover {
   height: auto;
   border-radius: 10px;
   margin-left: 20px;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
 }
 
 footer {
   padding: 30px;
   background: rgba(0,0,0,0.3);
   margin-top: 50px;
+  font-size: 16px;
 }
 
 footer a, footer button {
@@ -117,9 +123,15 @@ footer a, footer button {
 footer button {
   background-color: #0070ba;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 25px;
   cursor: pointer;
   border-radius: 5px;
+  font-size: 16px;
+  text-shadow: 1px 1px 2px #00264d;
+}
+
+footer button:hover {
+  background-color: #005a94;
 }
 </style>
 </head>
@@ -131,7 +143,7 @@ footer button {
   <a href="timeline.html">Timeline / Zeitstrahl</a>
   <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">YouTube</a>
   <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
-  <a href="https://www.paypal.com/donate" target="_blank">Spenden</a>
+  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen mit PayPal</a>
 </nav>
 
 <!-- Inhalt -->
@@ -154,15 +166,8 @@ footer button {
 
 <footer>
   <p>Kontakt: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
-  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Spenden</button>
+  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen mit PayPal</button>
 </footer>
-
-<script>
-// Sicherheitscheck: verhindere automatische Weiterleitung (Cache alter Version)
-if (window.location.pathname.includes("timeline.html")) {
-  window.location.replace("index.html");
-}
-</script>
 
 </body>
 </html>
