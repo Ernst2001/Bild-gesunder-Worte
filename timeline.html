@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fakten statt Mythen – Timeline</title>
+<title>Fakten statt Mythen: Timeline</title>
 <style>
 body {
   margin: 0;
@@ -15,9 +15,9 @@ body {
   text-shadow: 2px 2px 5px #001a33;
 }
 
-/* Navigation identisch zur Startseite */
+/* Navigation */
 nav {
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0,0,0,0.3);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,56 +31,31 @@ nav {
 nav a {
   color: #fff;
   text-decoration: none;
-  margin: 0 18px;
+  margin: 0 15px;
   font-weight: bold;
-  text-shadow: 2px 2px 4px #002b5c;
-  transition: color 0.3s;
+  transition: color 0.3s ease;
 }
 
-nav a:hover {
-  color: #ffd700;
-}
+nav a:hover { color: #ffd700; }
 
-/* Header */
-header {
-  text-align: center;
-  padding: 30px;
-}
+header { text-align: center; padding: 30px; }
+header h1 { margin: 0; font-size: 2.8em; }
+header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; }
 
-header h1 {
-  margin: 0;
-  font-size: 2.8em;
-}
-
-header p {
-  margin-top: 10px;
-  font-size: 1.4em;
-  color: #f0f0f0;
-}
-
-/* Steuerungs-Buttons */
-#controls {
-  text-align: center;
-  margin: 20px;
-}
-
+#controls { text-align: center; margin: 20px; }
 #controls button {
   background-color: #0070ba;
   color: #fff;
   border: none;
-  padding: 12px 24px;
+  padding: 12px 22px;
   margin: 5px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1.1em;
   text-shadow: 1px 1px 3px #001a33;
 }
+#controls button:hover { background-color: #005a94; }
 
-#controls button:hover {
-  background-color: #005a94;
-}
-
-/* Timeline-Bereich */
 #timeline-wrapper {
   width: 100%;
   height: 91vh;
@@ -107,21 +82,14 @@ header p {
   user-drag: none;
 }
 
-/* Footer */
 footer {
   padding: 20px;
   text-align: center;
   background: rgba(0,0,0,0.3);
   font-size: 18px;
-  text-shadow: 1px 1px 3px #001a33;
 }
 
-footer a, footer button {
-  color: #fff;
-  text-decoration: none;
-  margin: 5px;
-}
-
+footer a, footer button { color: #fff; text-decoration: none; margin: 5px; }
 footer button {
   background-color: #0070ba;
   border: none;
@@ -131,21 +99,19 @@ footer button {
   font-size: 18px;
   text-shadow: 1px 1px 3px #001a33;
 }
-
-footer button:hover {
-  background-color: #005a94;
-}
+footer button:hover { background-color: #005a94; }
 </style>
 </head>
 <body>
 
-<!-- Navigation -->
+<!-- ✅ Reiterleiste identisch zu index.html -->
 <nav>
-  <a href="index.html">Startseite</a>
-  <a href="timeline.html">Timeline / Zeitstrahl</a>
-  <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">YouTube</a>
-  <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
-  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über Paypal</a>
+  <a href="index.html">🏠 Startseite</a>
+  <a href="timeline.html">📜 Timeline / Zeitstrahl</a>
+  <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">▶️ BgW YouTube</a>
+  <a href="https://www.youtube.com/@LiederBgW" target="_blank">🎵 Lieder YouTube</a>
+  <a href="mailto:bildgesunderworte@gmail.com">📩 Kontakt</a>
+  <a href="https://www.paypal.com/donate" target="_blank">💙 Unterstützen über Paypal</a>
 </nav>
 
 <header>
@@ -153,7 +119,6 @@ footer button:hover {
   <p>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</p>
 </header>
 
-<!-- Steuerung -->
 <div id="controls">
   <button onclick="setView(1)">Ansicht Anfang</button>
   <button onclick="setView(4)">Ansicht Sintflut</button>
@@ -161,7 +126,6 @@ footer button:hover {
   <button onclick="setView(13)">Ansicht Moderne</button>
 </div>
 
-<!-- Timeline -->
 <div id="timeline-wrapper">
   <div id="timeline">
     <img src="images/Seite1.png" alt="Seite 1">
@@ -197,10 +161,10 @@ let translateX = 0;
 let translateY = 0;
 let targetTranslateX = 0;
 let targetTranslateY = 0;
+
 let isDragging = false;
 let startX, startY;
 
-// Drag
 wrapper.addEventListener('mousedown', e => {
   isDragging = true;
   startX = e.clientX - targetTranslateX;
@@ -219,10 +183,8 @@ document.addEventListener('mousemove', e => {
   targetTranslateY = e.clientY - startY;
 });
 
-// Disable image drag ghost
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// Mouse wheel zoom
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
   const rect = timeline.getBoundingClientRect();
@@ -230,8 +192,6 @@ wrapper.addEventListener('wheel', e => {
   const offsetY = e.clientY - rect.top;
   const zoomFactor = 1 - e.deltaY * 0.0005;
   const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 4);
-
-  // Mauszentrierter Zoom
   targetTranslateX -= (offsetX / targetScale - offsetX / newScale);
   targetTranslateY -= (offsetY / targetScale - offsetY / newScale);
   targetScale = newScale;
@@ -242,16 +202,16 @@ function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
-
-  if (timelineWidth < wrapperRect.width)
+  if (timelineWidth < wrapperRect.width) {
     targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
-  else
+  } else {
     targetTranslateX = Math.min(0, Math.max(wrapperRect.width - timelineWidth, targetTranslateX));
-
-  if (timelineHeight < wrapperRect.height)
+  }
+  if (timelineHeight < wrapperRect.height) {
     targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
-  else
+  } else {
     targetTranslateY = Math.min(0, Math.max(wrapperRect.height - timelineHeight, targetTranslateY));
+  }
 }
 
 function animate() {
