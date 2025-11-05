@@ -14,7 +14,7 @@ body {
   font-size: 18px;
   text-shadow: 1px 1px 3px #00264d;
   opacity: 0;
-  transition: opacity 0.8s ease;
+  transition: opacity 0.6s ease-in-out;
 }
 
 /* Navigation */
@@ -141,7 +141,6 @@ footer button:hover {
 </head>
 <body>
 
-<!-- Navigation -->
 <nav>
   <a href="index.html">Startseite</a>
   <a href="timeline.html">Timeline / Zeitstrahl</a>
@@ -150,12 +149,11 @@ footer button:hover {
   <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über PayPal</a>
 </nav>
 
-<!-- Inhalt -->
 <header>
   <h1>Bild gesunder Worte</h1>
   <h2>[Heb 4,12] Denn das Wort Gottes ist lebendig und wirksam und schärfer als jedes zweischneidige Schwert und durchdringend bis zur Scheidung von Seele und Geist, sowohl der Gelenke als auch des Markes, und ein Beurteiler der Gedanken und Überlegungen des Herzens</h2>
   <div class="mission">Beispieltextmission</div>
-  <button class="main-btn" id="timeline-btn">Zur Timeline / Zum Zeitstrahl</button>
+  <button class="main-btn" onclick="window.location.href='timeline.html'">Zur Timeline / Zum Zeitstrahl</button>
 </header>
 
 <div class="section">
@@ -175,17 +173,28 @@ footer button:hover {
 
 <script>
 // Sanftes Einblenden beim Laden
-window.addEventListener('DOMContentLoaded', () => {
-  document.body.style.opacity = '1';
+window.addEventListener("DOMContentLoaded", () => {
+  document.body.style.opacity = "1";
 });
 
-// Sanftes Ausblenden beim Wechsel zur Timeline
-document.getElementById('timeline-btn').addEventListener('click', (e) => {
-  e.preventDefault();
-  document.body.style.opacity = '0';
-  setTimeout(() => {
-    window.location.href = 'timeline.html';
-  }, 600);
+// Sanftes Ausblenden beim Navigieren
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('click', e => {
+    const target = el.getAttribute('href') || el.getAttribute('onclick');
+    if (!target || target.startsWith('#') || target.includes('javascript')) return;
+
+    e.preventDefault();
+    document.body.style.opacity = '0';
+
+    setTimeout(() => {
+      if (el.target === '_blank') {
+        window.open(target, '_blank');
+        document.body.style.opacity = '1';
+      } else {
+        window.location.href = target;
+      }
+    }, 400);
+  });
 });
 </script>
 
