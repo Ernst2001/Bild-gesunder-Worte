@@ -18,6 +18,31 @@ body {
   transition: opacity 0.6s ease-in-out;
 }
 
+/* Navigation */
+nav {
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  font-size: 18px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #ffd700;
+}
+
 header {
   text-align: center;
   padding: 30px;
@@ -25,13 +50,35 @@ header {
 
 header h1 {
   margin: 0;
-  font-size: 2.5em;
+  font-size: 2.7em;
 }
 
 header p {
   margin-top: 10px;
-  font-size: 1.2em;
+  font-size: 1.3em;
   color: #f0f0f0;
+}
+
+#controls {
+  text-align: center;
+  margin: 20px;
+}
+
+#controls button {
+  background-color: #0070ba;
+  color: #fff;
+  border: none;
+  padding: 12px 22px;
+  margin: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  text-shadow: 1px 1px 2px #00264d;
+  transition: background-color 0.3s;
+}
+
+#controls button:hover {
+  background-color: #005a94;
 }
 
 #timeline-wrapper {
@@ -59,29 +106,11 @@ header p {
   pointer-events: all;
 }
 
-#controls {
-  text-align: center;
-  margin: 10px;
-}
-
-#controls button {
-  background-color: #0070ba;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#controls button:hover {
-  background-color: #005a94;
-}
-
 footer {
   padding: 20px;
   text-align: center;
   background: rgba(0,0,0,0.3);
+  font-size: 17px;
 }
 
 footer a, footer button {
@@ -93,9 +122,12 @@ footer a, footer button {
 footer button {
   background-color: #0070ba;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 25px;
   cursor: pointer;
   border-radius: 5px;
+  font-size: 17px;
+  text-shadow: 1px 1px 2px #00264d;
+  transition: background-color 0.3s;
 }
 
 footer button:hover {
@@ -104,6 +136,14 @@ footer button:hover {
 </style>
 </head>
 <body>
+
+<nav>
+  <a href="index.html">Startseite</a>
+  <a href="timeline.html">Timeline / Zeitstrahl</a>
+  <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">YouTube</a>
+  <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
+  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über PayPal</a>
+</nav>
 
 <header>
   <h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
@@ -145,7 +185,7 @@ footer button:hover {
 </footer>
 
 <script>
-// Timeline Navigation (verkürzt)
+// Timeline Logik
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
 
@@ -155,6 +195,23 @@ let targetTranslateY = 0;
 let scale = targetScale;
 let translateX = 0;
 let translateY = 0;
+
+// Zoom mit Mausrad (feinfühlig)
+wrapper.addEventListener('wheel', e => {
+  e.preventDefault();
+  const zoomFactor = 1 - e.deltaY * 0.0007;
+  const rect = timeline.getBoundingClientRect();
+  const offsetX = e.clientX - rect.left;
+  const offsetY = e.clientY - rect.top;
+
+  const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 4);
+  const dx = (offsetX / targetScale - offsetX / newScale);
+  const dy = (offsetY / targetScale - offsetY / newScale);
+
+  targetTranslateX += dx;
+  targetTranslateY += dy;
+  targetScale = newScale;
+});
 
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
@@ -166,21 +223,21 @@ function setView(page) {
 }
 
 function animate() {
-  scale += (targetScale - scale) * 0.2;
-  translateX += (targetTranslateX - translateX) * 0.2;
-  translateY += (targetTranslateY - translateY) * 0.2;
+  scale += (targetScale - scale) * 0.15;
+  translateX += (targetTranslateX - translateX) * 0.15;
+  translateY += (targetTranslateY - translateY) * 0.15;
   timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
   requestAnimationFrame(animate);
 }
 animate();
 
-// Start mit Ansicht Moderne
+// Start mit Ansicht Moderne (Seite 13)
 window.onload = () => {
   setView(13);
   document.body.style.opacity = "1";
 };
 
-// Fading zwischen Seiten
+// Sanftes Ausblenden bei Navigation
 document.querySelectorAll('a, button').forEach(el => {
   el.addEventListener('click', e => {
     const target = el.getAttribute('href') || el.getAttribute('onclick');
