@@ -106,7 +106,7 @@ footer button:hover { background-color: #005a94; }
 </head>
 <body>
 
-<!-- ✅ Reiterleiste identisch zur Index-Seite -->
+<!-- ✅ Reiterleiste (neu, identisch mit Index) -->
 <nav>
   <a href="index.html">🏠 Startseite</a>
   <a href="timeline.html">📜 Timeline / Zeitstrahl</a>
@@ -154,6 +154,7 @@ footer button:hover { background-color: #005a94; }
   <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über Paypal</button>
 </footer>
 
+<!-- ✅ Dein Original-Skript (unverändert) -->
 <script>
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
@@ -190,7 +191,7 @@ document.addEventListener('mousemove', e => {
 // Prevent default ghost image
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// Wheel Zoom (NICHT verändert)
+// Wheel Zoom (unverändert)
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
   const rect = timeline.getBoundingClientRect();
