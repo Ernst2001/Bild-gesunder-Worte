@@ -12,8 +12,8 @@ body {
   color: #fff;
   overflow-x: hidden;
   text-align: center;
-  font-size: 17px; /* +1 größer */
-  text-shadow: 1px 1px 2px #003366; /* dezenter blauer Schatten */
+  font-size: 18px; /* nochmal +1 */
+  text-shadow: 1px 1px 3px #00264d;
 }
 
 /* Navigation */
@@ -22,11 +22,11 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 0;
+  padding: 12px 0;
   position: sticky;
   top: 0;
   z-index: 10;
-  font-size: 17px;
+  font-size: 18px;
 }
 
 nav a {
@@ -47,12 +47,12 @@ header {
 
 header h1 {
   margin: 0;
-  font-size: 2.1em;
+  font-size: 2.2em;
 }
 
 header p {
   margin-top: 10px;
-  font-size: 1.15em;
+  font-size: 1.2em;
   color: #f0f0f0;
 }
 
@@ -90,12 +90,12 @@ header p {
   background-color: #0070ba;
   color: #fff;
   border: none;
-  padding: 10px 25px;
+  padding: 12px 28px;
   margin: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  text-shadow: 1px 1px 2px #003366;
+  font-size: 17px;
+  text-shadow: 1px 1px 2px #00264d;
 }
 
 #controls button:hover {
@@ -106,7 +106,7 @@ footer {
   padding: 25px;
   text-align: center;
   background: rgba(0,0,0,0.3);
-  font-size: 16px;
+  font-size: 17px;
 }
 
 footer a, footer button {
@@ -121,7 +121,8 @@ footer button {
   padding: 10px 25px;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 17px;
+  text-shadow: 1px 1px 2px #00264d;
 }
 
 footer button:hover {
@@ -186,12 +187,12 @@ let translateX = 0, translateY = 0;
 let targetTranslateX = 0, targetTranslateY = 0;
 let scale = 1, targetScale = 1;
 
-// Standard-Zoomgeschwindigkeit
-const zoomSensitivity = 0.0007; // feiner Zoom
+// Feineres Zoomverhalten
+const zoomSensitivity = 0.0004; // extrem fein
 
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// Drag-Bewegung
+// Drag
 wrapper.addEventListener('mousedown', (e) => {
   isDragging = true;
   startX = e.clientX - targetTranslateX;
@@ -211,22 +212,28 @@ document.addEventListener('mousemove', (e) => {
   applyBounds();
 });
 
-// Zoom per Mausrad (fein & Mausposition als Fokuspunkt)
+// Zoom mit Mauszeiger-Fokus (präzise)
 wrapper.addEventListener('wheel', (e) => {
   e.preventDefault();
+
   const rect = timeline.getBoundingClientRect();
-  const offsetX = e.clientX - rect.left;
-  const offsetY = e.clientY - rect.top;
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
+
   const zoomFactor = 1 - e.deltaY * zoomSensitivity;
   const newScale = Math.min(Math.max(0.2, targetScale * zoomFactor), 8);
 
-  // Zoom auf Mauszeiger fokussieren
-  targetTranslateX -= (offsetX / scale - offsetX / newScale);
-  targetTranslateY -= (offsetY / scale - offsetY / newScale);
+  const worldX = (mouseX - targetTranslateX) / targetScale;
+  const worldY = (mouseY - targetTranslateY) / targetScale;
+
+  targetTranslateX = mouseX - worldX * newScale;
+  targetTranslateY = mouseY - worldY * newScale;
   targetScale = newScale;
+
   applyBounds();
 });
 
+// Grenzen
 function applyBounds() {
   const bounds = {
     width: timeline.scrollWidth * targetScale,
@@ -245,38 +252,43 @@ function applyBounds() {
     targetTranslateY = Math.min(0, Math.max(wrapperRect.height - bounds.height, targetTranslateY));
 }
 
-// Animation (sanftes Nachziehen)
+// Sanftes Bewegen
 function animate() {
-  scale += (targetScale - scale) * 0.15;
-  translateX += (targetTranslateX - translateX) * 0.15;
-  translateY += (targetTranslateY - translateY) * 0.15;
+  scale += (targetScale - scale) * 0.12;
+  translateX += (targetTranslateX - translateX) * 0.12;
+  translateY += (targetTranslateY - translateY) * 0.12;
   timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
   requestAnimationFrame(animate);
 }
 animate();
 
-// Ansicht: Anfang
+// Ansicht Anfang
 function resetToStart() {
-  resetView(0); // Blatt 1
+  resetView(0, 0.85); // Blatt 1, leicht herausgezoomt
 }
 
-// Ansicht: Moderne
+// Ansicht Moderne
 function resetToModern() {
-  resetView(14); // Blatt 15
+  resetView(14, 0.85); // Blatt 15, leicht herausgezoomt
 }
 
-// Positioniere bestimmte Seite
-function resetView(index) {
-  targetScale = 1;
+// Zentrieren und Zoom definieren
+function resetView(index, zoomLevel) {
+  targetScale = zoomLevel;
   const wrapperRect = wrapper.getBoundingClientRect();
   const targetImg = timeline.children[index];
   const imgRect = targetImg.getBoundingClientRect();
-  targetTranslateX = wrapperRect.width/2 - (imgRect.left + imgRect.width/2);
-  targetTranslateY = wrapperRect.height/2 - (imgRect.top + imgRect.height/2);
+
+  // Position in der Welt berechnen
+  const worldCenterX = targetImg.offsetLeft + targetImg.offsetWidth / 2;
+  const worldCenterY = targetImg.offsetTop + targetImg.offsetHeight / 2;
+
+  targetTranslateX = wrapperRect.width / 2 - worldCenterX * zoomLevel;
+  targetTranslateY = wrapperRect.height / 2 - worldCenterY * zoomLevel;
   applyBounds();
 }
 
-// Standardmäßig „Moderne“ zeigen
+// Startansicht = Moderne
 window.onload = resetToModern;
 </script>
 
