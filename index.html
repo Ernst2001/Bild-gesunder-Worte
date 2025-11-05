@@ -13,6 +13,8 @@ body {
   text-align: center;
   font-size: 18px;
   text-shadow: 1px 1px 3px #00264d;
+  opacity: 0;
+  transition: opacity 0.8s ease;
 }
 
 /* Navigation */
@@ -73,6 +75,7 @@ button.main-btn {
   cursor: pointer;
   margin-bottom: 50px;
   text-shadow: 1px 1px 2px #00264d;
+  transition: background-color 0.3s;
 }
 
 button.main-btn:hover {
@@ -128,6 +131,7 @@ footer button {
   border-radius: 5px;
   font-size: 17px;
   text-shadow: 1px 1px 2px #00264d;
+  transition: background-color 0.3s;
 }
 
 footer button:hover {
@@ -151,7 +155,7 @@ footer button:hover {
   <h1>Bild gesunder Worte</h1>
   <h2>[Heb 4,12] Denn das Wort Gottes ist lebendig und wirksam und schärfer als jedes zweischneidige Schwert und durchdringend bis zur Scheidung von Seele und Geist, sowohl der Gelenke als auch des Markes, und ein Beurteiler der Gedanken und Überlegungen des Herzens</h2>
   <div class="mission">Beispieltextmission</div>
-  <button class="main-btn" onclick="window.location.href='timeline.html'">Zur Timeline / Zum Zeitstrahl</button>
+  <button class="main-btn" id="timeline-btn">Zur Timeline / Zum Zeitstrahl</button>
 </header>
 
 <div class="section">
@@ -168,6 +172,22 @@ footer button:hover {
   <p>Kontakt: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
   <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über PayPal</button>
 </footer>
+
+<script>
+// Sanftes Einblenden beim Laden
+window.addEventListener('DOMContentLoaded', () => {
+  document.body.style.opacity = '1';
+});
+
+// Sanftes Ausblenden beim Wechsel zur Timeline
+document.getElementById('timeline-btn').addEventListener('click', (e) => {
+  e.preventDefault();
+  document.body.style.opacity = '0';
+  setTimeout(() => {
+    window.location.href = 'timeline.html';
+  }, 600);
+});
+</script>
 
 </body>
 </html>
