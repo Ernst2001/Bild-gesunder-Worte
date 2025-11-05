@@ -33,7 +33,6 @@ nav a {
   text-decoration: none;
   margin: 0 15px;
   font-weight: bold;
-  transition: color 0.3s ease;
 }
 
 nav a:hover { color: #ffd700; }
@@ -106,14 +105,13 @@ footer button:hover { background-color: #005a94; }
 </head>
 <body>
 
-<!-- ✅ Reiterleiste (neu, identisch mit Index) -->
+<!-- Reiterleiste (identisch zu Index-Seite) -->
 <nav>
-  <a href="index.html">🏠 Startseite</a>
-  <a href="timeline.html">📜 Timeline / Zeitstrahl</a>
-  <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">▶️ BgW YouTube</a>
-  <a href="https://www.youtube.com/@LiederBgW" target="_blank">🎵 Lieder YouTube</a>
-  <a href="mailto:bildgesunderworte@gmail.com">📩 Kontakt</a>
-  <a href="https://www.paypal.com/donate" target="_blank">💙 Unterstützen über Paypal</a>
+  <a href="index.html">Startseite</a>
+  <a href="timeline.html">Timeline / Zeitstrahl</a>
+  <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">YouTube</a>
+  <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
+  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über Paypal</a>
 </nav>
 
 <header>
@@ -150,11 +148,13 @@ footer button:hover { background-color: #005a94; }
 
 <footer>
   <p>Bei Fragen oder Anregungen gerne an 
-     <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a> schreiben.</p>
-  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über Paypal</button>
+    <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a> schreiben.
+  </p>
+  <button onclick="window.open('https://www.paypal.com/donate','_blank')">
+    Unterstützen über Paypal
+  </button>
 </footer>
 
-<!-- ✅ Dein Original-Skript (unverändert) -->
 <script>
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
@@ -210,20 +210,18 @@ wrapper.addEventListener('wheel', e => {
   applyBounds();
 });
 
-// Boundaries
+// Boundaries (unverändert)
 function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
 
-  // X-Achse
   if (timelineWidth < wrapperRect.width) {
     targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
   } else {
     targetTranslateX = Math.min(0, Math.max(wrapperRect.width - timelineWidth, targetTranslateX));
   }
 
-  // Y-Achse
   if (timelineHeight < wrapperRect.height) {
     targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
   } else {
@@ -231,7 +229,7 @@ function applyBounds() {
   }
 }
 
-// Tween Animation
+// Tween Animation (unverändert)
 function animate() {
   scale += (targetScale - scale) * 0.15;
   translateX += (targetTranslateX - translateX) * 0.15;
@@ -240,7 +238,7 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-// Ansichtsbuttons
+// Ansichtsbuttons (unverändert)
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
   const img = timeline.children[page - 1];
