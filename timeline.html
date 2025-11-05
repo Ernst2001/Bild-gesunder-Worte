@@ -12,7 +12,7 @@ body {
   color: #fff;
   overflow-x: hidden;
   text-align: center;
-  font-size: 18px;
+  font-size: 18px; /* nochmal +1 */
   text-shadow: 1px 1px 3px #00264d;
 }
 
@@ -36,15 +36,20 @@ nav a {
   font-weight: bold;
   transition: color 0.3s;
 }
-nav a:hover { color: #ffd700; }
+
+nav a:hover {
+  color: #ffd700;
+}
 
 header {
   padding: 25px 20px;
 }
+
 header h1 {
   margin: 0;
   font-size: 2.2em;
 }
+
 header p {
   margin-top: 10px;
   font-size: 1.2em;
@@ -60,12 +65,14 @@ header p {
   margin: 10px 0;
   border: 1px solid rgba(255,255,255,0.3);
 }
+
 #timeline {
   display: flex;
   height: 130%;
   transform-origin: 0 0;
   user-select: none;
 }
+
 #timeline img {
   height: 100%;
   flex-shrink: 0;
@@ -78,6 +85,7 @@ header p {
   text-align: center;
   margin: 15px;
 }
+
 #controls button {
   background-color: #0070ba;
   color: #fff;
@@ -89,6 +97,7 @@ header p {
   font-size: 17px;
   text-shadow: 1px 1px 2px #00264d;
 }
+
 #controls button:hover {
   background-color: #005a94;
 }
@@ -99,11 +108,13 @@ footer {
   background: rgba(0,0,0,0.3);
   font-size: 17px;
 }
+
 footer a, footer button {
   color: #fff;
   text-decoration: none;
   margin: 5px;
 }
+
 footer button {
   background-color: #0070ba;
   border: none;
@@ -113,6 +124,7 @@ footer button {
   font-size: 17px;
   text-shadow: 1px 1px 2px #00264d;
 }
+
 footer button:hover {
   background-color: #005a94;
 }
@@ -125,7 +137,7 @@ footer button:hover {
   <a href="timeline.html">Timeline / Zeitstrahl</a>
   <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">YouTube</a>
   <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
-  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über PayPal</a>
+  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen mit PayPal</a>
 </nav>
 
 <header>
@@ -135,8 +147,6 @@ footer button:hover {
 
 <div id="controls">
   <button onclick="resetToStart()">Ansicht Anfang</button>
-  <button onclick="resetToFlood()">Ansicht Sintflut</button>
-  <button onclick="resetToTurn()">Ansicht Zeitenwende</button>
   <button onclick="resetToModern()">Ansicht Moderne</button>
 </div>
 
@@ -164,7 +174,7 @@ footer button:hover {
 
 <footer>
   <p>Kontakt: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
-  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über PayPal</button>
+  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen mit PayPal</button>
 </footer>
 
 <script>
@@ -177,19 +187,24 @@ let translateX = 0, translateY = 0;
 let targetTranslateX = 0, targetTranslateY = 0;
 let scale = 1, targetScale = 1;
 
-// sehr feiner Zoom
-const zoomSensitivity = 0.0004;
+// Feineres Zoomverhalten
+const zoomSensitivity = 0.0004; // extrem fein
 
-// Drag-Steuerung
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
+// Drag
 wrapper.addEventListener('mousedown', (e) => {
   isDragging = true;
   startX = e.clientX - targetTranslateX;
   startY = e.clientY - targetTranslateY;
   wrapper.style.cursor = 'grabbing';
 });
-document.addEventListener('mouseup', () => { isDragging = false; wrapper.style.cursor = 'grab'; });
+
+document.addEventListener('mouseup', () => {
+  isDragging = false;
+  wrapper.style.cursor = 'grab';
+});
+
 document.addEventListener('mousemove', (e) => {
   if(!isDragging) return;
   targetTranslateX = e.clientX - startX;
@@ -197,21 +212,20 @@ document.addEventListener('mousemove', (e) => {
   applyBounds();
 });
 
-// präziser Zoom um Mauszeiger
+// Zoom mit Mauszeiger-Fokus (präzise)
 wrapper.addEventListener('wheel', (e) => {
   e.preventDefault();
-  const rect = wrapper.getBoundingClientRect();
+
+  const rect = timeline.getBoundingClientRect();
   const mouseX = e.clientX - rect.left;
   const mouseY = e.clientY - rect.top;
 
   const zoomFactor = 1 - e.deltaY * zoomSensitivity;
   const newScale = Math.min(Math.max(0.2, targetScale * zoomFactor), 8);
 
-  // aktuelle Weltposition der Maus (vor Zoom)
   const worldX = (mouseX - targetTranslateX) / targetScale;
   const worldY = (mouseY - targetTranslateY) / targetScale;
 
-  // Nach-Zoom-Position berechnen
   targetTranslateX = mouseX - worldX * newScale;
   targetTranslateY = mouseY - worldY * newScale;
   targetScale = newScale;
@@ -219,7 +233,7 @@ wrapper.addEventListener('wheel', (e) => {
   applyBounds();
 });
 
-// Begrenzungen
+// Grenzen
 function applyBounds() {
   const bounds = {
     width: timeline.scrollWidth * targetScale,
@@ -238,7 +252,7 @@ function applyBounds() {
     targetTranslateY = Math.min(0, Math.max(wrapperRect.height - bounds.height, targetTranslateY));
 }
 
-// sanfte Bewegung
+// Sanftes Bewegen
 function animate() {
   scale += (targetScale - scale) * 0.12;
   translateX += (targetTranslateX - translateX) * 0.12;
@@ -248,29 +262,33 @@ function animate() {
 }
 animate();
 
-// Ansichts-Buttons
-function resetToStart()   { resetView(0, 0.85); }   // Blatt 1
-function resetToFlood()   { resetView(3, 0.85); }   // Blatt 4
-function resetToTurn()    { resetView(8, 0.85); }   // Blatt 9
-function resetToModern()  { resetView(12, 0.85); }  // Blatt 13
+// Ansicht Anfang
+function resetToStart() {
+  resetView(0, 0.85); // Blatt 1, leicht herausgezoomt
+}
 
+// Ansicht Moderne
+function resetToModern() {
+  resetView(14, 0.85); // Blatt 15, leicht herausgezoomt
+}
+
+// Zentrieren und Zoom definieren
 function resetView(index, zoomLevel) {
   targetScale = zoomLevel;
   const wrapperRect = wrapper.getBoundingClientRect();
   const targetImg = timeline.children[index];
-  if(!targetImg) return;
+  const imgRect = targetImg.getBoundingClientRect();
 
-  // Weltkoordinaten des Bildzentrums
+  // Position in der Welt berechnen
   const worldCenterX = targetImg.offsetLeft + targetImg.offsetWidth / 2;
   const worldCenterY = targetImg.offsetTop + targetImg.offsetHeight / 2;
 
   targetTranslateX = wrapperRect.width / 2 - worldCenterX * zoomLevel;
   targetTranslateY = wrapperRect.height / 2 - worldCenterY * zoomLevel;
-
   applyBounds();
 }
 
-// Startansicht = Moderne (Blatt 13)
+// Startansicht = Moderne
 window.onload = resetToModern;
 </script>
 
