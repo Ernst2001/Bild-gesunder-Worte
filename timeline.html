@@ -10,9 +10,9 @@ body {
   font-family: Arial, sans-serif;
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
   color: #fff;
-  overflow: hidden;
-  font-size: 18px; /* von index.html übernommen */
-  text-shadow: 1px 1px 3px #00264d; /* von index.html übernommen */
+  font-size: 18px; /* übernommen vom Index */
+  text-shadow: 1px 1px 3px #00264d; /* übernommen vom Index */
+  text-align: center;
 }
 
 /* Navigation */
@@ -36,11 +36,25 @@ nav a {
   transition: color 0.3s;
 }
 
-nav a:hover { color: #ffd700; }
+nav a:hover {
+  color: #ffd700;
+}
 
-header { text-align: center; padding: 30px; }
-header h1 { margin: 0; font-size: 2.8em; }
-header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; }
+header {
+  text-align: center;
+  padding: 30px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.8em;
+}
+
+header p {
+  margin-top: 10px;
+  font-size: 1.4em;
+  color: #f0f0f0;
+}
 
 #controls {
   text-align: center;
@@ -56,23 +70,27 @@ header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; }
   border-radius: 6px;
   cursor: pointer;
   font-size: 1.1em;
-  text-shadow: 1px 1px 2px #00264d; /* aus index.html */
+  text-shadow: 1px 1px 2px #00264d; /* übernommen vom Index */
   transition: background-color 0.3s;
 }
 
-#controls button:hover { background-color: #005a94; }
+#controls button:hover {
+  background-color: #005a94;
+}
 
 #timeline-wrapper {
   width: 100%;
-  height: 80vh;
-  overflow: hidden;
+  height: 91vh;
+  overflow: hidden; /* nur innerhalb des Wrappers */
   position: relative;
   cursor: grab;
+  margin: 20px 0;
   border: 1px solid rgba(255,255,255,0.2);
 }
 
 #timeline {
   display: flex;
+  height: 130%;
   transform-origin: 0 0;
   user-select: none;
 }
@@ -90,7 +108,7 @@ footer {
   padding: 20px;
   text-align: center;
   background: rgba(0,0,0,0.3);
-  font-size: 17px;
+  font-size: 17px; /* übernommen vom Index */
 }
 
 footer a, footer button {
@@ -105,12 +123,14 @@ footer button {
   padding: 10px 25px;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 17px;
-  text-shadow: 1px 1px 2px #00264d; /* von index.html übernommen */
+  font-size: 17px; /* übernommen vom Index */
+  text-shadow: 1px 1px 2px #00264d; /* übernommen vom Index */
   transition: background-color 0.3s;
 }
 
-footer button:hover { background-color: #005a94; }
+footer button:hover {
+  background-color: #005a94;
+}
 </style>
 </head>
 <body>
@@ -164,12 +184,13 @@ footer button:hover { background-color: #005a94; }
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
 
-let scale = 0.7;
+let scale = 0.7;       // Start-Zoom
 let targetScale = 0.7;
 let translateX = 0;
 let translateY = 0;
 let targetTranslateX = 0;
 let targetTranslateY = 0;
+
 let isDragging = false;
 let startX, startY;
 
@@ -190,9 +211,10 @@ document.addEventListener('mousemove', e => {
   if (!isDragging) return;
   targetTranslateX = e.clientX - startX;
   targetTranslateY = e.clientY - startY;
+  applyBounds();
 });
 
-// Prevent default image drag
+// Prevent default ghost image
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
 // Wheel Zoom (um Mausposition)
@@ -205,32 +227,32 @@ wrapper.addEventListener('wheel', e => {
   const zoomFactor = 1 - e.deltaY * 0.0015;
   const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 4);
 
-  // Mausposition berücksichtigen
   targetTranslateX = mouseX - ((mouseX - targetTranslateX) / targetScale) * newScale;
   targetTranslateY = mouseY - ((mouseY - targetTranslateY) / targetScale) * newScale;
 
   targetScale = newScale;
+
   applyBounds();
 });
 
-// Begrenzungen
+// Begrenzungen innerhalb des Wrappers
 function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
 
-  // Horizontale Begrenzung
-  if (timelineWidth < wrapperRect.width) {
-    targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
-  } else {
+  // Horizontal
+  if (timelineWidth > wrapperRect.width) {
     targetTranslateX = Math.min(0, Math.max(wrapperRect.width - timelineWidth, targetTranslateX));
+  } else {
+    targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
   }
 
-  // Vertikale Begrenzung
-  if (timelineHeight < wrapperRect.height) {
-    targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
-  } else {
+  // Vertical
+  if (timelineHeight > wrapperRect.height) {
     targetTranslateY = Math.min(0, Math.max(wrapperRect.height - timelineHeight, targetTranslateY));
+  } else {
+    targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
   }
 }
 
@@ -249,7 +271,7 @@ function setView(page) {
   const img = timeline.children[page - 1];
   const imgRect = img.getBoundingClientRect();
 
-  targetScale = 0.7;
+  targetScale = 0.7; // Start Zoom
   targetTranslateX = wrapperRect.width / 2 - (imgRect.left + imgRect.width / 2);
   targetTranslateY = wrapperRect.height / 2 - (imgRect.top + imgRect.height / 2);
 
@@ -257,6 +279,8 @@ function setView(page) {
 }
 
 animate();
+
+// Startansicht Moderne (Seite 13)
 window.onload = () => setView(13);
 </script>
 
