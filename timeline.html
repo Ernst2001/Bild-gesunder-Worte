@@ -11,9 +11,8 @@ body {
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
   color: #fff;
   overflow-x: hidden;
-  text-align: center;
-  font-size: 19px; /* +1 vergrößert */
-  text-shadow: 2px 2px 4px #001a33; /* dunklerer Schatten */
+  font-size: 19px; /* Schrift +1 */
+  text-shadow: 2px 2px 5px #001a33; /* dunklerer Schatten */
 }
 
 /* Navigation */
@@ -26,7 +25,7 @@ nav {
   position: sticky;
   top: 0;
   z-index: 10;
-  font-size: 19px; /* +1 */
+  font-size: 19px;
 }
 
 nav a {
@@ -39,10 +38,12 @@ nav a {
 nav a:hover { color: #ffd700; }
 
 header { text-align: center; padding: 30px; }
-header h1 { margin: 0; font-size: 2.8em; } /* +1 */
-header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; } /* +1 */
+header h1 { margin: 0; font-size: 2.8em; }
+header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; }
 
-#controls { text-align: center; margin: 20px; }
+#controls {
+  text-align: center; margin: 20px;
+}
 #controls button {
   background-color: #0070ba;
   color: #fff;
@@ -51,8 +52,8 @@ header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; } /* +1 */
   margin: 5px;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 1.1em; /* +1 */
-  text-shadow: 1px 1px 3px #001a33; /* dunklerer Schatten */
+  font-size: 1.1em;
+  text-shadow: 1px 1px 3px #001a33;
 }
 #controls button:hover { background-color: #005a94; }
 
@@ -78,13 +79,15 @@ header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; } /* +1 */
   display: block;
   flex-shrink: 0;
   object-fit: cover;
+  -webkit-user-drag: none;
+  user-drag: none;
 }
 
 footer {
   padding: 20px;
   text-align: center;
   background: rgba(0,0,0,0.3);
-  font-size: 18px; /* +1 */
+  font-size: 18px;
 }
 
 footer a, footer button { color: #fff; text-decoration: none; margin: 5px; }
@@ -94,8 +97,8 @@ footer button {
   padding: 10px 25px;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 18px; /* +1 */
-  text-shadow: 1px 1px 3px #001a33; /* dunkler Schatten */
+  font-size: 18px;
+  text-shadow: 1px 1px 3px #001a33;
 }
 footer button:hover { background-color: #005a94; }
 </style>
@@ -151,12 +154,12 @@ footer button:hover { background-color: #005a94; }
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
 
-let targetScale = 0.7;  // etwas weiter raus
-let targetTranslateX = 0;
-let targetTranslateY = 0;
-let scale = targetScale;
+let scale = 0.7;       // Start-Zoom
+let targetScale = 0.7;
 let translateX = 0;
 let translateY = 0;
+let targetTranslateX = 0;
+let targetTranslateY = 0;
 
 let isDragging = false;
 let startX, startY;
@@ -180,7 +183,10 @@ document.addEventListener('mousemove', e => {
   targetTranslateY = e.clientY - startY;
 });
 
-// Feiner Mausrad-Zoom um Mausposition
+// Prevent default ghost image
+timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
+
+// Wheel Zoom
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
   const rect = timeline.getBoundingClientRect();
@@ -190,12 +196,44 @@ wrapper.addEventListener('wheel', e => {
   const zoomFactor = 1 - e.deltaY * 0.0005; // sehr fein
   const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 4);
 
-  // Zoom um Mausposition
-  targetTranslateX += (offsetX / targetScale - offsetX / newScale);
-  targetTranslateY += (offsetY / targetScale - offsetY / newScale);
+  // Zoom entgegen der Mausbewegung
+  targetTranslateX -= (offsetX / targetScale - offsetX / newScale);
+  targetTranslateY -= (offsetY / targetScale - offsetY / newScale);
 
   targetScale = newScale;
+
+  applyBounds();
 });
+
+// Boundaries
+function applyBounds() {
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const timelineWidth = timeline.scrollWidth * targetScale;
+  const timelineHeight = timeline.scrollHeight * targetScale;
+
+  // X-Achse
+  if (timelineWidth < wrapperRect.width) {
+    targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
+  } else {
+    targetTranslateX = Math.min(0, Math.max(wrapperRect.width - timelineWidth, targetTranslateX));
+  }
+
+  // Y-Achse
+  if (timelineHeight < wrapperRect.height) {
+    targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
+  } else {
+    targetTranslateY = Math.min(0, Math.max(wrapperRect.height - timelineHeight, targetTranslateY));
+  }
+}
+
+// Tween Animation
+function animate() {
+  scale += (targetScale - scale) * 0.15;
+  translateX += (targetTranslateX - translateX) * 0.15;
+  translateY += (targetTranslateY - translateY) * 0.15;
+  timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  requestAnimationFrame(animate);
+}
 
 // Ansichtsbuttons
 function setView(page) {
@@ -203,18 +241,11 @@ function setView(page) {
   const img = timeline.children[page - 1];
   const imgRect = img.getBoundingClientRect();
 
-  targetScale = 0.7; // etwas weiter raus
+  targetScale = 0.7; // Start etwas weiter raus
   targetTranslateX = wrapperRect.width / 2 - (imgRect.left + imgRect.width / 2);
   targetTranslateY = wrapperRect.height / 2 - (imgRect.top + imgRect.height / 2);
-}
 
-// Tween-Animation
-function animate() {
-  scale += (targetScale - scale) * 0.15;
-  translateX += (targetTranslateX - translateX) * 0.15;
-  translateY += (targetTranslateY - translateY) * 0.15;
-  timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-  requestAnimationFrame(animate);
+  applyBounds();
 }
 
 animate();
