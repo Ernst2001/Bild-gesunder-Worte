@@ -14,6 +14,8 @@ body {
   text-align: center;
   font-size: 18px;
   text-shadow: 1px 1px 3px #00264d;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
 }
 
 /* Navigation */
@@ -183,6 +185,7 @@ footer button:hover {
 </footer>
 
 <script>
+// Timeline Logik
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
 
@@ -193,35 +196,18 @@ let scale = targetScale;
 let translateX = 0;
 let translateY = 0;
 
-// Maus Drag
-let isDragging = false;
-let startX, startY;
-wrapper.addEventListener('mousedown', e => {
-  isDragging = true;
-  startX = e.clientX - targetTranslateX;
-  startY = e.clientY - targetTranslateY;
-  wrapper.style.cursor = 'grabbing';
-});
-document.addEventListener('mouseup', () => {
-  isDragging = false;
-  wrapper.style.cursor = 'grab';
-});
-document.addEventListener('mousemove', e => {
-  if (!isDragging) return;
-  targetTranslateX = e.clientX - startX;
-  targetTranslateY = e.clientY - startY;
-});
-
-// Feiner Zoom mit Mausrad + korrekte Mausposition
+// Zoom mit Mausrad (feinfühlig)
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
   const zoomFactor = 1 - e.deltaY * 0.0007;
   const rect = timeline.getBoundingClientRect();
   const offsetX = e.clientX - rect.left;
   const offsetY = e.clientY - rect.top;
+
   const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 4);
   const dx = (offsetX / targetScale - offsetX / newScale);
   const dy = (offsetY / targetScale - offsetY / newScale);
+
   targetTranslateX += dx;
   targetTranslateY += dy;
   targetScale = newScale;
@@ -245,8 +231,30 @@ function animate() {
 }
 animate();
 
-// Startansicht Moderne (Seite 13)
-window.onload = () => setView(13);
+// Start mit Ansicht Moderne (Seite 13)
+window.onload = () => {
+  setView(13);
+  document.body.style.opacity = "1";
+};
+
+// Sanftes Ausblenden bei Navigation
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('click', e => {
+    const target = el.getAttribute('href') || el.getAttribute('onclick');
+    if (!target || target.startsWith('#') || target.includes('javascript')) return;
+
+    e.preventDefault();
+    document.body.style.opacity = '0';
+    setTimeout(() => {
+      if (el.target === '_blank') {
+        window.open(target, '_blank');
+        document.body.style.opacity = '1';
+      } else {
+        window.location.href = target;
+      }
+    }, 400);
+  });
+});
 </script>
 
 </body>
