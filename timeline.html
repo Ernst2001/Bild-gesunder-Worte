@@ -180,7 +180,7 @@ document.addEventListener('mousemove', e => {
   if (!isDragging) return;
   targetTranslateX = e.clientX - startX;
   targetTranslateY = e.clientY - startY;
-  applyBounds(); // <-- verhindert, dass man über die Ränder hinauszieht
+  applyBounds();
 });
 
 // Prevent ghost image
@@ -192,42 +192,29 @@ wrapper.addEventListener('wheel', e => {
   const rect = timeline.getBoundingClientRect();
   const offsetX = e.clientX - rect.left;
   const offsetY = e.clientY - rect.top;
-
   const zoomFactor = 1 - e.deltaY * 0.0005;
   const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 4);
-
   targetTranslateX -= (offsetX / targetScale - offsetX / newScale);
   targetTranslateY -= (offsetY / targetScale - offsetY / newScale);
-
   targetScale = newScale;
-
   applyBounds();
 });
 
-// BOUNDS
+// Bounds + extra Rand (~2cm)
 function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
-
-  // Dynamischer sichtbarer Rand
   const visibleFractionX = 0.05;
   const visibleFractionY = 0.05;
-
   const visibleMarginX = wrapperRect.width * visibleFractionX;
   const visibleMarginY = wrapperRect.height * visibleFractionY;
+  const extraMargin = 80; // ca. 2cm
 
-  // NEU: Zusätzlicher „Extra-Rand“, um etwas mehr vom ersten/letzten Bild zu zeigen
-  const extraMargin = 120; // ca. 2 cm, kannst du auf 50–100 anpassen
-
-  // Links (maxX): etwas mehr nach rechts schieben erlaubt
-  // Rechts (minX): etwas mehr nach links schieben erlaubt
   const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
   const maxX = 0 - visibleMarginX + extraMargin;
-
   targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
 
-  // Vertikale Begrenzung bleibt gleich
   if (timelineHeight < wrapperRect.height) {
     targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
   } else {
@@ -246,23 +233,18 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-// Ansichtsbuttons
+// Ansicht-Buttons
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
   const img = timeline.children[page - 1];
-  const imgRect = img.getBoundingClientRect();
-
   targetScale = 0.7;
   targetTranslateX = wrapperRect.width / 2 - (img.offsetLeft + img.offsetWidth / 2);
   targetTranslateY = wrapperRect.height / 2 - (img.offsetTop + img.offsetHeight / 2);
-
-  applyBounds(); // nur innerhalb der Grenzen
+  applyBounds();
 }
 
 animate();
-
-// Startansicht Moderne (Seite 13)
-window.onload = () => setView(13);
+window.onload = () => setView(13); // Startansicht Moderne
 </script>
 
 </body>
