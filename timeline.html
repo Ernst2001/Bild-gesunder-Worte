@@ -58,9 +58,10 @@ footer button:hover { background-color:#005a94;}
 <script>
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
-const totalPages = 17;
-const startView = 13;
-const extraMargin = 80;
+
+const totalPages = 17; // Anzahl Bilder
+const startView = 13;  // Startansicht (Seite Moderne)
+const extraMargin = 80; // Rand
 
 // Bilder erzeugen
 for (let i = 1; i <= totalPages; i++) {
@@ -91,7 +92,7 @@ document.addEventListener('mousemove', e => {
   applyBounds();
 });
 
-// Prevent ghost image
+// Ghost Image verhindern
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
 // Wheel Zoom mit Mausfokus
@@ -103,7 +104,7 @@ wrapper.addEventListener('wheel', e => {
 
   const maxDelta = 0.05;
   const delta = Math.max(-maxDelta, Math.min(maxDelta, -e.deltaY/100));
-  const newScale = Math.min(Math.max(0.3, targetScale*(1+delta)),5);
+  const newScale = Math.min(Math.max(0.3, targetScale*(1+delta)), 5);
 
   const mouseRatioX = (offsetX - targetTranslateX) / (timeline.scrollWidth * targetScale);
   const mouseRatioY = (offsetY - targetTranslateY) / (timeline.scrollHeight * targetScale);
@@ -120,10 +121,8 @@ function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
-  const visibleMarginX = wrapperRect.width * 0.05;
-  const visibleMarginY = wrapperRect.height * 0.05;
 
-  // Horizontal
+  // horizontal
   if (timelineWidth <= wrapperRect.width) {
     targetTranslateX = (wrapperRect.width - timelineWidth)/2;
   } else {
@@ -132,12 +131,12 @@ function applyBounds() {
     targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
   }
 
-  // Vertical
+  // vertical
   if (timelineHeight <= wrapperRect.height) {
     targetTranslateY = (wrapperRect.height - timelineHeight)/2;
   } else {
-    const minY = wrapperRect.height - timelineHeight + visibleMarginY;
-    const maxY = visibleMarginY;
+    const minY = wrapperRect.height - timelineHeight + 5;
+    const maxY = 5;
     targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
   }
 }
@@ -154,17 +153,16 @@ function animate() {
 // Ansicht Buttons – Snap auf Bildmitte
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
+  page = Math.max(1, Math.min(page, timeline.children.length)); // Sicherheitscheck
   const img = timeline.children[page - 1];
   targetScale = 0.7;
 
   const imgCenterX = img.offsetLeft + img.offsetWidth/2;
   const imgCenterY = img.offsetTop + img.offsetHeight/2;
 
-  // Ziel-Translation so, dass Bild mittig landet
   let desiredX = wrapperRect.width/2 - imgCenterX;
   let desiredY = wrapperRect.height/2 - imgCenterY;
 
-  // Maximaler/minimaler Offset, um Grenzen zu wahren
   const timelineWidth = timeline.scrollWidth * targetScale;
   const minX = wrapperRect.width - timelineWidth - extraMargin;
   const maxX = extraMargin;
