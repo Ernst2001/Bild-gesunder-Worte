@@ -177,7 +177,7 @@ minimapWrapper.style.overflow = 'hidden';
 minimapWrapper.style.border = '1px solid rgba(255,255,255,0.4)';
 minimapWrapper.style.background = 'rgba(0,0,0,0.3)';
 minimapWrapper.style.borderRadius = '6px';
-minimapWrapper.style.pointerEvents = 'none';
+minimapWrapper.style.cursor = 'pointer'; // Klick erlaubt
 minimapWrapper.style.zIndex = '20';
 
 // Inhalt
@@ -215,6 +215,20 @@ for (let i = 1; i <= totalPages; i++) {
   mini.style.opacity = '0.7';
   minimap.appendChild(mini);
 }
+
+// Klick auf Minimap -> springen
+minimapWrapper.addEventListener('click', e => {
+  const rect = minimapWrapper.getBoundingClientRect();
+  const clickX = e.clientX - rect.left;
+  const ratio = clickX / rect.width;
+
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const timelineWidth = timeline.scrollWidth * targetScale;
+  const newTranslateX = -ratio * (timelineWidth - wrapperRect.width);
+
+  targetTranslateX = newTranslateX;
+  applyBounds();
+});
 
 // Update-Funktion
 function updateMinimap() {
