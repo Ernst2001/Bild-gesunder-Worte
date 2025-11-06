@@ -41,9 +41,9 @@ footer button:hover { background-color:#005a94;}
 
 <div id="controls">
   <button data-page="1">Ansicht Anfang</button>
-<button data-page="3">Ansicht Sintflut</button> <!-- statt 5 -->
-<button data-page="7">Ansicht Zeitenwende</button> <!-- statt 9 -->
-<button data-page="9">Ansicht Moderne</button> <!-- statt 13 -->
+  <button data-page="5">Ansicht Sintflut</button>
+  <button data-page="9">Ansicht Zeitenwende</button>
+  <button data-page="13">Ansicht Moderne</button>
 </div>
 
 <div id="timeline-wrapper">
@@ -101,11 +101,10 @@ wrapper.addEventListener('wheel', e => {
   const offsetX = e.clientX - wrapperRect.left;
   const offsetY = e.clientY - wrapperRect.top;
 
-  const maxDelta = 0.05; // max 5% Zoom pro Event
+  const maxDelta = 0.05;
   const delta = Math.max(-maxDelta, Math.min(maxDelta, -e.deltaY/100));
   const newScale = Math.min(Math.max(0.3, targetScale*(1+delta)),5);
 
-  // Mausposition in Timeline relativ zum Inhalt
   const mouseRatioX = (offsetX - targetTranslateX) / (timeline.scrollWidth * targetScale);
   const mouseRatioY = (offsetY - targetTranslateY) / (timeline.scrollHeight * targetScale);
 
@@ -150,16 +149,26 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-// Ansicht Buttons
+// Dynamische Ansicht Buttons
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
   const img = timeline.children[page - 1];
   targetScale = 0.7;
-  targetTranslateX = wrapperRect.width/2 - (img.offsetLeft + img.offsetWidth/2);
+
+  let desiredX = wrapperRect.width/2 - (img.offsetLeft + img.offsetWidth/2);
+
+  // Korrektur: Grenzen berücksichtigen (Extra-Rand)
+  const timelineWidth = timeline.scrollWidth * targetScale;
+  const minX = wrapperRect.width - timelineWidth + wrapperRect.width*0.05 - extraMargin;
+  const maxX = 0 - wrapperRect.width*0.05 + extraMargin;
+  desiredX = Math.min(maxX, Math.max(minX, desiredX));
+
+  targetTranslateX = desiredX;
   targetTranslateY = wrapperRect.height/2 - (img.offsetTop + img.offsetHeight/2);
   applyBounds();
 }
 
+// Buttons
 document.querySelectorAll('#controls button').forEach(btn => {
   btn.addEventListener('click', () => setView(parseInt(btn.dataset.page)));
 });
