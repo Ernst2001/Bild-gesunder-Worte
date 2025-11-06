@@ -203,27 +203,27 @@ wrapper.addEventListener('wheel', e => {
 });
 
 // BOUNDS
-// Dynamische Bounds: z.B. 5% der Wrapper-Breite als sichtbarer Rand
 function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
 
-  // Sichtbarer Rand als Anteil der Wrapper-Breite / -Höhe (anpassbar)
-  const visibleFractionX = 0.05; // 5% des Wrapper-Breits; ändere auf 0.03 / 0.08 etc.
-  const visibleFractionY = 0.05; // 5% der Wrapper-Höhe
+  // Dynamischer sichtbarer Rand (z. B. 5 % der Wrapper-Breite)
+  const visibleFractionX = 0.05;
+  const visibleFractionY = 0.05;
 
   const visibleMarginX = wrapperRect.width * visibleFractionX;
   const visibleMarginY = wrapperRect.height * visibleFractionY;
 
-  // Horizontale Grenzen: dafür sorgen, dass immer ein Stück (visibleMarginX) vom ersten/letzten Bild sichtbar bleibt
-  const minX = wrapperRect.width - timelineWidth + visibleMarginX; // linke Grenze (negativ oder 0)
-  const maxX = visibleMarginX; // rechte Grenze (leicht positiv erlaubt)
+  // maxX ist jetzt 0 (kein übermäßiger linker Rand),
+  // minX lässt rechts immer einen sichtbaren Teil frei.
+  const minX = wrapperRect.width - timelineWidth + visibleMarginX; // rechte Grenze
+  const maxX = 0 - visibleMarginX; // linke Grenze (leicht ins Bild hinein erlaubt)
+
   targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
 
-  // Vertikale Grenzen: zentrieren wenn kleiner, sonst mit sichtbarem Rand beschränken
+  // Vertikale Begrenzung bleibt gleich
   if (timelineHeight < wrapperRect.height) {
-    // zentrieren innerhalb des Wrappers (vertical middle)
     targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
   } else {
     const minY = wrapperRect.height - timelineHeight + visibleMarginY;
