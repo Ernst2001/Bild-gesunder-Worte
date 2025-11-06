@@ -149,16 +149,18 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-// Dynamische Ansicht Buttons – Bild links mit Extra-Rand
+// Ansicht Buttons – Dynamisch je Bildbreite
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
   const img = timeline.children[page - 1];
   targetScale = 0.7;
 
-  // Linke Seite des Bildes als Ziel, plus kleiner Extra-Rand
-  const desiredX = -img.offsetLeft + 20; // 20px sichtbar links
+  // Dynamische Breite berücksichtigen – linke Kante + extra Margin
+  const desiredX = -img.offsetLeft + 20;
+  const desiredY = wrapperRect.height/2 - (img.offsetTop + img.offsetHeight/2);
+
   targetTranslateX = desiredX;
-  targetTranslateY = wrapperRect.height/2 - (img.offsetTop + img.offsetHeight/2);
+  targetTranslateY = desiredY;
 
   applyBounds();
 }
