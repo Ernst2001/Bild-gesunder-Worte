@@ -210,17 +210,20 @@ function applyBounds() {
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
 
-  // Dynamischer sichtbarer Rand (z. B. 5 % der Wrapper-Breite)
+  // Dynamischer sichtbarer Rand
   const visibleFractionX = 0.05;
   const visibleFractionY = 0.05;
 
   const visibleMarginX = wrapperRect.width * visibleFractionX;
   const visibleMarginY = wrapperRect.height * visibleFractionY;
 
-  // maxX ist jetzt 0 (kein übermäßiger linker Rand),
-  // minX lässt rechts immer einen sichtbaren Teil frei.
-  const minX = wrapperRect.width - timelineWidth + visibleMarginX; // rechte Grenze
-  const maxX = 0 - visibleMarginX; // linke Grenze (leicht ins Bild hinein erlaubt)
+  // NEU: Zusätzlicher „Extra-Rand“, um etwas mehr vom ersten/letzten Bild zu zeigen
+  const extraMargin = 80; // ca. 2 cm, kannst du auf 50–100 anpassen
+
+  // Links (maxX): etwas mehr nach rechts schieben erlaubt
+  // Rechts (minX): etwas mehr nach links schieben erlaubt
+  const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
+  const maxX = 0 - visibleMarginX + extraMargin;
 
   targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
 
