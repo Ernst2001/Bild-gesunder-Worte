@@ -200,22 +200,23 @@ timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 // Wheel Zoom (auf Mauszeiger)
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
+
   const rect = timeline.getBoundingClientRect();
   const offsetX = e.clientX - rect.left;
   const offsetY = e.clientY - rect.top;
 
   const zoomFactor = 1 - e.deltaY * 0.0005;
-  let newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 5); // bis 500%
+  let newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 5);
 
-  // Berechne Verschiebung relativ zum Mauszeiger
-  const dx = offsetX / targetScale - offsetX / newScale;
-  const dy = offsetY / targetScale - offsetY / newScale;
+  // Mausfokus-Berechnung
+  const dx = (offsetX - translateX) / targetScale * (newScale - targetScale);
+  const dy = (offsetY - translateY) / targetScale * (newScale - targetScale);
 
   targetTranslateX -= dx;
   targetTranslateY -= dy;
   targetScale = newScale;
 
-  // Bounds: nur anwenden, wenn Timeline breiter/hoher als Wrapper
+  // Bounds nur anwenden, wenn Timeline kleiner als Wrapper
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
@@ -224,13 +225,17 @@ wrapper.addEventListener('wheel', e => {
   const visibleMarginY = wrapperRect.height * 0.05;
   const extraMargin = 80;
 
-  if (timelineWidth > wrapperRect.width) {
+  if (timelineWidth <= wrapperRect.width) {
+    targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
+  } else {
     const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
     const maxX = 0 - visibleMarginX + extraMargin;
     targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
   }
 
-  if (timelineHeight > wrapperRect.height) {
+  if (timelineHeight <= wrapperRect.height) {
+    targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
+  } else {
     const minY = wrapperRect.height - timelineHeight + visibleMarginY;
     const maxY = visibleMarginY;
     targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
