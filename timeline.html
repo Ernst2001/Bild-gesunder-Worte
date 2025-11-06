@@ -123,14 +123,16 @@ function applyBounds() {
   const visibleMarginX = wrapperRect.width * 0.05;
   const visibleMarginY = wrapperRect.height * 0.05;
 
+  // Horizontal
   if (timelineWidth <= wrapperRect.width) {
     targetTranslateX = (wrapperRect.width - timelineWidth)/2;
   } else {
-    const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
-    const maxX = 0 - visibleMarginX + extraMargin;
+    const minX = wrapperRect.width - timelineWidth - extraMargin;
+    const maxX = extraMargin;
     targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
   }
 
+  // Vertical
   if (timelineHeight <= wrapperRect.height) {
     targetTranslateY = (wrapperRect.height - timelineHeight)/2;
   } else {
@@ -149,20 +151,32 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-// Ansicht Buttons – Dynamisch je Bildbreite
+// Ansicht Buttons – Snap auf Bildmitte
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
   const img = timeline.children[page - 1];
   targetScale = 0.7;
 
-  // Bild mittig im Wrapper
-  const imgCenterX = img.offsetLeft + img.offsetWidth / 2;
-  const imgCenterY = img.offsetTop + img.offsetHeight / 2;
+  const imgCenterX = img.offsetLeft + img.offsetWidth/2;
+  const imgCenterY = img.offsetTop + img.offsetHeight/2;
 
-  targetTranslateX = wrapperRect.width / 2 - imgCenterX;
-  targetTranslateY = wrapperRect.height / 2 - imgCenterY;
+  // Ziel-Translation so, dass Bild mittig landet
+  let desiredX = wrapperRect.width/2 - imgCenterX;
+  let desiredY = wrapperRect.height/2 - imgCenterY;
 
-  applyBounds();
+  // Maximaler/minimaler Offset, um Grenzen zu wahren
+  const timelineWidth = timeline.scrollWidth * targetScale;
+  const minX = wrapperRect.width - timelineWidth - extraMargin;
+  const maxX = extraMargin;
+  desiredX = Math.min(maxX, Math.max(minX, desiredX));
+
+  const timelineHeight = timeline.scrollHeight * targetScale;
+  const minY = wrapperRect.height - timelineHeight + 5;
+  const maxY = 5;
+  desiredY = Math.min(maxY, Math.max(minY, desiredY));
+
+  targetTranslateX = desiredX;
+  targetTranslateY = desiredY;
 }
 
 // Buttons
