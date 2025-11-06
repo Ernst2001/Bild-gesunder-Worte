@@ -94,25 +94,23 @@ document.addEventListener('mousemove', e => {
 // Prevent ghost image
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// Wheel Zoom (dynamisch, Mauszeiger-Zoom)
+// Wheel Zoom (Mauszeiger = Zoomzentrum)
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const offsetX = e.clientX - wrapperRect.left;
+  const offsetY = e.clientY - wrapperRect.top;
 
-  const rect = timeline.getBoundingClientRect();
-  const offsetX = e.clientX - rect.left;
-  const offsetY = e.clientY - rect.top;
-
-  // Dynamische Zoomgeschwindigkeit abhängig vom aktuellen Scale
   const baseZoomSpeed = 0.15;
-  const zoomSpeed = baseZoomSpeed / targetScale; // stärker gezoomt → feiner
-  const delta = e.deltaY / 100; 
+  const zoomSpeed = baseZoomSpeed / targetScale;
+  const delta = e.deltaY / 100;
   const zoomFactor = 1 - delta * zoomSpeed;
 
   const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 5);
 
-  // Mausfokus-Berechnung
-  const mouseXOnTimeline = (offsetX - translateX) / scale;
-  const mouseYOnTimeline = (offsetY - translateY) / scale;
+  // Mausfokus in unskalierten Koordinaten
+  const mouseXOnTimeline = (offsetX - targetTranslateX) / targetScale;
+  const mouseYOnTimeline = (offsetY - targetTranslateY) / targetScale;
 
   targetTranslateX = offsetX - mouseXOnTimeline * newScale;
   targetTranslateY = offsetY - mouseYOnTimeline * newScale;
