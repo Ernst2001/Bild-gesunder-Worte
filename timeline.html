@@ -76,7 +76,7 @@ let translateX = 0, translateY = 0;
 let targetTranslateX = 0, targetTranslateY = 0;
 let isDragging = false, startX, startY;
 
-// Drag Events
+// Drag
 wrapper.addEventListener('mousedown', e => {
   isDragging = true;
   startX = e.clientX - targetTranslateX;
@@ -101,8 +101,11 @@ wrapper.addEventListener('wheel', e => {
   const offsetX = e.clientX - rect.left;
   const offsetY = e.clientY - rect.top;
 
-  // feiner Zoom
-  const zoomFactor = 1 - e.deltaY * 0.0005;
+  // Feines, konsistentes Zoom
+  const zoomSpeed = 0.2; // <--- Empfindlichkeit
+  const delta = e.deltaY / 100; // normalisiert
+  const zoomFactor = 1 - delta * zoomSpeed;
+
   const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 5);
 
   // Mausfokus: Pixel-genau
@@ -116,7 +119,7 @@ wrapper.addEventListener('wheel', e => {
   applyBounds();
 });
 
-// Bounds mit Extra-Rand
+// Bounds
 function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
@@ -124,7 +127,6 @@ function applyBounds() {
   const visibleMarginX = wrapperRect.width * 0.05;
   const visibleMarginY = wrapperRect.height * 0.05;
 
-  // Horizontal
   if (timelineWidth <= wrapperRect.width) {
     targetTranslateX = (wrapperRect.width - timelineWidth)/2;
   } else {
@@ -133,7 +135,6 @@ function applyBounds() {
     targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
   }
 
-  // Vertikal
   if (timelineHeight <= wrapperRect.height) {
     targetTranslateY = (wrapperRect.height - timelineHeight)/2;
   } else {
