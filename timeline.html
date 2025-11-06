@@ -155,12 +155,12 @@ function setView(page) {
   const img = timeline.children[page - 1];
   targetScale = 0.7;
 
-  // Dynamische Breite berücksichtigen – linke Kante + extra Margin
-  const desiredX = -img.offsetLeft + 20;
-  const desiredY = wrapperRect.height/2 - (img.offsetTop + img.offsetHeight/2);
+  // Bild mittig im Wrapper
+  const imgCenterX = img.offsetLeft + img.offsetWidth / 2;
+  const imgCenterY = img.offsetTop + img.offsetHeight / 2;
 
-  targetTranslateX = desiredX;
-  targetTranslateY = desiredY;
+  targetTranslateX = wrapperRect.width / 2 - imgCenterX;
+  targetTranslateY = wrapperRect.height / 2 - imgCenterY;
 
   applyBounds();
 }
