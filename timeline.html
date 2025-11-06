@@ -149,20 +149,14 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-// Dynamische Ansicht Buttons
+// Dynamische Ansicht Buttons – Bild links mit Extra-Rand
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
   const img = timeline.children[page - 1];
   targetScale = 0.7;
 
-  let desiredX = wrapperRect.width/2 - (img.offsetLeft + img.offsetWidth/2);
-
-  // Dynamische Begrenzung: Extra-Rand beachten
-  const timelineWidth = timeline.scrollWidth * targetScale;
-  const minX = wrapperRect.width - timelineWidth + wrapperRect.width*0.05 - extraMargin;
-  const maxX = 0 - wrapperRect.width*0.05 + extraMargin;
-  desiredX = Math.min(maxX, Math.max(minX, desiredX));
-
+  // Linke Seite des Bildes als Ziel, plus kleiner Extra-Rand
+  const desiredX = -img.offsetLeft + 20; // 20px sichtbar links
   targetTranslateX = desiredX;
   targetTranslateY = wrapperRect.height/2 - (img.offsetTop + img.offsetHeight/2);
 
