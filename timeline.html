@@ -3,75 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fakten statt Mythen: Timeline</title>
+<title>Timeline – perfekter Zoom</title>
 <style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
-  color: #fff;
-  overflow-x: hidden;
-  font-size: 19px;
-  text-shadow: 2px 2px 5px #001a33;
+  overflow: hidden;
 }
-
-/* Navigation */
-nav {
-  background: rgba(0,0,0,0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 12px 0;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  font-size: 19px;
-}
-nav a {
-  color: #fff;
-  text-decoration: none;
-  margin: 0 15px;
-  font-weight: bold;
-}
-nav a:hover { color: #ffd700; }
-
-header { text-align: center; padding: 30px; }
-header h1 { margin: 0; font-size: 2.8em; }
-header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; }
-
-#controls {
-  text-align: center; margin: 20px;
-}
-#controls button {
-  background-color: #0070ba;
-  color: #fff;
-  border: none;
-  padding: 12px 22px;
-  margin: 5px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1.1em;
-  text-shadow: 1px 1px 3px #001a33;
-}
-#controls button:hover { background-color: #005a94; }
-
 #timeline-wrapper {
   width: 100%;
-  height: 91vh;
+  height: 100vh;
   overflow: hidden;
   position: relative;
   cursor: grab;
-  margin: 20px 0;
-  border: 1px solid rgba(255,255,255,0.2);
 }
-
 #timeline {
   display: flex;
-  height: 130%;
+  height: 100%;
   transform-origin: 0 0;
   user-select: none;
 }
-
 #timeline img {
   height: 100%;
   display: block;
@@ -80,66 +31,21 @@ header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; }
   -webkit-user-drag: none;
   user-drag: none;
 }
-
-footer {
-  padding: 20px;
-  text-align: center;
-  background: rgba(0,0,0,0.3);
-  font-size: 18px;
-}
-footer a, footer button { color: #fff; text-decoration: none; margin: 5px; }
-footer button {
-  background-color: #0070ba;
-  border: none;
-  padding: 10px 25px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 18px;
-  text-shadow: 1px 1px 3px #001a33;
-}
-footer button:hover { background-color: #005a94; }
 </style>
 </head>
 <body>
-
-<nav>
-  <a href="index.html">Startseite</a>
-  <a href="timeline.html">Timeline / Zeitstrahl</a>
-  <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">YouTube</a>
-  <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
-  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über Paypal</a>
-</nav>
-
-<header>
-  <h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
-  <p>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</p>
-</header>
-
-<div id="controls">
-  <button onclick="setView(1)">Ansicht Anfang</button>
-  <button onclick="setView(5)">Ansicht Sintflut</button>
-  <button onclick="setView(9)">Ansicht Zeitenwende</button>
-  <button onclick="setView(13)">Ansicht Moderne</button>
-</div>
 
 <div id="timeline-wrapper">
   <div id="timeline"></div>
 </div>
 
-<footer>
-  <p>Kontakt: Bei Fragen und Anregungen gerne an: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
-  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über Paypal</button>
-</footer>
-
 <script>
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
+const totalPages = 17;
+const extraMargin = 80;
 
-const totalPages = 17; // Anzahl der Bilder
-const startView = 13;  // Startansicht
-const extraMargin = 80; // sichtbarer Rand
-
-// Dynamisch Bilder laden
+// Bilder dynamisch laden
 for (let i = 1; i <= totalPages; i++) {
   const img = document.createElement('img');
   img.src = `images/Seite${i}.png`;
@@ -147,11 +53,14 @@ for (let i = 1; i <= totalPages; i++) {
   timeline.appendChild(img);
 }
 
-// Zoom + Bewegung
-let scale = 0.7, targetScale = 0.7;
-let translateX = 0, translateY = 0;
-let targetTranslateX = 0, targetTranslateY = 0;
-let isDragging = false, startX, startY;
+let scale = 0.7;
+let targetScale = 0.7;
+let translateX = 0;
+let translateY = 0;
+let targetTranslateX = 0;
+let targetTranslateY = 0;
+let isDragging = false;
+let startX, startY;
 
 // Drag
 wrapper.addEventListener('mousedown', e => {
@@ -160,7 +69,10 @@ wrapper.addEventListener('mousedown', e => {
   startY = e.clientY - targetTranslateY;
   wrapper.style.cursor = 'grabbing';
 });
-document.addEventListener('mouseup', () => { isDragging = false; wrapper.style.cursor = 'grab'; });
+document.addEventListener('mouseup', () => {
+  isDragging = false;
+  wrapper.style.cursor = 'grab';
+});
 document.addEventListener('mousemove', e => {
   if (!isDragging) return;
   targetTranslateX = e.clientX - startX;
@@ -168,53 +80,42 @@ document.addEventListener('mousemove', e => {
   applyBounds();
 });
 
-// --- Google-Maps-ähnlicher Zoom ---
+// Zoom auf Mauszeiger (präzise)
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
-  const rect = wrapper.getBoundingClientRect();
-  const offsetX = e.clientX - rect.left;
-  const offsetY = e.clientY - rect.top;
 
-  const zoomFactor = 1 - e.deltaY * 0.00015; // feinfühlig
+  const rect = wrapper.getBoundingClientRect();
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
+
+  const prevScale = targetScale;
+  const zoomFactor = Math.exp(-e.deltaY * 0.0015); // feiner & natürlich
   const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 5);
 
-  // Mausfokus bleibt exakt fixiert
-  const zoomX = (offsetX - translateX) / targetScale;
-  const zoomY = (offsetY - translateY) / targetScale;
-  targetTranslateX = offsetX - zoomX * newScale;
-  targetTranslateY = offsetY - zoomY * newScale;
+  const dx = (mouseX - targetTranslateX) / prevScale;
+  const dy = (mouseY - targetTranslateY) / prevScale;
+
+  targetTranslateX = mouseX - dx * newScale;
+  targetTranslateY = mouseY - dy * newScale;
   targetScale = newScale;
 
   applyBounds();
 });
 
-// Begrenzung
+// Begrenzungen
 function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
-
-  const visibleMarginX = wrapperRect.width * 0.05;
-  const visibleMarginY = wrapperRect.height * 0.05;
-
-  if (timelineWidth <= wrapperRect.width) {
-    targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
-  } else {
-    const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
-    const maxX = 0 - visibleMarginX + extraMargin;
-    targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
-  }
-
-  if (timelineHeight <= wrapperRect.height) {
-    targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
-  } else {
-    const minY = wrapperRect.height - timelineHeight + visibleMarginY;
-    const maxY = visibleMarginY;
-    targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
-  }
+  const minX = wrapperRect.width - timelineWidth - extraMargin;
+  const maxX = extraMargin;
+  const minY = wrapperRect.height - timelineHeight - extraMargin;
+  const maxY = extraMargin;
+  targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
+  targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
 }
 
-// Sanfte Animation
+// Sanfte Bewegung
 function animate() {
   scale += (targetScale - scale) * 0.15;
   translateX += (targetTranslateX - translateX) * 0.15;
@@ -222,29 +123,7 @@ function animate() {
   timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
   requestAnimationFrame(animate);
 }
-
-// Ansichten – relativ zur Durchschnittsbreite
-function setView(page) {
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const imgs = Array.from(timeline.children);
-  const totalWidth = imgs.reduce((sum, img) => sum + img.offsetWidth, 0);
-  const avgWidth = totalWidth / imgs.length;
-
-  const desiredX = wrapperRect.width / 2 - avgWidth * (page - 0.5);
-  const timelineWidth = timeline.scrollWidth * targetScale;
-  const minX = wrapperRect.width - timelineWidth - extraMargin;
-  const maxX = extraMargin;
-
-  targetTranslateX = Math.min(maxX, Math.max(minX, desiredX));
-  targetTranslateY = 0;
-  targetScale = 0.7;
-
-  applyBounds();
-}
-
 animate();
-window.onload = () => setView(startView);
 </script>
-
 </body>
 </html>
