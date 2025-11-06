@@ -94,32 +94,33 @@ document.addEventListener('mousemove', e => {
 // Prevent ghost image
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// Wheel Zoom (sanft & Mausfokus)
+// Wheel Zoom (Mauszeiger-Zoom, sehr fein)
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
+
   const rect = timeline.getBoundingClientRect();
   const offsetX = e.clientX - rect.left;
   const offsetY = e.clientY - rect.top;
 
-  // Feines, konsistentes Zoom
-  const zoomSpeed = 0.2; // <--- Empfindlichkeit
+  // Zoomempfindlichkeit fein einstellen
+  const zoomSpeed = 0.15;
   const delta = e.deltaY / 100; // normalisiert
   const zoomFactor = 1 - delta * zoomSpeed;
 
   const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 5);
 
-  // Mausfokus: Pixel-genau
-  const dx = (offsetX - targetTranslateX) / targetScale * (newScale - targetScale);
-  const dy = (offsetY - targetTranslateY) / targetScale * (newScale - targetScale);
+  // Mausfokus-Berechnung
+  const mouseXOnTimeline = (offsetX - translateX) / scale;
+  const mouseYOnTimeline = (offsetY - translateY) / scale;
 
-  targetTranslateX -= dx;
-  targetTranslateY -= dy;
+  targetTranslateX = offsetX - mouseXOnTimeline * newScale;
+  targetTranslateY = offsetY - mouseYOnTimeline * newScale;
+
   targetScale = newScale;
-
   applyBounds();
 });
 
-// Bounds
+// Bounds mit Extra-Rand
 function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
@@ -149,7 +150,6 @@ function animate() {
   scale += (targetScale - scale) * 0.15;
   translateX += (targetTranslateX - translateX) * 0.15;
   translateY += (targetTranslateY - translateY) * 0.15;
-
   timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
   requestAnimationFrame(animate);
 }
