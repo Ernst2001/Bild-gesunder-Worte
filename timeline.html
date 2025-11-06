@@ -202,23 +202,32 @@ wrapper.addEventListener('wheel', e => {
 });
 
 // BOUNDS
+// Dynamische Bounds: z.B. 5% der Wrapper-Breite als sichtbarer Rand
 function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
 
-  const visibleMargin = 50; // <- Sichtbarer Rand, anpassen nach Geschmack
+  // Sichtbarer Rand als Anteil der Wrapper-Breite / -Höhe (anpassbar)
+  const visibleFractionX = 0.05; // 5% des Wrapper-Breits; ändere auf 0.03 / 0.08 etc.
+  const visibleFractionY = 0.05; // 5% der Wrapper-Höhe
 
-  // Horizontale Grenzen
-  const minX = wrapperRect.width - timelineWidth + visibleMargin;
-  const maxX = -visibleMargin;
+  const visibleMarginX = wrapperRect.width * visibleFractionX;
+  const visibleMarginY = wrapperRect.height * visibleFractionY;
+
+  // Horizontale Grenzen: dafür sorgen, dass immer ein Stück (visibleMarginX) vom ersten/letzten Bild sichtbar bleibt
+  const minX = wrapperRect.width - timelineWidth + visibleMarginX; // linke Grenze (negativ oder 0)
+  const maxX = visibleMarginX; // rechte Grenze (leicht positiv erlaubt)
   targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
 
-  // Vertikale Grenzen (bleibt gleich)
+  // Vertikale Grenzen: zentrieren wenn kleiner, sonst mit sichtbarem Rand beschränken
   if (timelineHeight < wrapperRect.height) {
+    // zentrieren innerhalb des Wrappers (vertical middle)
     targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
   } else {
-    targetTranslateY = Math.min(0, Math.max(wrapperRect.height - timelineHeight, targetTranslateY));
+    const minY = wrapperRect.height - timelineHeight + visibleMarginY;
+    const maxY = visibleMarginY;
+    targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
   }
 }
 
