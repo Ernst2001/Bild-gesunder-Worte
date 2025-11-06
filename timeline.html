@@ -94,32 +94,29 @@ document.addEventListener('mousemove', e => {
 // Prevent ghost image
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// Wheel Zoom (Mauszeiger = Zoomzentrum)
+// Wheel Zoom mit Mausfokus
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
   const wrapperRect = wrapper.getBoundingClientRect();
   const offsetX = e.clientX - wrapperRect.left;
   const offsetY = e.clientY - wrapperRect.top;
 
-  const baseZoomSpeed = 0.15;
-  const zoomSpeed = baseZoomSpeed / targetScale;
-  const delta = e.deltaY / 100;
-  const zoomFactor = 1 - delta * zoomSpeed;
+  const maxDelta = 0.05; // max 5% Zoom pro Event
+  const delta = Math.max(-maxDelta, Math.min(maxDelta, -e.deltaY/100));
+  const newScale = Math.min(Math.max(0.3, targetScale*(1+delta)),5);
 
-  const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 5);
+  // Mausposition in Timeline relativ zum Inhalt
+  const mouseRatioX = (offsetX - targetTranslateX) / (timeline.scrollWidth * targetScale);
+  const mouseRatioY = (offsetY - targetTranslateY) / (timeline.scrollHeight * targetScale);
 
-  // Mausfokus in unskalierten Koordinaten
-  const mouseXOnTimeline = (offsetX - targetTranslateX) / targetScale;
-  const mouseYOnTimeline = (offsetY - targetTranslateY) / targetScale;
-
-  targetTranslateX = offsetX - mouseXOnTimeline * newScale;
-  targetTranslateY = offsetY - mouseYOnTimeline * newScale;
+  targetTranslateX = offsetX - mouseRatioX * (timeline.scrollWidth * newScale);
+  targetTranslateY = offsetY - mouseRatioY * (timeline.scrollHeight * newScale);
 
   targetScale = newScale;
   applyBounds();
 });
 
-// Bounds mit Extra-Rand
+// Bounds
 function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
