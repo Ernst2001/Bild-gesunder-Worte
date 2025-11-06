@@ -101,10 +101,11 @@ wrapper.addEventListener('wheel', e => {
   const offsetX = e.clientX - wrapperRect.left;
   const offsetY = e.clientY - wrapperRect.top;
 
-  const maxDelta = 0.05;
+  const maxDelta = 0.05; // max 5% Zoom pro Event
   const delta = Math.max(-maxDelta, Math.min(maxDelta, -e.deltaY/100));
   const newScale = Math.min(Math.max(0.3, targetScale*(1+delta)),5);
 
+  // Mausposition in Timeline relativ zum Inhalt
   const mouseRatioX = (offsetX - targetTranslateX) / (timeline.scrollWidth * targetScale);
   const mouseRatioY = (offsetY - targetTranslateY) / (timeline.scrollHeight * targetScale);
 
@@ -123,16 +124,14 @@ function applyBounds() {
   const visibleMarginX = wrapperRect.width * 0.05;
   const visibleMarginY = wrapperRect.height * 0.05;
 
-  // Horizontal
   if (timelineWidth <= wrapperRect.width) {
     targetTranslateX = (wrapperRect.width - timelineWidth)/2;
   } else {
-    const minX = wrapperRect.width - timelineWidth - extraMargin;
-    const maxX = extraMargin;
+    const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
+    const maxX = 0 - visibleMarginX + extraMargin;
     targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
   }
 
-  // Vertical
   if (timelineHeight <= wrapperRect.height) {
     targetTranslateY = (wrapperRect.height - timelineHeight)/2;
   } else {
@@ -151,35 +150,16 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-// Ansicht Buttons – Snap auf Bildmitte
+// Ansicht Buttons
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
   const img = timeline.children[page - 1];
   targetScale = 0.7;
-
-  const imgCenterX = img.offsetLeft + img.offsetWidth/2;
-  const imgCenterY = img.offsetTop + img.offsetHeight/2;
-
-  // Ziel-Translation so, dass Bild mittig landet
-  let desiredX = wrapperRect.width/2 - imgCenterX;
-  let desiredY = wrapperRect.height/2 - imgCenterY;
-
-  // Maximaler/minimaler Offset, um Grenzen zu wahren
-  const timelineWidth = timeline.scrollWidth * targetScale;
-  const minX = wrapperRect.width - timelineWidth - extraMargin;
-  const maxX = extraMargin;
-  desiredX = Math.min(maxX, Math.max(minX, desiredX));
-
-  const timelineHeight = timeline.scrollHeight * targetScale;
-  const minY = wrapperRect.height - timelineHeight + 5;
-  const maxY = 5;
-  desiredY = Math.min(maxY, Math.max(minY, desiredY));
-
-  targetTranslateX = desiredX;
-  targetTranslateY = desiredY;
+  targetTranslateX = wrapperRect.width/2 - (img.offsetLeft + img.offsetWidth/2);
+  targetTranslateY = wrapperRect.height/2 - (img.offsetTop + img.offsetHeight/2);
+  applyBounds();
 }
 
-// Buttons
 document.querySelectorAll('#controls button').forEach(btn => {
   btn.addEventListener('click', () => setView(parseInt(btn.dataset.page)));
 });
