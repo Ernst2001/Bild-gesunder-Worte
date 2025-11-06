@@ -43,7 +43,7 @@ footer button:hover { background-color:#005a94;}
   <button data-page="1">Ansicht Anfang</button>
   <button data-page="5">Ansicht Sintflut</button>
   <button data-page="9">Ansicht Zeitenwende</button>
-  <button data-page="11">Ansicht Moderne</button>
+  <button data-page="13">Ansicht Moderne</button>
 </div>
 
 <div id="timeline-wrapper">
@@ -157,7 +157,7 @@ function setView(page) {
 
   let desiredX = wrapperRect.width/2 - (img.offsetLeft + img.offsetWidth/2);
 
-  // Korrektur: Grenzen berücksichtigen (Extra-Rand)
+  // Dynamische Begrenzung: Extra-Rand beachten
   const timelineWidth = timeline.scrollWidth * targetScale;
   const minX = wrapperRect.width - timelineWidth + wrapperRect.width*0.05 - extraMargin;
   const maxX = 0 - wrapperRect.width*0.05 + extraMargin;
@@ -165,6 +165,7 @@ function setView(page) {
 
   targetTranslateX = desiredX;
   targetTranslateY = wrapperRect.height/2 - (img.offsetTop + img.offsetHeight/2);
+
   applyBounds();
 }
 
