@@ -5,23 +5,98 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fakten statt Mythen: Timeline</title>
 <style>
-body { margin:0; font-family:Arial,sans-serif; background:linear-gradient(120deg,#a2c1d8,#c3d9e8); color:#fff; overflow-x:hidden; font-size:19px; text-shadow:2px 2px 5px #001a33;}
-nav { background: rgba(0,0,0,0.3); display:flex; justify-content:center; align-items:center; padding:12px 0; position:sticky; top:0; z-index:10; font-size:19px;}
-nav a { color:#fff; text-decoration:none; margin:0 15px; font-weight:bold;}
-nav a:hover { color:#ffd700; }
-header { text-align:center; padding:30px;}
-header h1 { margin:0; font-size:2.8em;}
-header p { margin-top:10px; font-size:1.4em; color:#f0f0f0;}
-#controls { text-align:center; margin:20px;}
-#controls button { background-color:#0070ba; color:#fff; border:none; padding:12px 22px; margin:5px; border-radius:6px; cursor:pointer; font-size:1.1em; text-shadow:1px 1px 3px #001a33;}
-#controls button:hover { background-color:#005a94;}
-#timeline-wrapper { width:100%; height:91vh; overflow:hidden; position:relative; cursor:grab; margin:20px 0; border:1px solid rgba(255,255,255,0.2);}
-#timeline { display:flex; flex-wrap:nowrap; height:130%; transform-origin:0 0; user-select:none;}
-#timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none;}
-footer { padding:20px; text-align:center; background: rgba(0,0,0,0.3); font-size:18px;}
-footer a, footer button { color:#fff; text-decoration:none; margin:5px;}
-footer button { background-color:#0070ba; border:none; padding:10px 25px; cursor:pointer; border-radius:5px; font-size:18px; text-shadow:1px 1px 3px #001a33;}
-footer button:hover { background-color:#005a94;}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+  color: #fff;
+  overflow-x: hidden;
+  font-size: 19px;
+  text-shadow: 2px 2px 5px #001a33;
+}
+
+nav {
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  font-size: 19px;
+}
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+}
+nav a:hover { color: #ffd700; }
+
+header { text-align: center; padding: 30px; }
+header h1 { margin: 0; font-size: 2.8em; }
+header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; }
+
+#controls {
+  text-align: center; margin: 20px;
+}
+#controls button {
+  background-color: #0070ba;
+  color: #fff;
+  border: none;
+  padding: 12px 22px;
+  margin: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1em;
+  text-shadow: 1px 1px 3px #001a33;
+}
+#controls button:hover { background-color: #005a94; }
+
+#timeline-wrapper {
+  width: 100%;
+  height: 91vh;
+  overflow: hidden;
+  position: relative;
+  cursor: grab;
+  margin: 20px 0;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+#timeline {
+  display: flex;
+  height: 130%;
+  transform-origin: 0 0;
+  user-select: none;
+}
+
+#timeline img {
+  height: 100%;
+  display: block;
+  flex-shrink: 0;
+  object-fit: cover;
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+footer {
+  padding: 20px;
+  text-align: center;
+  background: rgba(0,0,0,0.3);
+  font-size: 18px;
+}
+footer a, footer button { color: #fff; text-decoration: none; margin: 5px; }
+footer button {
+  background-color: #0070ba;
+  border: none;
+  padding: 10px 25px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 18px;
+  text-shadow: 1px 1px 3px #001a33;
+}
+footer button:hover { background-color: #005a94; }
 </style>
 </head>
 <body>
@@ -51,20 +126,19 @@ footer button:hover { background-color:#005a94;}
 </div>
 
 <footer>
-  <p>Kontakt: Bei Fragen und Anregungen gerne an: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
+  <p>Kontakt: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
   <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über Paypal</button>
 </footer>
 
 <script>
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
+const totalPages = 17;
+const startView = 13;
+const extraMargin = 80; // ca. 2cm Rand
 
-const totalPages = 17; // Anzahl Bilder
-const startView = 13;  // Startansicht (Seite Moderne)
-const extraMargin = 80; // Rand
-
-// Bilder erzeugen
-for (let i = 1; i <= totalPages; i++) {
+// Bilder automatisch einfügen
+for(let i=1; i<=totalPages; i++){
   const img = document.createElement('img');
   img.src = `images/Seite${i}.png`;
   img.alt = `Seite ${i}`;
@@ -72,10 +146,14 @@ for (let i = 1; i <= totalPages; i++) {
 }
 
 // State
-let scale = 0.7, targetScale = 0.7;
-let translateX = 0, translateY = 0;
-let targetTranslateX = 0, targetTranslateY = 0;
-let isDragging = false, startX, startY;
+let scale = 0.7;
+let targetScale = 0.7;
+let translateX = 0;
+let translateY = 0;
+let targetTranslateX = 0;
+let targetTranslateY = 0;
+let isDragging = false;
+let startX, startY;
 
 // Drag
 wrapper.addEventListener('mousedown', e => {
@@ -86,104 +164,98 @@ wrapper.addEventListener('mousedown', e => {
 });
 document.addEventListener('mouseup', () => { isDragging = false; wrapper.style.cursor = 'grab'; });
 document.addEventListener('mousemove', e => {
-  if (!isDragging) return;
+  if(!isDragging) return;
   targetTranslateX = e.clientX - startX;
   targetTranslateY = e.clientY - startY;
   applyBounds();
 });
 
-// Ghost Image verhindern
-timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
-
-// Wheel Zoom mit Mausfokus
+// Mauszeiger-Zoom
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const offsetX = e.clientX - wrapperRect.left;
-  const offsetY = e.clientY - wrapperRect.top;
+  const rect = timeline.getBoundingClientRect();
+  const offsetX = e.clientX - rect.left;
+  const offsetY = e.clientY - rect.top;
 
-  const maxDelta = 0.05;
-  const delta = Math.max(-maxDelta, Math.min(maxDelta, -e.deltaY/100));
-  const newScale = Math.min(Math.max(0.3, targetScale*(1+delta)), 5);
+  const zoomFactor = 1 - e.deltaY * 0.0001; // sehr feiner Zoom
+  let newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 5);
 
-  const mouseRatioX = (offsetX - targetTranslateX) / (timeline.scrollWidth * targetScale);
-  const mouseRatioY = (offsetY - targetTranslateY) / (timeline.scrollHeight * targetScale);
+  const dx = (offsetX - translateX)/targetScale * (newScale - targetScale);
+  const dy = (offsetY - translateY)/targetScale * (newScale - targetScale);
 
-  targetTranslateX = offsetX - mouseRatioX * (timeline.scrollWidth * newScale);
-  targetTranslateY = offsetY - mouseRatioY * (timeline.scrollHeight * newScale);
-
+  targetTranslateX -= dx;
+  targetTranslateY -= dy;
   targetScale = newScale;
+
   applyBounds();
 });
 
 // Bounds
-function applyBounds() {
+function applyBounds(){
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
+  const visibleMarginX = wrapperRect.width*0.05;
+  const visibleMarginY = wrapperRect.height*0.05;
 
   // horizontal
-  if (timelineWidth <= wrapperRect.width) {
+  if(timelineWidth <= wrapperRect.width){
     targetTranslateX = (wrapperRect.width - timelineWidth)/2;
   } else {
-    const minX = wrapperRect.width - timelineWidth - extraMargin;
-    const maxX = extraMargin;
+    const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
+    const maxX = 0 - visibleMarginX + extraMargin;
     targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
   }
 
   // vertical
-  if (timelineHeight <= wrapperRect.height) {
+  if(timelineHeight <= wrapperRect.height){
     targetTranslateY = (wrapperRect.height - timelineHeight)/2;
   } else {
-    const minY = wrapperRect.height - timelineHeight + 5;
-    const maxY = 5;
+    const minY = wrapperRect.height - timelineHeight + visibleMarginY;
+    const maxY = visibleMarginY;
     targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
   }
 }
 
-// Animate Tween
-function animate() {
-  scale += (targetScale - scale) * 0.15;
-  translateX += (targetTranslateX - translateX) * 0.15;
-  translateY += (targetTranslateY - translateY) * 0.15;
+// Animate
+function animate(){
+  scale += (targetScale - scale)*0.15;
+  translateX += (targetTranslateX - translateX)*0.15;
+  translateY += (targetTranslateY - translateY)*0.15;
   timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
   requestAnimationFrame(animate);
 }
 
-// Ansicht Buttons – Snap auf Bildmitte
-function setView(page) {
+// Ansicht nach Bildnummer, relativ zur Durchschnittsbreite
+function setView(page){
   const wrapperRect = wrapper.getBoundingClientRect();
-  page = Math.max(1, Math.min(page, timeline.children.length)); // Sicherheitscheck
-  const img = timeline.children[page - 1];
-  targetScale = 0.7;
+  const totalWidth = Array.from(timeline.children).reduce((sum,img)=>sum+img.offsetWidth,0);
+  const avgWidth = totalWidth / timeline.children.length;
 
-  const imgCenterX = img.offsetLeft + img.offsetWidth/2;
-  const imgCenterY = img.offsetTop + img.offsetHeight/2;
-
-  let desiredX = wrapperRect.width/2 - imgCenterX;
-  let desiredY = wrapperRect.height/2 - imgCenterY;
+  const desiredX = wrapperRect.width/2 - avgWidth*(page-0.5);
 
   const timelineWidth = timeline.scrollWidth * targetScale;
   const minX = wrapperRect.width - timelineWidth - extraMargin;
   const maxX = extraMargin;
-  desiredX = Math.min(maxX, Math.max(minX, desiredX));
+
+  targetTranslateX = Math.min(maxX, Math.max(minX, desiredX));
 
   const timelineHeight = timeline.scrollHeight * targetScale;
   const minY = wrapperRect.height - timelineHeight + 5;
   const maxY = 5;
-  desiredY = Math.min(maxY, Math.max(minY, desiredY));
-
-  targetTranslateX = desiredX;
-  targetTranslateY = desiredY;
+  targetTranslateY = Math.min(maxY, Math.max(minY, (wrapperRect.height - timelineHeight)/2));
 }
 
 // Buttons
 document.querySelectorAll('#controls button').forEach(btn => {
-  btn.addEventListener('click', () => setView(parseInt(btn.dataset.page)));
+  btn.addEventListener('click', ()=>setView(parseInt(btn.dataset.page)));
 });
 
+// Prevent ghost image
+timeline.querySelectorAll('img').forEach(img => img.ondragstart = ()=>false);
+
 animate();
-window.onload = () => setView(startView);
+window.onload = ()=>setView(startView);
 </script>
 
 </body>
