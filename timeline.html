@@ -14,8 +14,6 @@ body {
   font-size: 19px;
   text-shadow: 2px 2px 5px #001a33;
 }
-
-/* Navigation */
 nav {
   background: rgba(0,0,0,0.3);
   display: flex;
@@ -34,14 +32,11 @@ nav a {
   font-weight: bold;
 }
 nav a:hover { color: #ffd700; }
-
 header { text-align: center; padding: 30px; }
 header h1 { margin: 0; font-size: 2.8em; }
 header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; }
-
 #controls {
-  text-align: center;
-  margin: 20px;
+  text-align: center; margin: 20px;
 }
 #controls button {
   background-color: #0070ba;
@@ -65,14 +60,12 @@ header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; }
   margin: 20px 0;
   border: 1px solid rgba(255,255,255,0.2);
 }
-
 #timeline {
   display: flex;
   height: 130%;
   transform-origin: 0 0;
   user-select: none;
 }
-
 #timeline img {
   height: 100%;
   display: block;
@@ -81,7 +74,6 @@ header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; }
   -webkit-user-drag: none;
   user-drag: none;
 }
-
 footer {
   padding: 20px;
   text-align: center;
@@ -135,11 +127,12 @@ footer button:hover { background-color: #005a94; }
 <script>
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
-const totalPages = 17;
-const extraMargin = 80;
-const startView = 13;
 
-// Dynamisch Bilder laden
+const totalPages = 17;
+const startView = 13;
+const extraMargin = 80;
+
+// Bilder automatisch erzeugen
 for (let i = 1; i <= totalPages; i++) {
   const img = document.createElement('img');
   img.src = `images/Seite${i}.png`;
@@ -147,13 +140,17 @@ for (let i = 1; i <= totalPages; i++) {
   timeline.appendChild(img);
 }
 
-let scale = 0.7, targetScale = 0.7;
-let translateX = 0, translateY = 0;
-let targetTranslateX = 0, targetTranslateY = 0;
+// State
+let scale = 0.7;
+let targetScale = 0.7;
+let translateX = 0;
+let translateY = 0;
+let targetTranslateX = 0;
+let targetTranslateY = 0;
 let isDragging = false;
 let startX, startY;
 
-// Dragging
+// Drag
 wrapper.addEventListener('mousedown', e => {
   isDragging = true;
   startX = e.clientX - targetTranslateX;
@@ -171,24 +168,20 @@ document.addEventListener('mousemove', e => {
   applyBounds();
 });
 
-// Perfekter Zoom auf Mauszeiger
+// Zoom (wie Google Maps)
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
   const rect = wrapper.getBoundingClientRect();
   const mouseX = e.clientX - rect.left;
   const mouseY = e.clientY - rect.top;
-
   const prevScale = targetScale;
   const zoomFactor = Math.exp(-e.deltaY * 0.0015);
   const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 5);
-
   const dx = (mouseX - targetTranslateX) / prevScale;
   const dy = (mouseY - targetTranslateY) / prevScale;
-
   targetTranslateX = mouseX - dx * newScale;
   targetTranslateY = mouseY - dy * newScale;
   targetScale = newScale;
-
   applyBounds();
 });
 
@@ -197,14 +190,29 @@ function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
-
   const minX = wrapperRect.width - timelineWidth - extraMargin;
   const maxX = extraMargin;
   const minY = wrapperRect.height - timelineHeight - extraMargin;
   const maxY = extraMargin;
-
   targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
   targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
+}
+
+// Ansicht wechseln (präzise Bildzentrierung)
+function setView(page) {
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const img = timeline.children[page - 1];
+  if (!img) return;
+
+  const imgLeft = img.offsetLeft;
+  const imgWidth = img.offsetWidth;
+  const imgTop = img.offsetTop;
+  const imgHeight = img.offsetHeight;
+
+  targetScale = 0.7;
+  targetTranslateX = wrapperRect.width / 2 - (imgLeft + imgWidth / 2) * targetScale;
+  targetTranslateY = wrapperRect.height / 2 - (imgTop + imgHeight / 2) * targetScale;
+  applyBounds();
 }
 
 // Animation
@@ -215,26 +223,10 @@ function animate() {
   timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
   requestAnimationFrame(animate);
 }
-
-// Ansicht wählen
-function setView(page) {
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const imgs = Array.from(timeline.children);
-  const totalWidth = imgs.reduce((sum, img) => sum + img.offsetWidth, 0);
-  const avgWidth = totalWidth / imgs.length;
-
-  // Mittelpunkt des gewählten Bildes
-  const desiredX = wrapperRect.width / 2 - avgWidth * (page - 0.5);
-  targetTranslateX = desiredX;
-  targetTranslateY = (wrapperRect.height - timeline.scrollHeight * targetScale) / 2;
-  applyBounds();
-}
+animate();
 
 // Startansicht
-window.onload = () => {
-  setTimeout(() => setView(startView), 300);
-};
-animate();
+window.onload = () => setView(startView);
 </script>
 </body>
 </html>
