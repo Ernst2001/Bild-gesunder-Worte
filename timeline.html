@@ -94,7 +94,7 @@ document.addEventListener('mousemove', e => {
 // Prevent ghost image
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// Wheel Zoom (Mauszeiger-Zoom, sehr fein)
+// Wheel Zoom (dynamisch, Mauszeiger-Zoom)
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
 
@@ -102,9 +102,10 @@ wrapper.addEventListener('wheel', e => {
   const offsetX = e.clientX - rect.left;
   const offsetY = e.clientY - rect.top;
 
-  // Zoomempfindlichkeit fein einstellen
-  const zoomSpeed = 0.15;
-  const delta = e.deltaY / 100; // normalisiert
+  // Dynamische Zoomgeschwindigkeit abhängig vom aktuellen Scale
+  const baseZoomSpeed = 0.15;
+  const zoomSpeed = baseZoomSpeed / targetScale; // stärker gezoomt → feiner
+  const delta = e.deltaY / 100; 
   const zoomFactor = 1 - delta * zoomSpeed;
 
   const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 5);
