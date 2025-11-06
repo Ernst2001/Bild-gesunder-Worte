@@ -237,10 +237,19 @@ function animate() {
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
   const img = timeline.children[page - 1];
+
   targetScale = 0.7;
-  targetTranslateX = wrapperRect.width / 2 - (img.offsetLeft + img.offsetWidth / 2);
-  targetTranslateY = wrapperRect.height / 2 - (img.offsetTop + img.offsetHeight / 2);
-  applyBounds();
+
+  // Berechne mittige Position des Bildes
+  let desiredX = wrapperRect.width / 2 - (img.offsetLeft + img.offsetWidth / 2);
+  let desiredY = wrapperRect.height / 2 - (img.offsetTop + img.offsetHeight / 2);
+
+  // Temporär leicht die Bounds lockern, damit Bild nicht blockiert wird
+  const oldMinX = wrapperRect.width - timeline.scrollWidth * targetScale + wrapperRect.width * 0.05 - 80;
+  const oldMaxX = 0 - wrapperRect.width * 0.05 + 80;
+
+  targetTranslateX = Math.min(oldMaxX, Math.max(oldMinX, desiredX));
+  targetTranslateY = desiredY; // Vertikal kann frei zentriert bleiben
 }
 
 animate();
