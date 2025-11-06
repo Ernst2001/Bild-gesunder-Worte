@@ -149,17 +149,33 @@ footer button:hover { background-color: #005a94; }
   <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über Paypal</button>
 </footer>
 
+<div id="timeline-wrapper">
+  <div id="timeline"></div>
+</div>
+
 <script>
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
 
-let scale = 0.7;       
+const totalPages = 17; // Anzahl der Bilder
+const startView = 13;  // Startansicht (Moderne)
+const extraMargin = 80; // ~2cm Rand
+
+// Bilder automatisch erzeugen
+for (let i = 1; i <= totalPages; i++) {
+  const img = document.createElement('img');
+  img.src = `images/Seite${i}.png`;
+  img.alt = `Seite ${i}`;
+  timeline.appendChild(img);
+}
+
+// State
+let scale = 0.7;
 let targetScale = 0.7;
 let translateX = 0;
 let translateY = 0;
 let targetTranslateX = 0;
 let targetTranslateY = 0;
-
 let isDragging = false;
 let startX, startY;
 
@@ -170,12 +186,7 @@ wrapper.addEventListener('mousedown', e => {
   startY = e.clientY - targetTranslateY;
   wrapper.style.cursor = 'grabbing';
 });
-
-document.addEventListener('mouseup', () => {
-  isDragging = false;
-  wrapper.style.cursor = 'grab';
-});
-
+document.addEventListener('mouseup', () => { isDragging = false; wrapper.style.cursor = 'grab'; });
 document.addEventListener('mousemove', e => {
   if (!isDragging) return;
   targetTranslateX = e.clientX - startX;
@@ -186,30 +197,31 @@ document.addEventListener('mousemove', e => {
 // Prevent ghost image
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// Wheel Zoom
+// Wheel Zoom (auf Mauszeiger)
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
   const rect = timeline.getBoundingClientRect();
   const offsetX = e.clientX - rect.left;
   const offsetY = e.clientY - rect.top;
+
   const zoomFactor = 1 - e.deltaY * 0.0005;
   const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 4);
+
   targetTranslateX -= (offsetX / targetScale - offsetX / newScale);
   targetTranslateY -= (offsetY / targetScale - offsetY / newScale);
+
   targetScale = newScale;
   applyBounds();
 });
 
-// Bounds + extra Rand (~2cm)
+// Bounds mit extra Rand
 function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
-  const visibleFractionX = 0.05;
-  const visibleFractionY = 0.05;
-  const visibleMarginX = wrapperRect.width * visibleFractionX;
-  const visibleMarginY = wrapperRect.height * visibleFractionY;
-  const extraMargin = 80; // ca. 2cm
+
+  const visibleMarginX = wrapperRect.width * 0.05;
+  const visibleMarginY = wrapperRect.height * 0.05;
 
   const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
   const maxX = 0 - visibleMarginX + extraMargin;
@@ -237,23 +249,24 @@ function animate() {
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
   const img = timeline.children[page - 1];
-
   targetScale = 0.7;
 
-  // Berechne mittige Position des Bildes
-  let desiredX = wrapperRect.width / 2 - (img.offsetLeft + img.offsetWidth / 2);
-  let desiredY = wrapperRect.height / 2 - (img.offsetTop + img.offsetHeight / 2);
+  // Bild mittig
+  const desiredX = wrapperRect.width / 2 - (img.offsetLeft + img.offsetWidth / 2);
+  const desiredY = wrapperRect.height / 2 - (img.offsetTop + img.offsetHeight / 2);
 
-  // Temporär leicht die Bounds lockern, damit Bild nicht blockiert wird
-  const oldMinX = wrapperRect.width - timeline.scrollWidth * targetScale + wrapperRect.width * 0.05 - 80;
-  const oldMaxX = 0 - wrapperRect.width * 0.05 + 80;
-
-  targetTranslateX = Math.min(oldMaxX, Math.max(oldMinX, desiredX));
-  targetTranslateY = desiredY; // Vertikal kann frei zentriert bleiben
+  targetTranslateX = desiredX;
+  targetTranslateY = desiredY;
+  applyBounds();
 }
 
+// Ansichtsbuttons Beispiel
+document.getElementById('controls')?.querySelectorAll('button').forEach(btn => {
+  btn.addEventListener('click', () => setView(parseInt(btn.dataset.page)));
+});
+
 animate();
-window.onload = () => setView(13); // Startansicht Moderne
+window.onload = () => setView(startView);
 </script>
 
 </body>
