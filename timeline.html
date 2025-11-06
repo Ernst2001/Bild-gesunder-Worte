@@ -14,8 +14,6 @@ body {
   font-size: 19px;
   text-shadow: 2px 2px 5px #001a33;
 }
-
-/* Navigation */
 nav {
   background: rgba(0,0,0,0.3);
   display: flex;
@@ -34,14 +32,10 @@ nav a {
   font-weight: bold;
 }
 nav a:hover { color: #ffd700; }
-
 header { text-align: center; padding: 30px; }
 header h1 { margin: 0; font-size: 2.8em; }
 header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; }
-
-#controls {
-  text-align: center; margin: 20px;
-}
+#controls { text-align: center; margin: 20px; }
 #controls button {
   background-color: #0070ba;
   color: #fff;
@@ -54,7 +48,6 @@ header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; }
   text-shadow: 1px 1px 3px #001a33;
 }
 #controls button:hover { background-color: #005a94; }
-
 #timeline-wrapper {
   width: 100%;
   height: 91vh;
@@ -64,15 +57,13 @@ header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; }
   margin: 20px 0;
   border: 1px solid rgba(255,255,255,0.2);
 }
-
 #timeline {
   display: flex;
-  flex-wrap: nowrap; /* verhindert Zeilenumbruch */
+  flex-wrap: nowrap;
   height: 130%;
   transform-origin: 0 0;
   user-select: none;
 }
-
 #timeline img {
   height: 100%;
   display: block;
@@ -81,7 +72,6 @@ header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; }
   -webkit-user-drag: none;
   user-drag: none;
 }
-
 footer {
   padding: 20px;
   text-align: center;
@@ -149,12 +139,9 @@ for (let i = 1; i <= totalPages; i++) {
 }
 
 // State
-let scale = 0.7;
-let targetScale = 0.7;
-let translateX = 0;
-let translateY = 0;
-let targetTranslateX = 0;
-let targetTranslateY = 0;
+let scale = 0.7, targetScale = 0.7;
+let translateX = 0, translateY = 0;
+let targetTranslateX = 0, targetTranslateY = 0;
 let isDragging = false;
 let startX, startY;
 
@@ -170,40 +157,33 @@ document.addEventListener('mousemove', e => {
   if (!isDragging) return;
   targetTranslateX = e.clientX - startX;
   targetTranslateY = e.clientY - startY;
-  applyBounds();
 });
 
 // Prevent ghost image
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// Wheel Zoom (Mauszeiger)
+// Wheel Zoom (präzise auf Mauszeiger)
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
-
   const rect = timeline.getBoundingClientRect();
   const offsetX = e.clientX - rect.left;
   const offsetY = e.clientY - rect.top;
-
   const zoomFactor = 1 - e.deltaY * 0.0005;
   let newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 5);
 
-  // Mausfokus-Berechnung
   const dx = (offsetX - translateX) / targetScale * (newScale - targetScale);
   const dy = (offsetY - translateY) / targetScale * (newScale - targetScale);
 
   targetTranslateX -= dx;
   targetTranslateY -= dy;
   targetScale = newScale;
-
-  applyBounds();
 });
 
-// Bounds mit extra Rand
+// Bounds
 function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
-  const timelineWidth = timeline.scrollWidth * targetScale;
-  const timelineHeight = timeline.scrollHeight * targetScale;
-
+  const timelineWidth = timeline.scrollWidth * scale;
+  const timelineHeight = timeline.scrollHeight * scale;
   const visibleMarginX = wrapperRect.width * 0.05;
   const visibleMarginY = wrapperRect.height * 0.05;
 
@@ -224,30 +204,27 @@ function applyBounds() {
   }
 }
 
-// Animation
+// Animate Tween
 function animate() {
   scale += (targetScale - scale) * 0.15;
   translateX += (targetTranslateX - translateX) * 0.15;
   translateY += (targetTranslateY - translateY) * 0.15;
+
+  applyBounds(); // erst nach Tween
+
   timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
   requestAnimationFrame(animate);
 }
 
-// Ansicht-Buttons
+// Ansicht Buttons
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
   const img = timeline.children[page - 1];
   targetScale = 0.7;
-
-  const desiredX = wrapperRect.width / 2 - (img.offsetLeft + img.offsetWidth / 2);
-  const desiredY = wrapperRect.height / 2 - (img.offsetTop + img.offsetHeight / 2);
-
-  targetTranslateX = desiredX;
-  targetTranslateY = desiredY;
-  applyBounds();
+  targetTranslateX = wrapperRect.width / 2 - (img.offsetLeft + img.offsetWidth / 2);
+  targetTranslateY = wrapperRect.height / 2 - (img.offsetTop + img.offsetHeight / 2);
 }
 
-// Buttons EventListener
 document.querySelectorAll('#controls button').forEach(btn => {
   btn.addEventListener('click', () => setView(parseInt(btn.dataset.page)));
 });
