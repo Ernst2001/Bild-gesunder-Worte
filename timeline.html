@@ -1,88 +1,15 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fakten statt Mythen: Timeline</title>
+<div id="minimap">
+  <canvas id="minimapCanvas"></canvas>
+  <div id="viewbox"></div>
+</div>
+
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
-  color: #fff;
-  overflow-x: hidden;
-  font-size: 19px;
-  text-shadow: 2px 2px 5px #001a33;
-}
-nav {
-  background: rgba(0,0,0,0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 12px 0;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  font-size: 19px;
-}
-nav a {
-  color: #fff;
-  text-decoration: none;
-  margin: 0 15px;
-  font-weight: bold;
-}
-nav a:hover { color: #ffd700; }
-header { text-align: center; padding: 30px; }
-header h1 { margin: 0; font-size: 2.8em; }
-header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; }
-
-#controls {
-  text-align: center;
-  margin: 20px;
-}
-#controls button {
-  background-color: #0070ba;
-  color: #fff;
-  border: none;
-  padding: 12px 22px;
-  margin: 5px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1.1em;
-  text-shadow: 1px 1px 3px #001a33;
-}
-#controls button:hover { background-color: #005a94; }
-
-#timeline-wrapper {
-  width: 100%;
-  height: 91vh;
-  overflow: hidden;
-  position: relative;
-  cursor: grab;
-  margin: 20px 0;
-  border: 1px solid rgba(255,255,255,0.2);
-}
-#timeline {
-  display: flex;
-  height: 130%;
-  transform-origin: 0 0;
-  user-select: none;
-}
-#timeline img {
-  height: 100%;
-  display: block;
-  flex-shrink: 0;
-  object-fit: cover;
-  -webkit-user-drag: none;
-  user-drag: none;
-}
-
 #minimap {
   position: fixed;
   bottom: 20px;
   right: 20px;
   width: 250px;
-  height: 150px;
+  height: 50px; /* Höhe auf 1/3 reduziert */
   border: 2px solid rgba(255,255,255,0.5);
   background: rgba(0,0,0,0.2);
   overflow: hidden;
@@ -101,183 +28,48 @@ header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; }
   pointer-events: none;
   z-index: 60;
 }
-
-footer {
-  padding: 20px;
-  text-align: center;
-  background: rgba(0,0,0,0.3);
-  font-size: 18px;
-}
-footer a, footer button { color: #fff; text-decoration: none; margin: 5px; }
-footer button {
-  background-color: #0070ba;
-  border: none;
-  padding: 10px 25px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 18px;
-  text-shadow: 1px 1px 3px #001a33;
-}
-footer button:hover { background-color: #005a94; }
 </style>
-</head>
-<body>
-
-<nav>
-  <a href="index.html">Startseite</a>
-  <a href="timeline.html">Timeline / Zeitstrahl</a>
-  <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">YouTube</a>
-  <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
-  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über Paypal</a>
-</nav>
-
-<header>
-  <h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
-  <p>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</p>
-</header>
-
-<div id="controls">
-  <button onclick="setView(1)">Ansicht Anfang</button>
-  <button onclick="setView(5)">Ansicht Sintflut</button>
-  <button onclick="setView(9)">Ansicht Zeitenwende</button>
-  <button onclick="setView(13)">Ansicht Moderne</button>
-</div>
-
-<div id="timeline-wrapper">
-  <div id="timeline"></div>
-</div>
-
-<div id="minimap">
-  <canvas id="minimapCanvas"></canvas>
-  <div id="viewbox"></div>
-</div>
-
-<footer>
-  <p>Kontakt: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
-  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über Paypal</button>
-</footer>
 
 <script>
-const wrapper = document.getElementById('timeline-wrapper');
-const timeline = document.getElementById('timeline');
-const totalPages = 17;
-const startView = 13;
-
-for (let i = 1; i <= totalPages; i++) {
-  const img = document.createElement('img');
-  img.src = `images/Seite${i}.png`;
-  img.alt = `Seite ${i}`;
-  timeline.appendChild(img);
-}
-
-// --- Zoom & Drag ---
-let scale = 0.7, targetScale = 0.7;
-let translateX = 0, translateY = 0, targetTranslateX = 0, targetTranslateY = 0;
-let isDragging = false, startX, startY;
-
-wrapper.addEventListener('mousedown', e => {
-  isDragging = true;
-  startX = e.clientX - targetTranslateX;
-  startY = e.clientY - targetTranslateY;
-  wrapper.style.cursor = 'grabbing';
-});
-document.addEventListener('mouseup', () => { isDragging = false; wrapper.style.cursor = 'grab'; });
-document.addEventListener('mousemove', e => {
-  if (!isDragging) return;
-  targetTranslateX = e.clientX - startX;
-  targetTranslateY = e.clientY - startY;
-  applyBounds();
-});
-
-wrapper.addEventListener('wheel', e => {
-  e.preventDefault();
-  const rect = wrapper.getBoundingClientRect();
-  const offsetX = e.clientX - rect.left;
-  const offsetY = e.clientY - rect.top;
-  const zoomFactor = 1 - e.deltaY * 0.0005;
-  const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 5);
-
-  const dx = (offsetX - translateX) / targetScale * (newScale - targetScale);
-  const dy = (offsetY - translateY) / targetScale * (newScale - targetScale);
-  targetTranslateX -= dx;
-  targetTranslateY -= dy;
-  targetScale = newScale;
-  applyBounds();
-});
-
-function applyBounds() {
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const timelineWidth = timeline.scrollWidth * targetScale;
-  const timelineHeight = timeline.scrollHeight * targetScale;
-  const margin = 80;
-
-  const minX = wrapperRect.width - timelineWidth + margin;
-  const maxX = -margin;
-  targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
-
-  const minY = wrapperRect.height - timelineHeight + margin;
-  const maxY = -margin;
-  targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
-}
-
-function animate() {
-  scale += (targetScale - scale) * 0.15;
-  translateX += (targetTranslateX - translateX) * 0.15;
-  translateY += (targetTranslateY - translateY) * 0.15;
-  timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-  drawMinimap();
-  requestAnimationFrame(animate);
-}
-
-// --- Ansichten ---
-function setView(page) {
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const imgs = Array.from(timeline.children);
-  const img = imgs[page - 1];
-  if (!img) return;
-
-  const imgLeft = img.offsetLeft;
-  const imgWidth = img.offsetWidth;
-
-  const desiredX = wrapperRect.width / 2 - (imgLeft + imgWidth / 2) * targetScale;
-  targetTranslateX = desiredX;
-  targetTranslateY = (wrapperRect.height - timeline.scrollHeight * targetScale) / 2;
-  applyBounds();
-}
-
-// --- MiniMap ---
 const minimap = document.getElementById('minimap');
 const canvas = document.getElementById('minimapCanvas');
 const ctx = canvas.getContext('2d');
 const viewbox = document.getElementById('viewbox');
+const images = Array.from(timeline.children); // Die 17 Bilder
 
 function drawMinimap() {
   const w = canvas.width = minimap.clientWidth;
   const h = canvas.height = minimap.clientHeight;
 
-  const fullWidth = timeline.scrollWidth;
-  const fullHeight = timeline.scrollHeight;
-
-  const scaleFactor = Math.min(w / fullWidth, h / fullHeight);
-
   ctx.clearRect(0, 0, w, h);
-  ctx.fillStyle = "#ffffff22";
-  ctx.fillRect(0, 0, fullWidth * scaleFactor, fullHeight * scaleFactor);
 
-  // Sichtbaren Ausschnitt berechnen
-  const wrapperRect = wrapper.getBoundingClientRect();
+  const fullWidth = timeline.scrollWidth;
+  const scaleFactor = w / fullWidth;
+
+  // Miniaturbilder nebeneinander
+  images.forEach(img => {
+    const x = img.offsetLeft * scaleFactor;
+    const imgWidth = img.offsetWidth * scaleFactor;
+    const imgHeight = img.offsetHeight * scaleFactor * (h / timeline.scrollHeight); // proportionale Höhe
+
+    if (img.complete) {
+      ctx.drawImage(img, x, 0, imgWidth, h);
+    } else {
+      img.onload = () => ctx.drawImage(img, x, 0, imgWidth, h);
+    }
+  });
+
+  // Sichtbarer Ausschnitt
   const visibleX = -translateX / targetScale;
-  const visibleY = -translateY / targetScale;
-  const visibleW = wrapperRect.width / targetScale;
-  const visibleH = wrapperRect.height / targetScale;
+  const visibleW = wrapper.clientWidth / targetScale;
 
   viewbox.style.left = visibleX * scaleFactor + minimap.offsetLeft + "px";
-  viewbox.style.top = visibleY * scaleFactor + minimap.offsetTop + "px";
+  viewbox.style.top = minimap.offsetTop + "px";
   viewbox.style.width = visibleW * scaleFactor + "px";
-  viewbox.style.height = visibleH * scaleFactor + "px";
+  viewbox.style.height = h + "px";
 }
 
-// Klick auf MiniMap → Springe zu Position
+// Klick auf MiniMap → Springe zur Position
 minimap.addEventListener('click', e => {
   const rect = minimap.getBoundingClientRect();
   const x = e.clientX - rect.left;
@@ -288,9 +80,9 @@ minimap.addEventListener('click', e => {
   applyBounds();
 });
 
-animate();
-window.onload = () => setView(startView);
+function updateMinimap() {
+  drawMinimap();
+  requestAnimationFrame(updateMinimap);
+}
+updateMinimap();
 </script>
-
-</body>
-</html>
