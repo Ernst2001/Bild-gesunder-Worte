@@ -205,14 +205,38 @@ wrapper.addEventListener('wheel', e => {
   const offsetY = e.clientY - rect.top;
 
   const zoomFactor = 1 - e.deltaY * 0.0005;
-  const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 4);
+  let newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 5); // bis 500%
 
-  targetTranslateX -= (offsetX / targetScale - offsetX / newScale);
-  targetTranslateY -= (offsetY / targetScale - offsetY / newScale);
+  // Berechne Verschiebung relativ zum Mauszeiger
+  const dx = offsetX / targetScale - offsetX / newScale;
+  const dy = offsetY / targetScale - offsetY / newScale;
 
+  targetTranslateX -= dx;
+  targetTranslateY -= dy;
   targetScale = newScale;
-  applyBounds();
+
+  // Bounds: nur anwenden, wenn Timeline breiter/hoher als Wrapper
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const timelineWidth = timeline.scrollWidth * targetScale;
+  const timelineHeight = timeline.scrollHeight * targetScale;
+
+  const visibleMarginX = wrapperRect.width * 0.05;
+  const visibleMarginY = wrapperRect.height * 0.05;
+  const extraMargin = 80;
+
+  if (timelineWidth > wrapperRect.width) {
+    const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
+    const maxX = 0 - visibleMarginX + extraMargin;
+    targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
+  }
+
+  if (timelineHeight > wrapperRect.height) {
+    const minY = wrapperRect.height - timelineHeight + visibleMarginY;
+    const maxY = visibleMarginY;
+    targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
+  }
 });
+
 
 // Bounds mit extra Rand
 function applyBounds() {
