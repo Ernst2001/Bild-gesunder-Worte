@@ -5,23 +5,99 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fakten statt Mythen: Timeline</title>
 <style>
-body { margin:0; font-family:Arial,sans-serif; background:linear-gradient(120deg,#a2c1d8,#c3d9e8); color:#fff; overflow-x:hidden; font-size:19px; text-shadow:2px 2px 5px #001a33;}
-nav { background: rgba(0,0,0,0.3); display:flex; justify-content:center; align-items:center; padding:12px 0; position:sticky; top:0; z-index:10; font-size:19px;}
-nav a { color:#fff; text-decoration:none; margin:0 15px; font-weight:bold;}
-nav a:hover { color:#ffd700; }
-header { text-align:center; padding:30px;}
-header h1 { margin:0; font-size:2.8em;}
-header p { margin-top:10px; font-size:1.4em; color:#f0f0f0;}
-#controls { text-align:center; margin:20px;}
-#controls button { background-color:#0070ba; color:#fff; border:none; padding:12px 22px; margin:5px; border-radius:6px; cursor:pointer; font-size:1.1em; text-shadow:1px 1px 3px #001a33;}
-#controls button:hover { background-color:#005a94;}
-#timeline-wrapper { width:100%; height:91vh; overflow:hidden; position:relative; cursor:grab; margin:20px 0; border:1px solid rgba(255,255,255,0.2);}
-#timeline { display:flex; flex-wrap:nowrap; height:130%; transform-origin:0 0; user-select:none;}
-#timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none;}
-footer { padding:20px; text-align:center; background: rgba(0,0,0,0.3); font-size:18px;}
-footer a, footer button { color:#fff; text-decoration:none; margin:5px;}
-footer button { background-color:#0070ba; border:none; padding:10px 25px; cursor:pointer; border-radius:5px; font-size:18px; text-shadow:1px 1px 3px #001a33;}
-footer button:hover { background-color:#005a94;}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+  color: #fff;
+  overflow-x: hidden;
+  font-size: 19px;
+  text-shadow: 2px 2px 5px #001a33;
+}
+
+/* Navigation */
+nav {
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  font-size: 19px;
+}
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+}
+nav a:hover { color: #ffd700; }
+
+header { text-align: center; padding: 30px; }
+header h1 { margin: 0; font-size: 2.8em; }
+header p { margin-top: 10px; font-size: 1.4em; color: #f0f0f0; }
+
+#controls {
+  text-align: center; margin: 20px;
+}
+#controls button {
+  background-color: #0070ba;
+  color: #fff;
+  border: none;
+  padding: 12px 22px;
+  margin: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1em;
+  text-shadow: 1px 1px 3px #001a33;
+}
+#controls button:hover { background-color: #005a94; }
+
+#timeline-wrapper {
+  width: 100%;
+  height: 91vh;
+  overflow: hidden;
+  position: relative;
+  cursor: grab;
+  margin: 20px 0;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+#timeline {
+  display: flex;
+  height: 130%;
+  transform-origin: 0 0;
+  user-select: none;
+}
+
+#timeline img {
+  height: 100%;
+  display: block;
+  flex-shrink: 0;
+  object-fit: cover;
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+footer {
+  padding: 20px;
+  text-align: center;
+  background: rgba(0,0,0,0.3);
+  font-size: 18px;
+}
+footer a, footer button { color: #fff; text-decoration: none; margin: 5px; }
+footer button {
+  background-color: #0070ba;
+  border: none;
+  padding: 10px 25px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 18px;
+  text-shadow: 1px 1px 3px #001a33;
+}
+footer button:hover { background-color: #005a94; }
 </style>
 </head>
 <body>
@@ -40,10 +116,10 @@ footer button:hover { background-color:#005a94;}
 </header>
 
 <div id="controls">
-  <button data-page="1">Ansicht Anfang</button>
-  <button data-page="5">Ansicht Sintflut</button>
-  <button data-page="9">Ansicht Zeitenwende</button>
-  <button data-page="13">Ansicht Moderne</button>
+  <button onclick="setView(1)">Ansicht Anfang</button>
+  <button onclick="setView(5)">Ansicht Sintflut</button>
+  <button onclick="setView(9)">Ansicht Zeitenwende</button>
+  <button onclick="setView(13)">Ansicht Moderne</button>
 </div>
 
 <div id="timeline-wrapper">
@@ -58,11 +134,12 @@ footer button:hover { background-color:#005a94;}
 <script>
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
-const totalPages = 17;
-const startView = 13;
-const extraMargin = 80;
 
-// Bilder erzeugen
+const totalPages = 17; // Anzahl der Bilder
+const startView = 13;  // Startansicht
+const extraMargin = 80; // sichtbarer Rand
+
+// Dynamisch Bilder laden
 for (let i = 1; i <= totalPages; i++) {
   const img = document.createElement('img');
   img.src = `images/Seite${i}.png`;
@@ -70,7 +147,7 @@ for (let i = 1; i <= totalPages; i++) {
   timeline.appendChild(img);
 }
 
-// State
+// Zoom + Bewegung
 let scale = 0.7, targetScale = 0.7;
 let translateX = 0, translateY = 0;
 let targetTranslateX = 0, targetTranslateY = 0;
@@ -91,41 +168,37 @@ document.addEventListener('mousemove', e => {
   applyBounds();
 });
 
-// Prevent ghost image
-timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
-
-// Wheel Zoom mit Mausfokus
+// --- Google-Maps-ähnlicher Zoom ---
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const offsetX = e.clientX - wrapperRect.left;
-  const offsetY = e.clientY - wrapperRect.top;
+  const rect = wrapper.getBoundingClientRect();
+  const offsetX = e.clientX - rect.left;
+  const offsetY = e.clientY - rect.top;
 
-  const maxDelta = 0.05; // max 5% Zoom pro Event
-  const delta = Math.max(-maxDelta, Math.min(maxDelta, -e.deltaY/100));
-  const newScale = Math.min(Math.max(0.3, targetScale*(1+delta)),5);
+  const zoomFactor = 1 - e.deltaY * 0.00015; // feinfühlig
+  const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 5);
 
-  // Mausposition in Timeline relativ zum Inhalt
-  const mouseRatioX = (offsetX - targetTranslateX) / (timeline.scrollWidth * targetScale);
-  const mouseRatioY = (offsetY - targetTranslateY) / (timeline.scrollHeight * targetScale);
-
-  targetTranslateX = offsetX - mouseRatioX * (timeline.scrollWidth * newScale);
-  targetTranslateY = offsetY - mouseRatioY * (timeline.scrollHeight * newScale);
-
+  // Mausfokus bleibt exakt fixiert
+  const zoomX = (offsetX - translateX) / targetScale;
+  const zoomY = (offsetY - translateY) / targetScale;
+  targetTranslateX = offsetX - zoomX * newScale;
+  targetTranslateY = offsetY - zoomY * newScale;
   targetScale = newScale;
+
   applyBounds();
 });
 
-// Bounds
+// Begrenzung
 function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
+
   const visibleMarginX = wrapperRect.width * 0.05;
   const visibleMarginY = wrapperRect.height * 0.05;
 
   if (timelineWidth <= wrapperRect.width) {
-    targetTranslateX = (wrapperRect.width - timelineWidth)/2;
+    targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
   } else {
     const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
     const maxX = 0 - visibleMarginX + extraMargin;
@@ -133,7 +206,7 @@ function applyBounds() {
   }
 
   if (timelineHeight <= wrapperRect.height) {
-    targetTranslateY = (wrapperRect.height - timelineHeight)/2;
+    targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
   } else {
     const minY = wrapperRect.height - timelineHeight + visibleMarginY;
     const maxY = visibleMarginY;
@@ -141,7 +214,7 @@ function applyBounds() {
   }
 }
 
-// Animate Tween
+// Sanfte Animation
 function animate() {
   scale += (targetScale - scale) * 0.15;
   translateX += (targetTranslateX - translateX) * 0.15;
@@ -150,19 +223,24 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-// Ansicht Buttons
+// Ansichten – relativ zur Durchschnittsbreite
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
-  const img = timeline.children[page - 1];
+  const imgs = Array.from(timeline.children);
+  const totalWidth = imgs.reduce((sum, img) => sum + img.offsetWidth, 0);
+  const avgWidth = totalWidth / imgs.length;
+
+  const desiredX = wrapperRect.width / 2 - avgWidth * (page - 0.5);
+  const timelineWidth = timeline.scrollWidth * targetScale;
+  const minX = wrapperRect.width - timelineWidth - extraMargin;
+  const maxX = extraMargin;
+
+  targetTranslateX = Math.min(maxX, Math.max(minX, desiredX));
+  targetTranslateY = 0;
   targetScale = 0.7;
-  targetTranslateX = wrapperRect.width/2 - (img.offsetLeft + img.offsetWidth/2);
-  targetTranslateY = wrapperRect.height/2 - (img.offsetTop + img.offsetHeight/2);
+
   applyBounds();
 }
-
-document.querySelectorAll('#controls button').forEach(btn => {
-  btn.addEventListener('click', () => setView(parseInt(btn.dataset.page)));
-});
 
 animate();
 window.onload = () => setView(startView);
