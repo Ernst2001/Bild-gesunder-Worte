@@ -197,6 +197,91 @@ timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 window.onload = () => {
   setTimeout(() => setView(startView), 150);
 };
+  // === MINI-MAP ================================================================
+
+// Container erstellen
+const minimapWrapper = document.createElement('div');
+minimapWrapper.id = 'minimap-wrapper';
+minimapWrapper.style.position = 'absolute';
+minimapWrapper.style.bottom = '8px';
+minimapWrapper.style.left = '50%';
+minimapWrapper.style.transform = 'translateX(-50%)';
+minimapWrapper.style.width = '250px';
+minimapWrapper.style.height = '50px';
+minimapWrapper.style.overflow = 'hidden';
+minimapWrapper.style.border = '1px solid rgba(255,255,255,0.4)';
+minimapWrapper.style.background = 'rgba(0,0,0,0.3)';
+minimapWrapper.style.borderRadius = '6px';
+minimapWrapper.style.pointerEvents = 'none';
+minimapWrapper.style.zIndex = '20';
+
+// Minimap-Inhalt
+const minimap = document.createElement('div');
+minimap.id = 'minimap';
+minimap.style.position = 'relative';
+minimap.style.width = '100%';
+minimap.style.height = '100%';
+minimap.style.display = 'flex';
+minimap.style.justifyContent = 'space-between';
+minimap.style.alignItems = 'center';
+minimap.style.overflow = 'hidden';
+minimapWrapper.appendChild(minimap);
+
+// Sichtbarer Bereich-Indikator
+const viewRect = document.createElement('div');
+viewRect.id = 'minimap-view';
+viewRect.style.position = 'absolute';
+viewRect.style.top = '0';
+viewRect.style.left = '0';
+viewRect.style.height = '100%';
+viewRect.style.border = '2px solid #ffd700';
+viewRect.style.boxSizing = 'border-box';
+viewRect.style.pointerEvents = 'none';
+minimapWrapper.appendChild(viewRect);
+
+// In Wrapper einfügen
+wrapper.appendChild(minimapWrapper);
+
+// Miniaturbilder hinzufügen
+for (let i = 1; i <= totalPages; i++) {
+  const mini = document.createElement('img');
+  mini.src = `images/Seite${i}.png`;
+  mini.style.height = '100%';
+  mini.style.objectFit = 'cover';
+  mini.style.flex = '1';
+  mini.style.opacity = '0.7';
+  minimap.appendChild(mini);
+}
+
+// Update der Minimap-Ansicht
+function updateMinimap() {
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const timelineWidth = timeline.scrollWidth * scale;
+  const visibleRatio = wrapperRect.width / timelineWidth;
+
+  const fullWidth = minimapWrapper.clientWidth;
+  const rectWidth = Math.max(15, fullWidth * visibleRatio);
+  const scrollRatio = -translateX / (timelineWidth - wrapperRect.width);
+  const rectLeft = (fullWidth - rectWidth) * scrollRatio;
+
+  viewRect.style.width = rectWidth + 'px';
+  viewRect.style.left = rectLeft + 'px';
+}
+
+// Integration in die Animationsschleife
+const oldAnimate = animate;
+animate = function() {
+  scale += (targetScale - scale) * 0.15;
+  translateX += (targetTranslateX - translateX) * 0.15;
+  translateY += (targetTranslateY - translateY) * 0.15;
+  timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  updateMinimap(); // <--- Minimap aktualisieren
+  requestAnimationFrame(animate);
+};
+requestAnimationFrame(animate);
+
+// === ENDE MINI-MAP ============================================================
+
 </script>
 </body>
 </html>
