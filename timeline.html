@@ -207,12 +207,14 @@ function applyBounds() {
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
 
+  const visibleMargin = 50; // <- Sichtbarer Rand, anpassen nach Geschmack
+
   // Horizontale Grenzen
-  const minX = wrapperRect.width - timelineWidth;
-  const maxX = 0;
+  const minX = wrapperRect.width - timelineWidth + visibleMargin;
+  const maxX = -visibleMargin;
   targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
 
-  // Vertikale Grenzen
+  // Vertikale Grenzen (bleibt gleich)
   if (timelineHeight < wrapperRect.height) {
     targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
   } else {
