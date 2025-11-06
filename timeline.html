@@ -219,15 +219,21 @@ function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
-
   const visibleMarginX = wrapperRect.width * 0.05;
   const visibleMarginY = wrapperRect.height * 0.05;
+  const extraMargin = 80;
 
-  const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
-  const maxX = 0 - visibleMarginX + extraMargin;
-  targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
+  if (timelineWidth <= wrapperRect.width) {
+    // Timeline kleiner als Wrapper → mittig zentrieren
+    targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
+  } else {
+    // Timeline breiter → normale Bounds
+    const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
+    const maxX = 0 - visibleMarginX + extraMargin;
+    targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
+  }
 
-  if (timelineHeight < wrapperRect.height) {
+  if (timelineHeight <= wrapperRect.height) {
     targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
   } else {
     const minY = wrapperRect.height - timelineHeight + visibleMarginY;
@@ -235,7 +241,6 @@ function applyBounds() {
     targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
   }
 }
-
 // Animate Tween
 function animate() {
   scale += (targetScale - scale) * 0.15;
