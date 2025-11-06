@@ -123,14 +123,13 @@ footer button:hover { background-color: #005a94; }
 </footer>
 
 <script>
-// Konfiguration
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
 const totalPages = 17;
 const startView = 13;
 const extraMargin = 80; // ca. 2cm Rand
 
-// Bilder erzeugen
+// Bilder automatisch erzeugen
 for (let i = 1; i <= totalPages; i++) {
   const img = document.createElement('img');
   img.src = `images/Seite${i}.png`;
@@ -142,10 +141,9 @@ for (let i = 1; i <= totalPages; i++) {
 let scale = 0.7, targetScale = 0.7;
 let translateX = 0, translateY = 0;
 let targetTranslateX = 0, targetTranslateY = 0;
-let isDragging = false;
-let startX, startY;
+let isDragging = false, startX, startY;
 
-// Drag
+// Drag Events
 wrapper.addEventListener('mousedown', e => {
   isDragging = true;
   startX = e.clientX - targetTranslateX;
@@ -157,30 +155,35 @@ document.addEventListener('mousemove', e => {
   if (!isDragging) return;
   targetTranslateX = e.clientX - startX;
   targetTranslateY = e.clientY - startY;
+  applyBoundsDrag();
 });
 
 // Prevent ghost image
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// Wheel Zoom (präzise auf Mauszeiger)
+// Wheel Zoom
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
   const rect = timeline.getBoundingClientRect();
   const offsetX = e.clientX - rect.left;
   const offsetY = e.clientY - rect.top;
-  const zoomFactor = 1 - e.deltaY * 0.0005;
-  let newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 5);
 
+  const zoomFactor = 1 - e.deltaY * 0.0005;
+  const newScale = Math.min(Math.max(0.3, targetScale * zoomFactor), 5);
+
+  // Mausfokus
   const dx = (offsetX - translateX) / targetScale * (newScale - targetScale);
   const dy = (offsetY - translateY) / targetScale * (newScale - targetScale);
 
   targetTranslateX -= dx;
   targetTranslateY -= dy;
   targetScale = newScale;
+
+  applyBoundsZoom(); // minimal, damit Mausfokus bleibt
 });
 
-// Bounds
-function applyBounds() {
+// Bounds nur für Drag
+function applyBoundsDrag() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * scale;
   const timelineHeight = timeline.scrollHeight * scale;
@@ -204,13 +207,21 @@ function applyBounds() {
   }
 }
 
-// Animate Tween
+// Bounds nur minimal für Zoom
+function applyBoundsZoom() {
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const timelineWidth = timeline.scrollWidth * scale;
+  const timelineHeight = timeline.scrollHeight * scale;
+
+  if (timelineWidth <= wrapperRect.width) targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
+  if (timelineHeight <= wrapperRect.height) targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
+}
+
+// Animation Tween
 function animate() {
   scale += (targetScale - scale) * 0.15;
   translateX += (targetTranslateX - translateX) * 0.15;
   translateY += (targetTranslateY - translateY) * 0.15;
-
-  applyBounds(); // erst nach Tween
 
   timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
   requestAnimationFrame(animate);
@@ -223,6 +234,7 @@ function setView(page) {
   targetScale = 0.7;
   targetTranslateX = wrapperRect.width / 2 - (img.offsetLeft + img.offsetWidth / 2);
   targetTranslateY = wrapperRect.height / 2 - (img.offsetTop + img.offsetHeight / 2);
+  applyBoundsDrag(); // Drag-Bounds sicherstellen
 }
 
 document.querySelectorAll('#controls button').forEach(btn => {
