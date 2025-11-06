@@ -178,6 +178,7 @@ document.addEventListener('mousemove', e => {
   if (!isDragging) return;
   targetTranslateX = e.clientX - startX;
   targetTranslateY = e.clientY - startY;
+  applyBounds(); // <-- verhindert, dass man über die Ränder hinauszieht
 });
 
 // Prevent ghost image
