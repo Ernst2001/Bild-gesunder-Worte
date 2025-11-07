@@ -58,7 +58,7 @@ footer button:hover { background-color:#005a94;}
   <div id="timeline"></div>
 </div>
 
-<!-- Minimap kommt HIER außerhalb -->
+<!-- Minimap außerhalb -->
 <div id="minimap-wrapper"></div>
 
 <footer>
@@ -74,7 +74,7 @@ const totalPages = 17;
 const startView = 13;
 const extraMargin = 80;
 
-// Bilder
+// Bilder einfügen
 for (let i = 1; i <= totalPages; i++) {
   const img = document.createElement('img');
   img.src = `images/Seite${i}.png`;
@@ -88,7 +88,7 @@ let translateX = 0, translateY = 0;
 let targetTranslateX = 0, targetTranslateY = 0;
 let isDragging = false, startX, startY;
 
-// Drag
+// Drag im Hauptbereich
 wrapper.addEventListener('mousedown', e => {
   isDragging = true;
   startX = e.clientX - targetTranslateX;
@@ -106,7 +106,7 @@ document.addEventListener('mousemove', e => {
   applyBounds();
 });
 
-// Zoom
+// Zoom mit Maus
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
   const rect = wrapper.getBoundingClientRect();
@@ -150,7 +150,7 @@ function applyBounds() {
   }
 }
 
-// Ansicht
+// Ansicht setzen
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
   const img = timeline.children[page - 1];
@@ -178,7 +178,7 @@ minimapWrapper.style.background = 'rgba(0,0,0,0.3)';
 minimapWrapper.style.borderRadius = '6px';
 minimapWrapper.style.cursor = 'pointer';
 minimapWrapper.style.overflow = 'hidden';
-minimapWrapper.style.zIndex = '9999'; // ganz vorne
+minimapWrapper.style.zIndex = '9999';
 
 const minimap = document.createElement('div');
 minimap.style.display = 'flex';
@@ -194,7 +194,8 @@ viewRect.style.left = '0';
 viewRect.style.height = '100%';
 viewRect.style.border = '2px solid #ffd700';
 viewRect.style.boxSizing = 'border-box';
-viewRect.style.pointerEvents = 'none';
+viewRect.style.background = 'rgba(255,215,0,0.1)';
+viewRect.style.cursor = 'grab';
 minimapWrapper.appendChild(viewRect);
 
 for (let i = 1; i <= totalPages; i++) {
@@ -207,17 +208,30 @@ for (let i = 1; i <= totalPages; i++) {
   minimap.appendChild(mini);
 }
 
-// Klick auf Minimap
-minimapWrapper.addEventListener('click', e => {
+// Klick & Drag in Minimap
+let isMiniDragging = false;
+let miniStartX = 0;
+minimapWrapper.addEventListener('mousedown', e => {
+  isMiniDragging = true;
+  miniStartX = e.clientX;
+});
+document.addEventListener('mouseup', () => { isMiniDragging = false; });
+document.addEventListener('mousemove', e => {
+  if (!isMiniDragging) return;
+  moveMinimapTo(e.clientX);
+});
+minimapWrapper.addEventListener('click', e => moveMinimapTo(e.clientX));
+
+function moveMinimapTo(clientX) {
   const rect = minimapWrapper.getBoundingClientRect();
-  const clickX = e.clientX - rect.left;
-  const ratio = clickX / rect.width;
+  const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   targetTranslateX = -ratio * (timelineWidth - wrapperRect.width);
   applyBounds();
-});
+}
 
+// Update der Minimap
 function updateMinimap() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * scale;
@@ -241,7 +255,6 @@ function animate() {
 }
 animate();
 
-// kein Ghost-Drag
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
 window.onload = () => {
