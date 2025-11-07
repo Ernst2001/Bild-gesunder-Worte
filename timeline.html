@@ -74,24 +74,21 @@ const totalPages = 17;
 const startView = 13;
 const extraMargin = 80;
 
-// Bilder einfügen
+// === TIMELINE-BILDER =========================================================
 for (let i = 1; i <= totalPages; i++) {
-  const mini = document.createElement('img');
-  mini.src = `images/Seite${i}.png`;
-  mini.style.height = '100%';
-  mini.style.objectFit = 'cover';
-  mini.style.flex = '1';
-  mini.style.opacity = '0.7';
-  mini.draggable = false; // verhindert Ghostimage beim Ziehen
-  minimap.appendChild(mini);
+  const img = document.createElement('img');
+  img.src = `images/Seite${i}.png`;
+  img.alt = `Seite ${i}`;
+  timeline.appendChild(img);
+}
 
-// Zustand
+// === ZUSTAND =================================================================
 let scale = 0.7, targetScale = 0.7;
 let translateX = 0, translateY = 0;
 let targetTranslateX = 0, targetTranslateY = 0;
 let isDragging = false, startX, startY;
 
-// Drag im Hauptbereich
+// === DRAG IM HAUPTBEREICH ====================================================
 wrapper.addEventListener('mousedown', e => {
   isDragging = true;
   startX = e.clientX - targetTranslateX;
@@ -109,7 +106,7 @@ document.addEventListener('mousemove', e => {
   applyBounds();
 });
 
-// Zoom mit Maus
+// === ZOOM MIT MAUSRAD ========================================================
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
   const rect = wrapper.getBoundingClientRect();
@@ -128,7 +125,7 @@ wrapper.addEventListener('wheel', e => {
   applyBounds();
 });
 
-// Begrenzung
+// === BEGRENZUNG ==============================================================
 function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
@@ -153,7 +150,7 @@ function applyBounds() {
   }
 }
 
-// Ansicht setzen
+// === ANSICHT SETZEN ==========================================================
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
   const img = timeline.children[page - 1];
@@ -201,6 +198,7 @@ viewRect.style.background = 'rgba(255,215,0,0.1)';
 viewRect.style.cursor = 'grab';
 minimapWrapper.appendChild(viewRect);
 
+// === MINIMAP-BILDER ==========================================================
 for (let i = 1; i <= totalPages; i++) {
   const mini = document.createElement('img');
   mini.src = `images/Seite${i}.png`;
@@ -208,10 +206,11 @@ for (let i = 1; i <= totalPages; i++) {
   mini.style.objectFit = 'cover';
   mini.style.flex = '1';
   mini.style.opacity = '0.7';
+  mini.draggable = false; // verhindert Ghostimage beim Ziehen
   minimap.appendChild(mini);
 }
 
-// Klick & Drag in Minimap
+// === KLICK & DRAG IN DER MINIMAP ============================================
 let isMiniDragging = false;
 let miniStartX = 0;
 minimapWrapper.addEventListener('mousedown', e => {
@@ -234,7 +233,7 @@ function moveMinimapTo(clientX) {
   applyBounds();
 }
 
-// Update der Minimap
+// === UPDATE DER MINIMAP =====================================================
 function updateMinimap() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * scale;
@@ -247,7 +246,7 @@ function updateMinimap() {
   viewRect.style.left = rectLeft + 'px';
 }
 
-// Animation
+// === ANIMATION LOOP ==========================================================
 function animate() {
   scale += (targetScale - scale) * 0.15;
   translateX += (targetTranslateX - translateX) * 0.15;
@@ -258,8 +257,10 @@ function animate() {
 }
 animate();
 
+// === VERHINDERT DRAG AUF TIMELINE-IMAGES ====================================
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
+// === STARTPOSITION NACH LADEZEIT ============================================
 window.onload = () => {
   setTimeout(() => setView(startView), 150);
 };
