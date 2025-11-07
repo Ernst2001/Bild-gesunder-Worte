@@ -212,6 +212,12 @@ for (let i = 1; i <= totalPages; i++) {
   minimap.appendChild(mini);
 }
 
+// Verhindert Auswahl / Ghostimage auf Minimap-Bildern
+minimap.querySelectorAll('img').forEach(img => {
+  img.ondragstart = () => false;        // verhindert Ghostimage
+  img.onmousedown = e => e.preventDefault(); // verhindert blaue Markierung
+});
+  
 // === KLICK & DRAG IN DER MINIMAP ============================================
 let isMiniDragging = false;
 let miniStartX = 0;
