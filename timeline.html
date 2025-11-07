@@ -206,7 +206,9 @@ for (let i = 1; i <= totalPages; i++) {
   mini.style.objectFit = 'cover';
   mini.style.flex = '1';
   mini.style.opacity = '0.7';
-  mini.draggable = false; // verhindert Ghostimage beim Ziehen
+  mini.style.userSelect = 'none';
+  mini.style.webkitUserDrag = 'none';
+  mini.draggable = false; // verhindert Ghostimage
   minimap.appendChild(mini);
 }
 
