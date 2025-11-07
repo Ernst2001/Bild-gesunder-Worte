@@ -9,10 +9,10 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
-  color: #001a33; /* dunkler Text für bessere Lesbarkeit */
+  color: #001a33;
   overflow-x: hidden;
   font-size: 19px;
-  text-shadow: 0.5px 0.5px 1px #000a14; /* minimaler Schatten */
+  text-shadow: 0.5px 0.5px 1px #000a14;
 }
 
 nav { 
@@ -22,11 +22,11 @@ nav {
   position:sticky; top:0; z-index:10; font-size:19px;
 }
 nav a { 
-  color:#ffffff; /* wieder weiß auf grauem Hintergrund */
+  color:#ffffff;
   text-decoration:none; 
   margin:0 15px; 
   font-weight:bold;
-  text-shadow: 0.5px 0.5px 1px #000000; /* minimaler Schatten */
+  text-shadow: 0.5px 0.5px 1px #000000;
 }
 nav a:hover { color:#ffd700; }
 
@@ -54,14 +54,16 @@ header p {
 #timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none; }
 
 footer { 
-  padding:20px; text-align:center; background: rgba(0,0,0,0.3); font-size:1.4em; /* gleiche Größe wie Header p */
+  padding:20px; text-align:center; background: rgba(0,0,0,0.3); font-size:1em; /* gleiche Größe wie Button */
 }
-footer a, footer button { color:#001a33; text-decoration:none; margin:5px; text-shadow:0.5px 0.5px 1px #000a14; }
+footer p { margin:5px 0; }
+footer a { color:#fff; text-decoration:none; text-shadow:0.5px 0.5px 1px #00264d; }
 footer button { 
-  background-color:#0070ba; border:none; padding:10px 25px; cursor:pointer; border-radius:5px; font-size:18px; 
-  text-shadow:0.5px 0.5px 1px #000a14;
+  background-color:#0070ba; border:none; padding:10px 25px; cursor:pointer; border-radius:5px; 
+  font-size:1em; color:#fff; text-shadow:0.5px 0.5px 1px #00264d;
+  transition: background-color 0.3s;
 }
-footer button:hover { background-color:#005a94;}
+footer button:hover { background-color:#005a94; }
 </style>
 </head>
 <body>
