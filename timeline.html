@@ -9,64 +9,26 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
-  color: #fff;
+  color: #001a33; /* dunklerer Text für bessere Lesbarkeit */
   overflow-x: hidden;
-  font-size: 18px; /* von Index-Seite übernommen */
-  text-shadow: 1px 1px 3px #00264d; /* von Index-Seite übernommen */
+  font-size: 19px;
+  text-shadow: 1px 1px 3px #000a14; /* dunklerer Schatten */
 }
-
-nav {
-  background: rgba(0,0,0,0.3);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:12px 0;
-  position:sticky;
-  top:0;
-  z-index:10;
-  font-size:18px; /* von Index-Seite übernommen */
-}
-nav a {
-  color:#fff;
-  text-decoration:none;
-  margin:0 15px;
-  font-weight:bold;
-}
+nav { background: rgba(0,0,0,0.3); display:flex; justify-content:center; align-items:center; padding:12px 0; position:sticky; top:0; z-index:10; font-size:19px;}
+nav a { color:#001a33; text-decoration:none; margin:0 15px; font-weight:bold;}
 nav a:hover { color:#ffd700; }
-
 header { text-align:center; padding:30px; }
-header h1 { margin:0; font-size:2.8em; } /* von Index-Seite übernommen */
-header p { margin-top:10px; font-size:1.4em; color:#f0f0f0; }
-
+header h1 { margin:0; font-size:2.8em; }
+header p { margin-top:10px; font-size:1.4em; color:#001a33; }
 #controls { text-align:center; margin:20px; }
-#controls button { 
-  background-color:#0070ba; 
-  color:#fff; 
-  border:none; 
-  padding:12px 22px; 
-  margin:5px; 
-  border-radius:6px; 
-  cursor:pointer; 
-  font-size:1.1em; 
-  text-shadow:1px 1px 2px #00264d; /* von Index-Seite übernommen */
-}
+#controls button { background-color:#0070ba; color:#fff; border:none; padding:12px 22px; margin:5px; border-radius:6px; cursor:pointer; font-size:1.1em; text-shadow:1px 1px 3px #000a14;}
 #controls button:hover { background-color:#005a94; }
-
-#timeline-wrapper { width:100%; height:91vh; overflow:hidden; position:relative; cursor:grab; margin:20px 0; border:1px solid rgba(255,255,255,0.2); }
+#timeline-wrapper { width:100%; height:91vh; overflow:hidden; position:relative; cursor:grab; margin:20px 0; border:1px solid rgba(0,0,0,0.2); }
 #timeline { display:flex; height:130%; transform-origin:0 0; user-select:none; }
 #timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none; }
-
-footer { padding:20px; text-align:center; background: rgba(0,0,0,0.3); font-size:17px; }
-footer a, footer button { color:#fff; text-decoration:none; margin:5px;}
-footer button { 
-  background-color:#0070ba; 
-  border:none; 
-  padding:10px 25px; 
-  cursor:pointer; 
-  border-radius:5px; 
-  font-size:17px; 
-  text-shadow:1px 1px 2px #00264d; /* von Index-Seite übernommen */
-}
+footer { padding:20px; text-align:center; background: rgba(0,0,0,0.3); font-size:18px;}
+footer a, footer button { color:#001a33; text-decoration:none; margin:5px;}
+footer button { background-color:#0070ba; border:none; padding:10px 25px; cursor:pointer; border-radius:5px; font-size:18px; text-shadow:1px 1px 3px #000a14;}
 footer button:hover { background-color:#005a94;}
 </style>
 </head>
@@ -104,13 +66,14 @@ footer button:hover { background-color:#005a94;}
 </footer>
 
 <script>
+// === TIMELINE-BILDER =========================================================
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
+
 const totalPages = 17;
 const startView = 13;
 const extraMargin = 80;
 
-// Bilder hinzufügen
 for (let i = 1; i <= totalPages; i++) {
   const img = document.createElement('img');
   img.src = `images/Seite${i}.png`;
@@ -118,13 +81,13 @@ for (let i = 1; i <= totalPages; i++) {
   timeline.appendChild(img);
 }
 
-// Zustand
+// === ZUSTAND =================================================================
 let scale = 0.7, targetScale = 0.7;
 let translateX = 0, translateY = 0;
 let targetTranslateX = 0, targetTranslateY = 0;
 let isDragging = false, startX, startY;
 
-// Drag Hauptbereich
+// === DRAG IM HAUPTBEREICH ====================================================
 wrapper.addEventListener('mousedown', e => {
   isDragging = true;
   startX = e.clientX - targetTranslateX;
@@ -142,23 +105,26 @@ document.addEventListener('mousemove', e => {
   applyBounds();
 });
 
-// Zoom mit Mausrad
+// === ZOOM MIT MAUSRAD ========================================================
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
   const rect = wrapper.getBoundingClientRect();
   const mouseX = e.clientX - rect.left;
   const mouseY = e.clientY - rect.top;
+  const currentScale = scale;
+  const currentTX = translateX;
+  const currentTY = translateY;
   const zoomFactor = Math.exp(-e.deltaY * 0.0015);
-  const newScale = Math.min(Math.max(0.3, scale * zoomFactor), 5);
-  const contentX = (mouseX - translateX) / scale;
-  const contentY = (mouseY - translateY) / scale;
+  const newScale = Math.min(Math.max(0.3, currentScale * zoomFactor), 5);
+  const contentX = (mouseX - currentTX) / currentScale;
+  const contentY = (mouseY - currentTY) / currentScale;
   targetTranslateX = mouseX - contentX * newScale;
   targetTranslateY = mouseY - contentY * newScale;
   targetScale = newScale;
   applyBounds();
 });
 
-// Begrenzung
+// === BEGRENZUNG ==============================================================
 function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
@@ -183,7 +149,7 @@ function applyBounds() {
   }
 }
 
-// Ansicht setzen
+// === ANSICHT SETZEN ==========================================================
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
   const img = timeline.children[page - 1];
@@ -198,7 +164,7 @@ function setView(page) {
   applyBounds();
 }
 
-// Minimap
+// === MINI-MAP ================================================================
 const minimapWrapper = document.getElementById('minimap-wrapper');
 minimapWrapper.style.position = 'fixed';
 minimapWrapper.style.bottom = '10px';
@@ -206,7 +172,7 @@ minimapWrapper.style.left = '50%';
 minimapWrapper.style.transform = 'translateX(-50%)';
 minimapWrapper.style.width = '250px';
 minimapWrapper.style.height = '50px';
-minimapWrapper.style.border = '1px solid rgba(255,255,255,0.4)';
+minimapWrapper.style.border = '1px solid rgba(0,0,0,0.4)';
 minimapWrapper.style.background = 'rgba(0,0,0,0.3)';
 minimapWrapper.style.borderRadius = '6px';
 minimapWrapper.style.cursor = 'pointer';
@@ -231,7 +197,7 @@ viewRect.style.background = 'rgba(255,215,0,0.1)';
 viewRect.style.cursor = 'grab';
 minimapWrapper.appendChild(viewRect);
 
-// Minimap-Bilder
+// === MINIMAP-BILDER ==========================================================
 for (let i = 1; i <= totalPages; i++) {
   const mini = document.createElement('img');
   mini.src = `images/Seite${i}.png`;
@@ -245,11 +211,18 @@ for (let i = 1; i <= totalPages; i++) {
   minimap.appendChild(mini);
 }
 
-// Klick & Drag Minimap
+// === KLICK & DRAG IN DER MINIMAP ============================================
 let isMiniDragging = false;
-minimapWrapper.addEventListener('mousedown', e => { isMiniDragging = true; moveMinimapTo(e.clientX); });
+let miniStartX = 0;
+minimapWrapper.addEventListener('mousedown', e => {
+  isMiniDragging = true;
+  miniStartX = e.clientX;
+});
 document.addEventListener('mouseup', () => { isMiniDragging = false; });
-document.addEventListener('mousemove', e => { if(isMiniDragging) moveMinimapTo(e.clientX); });
+document.addEventListener('mousemove', e => {
+  if (!isMiniDragging) return;
+  moveMinimapTo(e.clientX);
+});
 minimapWrapper.addEventListener('click', e => moveMinimapTo(e.clientX));
 
 function moveMinimapTo(clientX) {
@@ -261,7 +234,7 @@ function moveMinimapTo(clientX) {
   applyBounds();
 }
 
-// Update Minimap
+// === UPDATE DER MINIMAP =====================================================
 function updateMinimap() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * scale;
@@ -274,7 +247,7 @@ function updateMinimap() {
   viewRect.style.left = rectLeft + 'px';
 }
 
-// Animation Loop
+// === ANIMATION LOOP ==========================================================
 function animate() {
   scale += (targetScale - scale) * 0.15;
   translateX += (targetTranslateX - translateX) * 0.15;
@@ -285,31 +258,54 @@ function animate() {
 }
 animate();
 
-// Verhindert Drag auf Bildern
+// === VERHINDERT DRAG AUF TIMELINE-IMAGES ====================================
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// Startposition
-window.onload = () => { setTimeout(() => setView(startView), 150); };
+// === STARTPOSITION NACH LADEZEIT ============================================
+window.onload = () => {
+  setTimeout(() => setView(startView), 150);
+};
 
-// Touch Support
-let touchStartDist = 0, lastTouchX = 0, lastTouchY = 0;
+// === TOUCH SUPPORT ==========================================================
+let touchStartDist = 0;
+let lastTouchX = 0, lastTouchY = 0;
+
 wrapper.addEventListener('touchstart', e => {
-  if(e.touches.length === 1){ isDragging=true; lastTouchX=e.touches[0].clientX - targetTranslateX; lastTouchY=e.touches[0].clientY - targetTranslateY; }
-  else if(e.touches.length===2){ isDragging=false; touchStartDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);}
+  if (e.touches.length === 1) {
+    isDragging = true;
+    lastTouchX = e.touches[0].clientX - targetTranslateX;
+    lastTouchY = e.touches[0].clientY - targetTranslateY;
+  } else if (e.touches.length === 2) {
+    isDragging = false;
+    touchStartDist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+  }
 });
+
 wrapper.addEventListener('touchmove', e => {
   e.preventDefault();
-  if(e.touches.length===1 && isDragging){ targetTranslateX = e.touches[0].clientX - lastTouchX; targetTranslateY = e.touches[0].clientY - lastTouchY; applyBounds();}
-  else if(e.touches.length===2){
-    const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX,e.touches[0].clientY - e.touches[1].clientY);
+  if (e.touches.length === 1 && isDragging) {
+    targetTranslateX = e.touches[0].clientX - lastTouchX;
+    targetTranslateY = e.touches[0].clientY - lastTouchY;
+    applyBounds();
+  } else if (e.touches.length === 2) {
+    const dist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    const rect = wrapper.getBoundingClientRect();
     const zoomFactor = dist / touchStartDist;
     targetScale = Math.min(Math.max(0.3, scale * zoomFactor), 5);
     touchStartDist = dist;
     applyBounds();
   }
-},{passive:false});
-wrapper.addEventListener('touchend', e => { if(e.touches.length===0) isDragging=false; });
-</script>
+}, { passive: false });
 
+wrapper.addEventListener('touchend', e => {
+  if (e.touches.length === 0) isDragging = false;
+});
+</script>
 </body>
 </html>
