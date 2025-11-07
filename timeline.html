@@ -26,6 +26,15 @@ header p { margin-top:10px; font-size:1.4em; color:#f0f0f0; }
 #timeline-wrapper { width:100%; height:91vh; overflow:hidden; position:relative; cursor:grab; margin:20px 0; border:1px solid rgba(255,255,255,0.2); }
 #timeline { display:flex; height:130%; transform-origin:0 0; user-select:none; }
 #timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none; }
+
+/* 👇 NEU: verhindert Markierung & Ghostimage in der Minimap */
+#minimap-wrapper, #minimap-wrapper * {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
 footer { padding:20px; text-align:center; background: rgba(0,0,0,0.3); font-size:18px;}
 footer a, footer button { color:#fff; text-decoration:none; margin:5px;}
 footer button { background-color:#0070ba; border:none; padding:10px 25px; cursor:pointer; border-radius:5px; font-size:18px; text-shadow:1px 1px 3px #001a33;}
@@ -79,7 +88,6 @@ for (let i = 1; i <= totalPages; i++) {
   const img = document.createElement('img');
   img.src = `images/Seite${i}.png`;
   img.alt = `Seite ${i}`;
-  img.draggable = false;
   timeline.appendChild(img);
 }
 
@@ -168,6 +176,11 @@ function setView(page) {
 
 // === MINI-MAP ================================================================
 const minimapWrapper = document.getElementById('minimap-wrapper');
+
+// 👇 NEU: verhindert Markieren und Ghostimage beim Ziehen
+minimapWrapper.addEventListener('dragstart', e => e.preventDefault());
+minimapWrapper.addEventListener('mousedown', e => e.preventDefault());
+
 minimapWrapper.style.position = 'fixed';
 minimapWrapper.style.bottom = '10px';
 minimapWrapper.style.left = '50%';
@@ -207,15 +220,16 @@ for (let i = 1; i <= totalPages; i++) {
   mini.style.objectFit = 'cover';
   mini.style.flex = '1';
   mini.style.opacity = '0.7';
-  mini.draggable = false;
+  mini.draggable = false; // verhindert Ghostimage beim Ziehen
   minimap.appendChild(mini);
 }
 
 // === KLICK & DRAG IN DER MINIMAP ============================================
 let isMiniDragging = false;
+let miniStartX = 0;
 minimapWrapper.addEventListener('mousedown', e => {
   isMiniDragging = true;
-  moveMinimapTo(e.clientX);
+  miniStartX = e.clientX;
 });
 document.addEventListener('mouseup', () => { isMiniDragging = false; });
 document.addEventListener('mousemove', e => {
