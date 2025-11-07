@@ -1,138 +1,73 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Timeline / Zeitstrahl</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Fakten statt Mythen: Timeline</title>
 <style>
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
   color: #fff;
-  text-align: center;
-  font-size: 18px;
-  text-shadow: 1px 1px 3px #00264d;
-  opacity: 0;
-  transition: opacity 0.6s ease-in-out;
+  overflow-x: hidden;
+  font-size: 18px; /* von Index-Seite übernommen */
+  text-shadow: 1px 1px 3px #00264d; /* von Index-Seite übernommen */
 }
 
-/* Navigation */
 nav {
   background: rgba(0,0,0,0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 12px 0;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  font-size: 18px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:12px 0;
+  position:sticky;
+  top:0;
+  z-index:10;
+  font-size:18px; /* von Index-Seite übernommen */
 }
-
 nav a {
-  color: #fff;
-  text-decoration: none;
-  margin: 0 15px;
-  font-weight: bold;
-  transition: color 0.3s;
+  color:#fff;
+  text-decoration:none;
+  margin:0 15px;
+  font-weight:bold;
 }
+nav a:hover { color:#ffd700; }
 
-nav a:hover {
-  color: #ffd700;
-}
+header { text-align:center; padding:30px; }
+header h1 { margin:0; font-size:2.8em; } /* von Index-Seite übernommen */
+header p { margin-top:10px; font-size:1.4em; color:#f0f0f0; }
 
-/* Timeline Header */
-header {
-  padding: 60px 20px 20px;
+#controls { text-align:center; margin:20px; }
+#controls button { 
+  background-color:#0070ba; 
+  color:#fff; 
+  border:none; 
+  padding:12px 22px; 
+  margin:5px; 
+  border-radius:6px; 
+  cursor:pointer; 
+  font-size:1.1em; 
+  text-shadow:1px 1px 2px #00264d; /* von Index-Seite übernommen */
 }
+#controls button:hover { background-color:#005a94; }
 
-h1 {
-  font-size: 2.8em;
-  margin-bottom: 15px;
-  text-shadow: 1px 1px 3px #00264d;
-}
+#timeline-wrapper { width:100%; height:91vh; overflow:hidden; position:relative; cursor:grab; margin:20px 0; border:1px solid rgba(255,255,255,0.2); }
+#timeline { display:flex; height:130%; transform-origin:0 0; user-select:none; }
+#timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none; }
 
-h2 {
-  font-weight: normal;
-  font-size: 1.25em;
-  max-width: 800px;
-  margin: 0 auto 40px;
-  line-height: 1.5;
-  text-shadow: 1px 1px 3px #00264d;
+footer { padding:20px; text-align:center; background: rgba(0,0,0,0.3); font-size:17px; }
+footer a, footer button { color:#fff; text-decoration:none; margin:5px;}
+footer button { 
+  background-color:#0070ba; 
+  border:none; 
+  padding:10px 25px; 
+  cursor:pointer; 
+  border-radius:5px; 
+  font-size:17px; 
+  text-shadow:1px 1px 2px #00264d; /* von Index-Seite übernommen */
 }
-
-/* Timeline Container */
-.timeline-container {
-  max-width: 800px;
-  margin: 20px auto 50px;
-  text-align: left;
-  font-size: 1.3em;
-  text-shadow: 1px 1px 3px #00264d;
-}
-
-/* Einzelne Timeline-Einträge */
-.timeline-entry {
-  margin-bottom: 30px;
-}
-
-/* Buttons */
-button, .timeline-button {
-  background-color: #0070ba;
-  color: #fff;
-  border: none;
-  padding: 15px 40px;
-  font-size: 1.2em;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-bottom: 50px;
-  text-shadow: 1px 1px 2px #00264d;
-  transition: background-color 0.3s;
-}
-
-button:hover, .timeline-button:hover {
-  background-color: #005a94;
-}
-
-/* Links */
-a {
-  color: #fff;
-  text-decoration: none;
-  text-shadow: 1px 1px 2px #00264d;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* Footer */
-footer {
-  padding: 30px;
-  background: rgba(0,0,0,0.3);
-  margin-top: 50px;
-  font-size: 17px;
-}
-
-footer a, footer button {
-  color: #fff;
-  text-decoration: none;
-  margin: 5px;
-}
-
-footer button {
-  background-color: #0070ba;
-  border: none;
-  padding: 10px 25px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 17px;
-  text-shadow: 1px 1px 2px #00264d;
-  transition: background-color 0.3s;
-}
-
-footer button:hover {
-  background-color: #005a94;
-}
+footer button:hover { background-color:#005a94;}
 </style>
 </head>
 <body>
@@ -142,60 +77,238 @@ footer button:hover {
   <a href="timeline.html">Timeline / Zeitstrahl</a>
   <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">YouTube</a>
   <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
-  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über PayPal</a>
+  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über Paypal</a>
 </nav>
 
 <header>
-  <h1>Timeline / Zeitstrahl</h1>
-  <h2>Eine Übersicht der wichtigsten Ereignisse</h2>
-  <button class="timeline-button" onclick="window.location.href='index.html'">Zur Startseite</button>
+  <h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
+  <p>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</p>
 </header>
 
-<div class="timeline-container">
-  <div class="timeline-entry">
-    <h2>2025</h2>
-    <p>Beispieltext für Ereignis im Jahr 2025.</p>
-  </div>
-  <div class="timeline-entry">
-    <h2>2024</h2>
-    <p>Beispieltext für Ereignis im Jahr 2024.</p>
-  </div>
-  <div class="timeline-entry">
-    <h2>2023</h2>
-    <p>Beispieltext für Ereignis im Jahr 2023.</p>
-  </div>
+<div id="controls">
+  <button onclick="setView(1)">Ansicht Anfang</button>
+  <button onclick="setView(5)">Ansicht Sintflut</button>
+  <button onclick="setView(9)">Ansicht Zeitenwende</button>
+  <button onclick="setView(13)">Ansicht Moderne</button>
 </div>
+
+<div id="timeline-wrapper">
+  <div id="timeline"></div>
+</div>
+
+<div id="minimap-wrapper"></div>
 
 <footer>
   <p>Kontakt: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
-  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über PayPal</button>
+  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über Paypal</button>
 </footer>
 
 <script>
-// Sanftes Einblenden beim Laden
-window.addEventListener("DOMContentLoaded", () => {
-  document.body.style.opacity = "1";
+const wrapper = document.getElementById('timeline-wrapper');
+const timeline = document.getElementById('timeline');
+const totalPages = 17;
+const startView = 13;
+const extraMargin = 80;
+
+// Bilder hinzufügen
+for (let i = 1; i <= totalPages; i++) {
+  const img = document.createElement('img');
+  img.src = `images/Seite${i}.png`;
+  img.alt = `Seite ${i}`;
+  timeline.appendChild(img);
+}
+
+// Zustand
+let scale = 0.7, targetScale = 0.7;
+let translateX = 0, translateY = 0;
+let targetTranslateX = 0, targetTranslateY = 0;
+let isDragging = false, startX, startY;
+
+// Drag Hauptbereich
+wrapper.addEventListener('mousedown', e => {
+  isDragging = true;
+  startX = e.clientX - targetTranslateX;
+  startY = e.clientY - targetTranslateY;
+  wrapper.style.cursor = 'grabbing';
+});
+document.addEventListener('mouseup', () => {
+  isDragging = false;
+  wrapper.style.cursor = 'grab';
+});
+document.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  targetTranslateX = e.clientX - startX;
+  targetTranslateY = e.clientY - startY;
+  applyBounds();
 });
 
-// Sanftes Ausblenden beim Navigieren
-document.querySelectorAll('a, button').forEach(el => {
-  el.addEventListener('click', e => {
-    const target = el.getAttribute('href') || el.getAttribute('onclick');
-    if (!target || target.startsWith('#') || target.includes('javascript')) return;
-
-    e.preventDefault();
-    document.body.style.opacity = '0';
-
-    setTimeout(() => {
-      if (el.target === '_blank') {
-        window.open(target, '_blank');
-        document.body.style.opacity = '1';
-      } else {
-        window.location.href = target;
-      }
-    }, 400);
-  });
+// Zoom mit Mausrad
+wrapper.addEventListener('wheel', e => {
+  e.preventDefault();
+  const rect = wrapper.getBoundingClientRect();
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
+  const zoomFactor = Math.exp(-e.deltaY * 0.0015);
+  const newScale = Math.min(Math.max(0.3, scale * zoomFactor), 5);
+  const contentX = (mouseX - translateX) / scale;
+  const contentY = (mouseY - translateY) / scale;
+  targetTranslateX = mouseX - contentX * newScale;
+  targetTranslateY = mouseY - contentY * newScale;
+  targetScale = newScale;
+  applyBounds();
 });
+
+// Begrenzung
+function applyBounds() {
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const timelineWidth = timeline.scrollWidth * targetScale;
+  const timelineHeight = timeline.scrollHeight * targetScale;
+  const visibleMarginX = wrapperRect.width * 0.05;
+  const visibleMarginY = wrapperRect.height * 0.05;
+
+  if (timelineWidth <= wrapperRect.width) {
+    targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
+  } else {
+    const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
+    const maxX = 0 - visibleMarginX + extraMargin;
+    targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
+  }
+
+  if (timelineHeight <= wrapperRect.height) {
+    targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
+  } else {
+    const minY = wrapperRect.height - timelineHeight + visibleMarginY;
+    const maxY = visibleMarginY;
+    targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
+  }
+}
+
+// Ansicht setzen
+function setView(page) {
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const img = timeline.children[page - 1];
+  if (!img) return;
+  const imgLeft = img.offsetLeft;
+  const imgWidth = img.offsetWidth;
+  const imgTop = img.offsetTop;
+  const imgHeight = img.offsetHeight;
+  targetScale = 0.7;
+  targetTranslateX = wrapperRect.width / 2 - (imgLeft + imgWidth / 2) * targetScale;
+  targetTranslateY = wrapperRect.height / 2 - (imgTop + imgHeight / 2) * targetScale;
+  applyBounds();
+}
+
+// Minimap
+const minimapWrapper = document.getElementById('minimap-wrapper');
+minimapWrapper.style.position = 'fixed';
+minimapWrapper.style.bottom = '10px';
+minimapWrapper.style.left = '50%';
+minimapWrapper.style.transform = 'translateX(-50%)';
+minimapWrapper.style.width = '250px';
+minimapWrapper.style.height = '50px';
+minimapWrapper.style.border = '1px solid rgba(255,255,255,0.4)';
+minimapWrapper.style.background = 'rgba(0,0,0,0.3)';
+minimapWrapper.style.borderRadius = '6px';
+minimapWrapper.style.cursor = 'pointer';
+minimapWrapper.style.overflow = 'hidden';
+minimapWrapper.style.zIndex = '9999';
+
+const minimap = document.createElement('div');
+minimap.style.display = 'flex';
+minimap.style.height = '100%';
+minimap.style.width = '100%';
+minimap.style.position = 'relative';
+minimapWrapper.appendChild(minimap);
+
+const viewRect = document.createElement('div');
+viewRect.style.position = 'absolute';
+viewRect.style.top = '0';
+viewRect.style.left = '0';
+viewRect.style.height = '100%';
+viewRect.style.border = '2px solid #ffd700';
+viewRect.style.boxSizing = 'border-box';
+viewRect.style.background = 'rgba(255,215,0,0.1)';
+viewRect.style.cursor = 'grab';
+minimapWrapper.appendChild(viewRect);
+
+// Minimap-Bilder
+for (let i = 1; i <= totalPages; i++) {
+  const mini = document.createElement('img');
+  mini.src = `images/Seite${i}.png`;
+  mini.style.height = '100%';
+  mini.style.objectFit = 'cover';
+  mini.style.flex = '1';
+  mini.style.opacity = '0.7';
+  mini.style.userSelect = 'none';
+  mini.style.webkitUserDrag = 'none';
+  mini.draggable = false;
+  minimap.appendChild(mini);
+}
+
+// Klick & Drag Minimap
+let isMiniDragging = false;
+minimapWrapper.addEventListener('mousedown', e => { isMiniDragging = true; moveMinimapTo(e.clientX); });
+document.addEventListener('mouseup', () => { isMiniDragging = false; });
+document.addEventListener('mousemove', e => { if(isMiniDragging) moveMinimapTo(e.clientX); });
+minimapWrapper.addEventListener('click', e => moveMinimapTo(e.clientX));
+
+function moveMinimapTo(clientX) {
+  const rect = minimapWrapper.getBoundingClientRect();
+  const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const timelineWidth = timeline.scrollWidth * targetScale;
+  targetTranslateX = -ratio * (timelineWidth - wrapperRect.width);
+  applyBounds();
+}
+
+// Update Minimap
+function updateMinimap() {
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const timelineWidth = timeline.scrollWidth * scale;
+  const visibleRatio = wrapperRect.width / timelineWidth;
+  const fullWidth = minimapWrapper.clientWidth;
+  const rectWidth = Math.max(15, fullWidth * visibleRatio);
+  const scrollRatio = -translateX / (timelineWidth - wrapperRect.width);
+  const rectLeft = (fullWidth - rectWidth) * scrollRatio;
+  viewRect.style.width = rectWidth + 'px';
+  viewRect.style.left = rectLeft + 'px';
+}
+
+// Animation Loop
+function animate() {
+  scale += (targetScale - scale) * 0.15;
+  translateX += (targetTranslateX - translateX) * 0.15;
+  translateY += (targetTranslateY - translateY) * 0.15;
+  timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  updateMinimap();
+  requestAnimationFrame(animate);
+}
+animate();
+
+// Verhindert Drag auf Bildern
+timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
+
+// Startposition
+window.onload = () => { setTimeout(() => setView(startView), 150); };
+
+// Touch Support
+let touchStartDist = 0, lastTouchX = 0, lastTouchY = 0;
+wrapper.addEventListener('touchstart', e => {
+  if(e.touches.length === 1){ isDragging=true; lastTouchX=e.touches[0].clientX - targetTranslateX; lastTouchY=e.touches[0].clientY - targetTranslateY; }
+  else if(e.touches.length===2){ isDragging=false; touchStartDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);}
+});
+wrapper.addEventListener('touchmove', e => {
+  e.preventDefault();
+  if(e.touches.length===1 && isDragging){ targetTranslateX = e.touches[0].clientX - lastTouchX; targetTranslateY = e.touches[0].clientY - lastTouchY; applyBounds();}
+  else if(e.touches.length===2){
+    const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX,e.touches[0].clientY - e.touches[1].clientY);
+    const zoomFactor = dist / touchStartDist;
+    targetScale = Math.min(Math.max(0.3, scale * zoomFactor), 5);
+    touchStartDist = dist;
+    applyBounds();
+  }
+},{passive:false});
+wrapper.addEventListener('touchend', e => { if(e.touches.length===0) isDragging=false; });
 </script>
 
 </body>
