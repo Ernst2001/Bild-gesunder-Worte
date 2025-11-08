@@ -48,7 +48,8 @@ header p {
 
 #timeline-wrapper { 
   width:100%; height:91vh; overflow:hidden; position:relative; cursor:grab; 
-  margin:20px 0; border:1px solid rgba(0,0,0,0.2); 
+  margin:20px 0 200px 0; /* >>> zusätzlicher Platz nach unten, damit PayPal frei ist <<< */
+  border:1px solid rgba(0,0,0,0.2); 
 }
 #timeline { display:flex; height:130%; transform-origin:0 0; user-select:none; }
 #timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none; }
@@ -57,15 +58,20 @@ footer {
   padding:20px; 
   text-align:center; 
   background: rgba(0,0,0,0.3); 
-  font-size:1.1em; /* vorher 1em → +1 Punkt */
-  color:#ffffff;
+  font-size:1.1em; /* vorher 1em -> +1 Punkt */
+  color:#ffffff; 
 }
 footer p { margin:5px 0; }
 footer a { color:#ffffff; text-decoration:none; text-shadow:0.5px 0.5px 1px #00264d; }
 footer button { 
-  background-color:#0070ba; border:none; padding:10px 25px; cursor:pointer; border-radius:5px; 
-  font-size:1.1em; /* vorher 1em → +1 Punkt */
-  color:#fff; text-shadow:0.5px 0.5px 1px #00264d;
+  background-color:#0070ba; 
+  border:none; 
+  padding:10px 25px; 
+  cursor:pointer; 
+  border-radius:5px; 
+  font-size:1.1em; /* ebenfalls +1 Punkt */
+  color:#fff; 
+  text-shadow:0.5px 0.5px 1px #00264d;
   transition: background-color 0.3s;
 }
 footer button:hover { background-color:#005a94; }
@@ -103,7 +109,9 @@ footer button:hover { background-color:#005a94; }
   <p>Kontakt: Bei Fragen und Anregungen sehr gerne an 
     <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a>
   </p>
-  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über Paypal</button>
+  <button onclick="window.open('https://www.paypal.com/donate','_blank')">
+    Unterstützen über Paypal
+  </button>
 </footer>
 
 <script>
@@ -171,9 +179,7 @@ function applyBounds() {
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
   const visibleMarginX = wrapperRect.width * 0.05;
-
-  // Deutlich mehr vertikaler Spielraum, damit der PayPal-Button komplett frei ist
-  const visibleMarginY = wrapperRect.height * 0.35; // vorher 0.15 → jetzt 0.35
+  const visibleMarginY = wrapperRect.height * 0.05;
 
   if (timelineWidth <= wrapperRect.width) {
     targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
