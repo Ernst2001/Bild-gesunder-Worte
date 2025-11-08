@@ -55,15 +55,16 @@ header p {
 
 /* Neuer Abschnitt unter der Timeline */
 #aspects {
-  background-color:#0070ba;
-  color:#ffffff;
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8); /* gleich wie Body */
+  color:#001a33;
   text-shadow:0.5px 0.5px 1px #000a14;
-  padding:40px 20px;
+  padding:40px 20px 60px 20px;
   text-align:left;
 }
 #aspects h2 {
   font-size:2.2em; /* zwei Stufen größer */
   margin-bottom:20px;
+  text-align:center;
 }
 #aspects ol {
   font-size:1.4em; /* gleiche Größe wie Header-Zeile */
@@ -143,6 +144,7 @@ for (let i = 1; i <= totalPages; i++) {
   const img = document.createElement('img');
   img.src = `images/Seite${i}.png`;
   img.alt = `Seite ${i}`;
+  img.draggable = false;
   timeline.appendChild(img);
 }
 
@@ -177,12 +179,10 @@ wrapper.addEventListener('wheel', e => {
   const mouseX = e.clientX - rect.left;
   const mouseY = e.clientY - rect.top;
   const currentScale = scale;
-  const currentTX = translateX;
-  const currentTY = translateY;
   const zoomFactor = Math.exp(-e.deltaY * 0.0015);
   const newScale = Math.min(Math.max(0.3, currentScale * zoomFactor), 5);
-  const contentX = (mouseX - currentTX) / currentScale;
-  const contentY = (mouseY - currentTY) / currentScale;
+  const contentX = (mouseX - translateX) / currentScale;
+  const contentY = (mouseY - translateY) / currentScale;
   targetTranslateX = mouseX - contentX * newScale;
   targetTranslateY = mouseY - contentY * newScale;
   targetScale = newScale;
@@ -278,16 +278,9 @@ for (let i = 1; i <= totalPages; i++) {
 
 // === KLICK & DRAG IN DER MINIMAP ============================================
 let isMiniDragging = false;
-let miniStartX = 0;
-minimapWrapper.addEventListener('mousedown', e => {
-  isMiniDragging = true;
-  miniStartX = e.clientX;
-});
+minimapWrapper.addEventListener('mousedown', e => { isMiniDragging = true; });
 document.addEventListener('mouseup', () => { isMiniDragging = false; });
-document.addEventListener('mousemove', e => {
-  if (!isMiniDragging) return;
-  moveMinimapTo(e.clientX);
-});
+document.addEventListener('mousemove', e => { if (isMiniDragging) moveMinimapTo(e.clientX); });
 minimapWrapper.addEventListener('click', e => moveMinimapTo(e.clientX));
 
 function moveMinimapTo(clientX) {
@@ -323,54 +316,10 @@ function animate() {
 }
 animate();
 
-// === VERHINDERT DRAG AUF TIMELINE-IMAGES ====================================
-timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
-
 // === STARTPOSITION NACH LADEZEIT ============================================
 window.onload = () => {
   setTimeout(() => setView(startView), 150);
 };
-
-// === TOUCH SUPPORT ==========================================================
-let touchStartDist = 0;
-let lastTouchX = 0, lastTouchY = 0;
-
-wrapper.addEventListener('touchstart', e => {
-  if (e.touches.length === 1) {
-    isDragging = true;
-    lastTouchX = e.touches[0].clientX - targetTranslateX;
-    lastTouchY = e.touches[0].clientY - targetTranslateY;
-  } else if (e.touches.length === 2) {
-    isDragging = false;
-    touchStartDist = Math.hypot(
-      e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY
-    );
-  }
-});
-
-wrapper.addEventListener('touchmove', e => {
-  e.preventDefault();
-  if (e.touches.length === 1 && isDragging) {
-    targetTranslateX = e.touches[0].clientX - lastTouchX;
-    targetTranslateY = e.touches[0].clientY - lastTouchY;
-    applyBounds();
-  } else if (e.touches.length === 2) {
-    const dist = Math.hypot(
-      e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY
-    );
-    const rect = wrapper.getBoundingClientRect();
-    const zoomFactor = dist / touchStartDist;
-    targetScale = Math.min(Math.max(0.3, scale * zoomFactor), 5);
-    touchStartDist = dist;
-    applyBounds();
-  }
-}, { passive: false });
-
-wrapper.addEventListener('touchend', e => {
-  if (e.touches.length === 0) isDragging = false;
-});
 </script>
 </body>
 </html>
