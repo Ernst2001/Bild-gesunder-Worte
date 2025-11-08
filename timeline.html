@@ -48,62 +48,39 @@ header p {
 
 #timeline-wrapper { 
   width:100%; height:91vh; overflow:hidden; position:relative; cursor:grab; 
-  margin:20px 0 80px 0;
-  border:1px solid rgba(0,0,0,0.2); 
+  margin:20px 0; border:1px solid rgba(0,0,0,0.2); 
 }
 #timeline { display:flex; height:130%; transform-origin:0 0; user-select:none; }
 #timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none; }
 
-#extra-content {
-  text-align:center;
-  padding:60px 20px 100px 20px;
-  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+/* Neuer Abschnitt unter der Timeline */
+#aspects {
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8); /* gleich wie Body */
   color:#001a33;
-  text-shadow: 0.5px 0.5px 1px #000a14;
-}
-#extra-content h2 {
-  font-size:2em; /* zwei Stufen größer */
-  margin-bottom:25px;
-}
-#extra-content ol {
-  list-style:decimal;
+  text-shadow:0.5px 0.5px 1px #000a14;
+  padding:40px 20px 60px 20px;
   text-align:left;
-  display:inline-block;
-  font-size:1.4em; /* gleiche Größe wie der Untertitel oben */
 }
-#extra-content li {
-  margin-bottom:10px;
+#aspects h2 {
+  font-size:2.2em; /* zwei Stufen größer */
+  margin-bottom:20px;
+  text-align:center;
+}
+#aspects ol {
+  font-size:1.4em; /* gleiche Größe wie Header-Zeile */
+  margin-left:30px;
+  line-height:1.6em;
 }
 
 footer { 
-  padding:40px 20px 120px 20px; /* vergrößert nach unten */
-  text-align:center; 
-  background: rgba(0,0,0,0.3); 
-  font-size:1.1em; /* vorher 1em -> +1 Punkt */
-  color:#ffffff; 
-  position:relative;
-}
-footer::after {
-  content:"";
-  display:block;
-  width:100%;
-  height:80px; /* zusätzlicher grauer Streifen unten */
-  background: rgba(0,0,0,0.3);
-  position:absolute;
-  left:0;
-  bottom:-80px;
+  padding:20px; text-align:center; background: rgba(0,0,0,0.3); font-size:1em;
+  color:#ffffff; /* geändert: Schrift weiß */
 }
 footer p { margin:5px 0; }
 footer a { color:#ffffff; text-decoration:none; text-shadow:0.5px 0.5px 1px #00264d; }
 footer button { 
-  background-color:#0070ba; 
-  border:none; 
-  padding:10px 25px; 
-  cursor:pointer; 
-  border-radius:5px; 
-  font-size:1.1em; /* ebenfalls +1 Punkt */
-  color:#fff; 
-  text-shadow:0.5px 0.5px 1px #00264d;
+  background-color:#0070ba; border:none; padding:10px 25px; cursor:pointer; border-radius:5px; 
+  font-size:1em; color:#fff; text-shadow:0.5px 0.5px 1px #00264d;
   transition: background-color 0.3s;
 }
 footer button:hover { background-color:#005a94; }
@@ -135,7 +112,10 @@ footer button:hover { background-color:#005a94; }
   <div id="timeline"></div>
 </div>
 
-<div id="extra-content">
+<div id="minimap-wrapper"></div>
+
+<!-- Neuer Abschnitt -->
+<section id="aspects">
   <h2>Wichtige Aspekte, die auffallen:</h2>
   <ol>
     <li>Text</li>
@@ -144,17 +124,11 @@ footer button:hover { background-color:#005a94; }
     <li>Text</li>
     <li>Text</li>
   </ol>
-</div>
-
-<div id="minimap-wrapper"></div>
+</section>
 
 <footer>
-  <p>Kontakt: Bei Fragen und Anregungen sehr gerne an 
-    <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a>
-  </p>
-  <button onclick="window.open('https://www.paypal.com/donate','_blank')">
-    Unterstützen über Paypal
-  </button>
+  <p>Kontakt: Bei Fragen und Anregungen sehr gerne an <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
+  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über Paypal</button>
 </footer>
 
 <script>
@@ -170,6 +144,7 @@ for (let i = 1; i <= totalPages; i++) {
   const img = document.createElement('img');
   img.src = `images/Seite${i}.png`;
   img.alt = `Seite ${i}`;
+  img.draggable = false;
   timeline.appendChild(img);
 }
 
@@ -204,12 +179,10 @@ wrapper.addEventListener('wheel', e => {
   const mouseX = e.clientX - rect.left;
   const mouseY = e.clientY - rect.top;
   const currentScale = scale;
-  const currentTX = translateX;
-  const currentTY = translateY;
   const zoomFactor = Math.exp(-e.deltaY * 0.0015);
   const newScale = Math.min(Math.max(0.3, currentScale * zoomFactor), 5);
-  const contentX = (mouseX - currentTX) / currentScale;
-  const contentY = (mouseY - currentTY) / currentScale;
+  const contentX = (mouseX - translateX) / currentScale;
+  const contentY = (mouseY - translateY) / currentScale;
   targetTranslateX = mouseX - contentX * newScale;
   targetTranslateY = mouseY - contentY * newScale;
   targetScale = newScale;
@@ -305,16 +278,9 @@ for (let i = 1; i <= totalPages; i++) {
 
 // === KLICK & DRAG IN DER MINIMAP ============================================
 let isMiniDragging = false;
-let miniStartX = 0;
-minimapWrapper.addEventListener('mousedown', e => {
-  isMiniDragging = true;
-  miniStartX = e.clientX;
-});
+minimapWrapper.addEventListener('mousedown', e => { isMiniDragging = true; });
 document.addEventListener('mouseup', () => { isMiniDragging = false; });
-document.addEventListener('mousemove', e => {
-  if (!isMiniDragging) return;
-  moveMinimapTo(e.clientX);
-});
+document.addEventListener('mousemove', e => { if (isMiniDragging) moveMinimapTo(e.clientX); });
 minimapWrapper.addEventListener('click', e => moveMinimapTo(e.clientX));
 
 function moveMinimapTo(clientX) {
@@ -350,53 +316,10 @@ function animate() {
 }
 animate();
 
-// === VERHINDERT DRAG AUF TIMELINE-IMAGES ====================================
-timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
-
 // === STARTPOSITION NACH LADEZEIT ============================================
 window.onload = () => {
   setTimeout(() => setView(startView), 150);
 };
-
-// === TOUCH SUPPORT ==========================================================
-let touchStartDist = 0;
-let lastTouchX = 0, lastTouchY = 0;
-
-wrapper.addEventListener('touchstart', e => {
-  if (e.touches.length === 1) {
-    isDragging = true;
-    lastTouchX = e.touches[0].clientX - targetTranslateX;
-    lastTouchY = e.touches[0].clientY - targetTranslateY;
-  } else if (e.touches.length === 2) {
-    isDragging = false;
-    touchStartDist = Math.hypot(
-      e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY
-    );
-  }
-});
-
-wrapper.addEventListener('touchmove', e => {
-  e.preventDefault();
-  if (e.touches.length === 1 && isDragging) {
-    targetTranslateX = e.touches[0].clientX - lastTouchX;
-    targetTranslateY = e.touches[0].clientY - lastTouchY;
-    applyBounds();
-  } else if (e.touches.length === 2) {
-    const dist = Math.hypot(
-      e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY
-    );
-    const zoomFactor = dist / touchStartDist;
-    targetScale = Math.min(Math.max(0.3, scale * zoomFactor), 5);
-    touchStartDist = dist;
-    applyBounds();
-  }
-}, { passive: false });
-
-wrapper.addEventListener('touchend', e => {
-  if (e.touches.length === 0) isDragging = false;
-});
 </script>
 </body>
 </html>
