@@ -172,8 +172,8 @@ function applyBounds() {
   const timelineHeight = timeline.scrollHeight * targetScale;
   const visibleMarginX = wrapperRect.width * 0.05;
 
-  // Etwas mehr vertikaler Spielraum, damit Minimap / PayPal-Button nicht überlappen
-  const visibleMarginY = wrapperRect.height * 0.15; // vorher 0.05 → jetzt 0.15
+  // Deutlich mehr vertikaler Spielraum, damit der PayPal-Button komplett frei ist
+  const visibleMarginY = wrapperRect.height * 0.35; // vorher 0.15 → jetzt 0.35
 
   if (timelineWidth <= wrapperRect.width) {
     targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
