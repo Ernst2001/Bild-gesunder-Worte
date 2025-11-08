@@ -48,18 +48,50 @@ header p {
 
 #timeline-wrapper { 
   width:100%; height:91vh; overflow:hidden; position:relative; cursor:grab; 
-  margin:20px 0 200px 0; /* >>> zusätzlicher Platz nach unten, damit PayPal frei ist <<< */
+  margin:20px 0 80px 0;
   border:1px solid rgba(0,0,0,0.2); 
 }
 #timeline { display:flex; height:130%; transform-origin:0 0; user-select:none; }
 #timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none; }
 
+#extra-content {
+  text-align:center;
+  padding:60px 20px 100px 20px;
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+  color:#001a33;
+  text-shadow: 0.5px 0.5px 1px #000a14;
+}
+#extra-content h2 {
+  font-size:2em; /* zwei Stufen größer */
+  margin-bottom:25px;
+}
+#extra-content ol {
+  list-style:decimal;
+  text-align:left;
+  display:inline-block;
+  font-size:1.4em; /* gleiche Größe wie der Untertitel oben */
+}
+#extra-content li {
+  margin-bottom:10px;
+}
+
 footer { 
-  padding:20px; 
+  padding:40px 20px 120px 20px; /* vergrößert nach unten */
   text-align:center; 
   background: rgba(0,0,0,0.3); 
   font-size:1.1em; /* vorher 1em -> +1 Punkt */
   color:#ffffff; 
+  position:relative;
+}
+footer::after {
+  content:"";
+  display:block;
+  width:100%;
+  height:80px; /* zusätzlicher grauer Streifen unten */
+  background: rgba(0,0,0,0.3);
+  position:absolute;
+  left:0;
+  bottom:-80px;
 }
 footer p { margin:5px 0; }
 footer a { color:#ffffff; text-decoration:none; text-shadow:0.5px 0.5px 1px #00264d; }
@@ -101,6 +133,17 @@ footer button:hover { background-color:#005a94; }
 
 <div id="timeline-wrapper">
   <div id="timeline"></div>
+</div>
+
+<div id="extra-content">
+  <h2>Wichtige Aspekte, die auffallen:</h2>
+  <ol>
+    <li>Text</li>
+    <li>Text</li>
+    <li>Text</li>
+    <li>Text</li>
+    <li>Text</li>
+  </ol>
 </div>
 
 <div id="minimap-wrapper"></div>
@@ -344,7 +387,6 @@ wrapper.addEventListener('touchmove', e => {
       e.touches[0].clientX - e.touches[1].clientX,
       e.touches[0].clientY - e.touches[1].clientY
     );
-    const rect = wrapper.getBoundingClientRect();
     const zoomFactor = dist / touchStartDist;
     targetScale = Math.min(Math.max(0.3, scale * zoomFactor), 5);
     touchStartDist = dist;
