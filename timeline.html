@@ -74,7 +74,7 @@ header p {
 
 footer { 
   padding:20px; text-align:center; background: rgba(0,0,0,0.3); font-size:1em;
-  color:#ffffff; /* geändert: Schrift weiß */
+  color:#ffffff; /* Schrift weiß */
 }
 footer p { margin:5px 0; }
 footer a { color:#ffffff; text-decoration:none; text-shadow:0.5px 0.5px 1px #00264d; }
@@ -85,11 +85,12 @@ footer button {
 }
 footer button:hover { background-color:#005a94; }
 
+/* Neuer dicker weißer Strich unter dem Button */
 footer hr {
   border: none;
-  border-top: 2px solid #ffffff;
-  margin: 25px auto 20px auto;
-  width: 60%;
+  height: 4px;
+  background-color: #ffffff;
+  margin: 15px 0 20px 0;
 }
 </style>
 </head>
@@ -137,7 +138,6 @@ footer hr {
   <p>Kontakt: Bei Fragen und Anregungen sehr gerne an <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
   <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über Paypal</button>
   <hr>
-  <br>
 </footer>
 
 <script>
