@@ -53,11 +53,30 @@ header p {
 #timeline { display:flex; height:130%; transform-origin:0 0; user-select:none; }
 #timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none; }
 
+/* Neuer Abschnitt unter der Timeline */
+#aspects {
+  background-color:#0070ba;
+  color:#ffffff;
+  text-shadow:0.5px 0.5px 1px #000a14;
+  padding:40px 20px;
+  text-align:left;
+}
+#aspects h2 {
+  font-size:2.2em; /* zwei Stufen größer */
+  margin-bottom:20px;
+}
+#aspects ol {
+  font-size:1.4em; /* gleiche Größe wie Header-Zeile */
+  margin-left:30px;
+  line-height:1.6em;
+}
+
 footer { 
-  padding:20px; text-align:center; background: rgba(0,0,0,0.3); font-size:1em; /* gleiche Größe wie Button */
+  padding:20px; text-align:center; background: rgba(0,0,0,0.3); font-size:1em;
+  color:#ffffff; /* geändert: Schrift weiß */
 }
 footer p { margin:5px 0; }
-footer a { color:#fff; text-decoration:none; text-shadow:0.5px 0.5px 1px #00264d; }
+footer a { color:#ffffff; text-decoration:none; text-shadow:0.5px 0.5px 1px #00264d; }
 footer button { 
   background-color:#0070ba; border:none; padding:10px 25px; cursor:pointer; border-radius:5px; 
   font-size:1em; color:#fff; text-shadow:0.5px 0.5px 1px #00264d;
@@ -93,6 +112,18 @@ footer button:hover { background-color:#005a94; }
 </div>
 
 <div id="minimap-wrapper"></div>
+
+<!-- Neuer Abschnitt -->
+<section id="aspects">
+  <h2>Wichtige Aspekte, die auffallen:</h2>
+  <ol>
+    <li>Text</li>
+    <li>Text</li>
+    <li>Text</li>
+    <li>Text</li>
+    <li>Text</li>
+  </ol>
+</section>
 
 <footer>
   <p>Kontakt: Bei Fragen und Anregungen sehr gerne an <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
