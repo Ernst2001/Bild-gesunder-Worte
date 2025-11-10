@@ -9,11 +9,11 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
-  color: #000000; /* Schwarz ohne Schatten */
-  overflow-x: hidden;
+  color: #001a33;
   font-size: 19px;
 }
 
+/* Navigation */
 nav { 
   background: rgba(0,0,0,0.3); 
   display:flex; justify-content:center; align-items:center; 
@@ -21,20 +21,19 @@ nav {
   position:sticky; top:0; z-index:10; font-size:19px;
 }
 nav a { 
-  color:#000000; /* Schwarz ohne Schatten */
+  color:#fff;
   text-decoration:none; 
   margin:0 15px; 
   font-weight:bold;
 }
-nav a:hover { color:#005a94; }
+nav a:hover { color:#ffd700; }
 
+/* Header */
 header { text-align:center; padding:30px; }
 header h1 { margin:0; font-size:2.8em; }
-header p { 
-  margin-top:10px; font-size:1.4em; 
-  color:#000000; /* Schwarz ohne Schatten */
-}
+header p { margin-top:10px; font-size:1.4em; color:#001a33; }
 
+/* Timeline */
 #controls { text-align:center; margin:20px; }
 #controls button { 
   background-color:#0070ba; color:#fff; border:none; 
@@ -52,21 +51,43 @@ header p {
 
 #minimap-wrapper { position:fixed; bottom:10px; left:50%; transform:translateX(-50%); }
 
+/* === Footer vom Index übernommen ========================================== */
 footer {
-  border-top: 1px solid #000000; /* Strich oben */
-  padding: 30px 20px; 
-  text-align:center; 
-  background: rgba(255,255,255,0.6); 
-  font-size:1.4em;
-  color: #000000; /* Schwarz ohne Schatten */
+  padding: 60px;
+  text-align: center;
+  background: rgba(0,0,0,0.3);
+  font-size: 1em;
+  color: #ffffff;
 }
-footer p { margin: 10px 0; }
-footer a { color:#000000; text-decoration:none; margin:5px; }
-footer button { 
-  background-color:#0070ba; border:none; padding:10px 25px; cursor:pointer; border-radius:5px; font-size:18px; 
-  color: #fff;
+footer p {
+  margin: 5px 0;
+  font-size: 1.2em;
+  color: #ffffff;
 }
-footer button:hover { background-color:#005a94;}
+footer a {
+  color: #ffffff;
+  font-size: 1.2em;
+  text-decoration: none;
+  text-shadow: 0.5px 0.5px 1px #00264d;
+}
+footer button {
+  background-color:#0070ba;
+  border:none;
+  padding:10px 25px;
+  cursor:pointer;
+  border-radius:5px;
+  font-size:1em;
+  color:#fff;
+  text-shadow: 0.5px 0.5px 1px #00264d;
+  transition: background-color 0.3s;
+}
+footer button:hover { background-color:#005a94; }
+footer hr {
+  border:none;
+  height:4px;
+  background-color:#ffffff;
+  margin:15px 0 40px 0;
+}
 </style>
 </head>
 <body>
@@ -98,9 +119,11 @@ footer button:hover { background-color:#005a94;}
 <div id="minimap-wrapper"></div>
 
 <footer>
-  <p>© 2025 Bildgesunder Worte</p>
-  <p>Kontakt: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
-  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über Paypal</button>
+  <p>Kontakt: Bei Fragen und Anregungen sehr gerne an 
+    <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a>
+  </p>
+  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über PayPal</button>
+  <hr>
 </footer>
 
 <script>
@@ -264,21 +287,19 @@ function moveMinimapTo(clientX) {
   applyBounds();
 }
 
-// === TOUCH SUPPORT FÜR MINIMAP ==============================================
+// === TOUCH SUPPORT ===========================================================
 minimapWrapper.addEventListener('touchstart', e => {
   if (e.touches.length === 1) {
     isMiniDragging = true;
     moveMinimapTo(e.touches[0].clientX);
   }
 });
-
 minimapWrapper.addEventListener('touchmove', e => {
   if (e.touches.length === 1 && isMiniDragging) {
     e.preventDefault();
     moveMinimapTo(e.touches[0].clientX);
   }
 }, { passive: false });
-
 minimapWrapper.addEventListener('touchend', e => {
   if (e.touches.length === 0) isMiniDragging = false;
 });
@@ -309,50 +330,10 @@ animate();
 // === VERHINDERT DRAG AUF TIMELINE-IMAGES ====================================
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// === STARTPOSITION NACH LADEZEIT ============================================
+// === STARTPOSITION ===========================================================
 window.onload = () => {
   setTimeout(() => setView(startView), 150);
 };
-
-// === TOUCH SUPPORT FÜR TIMELINE ==========================================================
-let touchStartDist = 0;
-let lastTouchX = 0, lastTouchY = 0;
-
-wrapper.addEventListener('touchstart', e => {
-  if (e.touches.length === 1) {
-    isDragging = true;
-    lastTouchX = e.touches[0].clientX - targetTranslateX;
-    lastTouchY = e.touches[0].clientY - targetTranslateY;
-  } else if (e.touches.length === 2) {
-    isDragging = false;
-    touchStartDist = Math.hypot(
-      e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY
-    );
-  }
-});
-
-wrapper.addEventListener('touchmove', e => {
-  e.preventDefault();
-  if (e.touches.length === 1 && isDragging) {
-    targetTranslateX = e.touches[0].clientX - lastTouchX;
-    targetTranslateY = e.touches[0].clientY - lastTouchY;
-    applyBounds();
-  } else if (e.touches.length === 2) {
-    const dist = Math.hypot(
-      e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY
-    );
-    const zoomFactor = dist / touchStartDist;
-    targetScale = Math.min(Math.max(0.3, scale * zoomFactor), 5);
-    touchStartDist = dist;
-    applyBounds();
-  }
-}, { passive: false });
-
-wrapper.addEventListener('touchend', e => {
-  if (e.touches.length === 0) isDragging = false;
-});
 </script>
 </body>
 </html>
