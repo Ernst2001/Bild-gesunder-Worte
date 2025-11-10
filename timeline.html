@@ -9,10 +9,10 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
-  color: #001a33; /* dunkler Text für bessere Lesbarkeit */
+  color: #001a33; 
   overflow-x: hidden;
   font-size: 19px;
-  text-shadow: 0.5px 0.5px 1px #000a14; /* minimaler Schatten */
+  text-shadow: 0.5px 0.5px 1px #000a14; 
 }
 
 nav { 
@@ -22,11 +22,11 @@ nav {
   position:sticky; top:0; z-index:10; font-size:19px;
 }
 nav a { 
-  color:#ffffff; /* wieder weiß auf grauem Hintergrund */
+  color:#ffffff; 
   text-decoration:none; 
   margin:0 15px; 
   font-weight:bold;
-  text-shadow: 0.5px 0.5px 1px #000000; /* minimaler Schatten */
+  text-shadow: 0.5px 0.5px 1px #000000; 
 }
 nav a:hover { color:#ffd700; }
 
@@ -53,8 +53,10 @@ header p {
 #timeline { display:flex; height:130%; transform-origin:0 0; user-select:none; }
 #timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none; }
 
+#minimap-wrapper { position:fixed; bottom:10px; left:50%; transform:translateX(-50%); }
+
 footer { 
-  padding:20px; text-align:center; background: rgba(0,0,0,0.3); font-size:1.4em; /* gleiche Größe wie Header p */
+  padding:20px; text-align:center; background: rgba(0,0,0,0.3); font-size:1.4em; 
 }
 footer a, footer button { color:#001a33; text-decoration:none; margin:5px; text-shadow:0.5px 0.5px 1px #000a14; }
 footer button { 
@@ -144,12 +146,10 @@ wrapper.addEventListener('wheel', e => {
   const mouseX = e.clientX - rect.left;
   const mouseY = e.clientY - rect.top;
   const currentScale = scale;
-  const currentTX = translateX;
-  const currentTY = translateY;
   const zoomFactor = Math.exp(-e.deltaY * 0.0015);
   const newScale = Math.min(Math.max(0.3, currentScale * zoomFactor), 5);
-  const contentX = (mouseX - currentTX) / currentScale;
-  const contentY = (mouseY - currentTY) / currentScale;
+  const contentX = (mouseX - translateX) / currentScale;
+  const contentY = (mouseY - translateY) / currentScale;
   targetTranslateX = mouseX - contentX * newScale;
   targetTranslateY = mouseY - contentY * newScale;
   targetScale = newScale;
@@ -196,17 +196,13 @@ function setView(page) {
   applyBounds();
 }
 
-// === MINI-MAP ================================================================
+// === MINI-MAP =================================================================
 const minimapWrapper = document.getElementById('minimap-wrapper');
-minimapWrapper.style.position = 'fixed';
-minimapWrapper.style.bottom = '10px';
-minimapWrapper.style.left = '50%';
-minimapWrapper.style.transform = 'translateX(-50%)';
-minimapWrapper.style.width = '250px';
-minimapWrapper.style.height = '50px';
-minimapWrapper.style.border = '1px solid rgba(0,0,0,0.4)';
-minimapWrapper.style.background = 'rgba(0,0,0,0.3)';
-minimapWrapper.style.borderRadius = '6px';
+minimapWrapper.style.width = '300px';
+minimapWrapper.style.height = '60px';
+minimapWrapper.style.border = '2px solid rgba(0,0,0,0.5)';
+minimapWrapper.style.background = 'rgba(0,0,0,0.25)';
+minimapWrapper.style.borderRadius = '8px';
 minimapWrapper.style.cursor = 'pointer';
 minimapWrapper.style.overflow = 'hidden';
 minimapWrapper.style.zIndex = '9999';
@@ -215,7 +211,6 @@ const minimap = document.createElement('div');
 minimap.style.display = 'flex';
 minimap.style.height = '100%';
 minimap.style.width = '100%';
-minimap.style.position = 'relative';
 minimapWrapper.appendChild(minimap);
 
 const viewRect = document.createElement('div');
@@ -223,19 +218,19 @@ viewRect.style.position = 'absolute';
 viewRect.style.top = '0';
 viewRect.style.left = '0';
 viewRect.style.height = '100%';
+viewRect.style.background = 'rgba(255,215,0,0.2)';
 viewRect.style.border = '2px solid #ffd700';
 viewRect.style.boxSizing = 'border-box';
-viewRect.style.background = 'rgba(255,215,0,0.1)';
-viewRect.style.cursor = 'grab';
+viewRect.style.pointerEvents = 'none';
 minimapWrapper.appendChild(viewRect);
 
-// === MINIMAP-BILDER ==========================================================
+// === MINI-BILDER =============================================================
 for (let i = 1; i <= totalPages; i++) {
   const mini = document.createElement('img');
   mini.src = `images/Seite${i}.png`;
   mini.style.height = '100%';
-  mini.style.objectFit = 'cover';
   mini.style.flex = '1';
+  mini.style.objectFit = 'cover';
   mini.style.opacity = '0.7';
   mini.style.userSelect = 'none';
   mini.style.webkitUserDrag = 'none';
@@ -243,38 +238,55 @@ for (let i = 1; i <= totalPages; i++) {
   minimap.appendChild(mini);
 }
 
-// === KLICK & DRAG IN DER MINIMAP ============================================
+// === KLICK & DRAG ============================================================
 let isMiniDragging = false;
-let miniStartX = 0;
+
 minimapWrapper.addEventListener('mousedown', e => {
   isMiniDragging = true;
-  miniStartX = e.clientX;
-});
-document.addEventListener('mouseup', () => { isMiniDragging = false; });
-document.addEventListener('mousemove', e => {
-  if (!isMiniDragging) return;
   moveMinimapTo(e.clientX);
 });
-minimapWrapper.addEventListener('click', e => moveMinimapTo(e.clientX));
+document.addEventListener('mouseup', () => isMiniDragging = false);
+document.addEventListener('mousemove', e => {
+  if (isMiniDragging) moveMinimapTo(e.clientX);
+});
 
 function moveMinimapTo(clientX) {
   const rect = minimapWrapper.getBoundingClientRect();
-  const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+  let ratio = (clientX - rect.left) / rect.width;
+  ratio = Math.max(0, Math.min(1, ratio));
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   targetTranslateX = -ratio * (timelineWidth - wrapperRect.width);
   applyBounds();
 }
 
+// === TOUCH SUPPORT FÜR MINIMAP ==============================================
+minimapWrapper.addEventListener('touchstart', e => {
+  if (e.touches.length === 1) {
+    isMiniDragging = true;
+    moveMinimapTo(e.touches[0].clientX);
+  }
+});
+
+minimapWrapper.addEventListener('touchmove', e => {
+  if (e.touches.length === 1 && isMiniDragging) {
+    e.preventDefault();
+    moveMinimapTo(e.touches[0].clientX);
+  }
+}, { passive: false });
+
+minimapWrapper.addEventListener('touchend', e => {
+  if (e.touches.length === 0) isMiniDragging = false;
+});
+
 // === UPDATE DER MINIMAP =====================================================
 function updateMinimap() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * scale;
   const visibleRatio = wrapperRect.width / timelineWidth;
-  const fullWidth = minimapWrapper.clientWidth;
-  const rectWidth = Math.max(15, fullWidth * visibleRatio);
+  const rectWidth = Math.max(20, minimapWrapper.clientWidth * visibleRatio);
   const scrollRatio = -translateX / (timelineWidth - wrapperRect.width);
-  const rectLeft = (fullWidth - rectWidth) * scrollRatio;
+  const rectLeft = (minimapWrapper.clientWidth - rectWidth) * scrollRatio;
   viewRect.style.width = rectWidth + 'px';
   viewRect.style.left = rectLeft + 'px';
 }
@@ -298,7 +310,7 @@ window.onload = () => {
   setTimeout(() => setView(startView), 150);
 };
 
-// === TOUCH SUPPORT ==========================================================
+// === TOUCH SUPPORT FÜR TIMELINE ==========================================================
 let touchStartDist = 0;
 let lastTouchX = 0, lastTouchY = 0;
 
@@ -327,7 +339,6 @@ wrapper.addEventListener('touchmove', e => {
       e.touches[0].clientX - e.touches[1].clientX,
       e.touches[0].clientY - e.touches[1].clientY
     );
-    const rect = wrapper.getBoundingClientRect();
     const zoomFactor = dist / touchStartDist;
     targetScale = Math.min(Math.max(0.3, scale * zoomFactor), 5);
     touchStartDist = dist;
