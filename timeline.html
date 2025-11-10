@@ -55,37 +55,60 @@ header p {
 
 /* Neuer Abschnitt unter der Timeline */
 #aspects {
-  background: linear-gradient(120deg, #a2c1d8, #c3d9e8); /* gleich wie Body */
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
   color:#001a33;
   text-shadow:0.5px 0.5px 1px #000a14;
   padding:40px 20px 60px 20px;
   text-align:left;
 }
 #aspects h2 {
-  font-size:2.2em; /* zwei Stufen größer */
+  font-size:2.2em;
   margin-bottom:20px;
   text-align:center;
 }
 #aspects ol {
-  font-size:1.4em; /* gleiche Größe wie Header-Zeile */
+  font-size:1.4em;
   margin-left:30px;
   line-height:1.6em;
 }
 
+/* ===== Footer ===== */
 footer { 
-  padding:60px; text-align:center; background: rgba(0,0,0,0.3); font-size:1em;
-  color:#ffffff; /* Schrift weiß */
+  padding:60px; 
+  text-align:center; 
+  background: rgba(0,0,0,0.3); 
+  font-size:1em;
+  color:#ffffff;
 }
-footer p { margin:10px 0; }
-footer a { color:#ffffff; text-decoration:none; text-shadow:0.5px 0.5px 1px #00264d; }
+
+/* 👉 Kontaktzeile ca. 20% größer */
+footer p {
+  margin:5px 0;
+  font-size:1.2em; /* ~20% größer */
+  color:#ffffff;
+}
+
+/* auch den Mail-Link gleich groß machen */
+footer a {
+  color:#ffffff;
+  font-size:1.2em;
+  text-decoration:none;
+  text-shadow:0.5px 0.5px 1px #00264d;
+}
+
 footer button { 
-  background-color:#0070ba; border:none; padding:10px 25px; cursor:pointer; border-radius:5px; 
-  font-size:24px; color:#fff; text-shadow:0.5px 0.5px 1px #00264d;
+  background-color:#0070ba;
+  border:none;
+  padding:10px 25px;
+  cursor:pointer;
+  border-radius:5px;
+  font-size:1em;
+  color:#fff;
+  text-shadow:0.5px 0.5px 1px #00264d;
   transition: background-color 0.3s;
 }
 footer button:hover { background-color:#005a94; }
 
-/* Neuer dicker weißer Strich unter dem Button */
 footer hr {
   border: none;
   height: 4px;
@@ -122,7 +145,6 @@ footer hr {
 
 <div id="minimap-wrapper"></div>
 
-<!-- Neuer Abschnitt -->
 <section id="aspects">
   <h2>Wichtige Aspekte, die auffallen:</h2>
   <ol>
@@ -135,8 +157,12 @@ footer hr {
 </section>
 
 <footer>
-  <p>Kontakt: Bei Fragen und Anregungen sehr gerne an <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
-  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über Paypal</button>
+  <p>Kontakt: Bei Fragen und Anregungen sehr gerne an 
+    <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a>
+  </p>
+  <button onclick="window.open('https://www.paypal.com/donate','_blank')">
+    Unterstützen über Paypal
+  </button>
   <hr>
 </footer>
 
@@ -157,13 +183,11 @@ for (let i = 1; i <= totalPages; i++) {
   timeline.appendChild(img);
 }
 
-// === ZUSTAND =================================================================
 let scale = 0.7, targetScale = 0.7;
 let translateX = 0, translateY = 0;
 let targetTranslateX = 0, targetTranslateY = 0;
 let isDragging = false, startX, startY;
 
-// === DRAG IM HAUPTBEREICH ====================================================
 wrapper.addEventListener('mousedown', e => {
   isDragging = true;
   startX = e.clientX - targetTranslateX;
@@ -181,7 +205,6 @@ document.addEventListener('mousemove', e => {
   applyBounds();
 });
 
-// === ZOOM MIT MAUSRAD ========================================================
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
   const rect = wrapper.getBoundingClientRect();
@@ -198,7 +221,6 @@ wrapper.addEventListener('wheel', e => {
   applyBounds();
 });
 
-// === BEGRENZUNG ==============================================================
 function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
@@ -223,7 +245,6 @@ function applyBounds() {
   }
 }
 
-// === ANSICHT SETZEN ==========================================================
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
   const img = timeline.children[page - 1];
@@ -238,94 +259,15 @@ function setView(page) {
   applyBounds();
 }
 
-// === MINI-MAP ================================================================
-const minimapWrapper = document.getElementById('minimap-wrapper');
-minimapWrapper.style.position = 'fixed';
-minimapWrapper.style.bottom = '10px';
-minimapWrapper.style.left = '50%';
-minimapWrapper.style.transform = 'translateX(-50%)';
-minimapWrapper.style.width = '250px';
-minimapWrapper.style.height = '50px';
-minimapWrapper.style.border = '1px solid rgba(0,0,0,0.4)';
-minimapWrapper.style.background = 'rgba(0,0,0,0.3)';
-minimapWrapper.style.borderRadius = '6px';
-minimapWrapper.style.cursor = 'pointer';
-minimapWrapper.style.overflow = 'hidden';
-minimapWrapper.style.zIndex = '9999';
-
-const minimap = document.createElement('div');
-minimap.style.display = 'flex';
-minimap.style.height = '100%';
-minimap.style.width = '100%';
-minimap.style.position = 'relative';
-minimapWrapper.appendChild(minimap);
-
-const viewRect = document.createElement('div');
-viewRect.style.position = 'absolute';
-viewRect.style.top = '0';
-viewRect.style.left = '0';
-viewRect.style.height = '100%';
-viewRect.style.border = '2px solid #ffd700';
-viewRect.style.boxSizing = 'border-box';
-viewRect.style.background = 'rgba(255,215,0,0.1)';
-viewRect.style.cursor = 'grab';
-minimapWrapper.appendChild(viewRect);
-
-// === MINIMAP-BILDER ==========================================================
-for (let i = 1; i <= totalPages; i++) {
-  const mini = document.createElement('img');
-  mini.src = `images/Seite${i}.png`;
-  mini.style.height = '100%';
-  mini.style.objectFit = 'cover';
-  mini.style.flex = '1';
-  mini.style.opacity = '0.7';
-  mini.style.userSelect = 'none';
-  mini.style.webkitUserDrag = 'none';
-  mini.draggable = false;
-  minimap.appendChild(mini);
-}
-
-// === KLICK & DRAG IN DER MINIMAP ============================================
-let isMiniDragging = false;
-minimapWrapper.addEventListener('mousedown', e => { isMiniDragging = true; });
-document.addEventListener('mouseup', () => { isMiniDragging = false; });
-document.addEventListener('mousemove', e => { if (isMiniDragging) moveMinimapTo(e.clientX); });
-minimapWrapper.addEventListener('click', e => moveMinimapTo(e.clientX));
-
-function moveMinimapTo(clientX) {
-  const rect = minimapWrapper.getBoundingClientRect();
-  const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const timelineWidth = timeline.scrollWidth * targetScale;
-  targetTranslateX = -ratio * (timelineWidth - wrapperRect.width);
-  applyBounds();
-}
-
-// === UPDATE DER MINIMAP =====================================================
-function updateMinimap() {
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const timelineWidth = timeline.scrollWidth * scale;
-  const visibleRatio = wrapperRect.width / timelineWidth;
-  const fullWidth = minimapWrapper.clientWidth;
-  const rectWidth = Math.max(15, fullWidth * visibleRatio);
-  const scrollRatio = -translateX / (timelineWidth - wrapperRect.width);
-  const rectLeft = (fullWidth - rectWidth) * scrollRatio;
-  viewRect.style.width = rectWidth + 'px';
-  viewRect.style.left = rectLeft + 'px';
-}
-
-// === ANIMATION LOOP ==========================================================
 function animate() {
   scale += (targetScale - scale) * 0.15;
   translateX += (targetTranslateX - translateX) * 0.15;
   translateY += (targetTranslateY - translateY) * 0.15;
   timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-  updateMinimap();
   requestAnimationFrame(animate);
 }
 animate();
 
-// === STARTPOSITION NACH LADEZEIT ============================================
 window.onload = () => {
   setTimeout(() => setView(startView), 150);
 };
