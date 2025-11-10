@@ -11,10 +11,10 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
-  color: #000;
+  color: #001a33;
   text-align: center;
-  font-size: 18px;
-  text-shadow: 0.5px 0.5px 1px #aaa;
+  font-size: 19px;
+  text-shadow: 0.5px 0.5px 1px #000a14;
   opacity: 0;
   transition: opacity 0.6s ease-in-out;
 }
@@ -29,14 +29,14 @@ nav {
   position: sticky;
   top: 0;
   z-index: 10;
-  font-size: 18px;
+  font-size: 19px;
 }
 nav a {
   color: #fff;
   text-decoration: none;
   margin: 0 15px;
   font-weight: bold;
-  transition: color 0.3s;
+  text-shadow: 0.5px 0.5px 1px #000000;
 }
 nav a:hover {
   color: #ffd700;
@@ -56,6 +56,7 @@ h2 {
   max-width: 800px;
   margin: 0 auto 40px;
   line-height: 1.5;
+  text-shadow: 0.5px 0.5px 1px #000a14;
 }
 .mission {
   font-size: 1.3em;
@@ -73,7 +74,7 @@ button.main-btn {
   border-radius: 8px;
   cursor: pointer;
   margin-bottom: 50px;
-  text-shadow: 0.5px 0.5px 1px #aaa;
+  text-shadow: 0.5px 0.5px 1px #000a14;
   transition: background-color 0.3s;
 }
 button.main-btn:hover {
@@ -90,10 +91,10 @@ button.main-btn:hover {
   flex-wrap: wrap;
 }
 .section a {
-  color: #000;
+  color: #001a33;
   font-size: 1.2em;
   text-decoration: none;
-  text-shadow: 0.5px 0.5px 1px #aaa;
+  text-shadow: 0.5px 0.5px 1px #000a14;
 }
 .section a:hover {
   text-decoration: underline;
@@ -108,23 +109,25 @@ button.main-btn:hover {
 
 /* === GLOBALER FOOTER-STIL =============================================== */
 footer {
-  padding: 30px;
+  padding: 60px;
   background: rgba(0,0,0,0.3);
-  margin-top: 50px;
   text-align: center;
-  color: #fff;
-  font-size: 1em; /* passt optisch zum PayPal-Button */
-}
-
-/* Kontaktzeile über PayPal-Button, nur Text/Link */
-footer .contact-text {
-  margin-bottom: 15px;
   color: #ffffff;
   font-size: 1em;
 }
+
+/* Kontaktzeile ~20% größer, gleiche Schatten wie Timeline */
+footer .contact-text {
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  color: #ffffff;
+  text-shadow: 0.5px 0.5px 1px #00264d;
+}
 footer .contact-text a {
   color: #ffffff;
-  text-decoration: underline;
+  text-decoration: none;
+  font-size: 1.2em;
+  text-shadow: 0.5px 0.5px 1px #00264d;
 }
 
 /* PayPal-Button */
@@ -159,7 +162,7 @@ footer button:hover {
 
 <header>
   <h1>Bild gesunder Worte</h1>
-  <h2> Denn das Wort Gottes ist lebendig und wirksam und schärfer als jedes zweischneidige Schwert und durchdringend bis zur Scheidung von Seele und Geist, sowohl der Gelenke als auch des Markes, und ein Beurteiler der Gedanken und Überlegungen des Herzens [Heb 4,12]</h2>
+  <h2>[Heb 4,12] Denn das Wort Gottes ist lebendig und wirksam und schärfer als jedes zweischneidige Schwert und durchdringend bis zur Scheidung von Seele und Geist, sowohl der Gelenke als auch des Markes, und ein Beurteiler der Gedanken und Überlegungen des Herzens</h2>
   <div class="mission">Beispieltextmission</div>
   <button class="main-btn" onclick="window.location.href='timeline.html'">Zur Timeline / Zum Zeitstrahl</button>
 </header>
