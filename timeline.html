@@ -11,8 +11,6 @@ body {
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
   color: #001a33;
   font-size: 19px;
-  opacity: 0;
-  transition: opacity 0.6s ease-in-out;
 }
 
 /* Navigation */
@@ -51,27 +49,9 @@ header p { margin-top:10px; font-size:1.4em; color:#001a33; }
 #timeline { display:flex; height:130%; transform-origin:0 0; user-select:none; }
 #timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none; }
 
-/* Wichtige Punkte */
-#important-points {
-  max-width: 700px;
-  margin: 30px auto;
-  text-align: left;
-}
-#important-points h3 {
-  font-size: 26px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-#important-points ul {
-  font-size: 22px;
-  font-weight: bold;
-  padding-left: 20px;
-}
-#important-points ul li { margin-bottom: 6px; }
-
 #minimap-wrapper { position:fixed; bottom:10px; left:50%; transform:translateX(-50%); }
 
-/* Footer */
+/* === Footer vom Index übernommen ========================================== */
 footer {
   padding: 60px;
   text-align: center;
@@ -136,10 +116,11 @@ footer hr {
   <div id="timeline"></div>
 </div>
 
-<!-- Wichtige Punkte -->
-<div id="important-points">
-  <h3>Wichtige Punkte, die mit einer ausführlichen Timeline auffallen:</h3>
-  <ul>
+<div id="timeline-notes" style="padding:20px;">
+  <h2 style="font-size:1.4em; font-weight:bold; text-align:left; margin-bottom:10px;">
+    Wichtige Punkte, die mit einer ausführlichen Timeline auffallen:
+  </h2>
+  <ul style="font-size:1.4em; font-weight:bold; margin-left:20px;">
     <li>1. Text</li>
     <li>2. Text</li>
     <li>3. Text</li>
@@ -159,11 +140,6 @@ footer hr {
 </footer>
 
 <script>
-// === FADE-IN ==============================================================
-window.addEventListener("DOMContentLoaded", () => {
-  document.body.style.opacity = "1";
-});
-
 // === TIMELINE-BILDER =========================================================
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
@@ -302,8 +278,9 @@ for (let i = 1; i <= totalPages; i++) {
   minimap.appendChild(mini);
 }
 
-// === KLICK & DRAG MINIMAP ====================================================
+// === KLICK & DRAG ============================================================
 let isMiniDragging = false;
+
 minimapWrapper.addEventListener('mousedown', e => {
   isMiniDragging = true;
   moveMinimapTo(e.clientX);
@@ -312,6 +289,7 @@ document.addEventListener('mouseup', () => isMiniDragging = false);
 document.addEventListener('mousemove', e => {
   if (isMiniDragging) moveMinimapTo(e.clientX);
 });
+
 function moveMinimapTo(clientX) {
   const rect = minimapWrapper.getBoundingClientRect();
   let ratio = (clientX - rect.left) / rect.width;
