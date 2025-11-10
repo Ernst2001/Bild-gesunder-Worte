@@ -106,22 +106,23 @@ button.main-btn:hover {
   box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
 }
 
-/* === GLOBALER FOOTER-STIL =============================================== */
+/* === FOOTER ============================================================= */
 footer {
   padding: 30px;
   background: rgba(0,0,0,0.3);
   margin-top: 50px;
-  font-size: 1.3em;
   text-shadow: 0.5px 0.5px 1px #aaa;
   text-align: center;
 }
 
-/* Kontakt-Zeile: weiß, kleiner, harmonisch zum Button */
+/* Kontakt-Zeile: Farbe weiß, gleiche Größe wie PayPal-Button */
 footer p,
 footer p a {
   color: #ffffff;
-  font-size: 1em; /* exakt wie Button */
+  font-size: 16px; /* exakt wie Button */
   text-shadow: none;
+  margin: 0;
+  line-height: 1.5;
 }
 
 /* PayPal-Button */
@@ -131,13 +132,14 @@ footer button {
   padding: 10px 25px;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 1em;
+  font-size: 16px; /* exakt wie Text */
   font-family: inherit;
   font-weight: normal;
   line-height: 1;
   color: #fff;
   text-shadow: 0.5px 0.5px 1px #00264d;
   transition: background-color 0.3s;
+  margin-top: 10px;
 }
 footer button:hover {
   background-color: #005a94;
