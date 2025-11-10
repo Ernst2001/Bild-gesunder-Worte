@@ -4,9 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bild gesunder Worte</title>
-
 <style>
-/* === GLOBALE STILE ======================================================= */
+/* === GLOBALE STILE (wie Timeline) ========================================== */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -42,21 +41,22 @@ nav a:hover {
   color: #ffd700;
 }
 
-/* Header */
+/* Header (Timeline-Stil) */
 header {
-  padding: 60px 20px 20px;
+  text-align: center;
+  padding: 30px 20px 20px 20px;
 }
-h1 {
+header h1 {
   font-size: 2.8em;
-  margin-bottom: 15px;
+  margin: 0 0 10px 0;
 }
-h2 {
-  font-weight: normal;
-  font-size: 1.25em;
-  max-width: 800px;
-  margin: 0 auto 40px;
-  line-height: 1.5;
+header h2 {
+  font-size: 1.4em;
+  color: #001a33;
   text-shadow: 0.5px 0.5px 1px #000a14;
+  margin: 10px auto 30px auto;
+  max-width: 800px;
+  line-height: 1.5;
 }
 .mission {
   font-size: 1.3em;
@@ -64,14 +64,14 @@ h2 {
   max-width: 700px;
 }
 
-/* Hauptbutton */
+/* Hauptbutton (Timeline-Stil) */
 button.main-btn {
   background-color: #0070ba;
   color: #fff;
   border: none;
-  padding: 15px 40px;
-  font-size: 1.2em;
-  border-radius: 8px;
+  padding: 12px 22px;
+  font-size: 1.1em;
+  border-radius: 6px;
   cursor: pointer;
   margin-bottom: 50px;
   text-shadow: 0.5px 0.5px 1px #000a14;
@@ -96,9 +96,7 @@ button.main-btn:hover {
   text-decoration: none;
   text-shadow: 0.5px 0.5px 1px #000a14;
 }
-.section a:hover {
-  text-decoration: underline;
-}
+.section a:hover { text-decoration: underline; }
 .section img {
   width: 180px;
   height: auto;
@@ -107,30 +105,25 @@ button.main-btn:hover {
   box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
 }
 
-/* === GLOBALER FOOTER-STIL =============================================== */
+/* === Footer (Timeline-Stil) ================================================ */
 footer {
   padding: 60px;
-  background: rgba(0,0,0,0.3);
   text-align: center;
-  color: #ffffff;
+  background: rgba(0,0,0,0.3);
   font-size: 1em;
+  color: #ffffff;
 }
-
-/* Kontaktzeile ~20% größer, gleiche Schatten wie Timeline */
-footer .contact-text {
-  margin-bottom: 15px;
+footer p {
+  margin: 5px 0;
+  font-size: 1.2em; /* ca. 20% größer */
+  color: #ffffff;
+}
+footer a {
+  color: #ffffff;
   font-size: 1.2em;
-  color: #ffffff;
-  text-shadow: 0.5px 0.5px 1px #00264d;
-}
-footer .contact-text a {
-  color: #ffffff;
   text-decoration: none;
-  font-size: 1.2em;
   text-shadow: 0.5px 0.5px 1px #00264d;
 }
-
-/* PayPal-Button */
 footer button {
   background-color: #0070ba;
   border: none;
@@ -138,20 +131,21 @@ footer button {
   cursor: pointer;
   border-radius: 5px;
   font-size: 1em;
-  font-family: inherit;
-  font-weight: normal;
-  line-height: 1;
   color: #fff;
   text-shadow: 0.5px 0.5px 1px #00264d;
   transition: background-color 0.3s;
 }
-footer button:hover {
-  background-color: #005a94;
+footer button:hover { background-color: #005a94; }
+footer hr {
+  border: none;
+  height: 4px;
+  background-color: #ffffff;
+  margin: 15px 0 40px 0;
 }
 </style>
 </head>
-
 <body>
+
 <nav>
   <a href="index.html">Startseite</a>
   <a href="timeline.html">Timeline / Zeitstrahl</a>
@@ -162,7 +156,7 @@ footer button:hover {
 
 <header>
   <h1>Bild gesunder Worte</h1>
-  <h2>[Heb 4,12] Denn das Wort Gottes ist lebendig und wirksam und schärfer als jedes zweischneidige Schwert und durchdringend bis zur Scheidung von Seele und Geist, sowohl der Gelenke als auch des Markes, und ein Beurteiler der Gedanken und Überlegungen des Herzens</h2>
+  <h2>[Heb 4,12] Denn das Wort Gottes ist lebendig und wirksam und schärfer als jedes zweischneidige Schwert …</h2>
   <div class="mission">Beispieltextmission</div>
   <button class="main-btn" onclick="window.location.href='timeline.html'">Zur Timeline / Zum Zeitstrahl</button>
 </header>
@@ -178,34 +172,16 @@ footer button:hover {
 </div>
 
 <footer>
-  <p class="contact-text">Kontakt: Bei Fragen und Anregungen sehr gerne an <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
+  <p>Kontakt: Bei Fragen und Anregungen sehr gerne an 
+    <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a>
+  </p>
   <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über PayPal</button>
+  <hr>
 </footer>
 
 <script>
-/* Sanftes Einblenden beim Laden */
 window.addEventListener("DOMContentLoaded", () => {
   document.body.style.opacity = "1";
-});
-
-/* Sanftes Ausblenden beim Navigieren */
-document.querySelectorAll('a, button').forEach(el => {
-  el.addEventListener('click', e => {
-    const target = el.getAttribute('href') || el.getAttribute('onclick');
-    if (!target || target.startsWith('#') || target.includes('javascript')) return;
-
-    e.preventDefault();
-    document.body.style.opacity = '0';
-
-    setTimeout(() => {
-      if (el.target === '_blank') {
-        window.open(target, '_blank');
-        document.body.style.opacity = '1';
-      } else {
-        window.location.href = target;
-      }
-    }, 400);
-  });
 });
 </script>
 
