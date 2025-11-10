@@ -116,11 +116,13 @@ footer {
   font-size: 1em; /* passt optisch zum PayPal-Button */
 }
 
-/* Kontaktzeile */
-footer p {
+/* Kontaktzeile über PayPal-Button, nur Text/Link */
+footer .contact-text {
   margin-bottom: 15px;
+  color: #ffffff;
+  font-size: 1em;
 }
-footer p a {
+footer .contact-text a {
   color: #ffffff;
   text-decoration: underline;
 }
@@ -157,7 +159,7 @@ footer button:hover {
 
 <header>
   <h1>Bild gesunder Worte</h1>
-  <h2>[Heb 4,12] Denn das Wort Gottes ist lebendig und wirksam und schärfer als jedes zweischneidige Schwert und durchdringend bis zur Scheidung von Seele und Geist, sowohl der Gelenke als auch des Markes, und ein Beurteiler der Gedanken und Überlegungen des Herzens</h2>
+  <h2> Denn das Wort Gottes ist lebendig und wirksam und schärfer als jedes zweischneidige Schwert und durchdringend bis zur Scheidung von Seele und Geist, sowohl der Gelenke als auch des Markes, und ein Beurteiler der Gedanken und Überlegungen des Herzens [Heb 4,12]</h2>
   <div class="mission">Beispieltextmission</div>
   <button class="main-btn" onclick="window.location.href='timeline.html'">Zur Timeline / Zum Zeitstrahl</button>
 </header>
@@ -173,7 +175,7 @@ footer button:hover {
 </div>
 
 <footer>
-  <p>Kontakt: Bei Fragen und Anregungen sehr gerne an <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
+  <p class="contact-text">Kontakt: Bei Fragen und Anregungen sehr gerne an <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
   <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über PayPal</button>
 </footer>
 
