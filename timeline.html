@@ -9,10 +9,9 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
-  color: #001a33; 
+  color: #000000; /* Schwarz ohne Schatten */
   overflow-x: hidden;
   font-size: 19px;
-  text-shadow: 0.5px 0.5px 1px #000a14; 
 }
 
 nav { 
@@ -22,27 +21,25 @@ nav {
   position:sticky; top:0; z-index:10; font-size:19px;
 }
 nav a { 
-  color:#ffffff; 
+  color:#000000; /* Schwarz ohne Schatten */
   text-decoration:none; 
   margin:0 15px; 
   font-weight:bold;
-  text-shadow: 0.5px 0.5px 1px #000000; 
 }
-nav a:hover { color:#ffd700; }
+nav a:hover { color:#005a94; }
 
 header { text-align:center; padding:30px; }
 header h1 { margin:0; font-size:2.8em; }
 header p { 
   margin-top:10px; font-size:1.4em; 
-  color:#001a33; 
-  text-shadow: 0.5px 0.5px 1px #000a14; 
+  color:#000000; /* Schwarz ohne Schatten */
 }
 
 #controls { text-align:center; margin:20px; }
 #controls button { 
   background-color:#0070ba; color:#fff; border:none; 
   padding:12px 22px; margin:5px; border-radius:6px; cursor:pointer; 
-  font-size:1.1em; text-shadow:0.5px 0.5px 1px #000a14;
+  font-size:1.1em;
 }
 #controls button:hover { background-color:#005a94; }
 
@@ -55,13 +52,19 @@ header p {
 
 #minimap-wrapper { position:fixed; bottom:10px; left:50%; transform:translateX(-50%); }
 
-footer { 
-  padding:20px; text-align:center; background: rgba(0,0,0,0.3); font-size:1.4em; 
+footer {
+  border-top: 1px solid #000000; /* Strich oben */
+  padding: 30px 20px; 
+  text-align:center; 
+  background: rgba(255,255,255,0.6); 
+  font-size:1.4em;
+  color: #000000; /* Schwarz ohne Schatten */
 }
-footer a, footer button { color:#001a33; text-decoration:none; margin:5px; text-shadow:0.5px 0.5px 1px #000a14; }
+footer p { margin: 10px 0; }
+footer a { color:#000000; text-decoration:none; margin:5px; }
 footer button { 
   background-color:#0070ba; border:none; padding:10px 25px; cursor:pointer; border-radius:5px; font-size:18px; 
-  text-shadow:0.5px 0.5px 1px #000a14;
+  color: #fff;
 }
 footer button:hover { background-color:#005a94;}
 </style>
@@ -95,6 +98,7 @@ footer button:hover { background-color:#005a94;}
 <div id="minimap-wrapper"></div>
 
 <footer>
+  <p>© 2025 Bildgesunder Worte</p>
   <p>Kontakt: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
   <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über Paypal</button>
 </footer>
