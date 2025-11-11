@@ -15,7 +15,6 @@ body {
   transition: opacity 0.6s ease-in-out;
 }
 
-/* Navigation */
 nav { 
   background: rgba(0,0,0,0.3); 
   display:flex; justify-content:center; align-items:center; 
@@ -23,19 +22,14 @@ nav {
   position:sticky; top:0; z-index:10; font-size:19px;
 }
 nav a { 
-  color:#fff;
-  text-decoration:none; 
-  margin:0 15px; 
-  font-weight:bold;
+  color:#fff; text-decoration:none; margin:0 15px; font-weight:bold;
 }
 nav a:hover { color:#ffd700; }
 
-/* Header */
 header { text-align:center; padding:30px; }
 header h1 { margin:0; font-size:2.8em; }
 header p { margin-top:10px; font-size:1.4em; color:#001a33; }
 
-/* Timeline */
 #controls { text-align:center; margin:20px; }
 #controls button { 
   background-color:#0070ba; color:#fff; border:none; 
@@ -53,17 +47,46 @@ header p { margin-top:10px; font-size:1.4em; color:#001a33; }
 
 #minimap-wrapper { position:fixed; bottom:10px; left:50%; transform:translateX(-50%); }
 
+/* Accordion-Stil */
+.accordion {
+  font-size: 1.4em;
+  margin: 10px 0;
+  list-style-type: none;
+  font-family: Arial, sans-serif;
+}
+
+.accordion-header {
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+}
+
+.accordion-header span {
+  margin-right: 8px;
+  transition: transform 0.2s ease;
+}
+
+.accordion-header.active span {
+  transform: rotate(90deg);
+}
+
+.accordion-content {
+  margin-left: 20px;
+  display: none;
+}
+
+.accordion-content.show {
+  display: block;
+}
+
 /* Footer */
 footer {
   padding: 60px;
   text-align: center;
   background: rgba(0,0,0,0.3);
   font-size: 1em;
-  color: #ffffff;
-}
-footer p {
-  margin: 5px 0;
-  font-size: 1.2em;
   color: #ffffff;
 }
 footer a {
@@ -123,40 +146,42 @@ footer hr {
     Wichtige Punkte, die mit einer faktengefüllten Timeline auffallen:
   </h2>
 
-  <ul style="font-size:1.4em; margin-left:20px; list-style-position: outside; font-family: Arial, sans-serif;">
-
-    <li><b>1. Eine <u>hohe Intelligenz</u> kann der Antike nicht abgesprochen werden!</b></li>
-
-    <ul>
-      <li><b>- Archäologie:</b></li>
-      <ul>
-        <li>Steine weit über 1000 Tonnen wurden bewegt und bearbeitet</li>
-        <li>Fast unmögliche Schnitte in härtesten Fels</li>
-        <li>Nahezu perfekte Symetrien bei gigantischen Monumenten</li>
-        <li>Ausgeklügelte Wasserversorgung</li>
-        <li>Der Globus war bereits 1000+ v. Chr. weitgehend kartographiert (Polynesier)</li>
-        <li>Tiefgehende Sternkunde in vielen Bauwerken ersichtlich</li>
-        <li>Bauwerke für viele Tausende Jahre konzipiert, nachhaltiger als heute</li>
-        <li>Keine giftige Chemie - stattdessen Ausrichtung auf Gesundheit</li>
-        <li>Nutzung von elektrischem Strom sehr wahrscheinlich (Batterienfunde)</li>
-        <li>Lebendoperationen am Schädel nachgewiesen (geheilte aufgebohrte Knochen)</li>
-      </ul>
-
-      <li><b>- Schriftliche Überlieferungen:</b></li>
-      <ul>
-        <li>Die Bibel enthält über 200 Sprachstile – einzigartig in Schönheit, Sprache, Poesie und Vielfalt</li>
-        <li>Die alten Bibelbücher sind selbst nach modernen Kritikern ca. 2300 Jahre alt:</li>
+  <ul class="accordion">
+    <li>
+      <div class="accordion-header active">
+        <span>▼</span> <b>1. Eine <u>hohe Intelligenz</u> kann der Antike nicht abgesprochen werden!</b>
+      </div>
+      <div class="accordion-content show">
         <ul>
-          <li>Wieso entstand das Buch mit der größten Weisheit in der Antike?</li>
+          <li><b>- Archäologie:</b></li>
+          <ul>
+            <li>Steine weit über 1000 Tonnen wurden bewegt und bearbeitet</li>
+            <li>Fast unmögliche Schnitte in härtesten Fels</li>
+            <li>Nahezu perfekte Symetrien bei gigantischen Monumenten</li>
+            <li>Ausgeklügelte Wasserversorgung</li>
+            <li>Der Globus war bereits 1000+ v. Chr. weitgehend kartographiert (Polynesier)</li>
+            <li>Tiefgehende Sternkunde in vielen Bauwerken ersichtlich</li>
+            <li>Bauwerke für viele Tausende Jahre konzipiert, nachhaltiger als heute</li>
+            <li>Keine giftige Chemie - stattdessen Ausrichtung auf Gesundheit</li>
+            <li>Nutzung von elektrischem Strom sehr wahrscheinlich (Batterienfunde)</li>
+            <li>Lebendoperationen am Schädel nachgewiesen (geheilte aufgebohrte Knochen)</li>
+          </ul>
+          <li><b>- Schriftliche Überlieferungen:</b></li>
+          <ul>
+            <li>Die Bibel enthält über 200 Sprachstile – einzigartig in Schönheit, Sprache, Poesie und Vielfalt</li>
+            <li>Die alten Bibelbücher sind selbst nach modernen Kritikern ca. 2300 Jahre alt:</li>
+            <ul>
+              <li>Wieso entstand das Buch mit der größten Weisheit in der Antike?</li>
+            </ul>
+            <li>Wieso gibt es heute noch keinen anderen Bestseller dieser Reichweite?</li>
+            <li>Gemäß der Bibel entstanden die ersten Schriften vielleicht sogar direkt bei den Zeitzeugen (Adam, Noah, Abraham usw. ca. 4000 v. Chr.); spätestens bei Mose ca. 1600 v. Chr. kompiliert und/oder inspiriert.</li>
+          </ul>
+          <li><b>- Fazit: Dummheit ist daher völlig ausgeschlossen!</b> Es geht eher Richtung „intelligenter als heute“ – also nicht in die Richtung von Affenabstammung.</li>
         </ul>
-        <li>Wieso gibt es heute noch keinen anderen Bestseller dieser Reichweite?</li>
-        <li>Gemäß der Bibel entstanden die ersten Schriften vielleicht sogar direkt bei den Zeitzeugen (Adam, Noah, Abraham usw. ca. 4000 v. Chr.); spätestens bei Mose ca. 1600 v. Chr. kompiliert und/oder inspiriert.</li>
-      </ul>
-
-      <li><b>- Fazit: Dummheit ist daher völlig ausgeschlossen!</b> Es geht eher Richtung „intelligenter als heute“ – also nicht in die Richtung von Affenabstammung.</li>
-    </ul>
-
+      </div>
+    </li>
   </ul>
+
 </div>
   
 <div id="minimap-wrapper"></div>
@@ -170,10 +195,24 @@ footer hr {
 </footer>
 
 <script>
+// === FADE-IN EFFEKT ===
 window.addEventListener("DOMContentLoaded", () => {
   document.body.style.opacity = "1";
 });
 
+// === ACCORDION FUNKTION ===
+const accordions = document.querySelectorAll(".accordion-header");
+accordions.forEach(header => {
+  header.addEventListener("click", () => {
+    const content = header.nextElementSibling;
+    const icon = header.querySelector("span");
+    header.classList.toggle("active");
+    content.classList.toggle("show");
+    icon.textContent = content.classList.contains("show") ? "▼" : "►";
+  });
+});
+
+// === TIMELINE ===
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
 const totalPages = 17;
@@ -190,64 +229,6 @@ for (let i = 1; i <= totalPages; i++) {
 let scale = 0.7, targetScale = 0.7;
 let translateX = 0, translateY = 0;
 let targetTranslateX = 0, targetTranslateY = 0;
-let isDragging = false, startX, startY;
-
-wrapper.addEventListener('mousedown', e => {
-  isDragging = true;
-  startX = e.clientX - targetTranslateX;
-  startY = e.clientY - targetTranslateY;
-  wrapper.style.cursor = 'grabbing';
-});
-document.addEventListener('mouseup', () => {
-  isDragging = false;
-  wrapper.style.cursor = 'grab';
-});
-document.addEventListener('mousemove', e => {
-  if (!isDragging) return;
-  targetTranslateX = e.clientX - startX;
-  targetTranslateY = e.clientY - startY;
-  applyBounds();
-});
-
-wrapper.addEventListener('wheel', e => {
-  e.preventDefault();
-  const rect = wrapper.getBoundingClientRect();
-  const mouseX = e.clientX - rect.left;
-  const mouseY = e.clientY - rect.top;
-  const currentScale = scale;
-  const zoomFactor = Math.exp(-e.deltaY * 0.0015);
-  const newScale = Math.min(Math.max(0.3, currentScale * zoomFactor), 5);
-  const contentX = (mouseX - translateX) / currentScale;
-  const contentY = (mouseY - translateY) / currentScale;
-  targetTranslateX = mouseX - contentX * newScale;
-  targetTranslateY = mouseY - contentY * newScale;
-  targetScale = newScale;
-  applyBounds();
-});
-
-function applyBounds() {
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const timelineWidth = timeline.scrollWidth * targetScale;
-  const timelineHeight = timeline.scrollHeight * targetScale;
-  const visibleMarginX = wrapperRect.width * 0.05;
-  const visibleMarginY = wrapperRect.height * 0.05;
-
-  if (timelineWidth <= wrapperRect.width) {
-    targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
-  } else {
-    const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
-    const maxX = 0 - visibleMarginX + extraMargin;
-    targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
-  }
-
-  if (timelineHeight <= wrapperRect.height) {
-    targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
-  } else {
-    const minY = wrapperRect.height - timelineHeight + visibleMarginY;
-    const maxY = visibleMarginY;
-    targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
-  }
-}
 
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
@@ -260,7 +241,6 @@ function setView(page) {
   targetScale = 0.7;
   targetTranslateX = wrapperRect.width / 2 - (imgLeft + imgWidth / 2) * targetScale;
   targetTranslateY = wrapperRect.height / 2 - (imgTop + imgHeight / 2) * targetScale;
-  applyBounds();
 }
 
 window.onload = () => {
