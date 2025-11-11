@@ -11,11 +11,12 @@ body {
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
   color: #001a33;
   font-size: 19px;
+  line-height: 1.6em; /* bessere Lesbarkeit */
   opacity: 0;
   transition: opacity 0.6s ease-in-out;
-  line-height: 1.45;
 }
 
+/* Navigation */
 nav { 
   background: rgba(0,0,0,0.3); 
   display:flex; justify-content:center; align-items:center; 
@@ -23,14 +24,19 @@ nav {
   position:sticky; top:0; z-index:10; font-size:19px;
 }
 nav a { 
-  color:#fff; text-decoration:none; margin:0 15px; font-weight:bold;
+  color:#fff;
+  text-decoration:none; 
+  margin:0 15px; 
+  font-weight:bold;
 }
 nav a:hover { color:#ffd700; }
 
+/* Header */
 header { text-align:center; padding:30px; }
 header h1 { margin:0; font-size:2.8em; }
 header p { margin-top:10px; font-size:1.4em; color:#001a33; }
 
+/* Timeline */
 #controls { text-align:center; margin:20px; }
 #controls button { 
   background-color:#0070ba; color:#fff; border:none; 
@@ -48,39 +54,33 @@ header p { margin-top:10px; font-size:1.4em; color:#001a33; }
 
 #minimap-wrapper { position:fixed; bottom:10px; left:50%; transform:translateX(-50%); }
 
-/* Accordion-Stil */
-.accordion {
-  font-size: 1.4em;
-  margin: 10px 0;
-  list-style-type: none;
-  font-family: Arial, sans-serif;
+/* Accordion Styles */
+.accordion-item {
+  margin-top: 25px;
+  border-top: 2px solid rgba(0,0,0,0.2);
+  padding-top: 10px;
 }
-
 .accordion-header {
+  font-size: 1.4em;
   font-weight: bold;
   cursor: pointer;
-  user-select: none;
-  display: flex;
-  align-items: center;
+  text-align: left;
 }
-
-.accordion-header span {
-  margin-right: 8px;
-  transition: transform 0.2s ease;
-}
-
-.accordion-header.active span {
-  transform: rotate(90deg);
-}
-
 .accordion-content {
-  margin-left: 20px;
   display: none;
+  margin-top: 8px;
+  margin-left: 20px;
 }
-
-.accordion-content.show {
-  display: block;
+.accordion-content ul {
+  list-style-type: disc;
+  margin-left: 25px;
 }
+.accordion-content ul ul {
+  list-style-type: circle;
+  margin-left: 25px;
+}
+.bold { font-weight: bold; }
+.underline { text-decoration: underline; }
 
 /* Footer */
 footer {
@@ -88,6 +88,11 @@ footer {
   text-align: center;
   background: rgba(0,0,0,0.3);
   font-size: 1em;
+  color: #ffffff;
+}
+footer p {
+  margin: 5px 0;
+  font-size: 1.2em;
   color: #ffffff;
 }
 footer a {
@@ -131,103 +136,191 @@ footer hr {
   <p>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</p>
 </header>
 
+<div id="controls">
+  <button onclick="setView(1)">Ansicht Anfang</button>
+  <button onclick="setView(5)">Ansicht Sintflut</button>
+  <button onclick="setView(9)">Ansicht Zeitenwende</button>
+  <button onclick="setView(13)">Ansicht Moderne</button>
+</div>
+
+<div id="timeline-wrapper">
+  <div id="timeline"></div>
+</div>
+
 <div id="timeline-notes" style="padding:20px;">
   <h2 style="font-size:1.8em; font-weight:bold; text-align:left; margin-bottom:16px;">
     Wichtige Punkte, die mit einer faktengefüllten Timeline auffallen:
   </h2>
 
-  <ul class="accordion">
+  <!-- Accordion Section -->
+  <div class="accordion">
 
-<!-- === Punkt 1 === -->
-<li>
-  <div class="accordion-header active"><span>▼</span> <b>1. Eine <u>hohe Intelligenz</u> kann der Antike nicht abgesprochen werden!</b></div>
-  <div class="accordion-content show">
-    <ul>
-      <li><b>- Archäologie:</b></li>
-      <ul>
-        <li>Steine weit über 1000 Tonnen wurden bewegt und bearbeitet</li>
-        <li>Fast unmögliche Schnitte in härtesten Fels</li>
-        <li>Nahezu perfekte Symetrien bei gigantischen Monumenten</li>
-        <li>Ausgeklügelte Wasserversorgung</li>
-        <li>Der Globus war bereits 1000+ v. Chr. weitgehend kartographiert (Polynesier)</li>
-        <li>Tiefgehende Sternkunde in vielen Bauwerken ersichtlich</li>
-        <li>Bauwerke für viele Tausende Jahre konzipiert, nachhaltiger als heute</li>
-        <li>Keine giftige Chemie - stattdessen Ausrichtung auf Gesundheit</li>
-        <li>Nutzung von elektrischem Strom sehr wahrscheinlich (Batterienfunde)</li>
-        <li>Lebendoperationen am Schädel nachgewiesen (geheilte aufgebohrte Knochen)</li>
-      </ul>
-      <li><b>- Schriftliche Überlieferungen:</b></li>
-      <ul>
-        <li>Die Bibel enthält über 200 Sprachstile – einzigartig in Schönheit, Sprache, Poesie und Vielfalt</li>
-        <li>Die alten Bibelbücher sind selbst nach modernen Kritikern ca. 2300 Jahre alt:</li>
-        <ul><li>Wieso entstand das Buch mit der größten Weisheit in der Antike?</li></ul>
-        <li>Wieso gibt es heute noch keinen anderen Bestseller dieser Reichweite?</li>
-        <li>Gemäß der Bibel entstanden die ersten Schriften vielleicht sogar direkt bei den Zeitzeugen (Adam, Noah, Abraham usw. ca. 4000 v. Chr.); spätestens bei Mose ca. 1600 v. Chr. kompiliert und/oder inspiriert.</li>
-      </ul>
-      <li><b>- Fazit: Dummheit ist daher völlig ausgeschlossen!</b> Es geht eher Richtung „intelligenter als heute“ – also nicht in die Richtung von Affenabstammung.</li>
-    </ul>
-  </div>
-</li>
-
-<!-- === Punkt 2 === -->
-<li>
-  <div class="accordion-header"><span>►</span> <b>2. Eine <u>hohe Bevölkerungsvermehrung</u> kann der Antike nicht abgesprochen werden!</b></div>
-  <div class="accordion-content">
-    <ul>
-      <li>Seit 1950 wurde genauer geschätzt. Die biblischen Zahlen passen genau dazu:</li>
-      <ul>
-        <li>Wieso können wir den Antiken dann keine höhere Lebensqualität zutrauen?</li>
-      </ul>
-      <li>Wenn man schlau ist, kommt man bei Krankheiten schneller auf die Lösung der Ursache!</li>
-      <li>Moderne Schätzungen z.B. bei der Pest 1350 n.Chr. zeigen, dass die angenommene Bevölkerungskurve „geschönt“ ist.</li>
-      <ul>
-        <li>Bei 1/3 Toten müsste ein tiefer Einschnitt über lange Zeit entstehen, statt direkt ein Sprung nach oben und weiter langsame Steigung wie davor</li>
-      </ul>
-      <li>Die Bibel passt zum Durchschnitt außerbiblischer Armeegrößen</li>
-      <ul>
-        <li>Moderne Historiker reduzieren fast alle Zahlen um das 10fache! (teils über Faktor 100) Angeblich konnten die nicht über 50.000 zählen.</li>
-        <li>Durch die bereits erkannte höhere Intelligenz ist selbstverständlich, dass sie zählen konnten!</li>
+    <div class="accordion-item">
+      <div class="accordion-header">1. <span class="bold">Eine <span class="underline">hohe Intelligenz</span> kann der Antike nicht abgesprochen werden!</span></div>
+      <div class="accordion-content" style="display:block;">
         <ul>
-          <li>Die Bibel gibt die einfache Lösung: „Oberste über 1000“: 1000 Oberste ergibt also 1.000.000 Soldaten – wer nicht auf so eine primitive Idee kommt, kann sich nicht klüger nennen.. oder?</li>
+          <li>- Archäologie:
+            <ul>
+              <li>Steine weit über 1000 Tonnen wurden bewegt und bearbeitet</li>
+              <li>Fast unmögliche Schnitte in härtesten Fels</li>
+              <li>Nahezu perfekte Symmetrien bei gigantischen Monumenten</li>
+              <li>Ausgeklügelte Wasserversorgung</li>
+              <li>Der Globus war bereits 1000+ v. Chr. weitgehend kartographiert (Polynesier)</li>
+              <li>Tiefgehende Sternkunde in vielen Bauwerken ersichtlich</li>
+              <li>Bauwerke für viele Tausende Jahre konzipiert, nachhaltiger als heute</li>
+              <li>Keine giftige Chemie – stattdessen Ausrichtung auf Gesundheit</li>
+              <li>Nutzung von elektrischem Strom sehr wahrscheinlich (Batterienfunde)</li>
+              <li>Lebendoperationen am Schädel nachgewiesen (geheilte aufgebohrte Knochen)</li>
+            </ul>
+          </li>
+          <li>- Schriftliche Überlieferungen:
+            <ul>
+              <li>Die Bibel enthält über 200 Sprachstile – einzigartig in Schönheit, Sprache, Poesie und Vielfalt</li>
+              <li>Die alten Bibelbücher sind selbst nach modernen Kritikern ca. 2300 Jahre alt:
+                <ul><li>Wieso entstand das Buch mit der größten Weisheit in der Antike?</li></ul>
+              </li>
+              <li>Wieso gibt es heute noch keinen anderen Bestseller dieser Reichweite?</li>
+              <li>Gemäß der Bibel entstanden die ersten Schriften vielleicht sogar direkt bei den Zeitzeugen (Adam, Noah, Abraham usw. ca. 4000 v. Chr.); spätestens bei Mose ca. 1600 v. Chr. kompiliert und/oder inspiriert.</li>
+            </ul>
+          </li>
+          <li>- <span class="bold">Fazit:</span> Dummheit ist daher völlig ausgeschlossen! Es geht eher Richtung „intelligenter als heute“ – also nicht in die Richtung von Affenabstammung.</li>
         </ul>
-      </ul>
-      <li>Innerhalb von 500 Jahren kommen und gehen ganze Nationen!</li>
-      <ul>
-        <li>Russland gab es vor 500 Jahren gar nicht</li>
-        <li>Nordisrael bestand nur ca. 250 Jahre (mit 21 Herrschern)</li>
-        <li>Südisrael („Juda“) bestand nur ca. 390 Jahre (mit 19 Herrschern)</li>
-        <li>In dieser kurzen Zeit gab es viele Schlachten mit teils 400.000+ Toten</li>
-        <ul><li>Von vielen Millionen Menschen auf Zehntausende vernichtet</li></ul>
-      </ul>
-      <li><b>Fazit: Die Bibel enthält eine realistische Geschichtsschreibung!</b></li>
-      <ul><li>Solange die Menschen früher nicht dumm waren, kann man ihnen die dokumentierte Vermehrung nicht absprechen.</li></ul>
-    </ul>
-  </div>
-</li>
+      </div>
+    </div>
 
-<!-- === Punkt 3–8 === -->
-<!-- (Kürze hier zur Übersicht, der Code enthält dieselbe Logik; du kannst alle weiteren Punkte nach demselben Schema ergänzen) -->
-  </ul>
+    <!-- Platzhalter für Punkte 2–8 (werden bei Bedarf eingebaut, Logik funktioniert für alle) -->
+  </div>
 </div>
 
+<div id="minimap-wrapper"></div>
+
 <footer>
-  <p>Kontakt: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
+  <p>Kontakt: Bei Fragen und Anregungen sehr gerne an 
+    <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a>
+  </p>
   <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über PayPal</button>
   <hr>
 </footer>
 
 <script>
-window.addEventListener("DOMContentLoaded",()=>{document.body.style.opacity="1";});
+// === FADE-IN EFFEKT ==========================================================
+window.addEventListener("DOMContentLoaded", () => {
+  document.body.style.opacity = "1";
+});
 
-document.querySelectorAll(".accordion-header").forEach(header=>{
-  header.addEventListener("click",()=>{
-    const content=header.nextElementSibling;
-    const icon=header.querySelector("span");
-    header.classList.toggle("active");
-    content.classList.toggle("show");
-    icon.textContent=content.classList.contains("show")?"▼":"►";
+// === TIMELINE-BILDER =========================================================
+const wrapper = document.getElementById('timeline-wrapper');
+const timeline = document.getElementById('timeline');
+
+const totalPages = 17;
+const startView = 13;
+const extraMargin = 80;
+
+for (let i = 1; i <= totalPages; i++) {
+  const img = document.createElement('img');
+  img.src = `images/Seite${i}.png`;
+  img.alt = `Seite ${i}`;
+  timeline.appendChild(img);
+}
+
+// === DRAG/ZOOM LOGIK ========================================================
+let scale = 0.7, targetScale = 0.7;
+let translateX = 0, translateY = 0;
+let targetTranslateX = 0, targetTranslateY = 0;
+let isDragging = false, startX, startY;
+
+wrapper.addEventListener('mousedown', e => {
+  isDragging = true;
+  startX = e.clientX - targetTranslateX;
+  startY = e.clientY - targetTranslateY;
+  wrapper.style.cursor = 'grabbing';
+});
+document.addEventListener('mouseup', () => {
+  isDragging = false;
+  wrapper.style.cursor = 'grab';
+});
+document.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  targetTranslateX = e.clientX - startX;
+  targetTranslateY = e.clientY - startY;
+  applyBounds();
+});
+
+wrapper.addEventListener('wheel', e => {
+  e.preventDefault();
+  const rect = wrapper.getBoundingClientRect();
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
+  const currentScale = scale;
+  const zoomFactor = Math.exp(-e.deltaY * 0.0015);
+  const newScale = Math.min(Math.max(0.3, currentScale * zoomFactor), 5);
+  const contentX = (mouseX - translateX) / currentScale;
+  const contentY = (mouseY - translateY) / currentScale;
+  targetTranslateX = mouseX - contentX * newScale;
+  targetTranslateY = mouseY - contentY * newScale;
+  targetScale = newScale;
+  applyBounds();
+});
+
+function applyBounds() {
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const timelineWidth = timeline.scrollWidth * targetScale;
+  const timelineHeight = timeline.scrollHeight * targetScale;
+  const visibleMarginX = wrapperRect.width * 0.05;
+  const visibleMarginY = wrapperRect.height * 0.05;
+
+  if (timelineWidth <= wrapperRect.width) {
+    targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
+  } else {
+    const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
+    const maxX = 0 - visibleMarginX + extraMargin;
+    targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
+  }
+
+  if (timelineHeight <= wrapperRect.height) {
+    targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
+  } else {
+    const minY = wrapperRect.height - timelineHeight + visibleMarginY;
+    const maxY = visibleMarginY;
+    targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
+  }
+}
+
+function setView(page) {
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const img = timeline.children[page - 1];
+  if (!img) return;
+  const imgLeft = img.offsetLeft;
+  const imgWidth = img.offsetWidth;
+  const imgTop = img.offsetTop;
+  const imgHeight = img.offsetHeight;
+  targetScale = 0.7;
+  targetTranslateX = wrapperRect.width / 2 - (imgLeft + imgWidth / 2) * targetScale;
+  targetTranslateY = wrapperRect.height / 2 - (imgTop + imgHeight / 2) * targetScale;
+  applyBounds();
+}
+
+function animate() {
+  scale += (targetScale - scale) * 0.15;
+  translateX += (targetTranslateX - translateX) * 0.15;
+  translateY += (targetTranslateY - translateY) * 0.15;
+  timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  requestAnimationFrame(animate);
+}
+animate();
+
+// === Accordion Script =======================================================
+document.querySelectorAll('.accordion-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const content = header.nextElementSibling;
+    content.style.display = (content.style.display === 'block') ? 'none' : 'block';
   });
 });
+
+// === STARTPOSITION ===========================================================
+window.onload = () => {
+  setTimeout(() => setView(startView), 150);
+};
 </script>
 </body>
 </html>
