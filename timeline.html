@@ -9,14 +9,12 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
-  color: #001a33;
+  color: #001a33; /* dunkler Text für bessere Lesbarkeit */
+  overflow-x: hidden;
   font-size: 19px;
-  line-height: 1.6;
-  opacity: 0;
-  transition: opacity 0.6s ease-in-out;
+  text-shadow: 0.5px 0.5px 1px #000a14; /* minimaler Schatten */
 }
 
-/* Navigation */
 nav { 
   background: rgba(0,0,0,0.3); 
   display:flex; justify-content:center; align-items:center; 
@@ -24,24 +22,27 @@ nav {
   position:sticky; top:0; z-index:10; font-size:19px;
 }
 nav a { 
-  color:#fff;
+  color:#ffffff; /* wieder weiß auf grauem Hintergrund */
   text-decoration:none; 
   margin:0 15px; 
   font-weight:bold;
+  text-shadow: 0.5px 0.5px 1px #000000; /* minimaler Schatten */
 }
 nav a:hover { color:#ffd700; }
 
-/* Header */
 header { text-align:center; padding:30px; }
 header h1 { margin:0; font-size:2.8em; }
-header p { margin-top:10px; font-size:1.4em; color:#001a33; }
+header p { 
+  margin-top:10px; font-size:1.4em; 
+  color:#001a33; 
+  text-shadow: 0.5px 0.5px 1px #000a14; 
+}
 
-/* Timeline */
 #controls { text-align:center; margin:20px; }
 #controls button { 
   background-color:#0070ba; color:#fff; border:none; 
   padding:12px 22px; margin:5px; border-radius:6px; cursor:pointer; 
-  font-size:1.1em;
+  font-size:1.1em; text-shadow:0.5px 0.5px 1px #000a14;
 }
 #controls button:hover { background-color:#005a94; }
 
@@ -52,78 +53,15 @@ header p { margin-top:10px; font-size:1.4em; color:#001a33; }
 #timeline { display:flex; height:130%; transform-origin:0 0; user-select:none; }
 #timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none; }
 
-#minimap-wrapper { position:fixed; bottom:10px; left:50%; transform:translateX(-50%); }
-
-/* Footer */
-footer {
-  padding: 60px;
-  text-align: center;
-  background: rgba(0,0,0,0.3);
-  font-size: 1em;
-  color: #ffffff;
+footer { 
+  padding:20px; text-align:center; background: rgba(0,0,0,0.3); font-size:1.4em; /* gleiche Größe wie Header p */
 }
-footer p {
-  margin: 5px 0;
-  font-size: 1.2em;
-  color: #ffffff;
+footer a, footer button { color:#001a33; text-decoration:none; margin:5px; text-shadow:0.5px 0.5px 1px #000a14; }
+footer button { 
+  background-color:#0070ba; border:none; padding:10px 25px; cursor:pointer; border-radius:5px; font-size:18px; 
+  text-shadow:0.5px 0.5px 1px #000a14;
 }
-footer a {
-  color: #ffffff;
-  font-size: 1.2em;
-  text-decoration: none;
-  text-shadow: 0.5px 0.5px 1px #00264d;
-}
-footer button {
-  background-color:#0070ba;
-  border:none;
-  padding:10px 25px;
-  cursor:pointer;
-  border-radius:5px;
-  font-size:1em;
-  color:#fff;
-  text-shadow: 0.5px 0.5px 1px #00264d;
-  transition: background-color 0.3s;
-}
-footer button:hover { background-color:#005a94; }
-footer hr {
-  border:none;
-  height:4px;
-  background-color:#ffffff;
-  margin:15px 0 40px 0;
-}
-
-/* === Accordion Style ======================================================== */
-.accordion-section {
-  margin-top: 25px;
-}
-.accordion-header {
-  font-size: 1.6em;
-  font-weight: bold;
-  cursor: pointer;
-  margin: 10px 0;
-  user-select: none;
-}
-.accordion-header:hover {
-  color: #004080;
-}
-.accordion-content {
-  display: none;
-  font-size: 0.95em;
-  margin-left: 25px;
-  line-height: 1.7;
-}
-.accordion-content ul {
-  list-style-type: disc;
-  margin-left: 25px;
-}
-.accordion-content ul ul {
-  list-style-type: circle;
-  margin-left: 20px;
-}
-
-/* Bold + Underline replacements */
-b { font-weight:bold; }
-u { text-decoration: underline; }
+footer button:hover { background-color:#005a94;}
 </style>
 </head>
 <body>
@@ -152,233 +90,254 @@ u { text-decoration: underline; }
   <div id="timeline"></div>
 </div>
 
-<div id="timeline-notes" style="padding:20px;">
-  <h2 style="font-size:1.8em; font-weight:bold; text-align:left; margin-bottom:16px;">
-    Wichtige Punkte, die mit einer faktengefüllten Timeline auffallen:
-  </h2>
-
-  <!-- Accordion Container -->
-  <div id="accordion-container">
-    <!-- Punkt 1 -->
-    <div class="accordion-section">
-      <div class="accordion-header"><b>1. Eine <u>Intelligenz</u> kann der Antike nicht abgesprochen werden!</b></div>
-      <div class="accordion-content" style="display:block;">
-        <ul>
-          <li><b>Archäologie:</b>
-            <ul>
-              <li>Steine weit über 1000 Tonnen wurden bewegt und bearbeitet</li>
-              <li>Fast unmögliche Schnitte in härtesten Fels</li>
-              <li>Nahezu perfekte Symmetrien bei gigantischen Monumenten</li>
-              <li>Ausgeklügelte Wasserversorgung</li>
-              <li>Der Globus war bereits 1000+ v. Chr. weitgehend kartographiert (Polynesier)</li>
-              <li>Tiefgehende Sternkunde in vielen Bauwerken ersichtlich</li>
-              <li>Bauwerke für viele Tausende Jahre konzipiert, nachhaltiger als heute</li>
-              <li>Keine giftige Chemie – stattdessen Ausrichtung auf Gesundheit</li>
-              <li>Nutzung von elektrischem Strom sehr wahrscheinlich (Batterienfunde)</li>
-              <li>Lebendoperationen am Schädel nachgewiesen (geheilte aufgebohrte Knochen)</li>
-            </ul>
-          </li>
-          <li><b>Schriftliche Überlieferungen:</b>
-            <ul>
-              <li>Die Bibel enthält über 200 Sprachstile – einzigartig in Schönheit, Sprache, Poesie und Vielfalt</li>
-              <li>Die alten Bibelbücher sind selbst nach modernen Kritikern ca. 2300 Jahre alt:<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;Wieso entstand das Buch mit der größten Weisheit in der Antike?</li>
-              <li>Wieso gibt es heute noch keinen anderen Bestseller dieser Reichweite?</li>
-              <li>Gemäß der Bibel entstanden die ersten Schriften vielleicht sogar direkt bei den Zeitzeugen (Adam, Noah, Abraham usw. ca. 4000 v. Chr.); spätestens bei Mose ca. 1600 v. Chr. kompiliert und/oder inspiriert.</li>
-            </ul>
-          </li>
-          <li><b>Fazit: Dummheit ist daher völlig ausgeschlossen!</b> Es geht eher Richtung „intelligenter als heute“ – also nicht in die Richtung von Affenabstammung.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Punkt 2 -->
-    <div class="accordion-section">
-      <div class="accordion-header"><b>2. Eine <u>Bevölkerungsvermehrung</u> kann der Antike nicht abgesprochen werden!</b></div>
-      <div class="accordion-content">
-        <ul>
-          <li>Seit 1950 wurde genauer geschätzt. Die biblischen Zahlen passen genau dazu:
-            <ul>
-              <li>Wieso können wir den Antiken dann keine höhere Lebensqualität zutrauen?</li>
-            </ul>
-          </li>
-          <li>Wenn man schlau ist, kommt man bei Krankheiten schneller auf die Lösung der Ursache!</li>
-          <li>Moderne Schätzungen z.B. bei der Pest 1350 n. Chr. zeigen, dass die angenommene Bevölkerungskurve „geschönt“ ist.
-            <ul>
-              <li>Bei 1/3 Toten müsste ein tiefer Einschnitt über lange Zeit entstehen, statt direkt ein Sprung nach oben und weiter langsame Steigung wie davor.</li>
-            </ul>
-          </li>
-          <li>Die Bibel passt zum Durchschnitt außerbiblischer Armeegrößen
-            <ul>
-              <li>Moderne Historiker reduzieren fast alle Zahlen um das 10fache! (teils über Faktor 100) Angeblich konnten die nicht über 50.000 zählen...</li>
-              <li>Durch die bereits erkannte höhere Intelligenz ist selbstverständlich, dass sie zählen konnten!</li>
-              <li>Die Bibel gibt die einfache Lösung: „Oberste über 1000“: 1000 Oberste ergibt also 1.000.000 Soldaten – wer nicht auf so eine primitive Idee kommt, kann sich nicht klüger nennen... oder?</li>
-            </ul>
-          </li>
-          <li>Innerhalb von 500 Jahren kommen und gehen ganze Nationen!
-            <ul>
-              <li>Russland gab es vor 500 Jahren gar nicht</li>
-              <li>Nordisrael bestand nur ca. 250 Jahre (mit 21 Herrschern)</li>
-              <li>Südisrael („Juda“) bestand nur ca. 390 Jahre (mit 19 Herrschern)</li>
-              <li>In dieser kurzen Zeit gab es viele Schlachten mit teils 400.000+ Toten</li>
-              <li>Von vielen Millionen Menschen auf Zehntausende vernichtet</li>
-            </ul>
-          </li>
-          <li><b>Fazit: Die Bibel enthält eine realistische Geschichtsschreibung!</b><br>
-          Solange die Menschen früher nicht dumm waren, kann man ihnen die dokumentierte Vermehrung nicht absprechen.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Punkt 3 -->
-    <div class="accordion-section">
-      <div class="accordion-header"><b>3. Eine <u>höhere Lebenserwartung</u> kann ebenso nicht abgesprochen werden!</b></div>
-      <div class="accordion-content">
-        <ul>
-          <li>Außerbiblisch geht alles Richtung höhere Lebensalter als heute
-            <ul><li>Sumerer an der Spitze mit über 40.000 Jahre</li></ul>
-          </li>
-          <li>Wenn die nicht dumm sein können, macht nur der biblische Bericht Sinn
-            <ul><li>Gemäß wissenschaftlichen Schätzungen könnten Menschen bei Reparatur aller Mutationen maximal 1000 Jahre leben → Punktlandung zur Bibel</li></ul>
-          </li>
-          <li>Laut Bibel anfangs nur vegetarische Nahrung und viel Bewegung
-            <ul><li>Heute immer noch aktuell als beste Lösung der meisten Probleme!</li></ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-    
-    <!-- Punkt 4 -->
-    <div class="accordion-section">
-      <div class="accordion-header"><b>4. Aufgrund von weit verbreiteten „Mythen“ kann die Wahrheit nicht gleich mit über Bord geworfen werden!</b></div>
-      <div class="accordion-content">
-        <ul>
-          <li>Wenn alle Quellen in eine für uns unwahrscheinliche, bessere Richtung zeigen, deutet es ehrlicherweise an, dass wir heute „schlechter“ sind, oder?</li>
-          <li>Man sollte den eigenen Stolz überwinden und sich kritisch hinterfragen. Die Moderne muss nicht besser sein als die „dummen Leute früher“.</li>
-          <li>Diese menschliche negative Eigenschaft wird nur in der Bibel bloßgestellt → Passend zu Wahrheit.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Punkt 5 -->
-    <div class="accordion-section">
-      <div class="accordion-header"><b>5. <u>Wahrheit</u> ist in der Bibel das zentrale Thema. Passend zu diesen Berichten erkennt man die maßlosen Übertreibungen aller übrigen „gottlosen“ Völker!</b></div>
-      <div class="accordion-content">
-        <ul>
-          <li>Wahrheit ist in der Bibel ein durchgängiges Fundament:</li>
-          <ul>
-            <li>in der Hoffnung des ewigen Lebens, das <b>Gott, der nicht lügen kann</b>, verheißen hat vor ewigen Zeiten; <b>Tit 1,2</b></li>
-            <li>Du sollst <b>kein falsches Zeugnis ablegen</b> gegen deinen Nächsten. <b>2. Mo 20,16</b></li>
-            <li>Ihr sollt <b>nichts hinzutun</b> zu dem Wort, das ich euch gebiete, und sollt <b>nichts davon wegnehmen</b> … <b>5. Mo 4,2</b></li>
-            <li>Das ganze Wort, das ich euch gebiete … <b>5. Mo 13,1</b></li>
-            <li><b>5. Mo 13,2–6</b> Prophet mit falscher Lehre → Strafe</li>
-            <li><b>Off 22,18-19</b> Wer hinzufügt oder wegnimmt, verliert seinen Anteil am Baum des Lebens</li>
-          </ul>
-          <li><b>Fazit: Es gibt keinen Beweis, dass die biblischen Ereignisse gelogen oder unrealistisch sind.</b></li>
-        </ul>
-      </div>
-    </div>
-    
-    <!-- Punkt 6 -->
-    <div class="accordion-section">
-      <div class="accordion-header"><b>6. Biblische <u>Berichte passen zu</u> den zeitgemäßen historischen <u>Ereignissen</u>!</b></div>
-      <div class="accordion-content">
-        <ul>
-          <li>Schreibweise, Sprachen, Intelligenz, Beobachtungen, Redensarten (z.B. Mose, Abraham, Daniel, usw.)</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Punkt 7 -->
-    <div class="accordion-section">
-      <div class="accordion-header"><b>7. <u>Prophetien/Prädiktionen</u> sind fast auf jeder Seite der Bibel zu finden und <u>bestätigen</u> offensichtlich den einen <u>Gott</u>, der außerhalb von Zeit existiert!</b></div>
-      <div class="accordion-content">
-        <ul>
-          <li>Die Summe an Prophetie ist natürlicherweise unerklärbar. Alle Versuche scheitern trotzdem.</li>
-          <ul>
-            <li>Z.B. Daniel: Selbst wenn das Buch 200 v. Chr. geschrieben wurde, reichen seine Vorhersagen auf den Tag genau auf Jesu Kommen als Fürst.</li>
-            <li>Über 3000 bereits erfüllte Vorhersagen in der Bibel</li>
-            <li>Ca. 400 über Jesus Christus erfüllt</li>
-            <li>>180 über die heutige Zukunft erfüllt</li>
-            <li>Bei Eva wird der Messias bereits angekündigt</li>
-            <li>Die ersten 10 Patriarchen-Namen ab Adam beinhalten in Reihe das Evangelium Jesu</li>
-          </ul>
-          <li><b>Fazit: Ohne „diesen“ Gott nicht erklärbar!</b></li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Punkt 8 -->
-    <div class="accordion-section">
-      <div class="accordion-header"><b>8. Die <u>Übereinstimmung der einzelnen Bibelbücher</u> ist übernatürlich</b></div>
-      <div class="accordion-content">
-        <ul>
-          <li>Einzigartiger Weise gibt es eine <u>vollständige zusammenhängende Chronologie</u> von Adam bis Jesus (und bis in die Zukunft …)</li>
-          <li>Die Summe an Prophetie ist natürlicherweise unerklärbar. Alle Versuche scheitern trotzdem.</li>
-          <li>Z.B. Daniel: Selbst wenn das Buch 200 v. Chr. geschrieben wurde, reichen seine Vorhersagen …</li>
-          <li>Trotz ca. 40 Autoren über ca. 4100 Jahre!</li>
-          <li><b>Fazit: Man muss tatsächlich ein Narr sein, um nicht an Gott zu glauben (Ps 14,1)</b><br>
-          Das wird man mit Stolz leider automatisch (Hochmut kommt vor dem Fall)<br>
-          So sind wir nun <u>Gesandte</u> für Christus … <u>Lasst euch versöhnen mit Gott</u>! (2. Kor 5,20)</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div id="minimap-wrapper"></div>
 
 <footer>
-  <p>Kontakt: Bei Fragen und Anregungen sehr gerne an 
-    <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a>
-  </p>
-  <button onclick="window.location.href='mailto:bildgesunderworte@gmail.com'">E-Mail schreiben</button>
-  <hr>
-  <p>© 2025 – Bild gesunder Worte</p>
+  <p>Kontakt: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
+  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über Paypal</button>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/panzoom@9.4.0/dist/panzoom.min.js"></script>
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  document.body.style.opacity = "1";
+// === TIMELINE-BILDER =========================================================
+const wrapper = document.getElementById('timeline-wrapper');
+const timeline = document.getElementById('timeline');
 
-  // === Timeline images ===
-  const timeline = document.getElementById("timeline");
-  const imageCount = 14;
-  for (let i=1; i<=imageCount; i++) {
-    const img=document.createElement("img");
-    img.src=`timeline_${i}.jpg`;
-    img.alt=`Timeline Bild ${i}`;
-    timeline.appendChild(img);
+const totalPages = 17;
+const startView = 13;
+const extraMargin = 80;
+
+for (let i = 1; i <= totalPages; i++) {
+  const img = document.createElement('img');
+  img.src = `images/Seite${i}.png`;
+  img.alt = `Seite ${i}`;
+  timeline.appendChild(img);
+}
+
+// === ZUSTAND =================================================================
+let scale = 0.7, targetScale = 0.7;
+let translateX = 0, translateY = 0;
+let targetTranslateX = 0, targetTranslateY = 0;
+let isDragging = false, startX, startY;
+
+// === DRAG IM HAUPTBEREICH ====================================================
+wrapper.addEventListener('mousedown', e => {
+  isDragging = true;
+  startX = e.clientX - targetTranslateX;
+  startY = e.clientY - targetTranslateY;
+  wrapper.style.cursor = 'grabbing';
+});
+document.addEventListener('mouseup', () => {
+  isDragging = false;
+  wrapper.style.cursor = 'grab';
+});
+document.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  targetTranslateX = e.clientX - startX;
+  targetTranslateY = e.clientY - startY;
+  applyBounds();
+});
+
+// === ZOOM MIT MAUSRAD ========================================================
+wrapper.addEventListener('wheel', e => {
+  e.preventDefault();
+  const rect = wrapper.getBoundingClientRect();
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
+  const currentScale = scale;
+  const currentTX = translateX;
+  const currentTY = translateY;
+  const zoomFactor = Math.exp(-e.deltaY * 0.0015);
+  const newScale = Math.min(Math.max(0.3, currentScale * zoomFactor), 5);
+  const contentX = (mouseX - currentTX) / currentScale;
+  const contentY = (mouseY - currentTY) / currentScale;
+  targetTranslateX = mouseX - contentX * newScale;
+  targetTranslateY = mouseY - contentY * newScale;
+  targetScale = newScale;
+  applyBounds();
+});
+
+// === BEGRENZUNG ==============================================================
+function applyBounds() {
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const timelineWidth = timeline.scrollWidth * targetScale;
+  const timelineHeight = timeline.scrollHeight * targetScale;
+  const visibleMarginX = wrapperRect.width * 0.05;
+  const visibleMarginY = wrapperRect.height * 0.05;
+
+  if (timelineWidth <= wrapperRect.width) {
+    targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
+  } else {
+    const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
+    const maxX = 0 - visibleMarginX + extraMargin;
+    targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
   }
 
-  const panZoom = Panzoom(timeline, {
-    maxScale: 4,
-    minScale: 1,
-    contain: "outside",
-  });
-  const wrapper=document.getElementById("timeline-wrapper");
-  wrapper.addEventListener("wheel", panZoom.zoomWithWheel);
-  wrapper.addEventListener("mousedown",()=>wrapper.style.cursor="grabbing");
-  wrapper.addEventListener("mouseup",()=>wrapper.style.cursor="grab");
+  if (timelineHeight <= wrapperRect.height) {
+    targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
+  } else {
+    const minY = wrapperRect.height - timelineHeight + visibleMarginY;
+    const maxY = visibleMarginY;
+    targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
+  }
+}
 
-  window.setView = function(index){
-    const imgWidth=timeline.querySelector("img").getBoundingClientRect().width;
-    const offsetX = -(index-1)*imgWidth*0.7;
-    panZoom.pan(offsetX,0);
-    panZoom.zoom(1);
-  };
+// === ANSICHT SETZEN ==========================================================
+function setView(page) {
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const img = timeline.children[page - 1];
+  if (!img) return;
+  const imgLeft = img.offsetLeft;
+  const imgWidth = img.offsetWidth;
+  const imgTop = img.offsetTop;
+  const imgHeight = img.offsetHeight;
+  targetScale = 0.7;
+  targetTranslateX = wrapperRect.width / 2 - (imgLeft + imgWidth / 2) * targetScale;
+  targetTranslateY = wrapperRect.height / 2 - (imgTop + imgHeight / 2) * targetScale;
+  applyBounds();
+}
 
-  // === Accordion click behavior ===
-  const headers = document.querySelectorAll(".accordion-header");
-  headers.forEach(header => {
-    header.addEventListener("click", () => {
-      const content = header.nextElementSibling;
-      content.style.display = content.style.display === "block" ? "none" : "block";
-    });
-  });
+// === MINI-MAP ================================================================
+const minimapWrapper = document.getElementById('minimap-wrapper');
+minimapWrapper.style.position = 'fixed';
+minimapWrapper.style.bottom = '10px';
+minimapWrapper.style.left = '50%';
+minimapWrapper.style.transform = 'translateX(-50%)';
+minimapWrapper.style.width = '250px';
+minimapWrapper.style.height = '50px';
+minimapWrapper.style.border = '1px solid rgba(0,0,0,0.4)';
+minimapWrapper.style.background = 'rgba(0,0,0,0.3)';
+minimapWrapper.style.borderRadius = '6px';
+minimapWrapper.style.cursor = 'pointer';
+minimapWrapper.style.overflow = 'hidden';
+minimapWrapper.style.zIndex = '9999';
+
+const minimap = document.createElement('div');
+minimap.style.display = 'flex';
+minimap.style.height = '100%';
+minimap.style.width = '100%';
+minimap.style.position = 'relative';
+minimapWrapper.appendChild(minimap);
+
+const viewRect = document.createElement('div');
+viewRect.style.position = 'absolute';
+viewRect.style.top = '0';
+viewRect.style.left = '0';
+viewRect.style.height = '100%';
+viewRect.style.border = '2px solid #ffd700';
+viewRect.style.boxSizing = 'border-box';
+viewRect.style.background = 'rgba(255,215,0,0.1)';
+viewRect.style.cursor = 'grab';
+minimapWrapper.appendChild(viewRect);
+
+// === MINIMAP-BILDER ==========================================================
+for (let i = 1; i <= totalPages; i++) {
+  const mini = document.createElement('img');
+  mini.src = `images/Seite${i}.png`;
+  mini.style.height = '100%';
+  mini.style.objectFit = 'cover';
+  mini.style.flex = '1';
+  mini.style.opacity = '0.7';
+  mini.style.userSelect = 'none';
+  mini.style.webkitUserDrag = 'none';
+  mini.draggable = false;
+  minimap.appendChild(mini);
+}
+
+// === KLICK & DRAG IN DER MINIMAP ============================================
+let isMiniDragging = false;
+let miniStartX = 0;
+minimapWrapper.addEventListener('mousedown', e => {
+  isMiniDragging = true;
+  miniStartX = e.clientX;
+});
+document.addEventListener('mouseup', () => { isMiniDragging = false; });
+document.addEventListener('mousemove', e => {
+  if (!isMiniDragging) return;
+  moveMinimapTo(e.clientX);
+});
+minimapWrapper.addEventListener('click', e => moveMinimapTo(e.clientX));
+
+function moveMinimapTo(clientX) {
+  const rect = minimapWrapper.getBoundingClientRect();
+  const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const timelineWidth = timeline.scrollWidth * targetScale;
+  targetTranslateX = -ratio * (timelineWidth - wrapperRect.width);
+  applyBounds();
+}
+
+// === UPDATE DER MINIMAP =====================================================
+function updateMinimap() {
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const timelineWidth = timeline.scrollWidth * scale;
+  const visibleRatio = wrapperRect.width / timelineWidth;
+  const fullWidth = minimapWrapper.clientWidth;
+  const rectWidth = Math.max(15, fullWidth * visibleRatio);
+  const scrollRatio = -translateX / (timelineWidth - wrapperRect.width);
+  const rectLeft = (fullWidth - rectWidth) * scrollRatio;
+  viewRect.style.width = rectWidth + 'px';
+  viewRect.style.left = rectLeft + 'px';
+}
+
+// === ANIMATION LOOP ==========================================================
+function animate() {
+  scale += (targetScale - scale) * 0.15;
+  translateX += (targetTranslateX - translateX) * 0.15;
+  translateY += (targetTranslateY - translateY) * 0.15;
+  timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  updateMinimap();
+  requestAnimationFrame(animate);
+}
+animate();
+
+// === VERHINDERT DRAG AUF TIMELINE-IMAGES ====================================
+timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
+
+// === STARTPOSITION NACH LADEZEIT ============================================
+window.onload = () => {
+  setTimeout(() => setView(startView), 150);
+};
+
+// === TOUCH SUPPORT ==========================================================
+let touchStartDist = 0;
+let lastTouchX = 0, lastTouchY = 0;
+
+wrapper.addEventListener('touchstart', e => {
+  if (e.touches.length === 1) {
+    isDragging = true;
+    lastTouchX = e.touches[0].clientX - targetTranslateX;
+    lastTouchY = e.touches[0].clientY - targetTranslateY;
+  } else if (e.touches.length === 2) {
+    isDragging = false;
+    touchStartDist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+  }
+});
+
+wrapper.addEventListener('touchmove', e => {
+  e.preventDefault();
+  if (e.touches.length === 1 && isDragging) {
+    targetTranslateX = e.touches[0].clientX - lastTouchX;
+    targetTranslateY = e.touches[0].clientY - lastTouchY;
+    applyBounds();
+  } else if (e.touches.length === 2) {
+    const dist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    const rect = wrapper.getBoundingClientRect();
+    const zoomFactor = dist / touchStartDist;
+    targetScale = Math.min(Math.max(0.3, scale * zoomFactor), 5);
+    touchStartDist = dist;
+    applyBounds();
+  }
+}, { passive: false });
+
+wrapper.addEventListener('touchend', e => {
+  if (e.touches.length === 0) isDragging = false;
 });
 </script>
-
 </body>
 </html>
