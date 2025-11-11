@@ -11,8 +11,6 @@ body {
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
   color: #001a33;
   font-size: 19px;
-
-  /* Fade-in Effekt */
   opacity: 0;
   transition: opacity 0.6s ease-in-out;
 }
@@ -125,7 +123,33 @@ footer hr {
     Wichtige Punkte, die mit einer faktengefüllten Timeline auffallen:
   </h2>
   <ul style="font-size:1.4em; font-weight:bold; margin-left:20px; list-style-position: outside;">
-    <!-- Dein Inhalt bleibt hier unverändert -->
+    <li><b><u>Eine hohe Intelligenz kann der Antike nicht abgesprochen werden!</u></b>
+      <ul>
+        <li><b>Archäologie:</b>
+          <ul>
+            <li>Steine weit über 1000 Tonnen wurden bewegt und bearbeitet</li>
+            <li>Fast unmögliche Schnitte in härtesten Fels</li>
+            <li>Nahezu perfekte Symmetrien bei gigantischen Monumenten</li>
+            <li>Ausgeklügelte Wasserversorgung</li>
+            <li>Der Globus war bereits über 1000 v. Chr. weitgehend kartographiert (Polynesier)</li>
+            <li>Tiefgehende Sternkunde in vielen Bauwerken ersichtlich</li>
+            <li>Bauwerke für viele Tausende Jahre konzipiert, nachhaltiger als heute</li>
+            <li>Keine giftige Chemie – stattdessen Ausrichtung auf Gesundheit</li>
+            <li>Nutzung von elektrischem Strom sehr wahrscheinlich (Batterienfunde)</li>
+            <li>Lebendoperationen am Schädel nachgewiesen (geheilte aufgebohrte Knochen)</li>
+          </ul>
+        </li>
+        <li><b>Schriftliche Überlieferungen:</b>
+          <ul>
+            <li>Die Bibel enthält über 200 Sprachstile – einzigartig in Schönheit, Sprache, Poesie und Vielfalt</li>
+            <li>Die alten Bibelbücher sind selbst nach modernen Kritikern ca. 2300 Jahre alt – warum entstand das Buch mit der größten Weisheit schon in der Antike?</li>
+            <li>Warum gibt es bis heute keinen anderen Bestseller dieser Reichweite?</li>
+            <li>Gemäß der Bibel entstanden die ersten Schriften möglicherweise direkt bei den Zeitzeugen (Adam, Noah, Abraham usw., ca. 4000 v. Chr.); spätestens bei Mose (ca. 1600 v. Chr.) kompiliert und/oder inspiriert.</li>
+          </ul>
+        </li>
+        <li><b>Fazit:</b> Dummheit ist daher völlig ausgeschlossen! Es geht eher in Richtung „intelligenter als heute“ – also nicht in die Richtung von Affenabstammung.</li>
+      </ul>
+    </li>
   </ul>
 </div>
   
@@ -241,7 +265,7 @@ function setView(page) {
   applyBounds();
 }
 
-// === MINI-MAP =================================================================
+// === MINI-MAP ===============================================================
 const minimapWrapper = document.getElementById('minimap-wrapper');
 minimapWrapper.style.width = '300px';
 minimapWrapper.style.height = '60px';
@@ -285,7 +309,6 @@ for (let i = 1; i <= totalPages; i++) {
 
 // === KLICK & DRAG ============================================================
 let isMiniDragging = false;
-
 minimapWrapper.addEventListener('mousedown', e => {
   isMiniDragging = true;
   moveMinimapTo(e.clientX);
@@ -305,50 +328,16 @@ function moveMinimapTo(clientX) {
   applyBounds();
 }
 
-// === TOUCH SUPPORT ===========================================================
-minimapWrapper.addEventListener('touchstart', e => {
-  if (e.touches.length === 1) {
-    isMiniDragging = true;
-    moveMinimapTo(e.touches[0].clientX);
-  }
-});
-minimapWrapper.addEventListener('touchmove', e => {
-  if (e.touches.length === 1 && isMiniDragging) {
-    e.preventDefault();
-    moveMinimapTo(e.touches[0].clientX);
-  }
-}, { passive: false });
-minimapWrapper.addEventListener('touchend', e => {
-  if (e.touches.length === 0) isMiniDragging = false;
-});
-
-// === UPDATE DER MINIMAP =====================================================
-function updateMinimap() {
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const timelineWidth = timeline.scrollWidth * scale;
-  const visibleRatio = wrapperRect.width / timelineWidth;
-  const rectWidth = Math.max(20, minimapWrapper.clientWidth * visibleRatio);
-  const scrollRatio = -translateX / (timelineWidth - wrapperRect.width);
-  const rectLeft = (minimapWrapper.clientWidth - rectWidth) * scrollRatio;
-  viewRect.style.width = rectWidth + 'px';
-  viewRect.style.left = rectLeft + 'px';
-}
-
 // === ANIMATION LOOP ==========================================================
 function animate() {
   scale += (targetScale - scale) * 0.15;
   translateX += (targetTranslateX - translateX) * 0.15;
   translateY += (targetTranslateY - translateY) * 0.15;
   timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-  updateMinimap();
   requestAnimationFrame(animate);
 }
 animate();
 
-// === VERHINDERT DRAG AUF TIMELINE-IMAGES ====================================
-timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
-
-// === STARTPOSITION ===========================================================
 window.onload = () => {
   setTimeout(() => setView(startView), 150);
 };
