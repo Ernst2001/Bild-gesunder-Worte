@@ -53,7 +53,7 @@ header p { margin-top:10px; font-size:1.4em; color:#001a33; }
 
 #minimap-wrapper { position:fixed; bottom:10px; left:50%; transform:translateX(-50%); }
 
-/* === Footer vom Index übernommen ========================================== */
+/* Footer */
 footer {
   padding: 60px;
   text-align: center;
@@ -122,34 +122,40 @@ footer hr {
   <h2 style="font-size:1.8em; font-weight:bold; text-align:left; margin-bottom:16px;">
     Wichtige Punkte, die mit einer faktengefüllten Timeline auffallen:
   </h2>
-  <ul style="font-size:1.4em; font-weight:bold; margin-left:20px; list-style-position: outside;">
-    <li><b><u>Eine hohe Intelligenz kann der Antike nicht abgesprochen werden!</u></b>
+
+  <ul style="font-size:1.4em; margin-left:20px; list-style-position: outside; font-family: Arial, sans-serif;">
+
+    <li><b>1. Eine <u>hohe Intelligenz</u> kann der Antike nicht abgesprochen werden!</b></li>
+
+    <ul>
+      <li><b>- Archäologie:</b></li>
       <ul>
-        <li><b>Archäologie:</b>
-          <ul>
-            <li>Steine weit über 1000 Tonnen wurden bewegt und bearbeitet</li>
-            <li>Fast unmögliche Schnitte in härtesten Fels</li>
-            <li>Nahezu perfekte Symmetrien bei gigantischen Monumenten</li>
-            <li>Ausgeklügelte Wasserversorgung</li>
-            <li>Der Globus war bereits über 1000 v. Chr. weitgehend kartographiert (Polynesier)</li>
-            <li>Tiefgehende Sternkunde in vielen Bauwerken ersichtlich</li>
-            <li>Bauwerke für viele Tausende Jahre konzipiert, nachhaltiger als heute</li>
-            <li>Keine giftige Chemie – stattdessen Ausrichtung auf Gesundheit</li>
-            <li>Nutzung von elektrischem Strom sehr wahrscheinlich (Batterienfunde)</li>
-            <li>Lebendoperationen am Schädel nachgewiesen (geheilte aufgebohrte Knochen)</li>
-          </ul>
-        </li>
-        <li><b>Schriftliche Überlieferungen:</b>
-          <ul>
-            <li>Die Bibel enthält über 200 Sprachstile – einzigartig in Schönheit, Sprache, Poesie und Vielfalt</li>
-            <li>Die alten Bibelbücher sind selbst nach modernen Kritikern ca. 2300 Jahre alt – warum entstand das Buch mit der größten Weisheit schon in der Antike?</li>
-            <li>Warum gibt es bis heute keinen anderen Bestseller dieser Reichweite?</li>
-            <li>Gemäß der Bibel entstanden die ersten Schriften möglicherweise direkt bei den Zeitzeugen (Adam, Noah, Abraham usw., ca. 4000 v. Chr.); spätestens bei Mose (ca. 1600 v. Chr.) kompiliert und/oder inspiriert.</li>
-          </ul>
-        </li>
-        <li><b>Fazit:</b> Dummheit ist daher völlig ausgeschlossen! Es geht eher in Richtung „intelligenter als heute“ – also nicht in die Richtung von Affenabstammung.</li>
+        <li>Steine weit über 1000 Tonnen wurden bewegt und bearbeitet</li>
+        <li>Fast unmögliche Schnitte in härtesten Fels</li>
+        <li>Nahezu perfekte Symetrien bei gigantischen Monumenten</li>
+        <li>Ausgeklügelte Wasserversorgung</li>
+        <li>Der Globus war bereits 1000+ v. Chr. weitgehend kartographiert (Polynesier)</li>
+        <li>Tiefgehende Sternkunde in vielen Bauwerken ersichtlich</li>
+        <li>Bauwerke für viele Tausende Jahre konzipiert, nachhaltiger als heute</li>
+        <li>Keine giftige Chemie - stattdessen Ausrichtung auf Gesundheit</li>
+        <li>Nutzung von elektrischem Strom sehr wahrscheinlich (Batterienfunde)</li>
+        <li>Lebendoperationen am Schädel nachgewiesen (geheilte aufgebohrte Knochen)</li>
       </ul>
-    </li>
+
+      <li><b>- Schriftliche Überlieferungen:</b></li>
+      <ul>
+        <li>Die Bibel enthält über 200 Sprachstile – einzigartig in Schönheit, Sprache, Poesie und Vielfalt</li>
+        <li>Die alten Bibelbücher sind selbst nach modernen Kritikern ca. 2300 Jahre alt:</li>
+        <ul>
+          <li>Wieso entstand das Buch mit der größten Weisheit in der Antike?</li>
+        </ul>
+        <li>Wieso gibt es heute noch keinen anderen Bestseller dieser Reichweite?</li>
+        <li>Gemäß der Bibel entstanden die ersten Schriften vielleicht sogar direkt bei den Zeitzeugen (Adam, Noah, Abraham usw. ca. 4000 v. Chr.); spätestens bei Mose ca. 1600 v. Chr. kompiliert und/oder inspiriert.</li>
+      </ul>
+
+      <li><b>- Fazit: Dummheit ist daher völlig ausgeschlossen!</b> Es geht eher Richtung „intelligenter als heute“ – also nicht in die Richtung von Affenabstammung.</li>
+    </ul>
+
   </ul>
 </div>
   
@@ -164,15 +170,12 @@ footer hr {
 </footer>
 
 <script>
-// === FADE-IN EFFEKT ==========================================================
 window.addEventListener("DOMContentLoaded", () => {
   document.body.style.opacity = "1";
 });
 
-// === TIMELINE-BILDER =========================================================
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
-
 const totalPages = 17;
 const startView = 13;
 const extraMargin = 80;
@@ -184,13 +187,11 @@ for (let i = 1; i <= totalPages; i++) {
   timeline.appendChild(img);
 }
 
-// === ZUSTAND =================================================================
 let scale = 0.7, targetScale = 0.7;
 let translateX = 0, translateY = 0;
 let targetTranslateX = 0, targetTranslateY = 0;
 let isDragging = false, startX, startY;
 
-// === DRAG IM HAUPTBEREICH ====================================================
 wrapper.addEventListener('mousedown', e => {
   isDragging = true;
   startX = e.clientX - targetTranslateX;
@@ -208,7 +209,6 @@ document.addEventListener('mousemove', e => {
   applyBounds();
 });
 
-// === ZOOM MIT MAUSRAD ========================================================
 wrapper.addEventListener('wheel', e => {
   e.preventDefault();
   const rect = wrapper.getBoundingClientRect();
@@ -225,7 +225,6 @@ wrapper.addEventListener('wheel', e => {
   applyBounds();
 });
 
-// === BEGRENZUNG ==============================================================
 function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
@@ -250,7 +249,6 @@ function applyBounds() {
   }
 }
 
-// === ANSICHT SETZEN ==========================================================
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
   const img = timeline.children[page - 1];
@@ -264,79 +262,6 @@ function setView(page) {
   targetTranslateY = wrapperRect.height / 2 - (imgTop + imgHeight / 2) * targetScale;
   applyBounds();
 }
-
-// === MINI-MAP ===============================================================
-const minimapWrapper = document.getElementById('minimap-wrapper');
-minimapWrapper.style.width = '300px';
-minimapWrapper.style.height = '60px';
-minimapWrapper.style.border = '2px solid rgba(0,0,0,0.5)';
-minimapWrapper.style.background = 'rgba(0,0,0,0.25)';
-minimapWrapper.style.borderRadius = '8px';
-minimapWrapper.style.cursor = 'pointer';
-minimapWrapper.style.overflow = 'hidden';
-minimapWrapper.style.zIndex = '9999';
-
-const minimap = document.createElement('div');
-minimap.style.display = 'flex';
-minimap.style.height = '100%';
-minimap.style.width = '100%';
-minimapWrapper.appendChild(minimap);
-
-const viewRect = document.createElement('div');
-viewRect.style.position = 'absolute';
-viewRect.style.top = '0';
-viewRect.style.left = '0';
-viewRect.style.height = '100%';
-viewRect.style.background = 'rgba(255,215,0,0.2)';
-viewRect.style.border = '2px solid #ffd700';
-viewRect.style.boxSizing = 'border-box';
-viewRect.style.pointerEvents = 'none';
-minimapWrapper.appendChild(viewRect);
-
-// === MINI-BILDER =============================================================
-for (let i = 1; i <= totalPages; i++) {
-  const mini = document.createElement('img');
-  mini.src = `images/Seite${i}.png`;
-  mini.style.height = '100%';
-  mini.style.flex = '1';
-  mini.style.objectFit = 'cover';
-  mini.style.opacity = '0.7';
-  mini.style.userSelect = 'none';
-  mini.style.webkitUserDrag = 'none';
-  mini.draggable = false;
-  minimap.appendChild(mini);
-}
-
-// === KLICK & DRAG ============================================================
-let isMiniDragging = false;
-minimapWrapper.addEventListener('mousedown', e => {
-  isMiniDragging = true;
-  moveMinimapTo(e.clientX);
-});
-document.addEventListener('mouseup', () => isMiniDragging = false);
-document.addEventListener('mousemove', e => {
-  if (isMiniDragging) moveMinimapTo(e.clientX);
-});
-
-function moveMinimapTo(clientX) {
-  const rect = minimapWrapper.getBoundingClientRect();
-  let ratio = (clientX - rect.left) / rect.width;
-  ratio = Math.max(0, Math.min(1, ratio));
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const timelineWidth = timeline.scrollWidth * targetScale;
-  targetTranslateX = -ratio * (timelineWidth - wrapperRect.width);
-  applyBounds();
-}
-
-// === ANIMATION LOOP ==========================================================
-function animate() {
-  scale += (targetScale - scale) * 0.15;
-  translateX += (targetTranslateX - translateX) * 0.15;
-  translateY += (targetTranslateY - translateY) * 0.15;
-  timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-  requestAnimationFrame(animate);
-}
-animate();
 
 window.onload = () => {
   setTimeout(() => setView(startView), 150);
