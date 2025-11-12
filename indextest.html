@@ -1,1 +1,190 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bild gesunder Worte</title>
+<style>
+/* === GLOBALE STILE (wie Timeline) ========================================== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+  color: #001a33;
+  text-align: center;
+  font-size: 19px;
+  /* text-shadow entfernt */
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+/* Navigation */
+nav {
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  font-size: 19px;
+}
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+  /* text-shadow entfernt */
+}
+nav a:hover {
+  color: #ffd700;
+}
+
+/* Header (Timeline-Stil) */
+header {
+  text-align: center;
+  padding: 30px 20px 20px 20px;
+}
+header h1 {
+  font-size: 2.8em;
+  margin: 0 0 10px 0;
+}
+header h2 {
+  font-size: 1.4em;
+  color: #001a33;
+  /* text-shadow entfernt */
+  margin: 10px auto 30px auto;
+  max-width: 800px;
+  line-height: 1.5;
+}
+.mission {
+  font-size: 1.3em;
+  margin: 30px auto 50px;
+  max-width: 700px;
+}
+
+/* Hauptbutton (Timeline-Stil) */
+button.main-btn {
+  background-color: #0070ba;
+  color: #fff;
+  border: none;
+  padding: 12px 22px;
+  font-size: 1.1em;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 50px;
+  text-shadow: 0.5px 0.5px 1px #000a14;
+  transition: background-color 0.3s;
+}
+button.main-btn:hover {
+  background-color: #005a94;
+}
+
+/* Sektionen */
+.section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  max-width: 700px;
+  flex-wrap: wrap;
+}
+.section a {
+  color: #001a33;
+  font-size: 1.2em;
+  text-decoration: none;
+  /* text-shadow entfernt */
+}
+.section a:hover { text-decoration: underline; }
+.section img {
+  width: 180px;
+  height: auto;
+  border-radius: 10px;
+  margin-left: 20px;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+}
+
+/* === Footer (Timeline-Stil) ================================================ */
+footer {
+  padding: 60px;
+  text-align: center;
+  background: rgba(0,0,0,0.3);
+  font-size: 1em;
+  color: #ffffff;
+}
+footer p {
+  margin: 5px 0;
+  font-size: 1.2em; /* ca. 20% größer */
+  color: #ffffff;
+}
+footer a {
+  color: #ffffff;
+  font-size: 1.2em;
+  text-decoration: none;
+  text-shadow: 0.5px 0.5px 1px #00264d;
+}
+footer button {
+  background-color: #0070ba;
+  border: none;
+  padding: 10px 25px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1em;
+  color: #fff;
+  text-shadow: 0.5px 0.5px 1px #00264d;
+  transition: background-color 0.3s;
+}
+footer button:hover { background-color: #005a94; }
+footer hr {
+  border: none;
+  height: 4px;
+  background-color: #ffffff;
+  margin: 15px 0 40px 0;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Startseite</a>
+  <a href="timeline.html">Timeline / Zeitstrahl</a>
+  <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">YouTube</a>
+  <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
+  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über PayPal</a>
+</nav>
+
+<header>
+  <h1>Bild gesunder Worte</h1>
+  <h2>Denn das Wort Gottes ist lebendig und wirksam und schärfer als jedes zweischneidige Schwert und durchdringend bis zur Scheidung von Seele und Geist, sowohl der Gelenke als auch des Markes, und ein Beurteiler der Gedanken und Überlegungen des Herzens; [Heb 4,12] </h2>
+  <div class="mission">Beispieltextmission</div>
+  <button class="main-btn" onclick="window.location.href='timeline.html'">Zur Timeline / Zum Zeitstrahl</button>
+</header>
+
+<div class="section">
+  <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">Youtubetext BgW</a>
+  <img src="images/youtube_bgW_preview.jpg" alt="YouTube BgW Vorschau">
+</div>
+
+<div class="section">
+  <a href="https://www.youtube.com/@Lieder-Kanal" target="_blank">Youtubetext Lieder</a>
+  <img src="images/youtube_lieder_preview.jpg" alt="YouTube Lieder Vorschau">
+</div>
+
+<footer>
+  <p>Kontakt: Bei Fragen und Anregungen sehr gerne an 
+    <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a>
+  </p>
+  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über PayPal</button>
+  <hr>
+</footer>
+
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  document.body.style.opacity = "1";
+});
+</script>
+
+</body>
+</html>
 
