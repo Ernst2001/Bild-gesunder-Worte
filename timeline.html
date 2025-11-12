@@ -1,343 +1,430 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Fakten statt Mythen: Timeline</title>
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
-  color: #001a33; /* dunkler Text für bessere Lesbarkeit */
-  overflow-x: hidden;
-  font-size: 19px;
-  text-shadow: 0.5px 0.5px 1px #000a14; /* minimaler Schatten */
-}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fakten statt Mythen: Timeline</title>
 
-nav { 
-  background: rgba(0,0,0,0.3); 
-  display:flex; justify-content:center; align-items:center; 
-  padding:12px 0; 
-  position:sticky; top:0; z-index:10; font-size:19px;
-}
-nav a { 
-  color:#ffffff; /* wieder weiß auf grauem Hintergrund */
-  text-decoration:none; 
-  margin:0 15px; 
-  font-weight:bold;
-  text-shadow: 0.5px 0.5px 1px #000000; /* minimaler Schatten */
-}
-nav a:hover { color:#ffd700; }
+  <style>
+    /* === GRUNDLAYOUT ======================================================= */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+      color: #001a33; /* dunkler Text für bessere Lesbarkeit */
+      overflow-x: hidden;
+      font-size: 19px;
+      text-shadow: 0.5px 0.5px 1px #000a14; /* minimaler Schatten */
+    }
 
-header { text-align:center; padding:30px; }
-header h1 { margin:0; font-size:2.8em; }
-header p { 
-  margin-top:10px; font-size:1.4em; 
-  color:#001a33; 
-  text-shadow: 0.5px 0.5px 1px #000a14; 
-}
+    /* === NAVIGATION ======================================================= */
+    nav {
+      background: rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      font-size: 19px;
+    }
 
-#controls { text-align:center; margin:20px; }
-#controls button { 
-  background-color:#0070ba; color:#fff; border:none; 
-  padding:12px 22px; margin:5px; border-radius:6px; cursor:pointer; 
-  font-size:1.1em; text-shadow:0.5px 0.5px 1px #000a14;
-}
-#controls button:hover { background-color:#005a94; }
+    nav a {
+      color: #ffffff; /* wieder weiß auf grauem Hintergrund */
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+      text-shadow: 0.5px 0.5px 1px #000000; /* minimaler Schatten */
+    }
 
-#timeline-wrapper { 
-  width:100%; height:91vh; overflow:hidden; position:relative; cursor:grab; 
-  margin:20px 0; border:1px solid rgba(0,0,0,0.2); 
-}
-#timeline { display:flex; height:130%; transform-origin:0 0; user-select:none; }
-#timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none; }
+    nav a:hover {
+      color: #ffd700;
+    }
 
-footer { 
-  padding:20px; text-align:center; background: rgba(0,0,0,0.3); font-size:1.4em; /* gleiche Größe wie Header p */
-}
-footer a, footer button { color:#001a33; text-decoration:none; margin:5px; text-shadow:0.5px 0.5px 1px #000a14; }
-footer button { 
-  background-color:#0070ba; border:none; padding:10px 25px; cursor:pointer; border-radius:5px; font-size:18px; 
-  text-shadow:0.5px 0.5px 1px #000a14;
-}
-footer button:hover { background-color:#005a94;}
-</style>
+    /* === HEADER =========================================================== */
+    header {
+      text-align: center;
+      padding: 30px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.8em;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1.4em;
+      color: #001a33;
+      text-shadow: 0.5px 0.5px 1px #000a14;
+    }
+
+    /* === STEUERUNG ======================================================== */
+    #controls {
+      text-align: center;
+      margin: 20px;
+    }
+
+    #controls button {
+      background-color: #0070ba;
+      color: #fff;
+      border: none;
+      padding: 12px 22px;
+      margin: 5px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.1em;
+      text-shadow: 0.5px 0.5px 1px #000a14;
+    }
+
+    #controls button:hover {
+      background-color: #005a94;
+    }
+
+    /* === TIMELINE-BEREICH ================================================ */
+    #timeline-wrapper {
+      width: 100%;
+      height: 91vh;
+      overflow: hidden;
+      position: relative;
+      cursor: grab;
+      margin: 20px 0;
+      border: 1px solid rgba(0,0,0,0.2);
+    }
+
+    #timeline {
+      display: flex;
+      height: 130%;
+      transform-origin: 0 0;
+      user-select: none;
+    }
+
+    #timeline img {
+      height: 100%;
+      display: block;
+      flex-shrink: 0;
+      object-fit: cover;
+      -webkit-user-drag: none;
+      user-drag: none;
+    }
+
+    /* === FOOTER =========================================================== */
+    footer {
+      padding: 20px;
+      text-align: center;
+      background: rgba(0,0,0,0.3);
+      font-size: 1.4em; /* gleiche Größe wie Header p */
+    }
+
+    footer a,
+    footer button {
+      color: #001a33;
+      text-decoration: none;
+      margin: 5px;
+      text-shadow: 0.5px 0.5px 1px #000a14;
+    }
+
+    footer button {
+      background-color: #0070ba;
+      border: none;
+      padding: 10px 25px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 18px;
+      text-shadow: 0.5px 0.5px 1px #000a14;
+    }
+
+    footer button:hover {
+      background-color: #005a94;
+    }
+  </style>
 </head>
+
 <body>
+  <!-- === NAVIGATION ===================================================== -->
+  <nav>
+    <a href="index.html">Startseite</a>
+    <a href="timeline.html">Timeline / Zeitstrahl</a>
+    <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">YouTube</a>
+    <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
+    <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über Paypal</a>
+  </nav>
 
-<nav>
-  <a href="index.html">Startseite</a>
-  <a href="timeline.html">Timeline / Zeitstrahl</a>
-  <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">YouTube</a>
-  <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
-  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über Paypal</a>
-</nav>
+  <!-- === HEADER ========================================================= -->
+  <header>
+    <h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
+    <p>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</p>
+  </header>
 
-<header>
-  <h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
-  <p>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</p>
-</header>
+  <!-- === STEUERUNGS-BUTTONS ============================================= -->
+  <div id="controls">
+    <button onclick="setView(1)">Ansicht Anfang</button>
+    <button onclick="setView(5)">Ansicht Sintflut</button>
+    <button onclick="setView(9)">Ansicht Zeitenwende</button>
+    <button onclick="setView(13)">Ansicht Moderne</button>
+  </div>
 
-<div id="controls">
-  <button onclick="setView(1)">Ansicht Anfang</button>
-  <button onclick="setView(5)">Ansicht Sintflut</button>
-  <button onclick="setView(9)">Ansicht Zeitenwende</button>
-  <button onclick="setView(13)">Ansicht Moderne</button>
-</div>
+  <!-- === TIMELINE-HAUPTBEREICH ========================================== -->
+  <div id="timeline-wrapper">
+    <div id="timeline"></div>
+  </div>
 
-<div id="timeline-wrapper">
-  <div id="timeline"></div>
-</div>
+  <div id="minimap-wrapper"></div>
 
-<div id="minimap-wrapper"></div>
+  <!-- === FOOTER ========================================================= -->
+  <footer>
+    <p>Kontakt: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
+    <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über Paypal</button>
+  </footer>
 
-<footer>
-  <p>Kontakt: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
-  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über Paypal</button>
-</footer>
+  <!-- === SCRIPT ========================================================== -->
+  <script>
+    // === TIMELINE-BILDER ===================================================
+    const wrapper = document.getElementById('timeline-wrapper');
+    const timeline = document.getElementById('timeline');
 
-<script>
-// === TIMELINE-BILDER =========================================================
-const wrapper = document.getElementById('timeline-wrapper');
-const timeline = document.getElementById('timeline');
+    const totalPages = 17;
+    const startView = 13;
+    const extraMargin = 80;
 
-const totalPages = 17;
-const startView = 13;
-const extraMargin = 80;
+    for (let i = 1; i <= totalPages; i++) {
+      const img = document.createElement('img');
+      img.src = `images/Seite${i}.png`;
+      img.alt = `Seite ${i}`;
+      timeline.appendChild(img);
+    }
 
-for (let i = 1; i <= totalPages; i++) {
-  const img = document.createElement('img');
-  img.src = `images/Seite${i}.png`;
-  img.alt = `Seite ${i}`;
-  timeline.appendChild(img);
-}
+    // === ZUSTAND ==========================================================
+    let scale = 0.7, targetScale = 0.7;
+    let translateX = 0, translateY = 0;
+    let targetTranslateX = 0, targetTranslateY = 0;
+    let isDragging = false, startX, startY;
 
-// === ZUSTAND =================================================================
-let scale = 0.7, targetScale = 0.7;
-let translateX = 0, translateY = 0;
-let targetTranslateX = 0, targetTranslateY = 0;
-let isDragging = false, startX, startY;
+    // === DRAG IM HAUPTBEREICH ============================================
+    wrapper.addEventListener('mousedown', e => {
+      isDragging = true;
+      startX = e.clientX - targetTranslateX;
+      startY = e.clientY - targetTranslateY;
+      wrapper.style.cursor = 'grabbing';
+    });
 
-// === DRAG IM HAUPTBEREICH ====================================================
-wrapper.addEventListener('mousedown', e => {
-  isDragging = true;
-  startX = e.clientX - targetTranslateX;
-  startY = e.clientY - targetTranslateY;
-  wrapper.style.cursor = 'grabbing';
-});
-document.addEventListener('mouseup', () => {
-  isDragging = false;
-  wrapper.style.cursor = 'grab';
-});
-document.addEventListener('mousemove', e => {
-  if (!isDragging) return;
-  targetTranslateX = e.clientX - startX;
-  targetTranslateY = e.clientY - startY;
-  applyBounds();
-});
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      wrapper.style.cursor = 'grab';
+    });
 
-// === ZOOM MIT MAUSRAD ========================================================
-wrapper.addEventListener('wheel', e => {
-  e.preventDefault();
-  const rect = wrapper.getBoundingClientRect();
-  const mouseX = e.clientX - rect.left;
-  const mouseY = e.clientY - rect.top;
-  const currentScale = scale;
-  const currentTX = translateX;
-  const currentTY = translateY;
-  const zoomFactor = Math.exp(-e.deltaY * 0.0015);
-  const newScale = Math.min(Math.max(0.3, currentScale * zoomFactor), 5);
-  const contentX = (mouseX - currentTX) / currentScale;
-  const contentY = (mouseY - currentTY) / currentScale;
-  targetTranslateX = mouseX - contentX * newScale;
-  targetTranslateY = mouseY - contentY * newScale;
-  targetScale = newScale;
-  applyBounds();
-});
+    document.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      targetTranslateX = e.clientX - startX;
+      targetTranslateY = e.clientY - startY;
+      applyBounds();
+    });
 
-// === BEGRENZUNG ==============================================================
-function applyBounds() {
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const timelineWidth = timeline.scrollWidth * targetScale;
-  const timelineHeight = timeline.scrollHeight * targetScale;
-  const visibleMarginX = wrapperRect.width * 0.05;
-  const visibleMarginY = wrapperRect.height * 0.05;
+    // === ZOOM MIT MAUSRAD ================================================
+    wrapper.addEventListener('wheel', e => {
+      e.preventDefault();
+      const rect = wrapper.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+      const currentScale = scale;
+      const currentTX = translateX;
+      const currentTY = translateY;
+      const zoomFactor = Math.exp(-e.deltaY * 0.0015);
+      const newScale = Math.min(Math.max(0.3, currentScale * zoomFactor), 5);
+      const contentX = (mouseX - currentTX) / currentScale;
+      const contentY = (mouseY - currentTY) / currentScale;
+      targetTranslateX = mouseX - contentX * newScale;
+      targetTranslateY = mouseY - contentY * newScale;
+      targetScale = newScale;
+      applyBounds();
+    });
 
-  if (timelineWidth <= wrapperRect.width) {
-    targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
-  } else {
-    const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
-    const maxX = 0 - visibleMarginX + extraMargin;
-    targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
-  }
+    // === BEGRENZUNG ======================================================
+    function applyBounds() {
+      const wrapperRect = wrapper.getBoundingClientRect();
+      const timelineWidth = timeline.scrollWidth * targetScale;
+      const timelineHeight = timeline.scrollHeight * targetScale;
+      const visibleMarginX = wrapperRect.width * 0.05;
+      const visibleMarginY = wrapperRect.height * 0.05;
 
-  if (timelineHeight <= wrapperRect.height) {
-    targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
-  } else {
-    const minY = wrapperRect.height - timelineHeight + visibleMarginY;
-    const maxY = visibleMarginY;
-    targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
-  }
-}
+      if (timelineWidth <= wrapperRect.width) {
+        targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
+      } else {
+        const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
+        const maxX = 0 - visibleMarginX + extraMargin;
+        targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
+      }
 
-// === ANSICHT SETZEN ==========================================================
-function setView(page) {
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const img = timeline.children[page - 1];
-  if (!img) return;
-  const imgLeft = img.offsetLeft;
-  const imgWidth = img.offsetWidth;
-  const imgTop = img.offsetTop;
-  const imgHeight = img.offsetHeight;
-  targetScale = 0.7;
-  targetTranslateX = wrapperRect.width / 2 - (imgLeft + imgWidth / 2) * targetScale;
-  targetTranslateY = wrapperRect.height / 2 - (imgTop + imgHeight / 2) * targetScale;
-  applyBounds();
-}
+      if (timelineHeight <= wrapperRect.height) {
+        targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
+      } else {
+        const minY = wrapperRect.height - timelineHeight + visibleMarginY;
+        const maxY = visibleMarginY;
+        targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
+      }
+    }
 
-// === MINI-MAP ================================================================
-const minimapWrapper = document.getElementById('minimap-wrapper');
-minimapWrapper.style.position = 'fixed';
-minimapWrapper.style.bottom = '10px';
-minimapWrapper.style.left = '50%';
-minimapWrapper.style.transform = 'translateX(-50%)';
-minimapWrapper.style.width = '250px';
-minimapWrapper.style.height = '50px';
-minimapWrapper.style.border = '1px solid rgba(0,0,0,0.4)';
-minimapWrapper.style.background = 'rgba(0,0,0,0.3)';
-minimapWrapper.style.borderRadius = '6px';
-minimapWrapper.style.cursor = 'pointer';
-minimapWrapper.style.overflow = 'hidden';
-minimapWrapper.style.zIndex = '9999';
+    // === ANSICHT SETZEN ==================================================
+    function setView(page) {
+      const wrapperRect = wrapper.getBoundingClientRect();
+      const img = timeline.children[page - 1];
+      if (!img) return;
+      const imgLeft = img.offsetLeft;
+      const imgWidth = img.offsetWidth;
+      const imgTop = img.offsetTop;
+      const imgHeight = img.offsetHeight;
+      targetScale = 0.7;
+      targetTranslateX = wrapperRect.width / 2 - (imgLeft + imgWidth / 2) * targetScale;
+      targetTranslateY = wrapperRect.height / 2 - (imgTop + imgHeight / 2) * targetScale;
+      applyBounds();
+    }
 
-const minimap = document.createElement('div');
-minimap.style.display = 'flex';
-minimap.style.height = '100%';
-minimap.style.width = '100%';
-minimap.style.position = 'relative';
-minimapWrapper.appendChild(minimap);
+    // === MINI-MAP ========================================================
+    const minimapWrapper = document.getElementById('minimap-wrapper');
+    minimapWrapper.style.position = 'fixed';
+    minimapWrapper.style.bottom = '10px';
+    minimapWrapper.style.left = '50%';
+    minimapWrapper.style.transform = 'translateX(-50%)';
+    minimapWrapper.style.width = '250px';
+    minimapWrapper.style.height = '50px';
+    minimapWrapper.style.border = '1px solid rgba(0,0,0,0.4)';
+    minimapWrapper.style.background = 'rgba(0,0,0,0.3)';
+    minimapWrapper.style.borderRadius = '6px';
+    minimapWrapper.style.cursor = 'pointer';
+    minimapWrapper.style.overflow = 'hidden';
+    minimapWrapper.style.zIndex = '9999';
 
-const viewRect = document.createElement('div');
-viewRect.style.position = 'absolute';
-viewRect.style.top = '0';
-viewRect.style.left = '0';
-viewRect.style.height = '100%';
-viewRect.style.border = '2px solid #ffd700';
-viewRect.style.boxSizing = 'border-box';
-viewRect.style.background = 'rgba(255,215,0,0.1)';
-viewRect.style.cursor = 'grab';
-minimapWrapper.appendChild(viewRect);
+    const minimap = document.createElement('div');
+    minimap.style.display = 'flex';
+    minimap.style.height = '100%';
+    minimap.style.width = '100%';
+    minimap.style.position = 'relative';
+    minimapWrapper.appendChild(minimap);
 
-// === MINIMAP-BILDER ==========================================================
-for (let i = 1; i <= totalPages; i++) {
-  const mini = document.createElement('img');
-  mini.src = `images/Seite${i}.png`;
-  mini.style.height = '100%';
-  mini.style.objectFit = 'cover';
-  mini.style.flex = '1';
-  mini.style.opacity = '0.7';
-  mini.style.userSelect = 'none';
-  mini.style.webkitUserDrag = 'none';
-  mini.draggable = false;
-  minimap.appendChild(mini);
-}
+    const viewRect = document.createElement('div');
+    viewRect.style.position = 'absolute';
+    viewRect.style.top = '0';
+    viewRect.style.left = '0';
+    viewRect.style.height = '100%';
+    viewRect.style.border = '2px solid #ffd700';
+    viewRect.style.boxSizing = 'border-box';
+    viewRect.style.background = 'rgba(255,215,0,0.1)';
+    viewRect.style.cursor = 'grab';
+    minimapWrapper.appendChild(viewRect);
 
-// === KLICK & DRAG IN DER MINIMAP ============================================
-let isMiniDragging = false;
-let miniStartX = 0;
-minimapWrapper.addEventListener('mousedown', e => {
-  isMiniDragging = true;
-  miniStartX = e.clientX;
-});
-document.addEventListener('mouseup', () => { isMiniDragging = false; });
-document.addEventListener('mousemove', e => {
-  if (!isMiniDragging) return;
-  moveMinimapTo(e.clientX);
-});
-minimapWrapper.addEventListener('click', e => moveMinimapTo(e.clientX));
+    // === MINIMAP-BILDER ==================================================
+    for (let i = 1; i <= totalPages; i++) {
+      const mini = document.createElement('img');
+      mini.src = `images/Seite${i}.png`;
+      mini.style.height = '100%';
+      mini.style.objectFit = 'cover';
+      mini.style.flex = '1';
+      mini.style.opacity = '0.7';
+      mini.style.userSelect = 'none';
+      mini.style.webkitUserDrag = 'none';
+      mini.draggable = false;
+      minimap.appendChild(mini);
+    }
 
-function moveMinimapTo(clientX) {
-  const rect = minimapWrapper.getBoundingClientRect();
-  const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const timelineWidth = timeline.scrollWidth * targetScale;
-  targetTranslateX = -ratio * (timelineWidth - wrapperRect.width);
-  applyBounds();
-}
+    // === KLICK & DRAG IN DER MINIMAP ====================================
+    let isMiniDragging = false;
+    let miniStartX = 0;
 
-// === UPDATE DER MINIMAP =====================================================
-function updateMinimap() {
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const timelineWidth = timeline.scrollWidth * scale;
-  const visibleRatio = wrapperRect.width / timelineWidth;
-  const fullWidth = minimapWrapper.clientWidth;
-  const rectWidth = Math.max(15, fullWidth * visibleRatio);
-  const scrollRatio = -translateX / (timelineWidth - wrapperRect.width);
-  const rectLeft = (fullWidth - rectWidth) * scrollRatio;
-  viewRect.style.width = rectWidth + 'px';
-  viewRect.style.left = rectLeft + 'px';
-}
+    minimapWrapper.addEventListener('mousedown', e => {
+      isMiniDragging = true;
+      miniStartX = e.clientX;
+    });
 
-// === ANIMATION LOOP ==========================================================
-function animate() {
-  scale += (targetScale - scale) * 0.15;
-  translateX += (targetTranslateX - translateX) * 0.15;
-  translateY += (targetTranslateY - translateY) * 0.15;
-  timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-  updateMinimap();
-  requestAnimationFrame(animate);
-}
-animate();
+    document.addEventListener('mouseup', () => { isMiniDragging = false; });
 
-// === VERHINDERT DRAG AUF TIMELINE-IMAGES ====================================
-timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
+    document.addEventListener('mousemove', e => {
+      if (!isMiniDragging) return;
+      moveMinimapTo(e.clientX);
+    });
 
-// === STARTPOSITION NACH LADEZEIT ============================================
-window.onload = () => {
-  setTimeout(() => setView(startView), 150);
-};
+    minimapWrapper.addEventListener('click', e => moveMinimapTo(e.clientX));
 
-// === TOUCH SUPPORT ==========================================================
-let touchStartDist = 0;
-let lastTouchX = 0, lastTouchY = 0;
+    function moveMinimapTo(clientX) {
+      const rect = minimapWrapper.getBoundingClientRect();
+      const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+      const wrapperRect = wrapper.getBoundingClientRect();
+      const timelineWidth = timeline.scrollWidth * targetScale;
+      targetTranslateX = -ratio * (timelineWidth - wrapperRect.width);
+      applyBounds();
+    }
 
-wrapper.addEventListener('touchstart', e => {
-  if (e.touches.length === 1) {
-    isDragging = true;
-    lastTouchX = e.touches[0].clientX - targetTranslateX;
-    lastTouchY = e.touches[0].clientY - targetTranslateY;
-  } else if (e.touches.length === 2) {
-    isDragging = false;
-    touchStartDist = Math.hypot(
-      e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY
-    );
-  }
-});
+    // === UPDATE DER MINIMAP =============================================
+    function updateMinimap() {
+      const wrapperRect = wrapper.getBoundingClientRect();
+      const timelineWidth = timeline.scrollWidth * scale;
+      const visibleRatio = wrapperRect.width / timelineWidth;
+      const fullWidth = minimapWrapper.clientWidth;
+      const rectWidth = Math.max(15, fullWidth * visibleRatio);
+      const scrollRatio = -translateX / (timelineWidth - wrapperRect.width);
+      const rectLeft = (fullWidth - rectWidth) * scrollRatio;
+      viewRect.style.width = rectWidth + 'px';
+      viewRect.style.left = rectLeft + 'px';
+    }
 
-wrapper.addEventListener('touchmove', e => {
-  e.preventDefault();
-  if (e.touches.length === 1 && isDragging) {
-    targetTranslateX = e.touches[0].clientX - lastTouchX;
-    targetTranslateY = e.touches[0].clientY - lastTouchY;
-    applyBounds();
-  } else if (e.touches.length === 2) {
-    const dist = Math.hypot(
-      e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY
-    );
-    const rect = wrapper.getBoundingClientRect();
-    const zoomFactor = dist / touchStartDist;
-    targetScale = Math.min(Math.max(0.3, scale * zoomFactor), 5);
-    touchStartDist = dist;
-    applyBounds();
-  }
-}, { passive: false });
+    // === ANIMATION LOOP ==================================================
+    function animate() {
+      scale += (targetScale - scale) * 0.15;
+      translateX += (targetTranslateX - translateX) * 0.15;
+      translateY += (targetTranslateY - translateY) * 0.15;
+      timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+      updateMinimap();
+      requestAnimationFrame(animate);
+    }
+    animate();
 
-wrapper.addEventListener('touchend', e => {
-  if (e.touches.length === 0) isDragging = false;
-});
-</script>
+    // === VERHINDERT DRAG AUF TIMELINE-IMAGES =============================
+    timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
+
+    // === STARTPOSITION NACH LADEZEIT ====================================
+    window.onload = () => {
+      setTimeout(() => setView(startView), 150);
+    };
+
+    // === TOUCH SUPPORT ===================================================
+    let touchStartDist = 0;
+    let lastTouchX = 0, lastTouchY = 0;
+
+    wrapper.addEventListener('touchstart', e => {
+      if (e.touches.length === 1) {
+        isDragging = true;
+        lastTouchX = e.touches[0].clientX - targetTranslateX;
+        lastTouchY = e.touches[0].clientY - targetTranslateY;
+      } else if (e.touches.length === 2) {
+        isDragging = false;
+        touchStartDist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+      }
+    });
+
+    wrapper.addEventListener('touchmove', e => {
+      e.preventDefault();
+      if (e.touches.length === 1 && isDragging) {
+        targetTranslateX = e.touches[0].clientX - lastTouchX;
+        targetTranslateY = e.touches[0].clientY - lastTouchY;
+        applyBounds();
+      } else if (e.touches.length === 2) {
+        const dist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        const zoomFactor = dist / touchStartDist;
+        targetScale = Math.min(Math.max(0.3, scale * zoomFactor), 5);
+        touchStartDist = dist;
+        applyBounds();
+      }
+    }, { passive: false });
+
+    wrapper.addEventListener('touchend', e => {
+      if (e.touches.length === 0) isDragging = false;
+    });
+  </script>
 </body>
 </html>
