@@ -151,121 +151,118 @@ footer hr {
 <div id="minimap-wrapper"></div>
 
 <!-- ================== WICHTIGE PUNKTE (AKKORDEON) ================== -->
-<section id="important-points">
-  <h2><strong>Wichtige Punkte, die mit einer faktengefüllten Timeline auffallen:</strong></h2>
+<div id="important-points">
+  <h2>Wichtige Punkte, die mit einer faktengefüllten Timeline auffallen:</h2>
 
   <details>
-    <summary><strong>1. Eine hohe <u>Intelligenz</u> kann der Antike nicht abgesprochen werden!</strong></summary>
+    <summary>[1. Eine hohe <Intelligenz> kann der Antike nicht abgesprochen werden!]</summary>
     <div class="accordion-content">
-      <p><strong>- Archäologie:</strong></p>
+      <h3>Archäologie:</h3>
       <ul>
         <li>Steine weit über 1000 Tonnen wurden bewegt und bearbeitet</li>
         <li>Fast unmögliche Schnitte in härtesten Fels</li>
-        <li>Nahezu perfekte Symmetrien bei gigantischen Monumenten</li>
+        <li>Nahezu perfekte Symetrien bei gigantischen Monumenten</li>
         <li>Ausgeklügelte Wasserversorgung</li>
         <li>Der Globus war bereits 1000+ v. Chr. weitgehend kartographiert (Polynesier)</li>
         <li>Tiefgehende Sternkunde in vielen Bauwerken ersichtlich</li>
         <li>Bauwerke für viele Tausende Jahre konzipiert, nachhaltiger als heute</li>
-        <li>Keine giftige Chemie – stattdessen Ausrichtung auf Gesundheit</li>
+        <li>Keine giftige Chemie - stattdessen Ausrichtung auf Gesundheit</li>
         <li>Nutzung von elektrischem Strom sehr wahrscheinlich (Batterienfunde)</li>
         <li>Lebendoperationen am Schädel nachgewiesen (geheilte aufgebohrte Knochen)</li>
       </ul>
 
-      <p><strong>- Schriftliche Überlieferungen:</strong></p>
+      <h3>Schriftliche Überlieferungen:</h3>
       <ul>
         <li>Die Bibel enthält über 200 Sprachstile – einzigartig in Schönheit, Sprache, Poesie und Vielfalt</li>
-        <li>Die alten Bibelbücher sind selbst nach modernen Kritikern ca. 2300 Jahre alt:  
-          <ul><li>Wieso entstand das Buch mit der größten Weisheit in der Antike?</li></ul>
+        <li>Die alten Bibelbücher sind selbst nach modernen Kritikern ca. 2300 Jahre alt:
+          <ul>
+            <li>Wieso entstand das Buch mit der größten Weisheit in der Antike?</li>
+          </ul>
         </li>
         <li>Wieso gibt es heute noch keinen anderen Bestseller dieser Reichweite?</li>
-        <li>Gemäß der Bibel entstanden die ersten Schriften vielleicht sogar direkt bei den Zeitzeugen 
-          (Adam, Noah, Abraham usw. ca. 4000 v. Chr.); spätestens bei Mose ca. 1600 v. Chr. kompiliert 
-          und/oder inspiriert.
-        </li>
+        <li>Gemäß der Bibel entstanden die ersten Schriften vielleicht sogar direkt bei den Zeitzeugen (Adam, Noah, Abraham usw. ca. 4000 v. Chr.); spätestens bei Mose ca. 1600 v. Chr. kompiliert und/oder inspiriert.</li>
       </ul>
 
-      <p><strong>- Fazit:</strong> Dummheit ist daher völlig ausgeschlossen!  
-      Es geht eher Richtung „intelligenter als heute“ – also nicht in die Richtung von Affenabstammung.</p>
+      <h3>Fazit:</h3>
+      <p>Dummheit ist daher völlig ausgeschlossen! Es geht eher Richtung „intelligenter als heute“ – also nicht in die Richtung von Affenabstammung.</p>
     </div>
   </details>
+</div>
 
-</section>
-
-<!-- ================== CSS ================== -->
 <style>
+/* === Akkordeon-Bereich responsive und mittig === */
 #important-points {
-  max-width: 900px;
-  margin: 60px auto;
-  padding: 25px;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  font-size: 1.05em;
+  margin: 30px auto;
+  padding: 0 15px;
+  max-width: 1200px; /* Breiter, aber nicht komplett */
+  font-family: Arial, sans-serif;
+  color: #001a33;
 }
 
 #important-points h2 {
   text-align: center;
   margin-bottom: 20px;
-  color: #001a33;
+  font-size: 2em;
   text-shadow: 0.5px 0.5px 1px #000a14;
 }
 
 details {
   margin-bottom: 15px;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.3);
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 6px;
   padding: 10px 15px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.15);
-  transition: background-color 0.3s ease;
-}
-
-details[open] {
-  background: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.8);
 }
 
 summary {
-  cursor: pointer;
-  font-size: 1.2em;
-  color: #003366;
   font-weight: bold;
-  list-style: none;
+  font-size: 1.3em;
+  cursor: pointer;
+  outline: none;
 }
 
-summary::marker {
-  display: none;
-}
-
-summary::-webkit-details-marker {
-  display: none;
-}
-
-summary::before {
-  content: "➕ ";
+details[open] summary {
   color: #0070ba;
-  transition: transform 0.3s ease;
-}
-
-details[open] summary::before {
-  content: "➖ ";
 }
 
 .accordion-content {
   margin-top: 10px;
-  padding-left: 10px;
+  padding-left: 15px;
+}
+
+.accordion-content h3 {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-size: 1.2em;
+  color: #003366;
 }
 
 .accordion-content ul {
-  margin: 5px 0 15px 20px;
+  margin: 5px 0 10px 20px;
+  padding: 0;
 }
 
 .accordion-content li {
   margin-bottom: 5px;
+  line-height: 1.5em;
 }
 
-u {
-  text-decoration: underline;
+/* === Automatische Formatierung [] fett und <> unterstrichen === */
+#important-points summary {
+  font-weight: normal; /* Reset, dann Formattierung durch JS */
 }
+
+/* JS für [ ] fett und < > unterstrichen */
 </style>
+
+<script>
+document.querySelectorAll('#important-points summary').forEach(el => {
+  el.innerHTML = el.innerHTML
+    .replace(/\[([^\]]+)\]/g, '<strong>[$1]</strong>')
+    .replace(/<([^>]+)>/g, '<u>&lt;$1&gt;</u>');
+});
+</script>
+
 //Ende Text
   
 <footer>
