@@ -26,7 +26,7 @@ nav {
   position: sticky;  /* bleibt beim Scrollen oben */
   top: 0;
   z-index: 10;
-  font-size: 22px; !important;
+  font-size: 22px !important;
 }
 
 nav a {
@@ -404,6 +404,11 @@ wrapper.addEventListener('touchmove', e => {
 wrapper.addEventListener('touchend', e => {
   if (e.touches.length === 0) isDragging = false;
 });
+  
+window.addEventListener("DOMContentLoaded", () => {
+  document.body.style.opacity = "1"; */ fade in auslösung */
+});
+  
 </script>
 </body>
 </html>
