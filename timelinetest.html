@@ -154,8 +154,8 @@ footer hr {
 <div id="important-points">
   <h2>Wichtige Punkte, die mit einer faktengefüllten Timeline auffallen:</h2>
   
-  <details>
-    <summary>[1. Eine hohe <Intelligenz> kann der Antike nicht abgesprochen werden!]</summary>
+  <details open>
+    <summary><strong>1. Eine hohe <u>Intelligenz</u> kann der Antike nicht abgesprochen werden!</strong></summary>
     <ul>
       <li><strong>Archäologie:</strong>
         <ul>
@@ -186,6 +186,13 @@ footer hr {
       <li><strong>Fazit:</strong> Dummheit ist daher völlig ausgeschlossen! Es geht eher Richtung „intelligenter als heute“ – also nicht in die Richtung von Affenabstammung</li>
     </ul>
   </details>
+
+  <details>
+    <summary><strong>2. Weitere Punkte...</strong></summary>
+    <ul>
+      <li>Hier kann der zweite Punkt folgen</li>
+    </ul>
+  </details>
 </div>
 
 <style>
@@ -194,38 +201,27 @@ footer hr {
   margin: 40px auto;
   font-family: Arial, sans-serif;
   line-height: 1.6;
+  font-size: 1.4em; /* Textgröße zwei Stufen größer */
 }
 
 #important-points h2 {
-  font-size: 1.6em;
-  margin-bottom: 20px;
+  font-size: 2.8em; /* Überschrift deutlich größer */
+  margin-bottom: 25px;
   text-align: center;
 }
 
 #important-points details {
   margin-bottom: 15px;
-  font-size: 1.2em; /* größer als normal, kleiner als Überschrift */
 }
 
 #important-points summary {
   cursor: pointer;
   outline: none;
 }
-
-/* Fett & Unterstrichen per JS umsetzen */
-</style>
-
-<script>
-document.querySelectorAll('#important-points summary').forEach(el => {
-  el.innerHTML = el.innerHTML
-    // Erst <...> unterstreichen
-    .replace(/<([^>]+)>/g, '<u>&lt;$1&gt;</u>')
-    // Dann [...] fett
-    .replace(/\[([^\]]+)\]/g, '<strong>[$1]</strong>');
-});
-</script>
   
 /* Ende Text */
+</style>
+  
   
 <footer>
   <p style="font-size: 1.4em; color:#ffffff; margin:5px 0;">
