@@ -404,9 +404,10 @@ wrapper.addEventListener('touchmove', e => {
 wrapper.addEventListener('touchend', e => {
   if (e.touches.length === 0) isDragging = false;
 });
-  
-window.addEventListener("DOMContentLoaded", () => {
-  document.body.style.opacity = "1"; /* fade in auslösung */
+
+  window.addEventListener("DOMContentLoaded", () => {
+  // fade in auslösung
+  document.body.style.opacity = "1";
 });
   
 </script>
