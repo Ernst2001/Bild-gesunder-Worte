@@ -53,22 +53,26 @@ header p {
 #timeline { display:flex; height:130%; transform-origin:0 0; user-select:none; }
 #timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none; }
 
+/* ==================== FOOTER ==================== */
 footer {
   padding: 60px;
   text-align: center;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.3); /* dunkler, halbtransparenter Hintergrund */
   font-size: 1em;
-  color: #ffffff;
+  color: #ffffff !important; /* zwingend weiße Schrift */
+  position: relative;
+  z-index: 1000;
 }
 
 footer p {
   margin: 5px 0;
-  font-size: 1.2em; /* ca. 20% größer */
-  color: #ffffff;
+  font-size: 1.2em;
+  color: #ffffff !important; /* Schriftfarbe erzwingen */
+  text-shadow: 0.5px 0.5px 1px #00264d; /* leichter Schatten für bessere Lesbarkeit */
 }
 
 footer a {
-  color: #ffffff;
+  color: #ffffff !important;
   font-size: 1.2em;
   text-decoration: none;
   text-shadow: 0.5px 0.5px 1px #00264d;
@@ -93,7 +97,7 @@ footer button:hover {
 footer hr {
   border: none;
   height: 4px;
-  background-color: #ffffff;
+  background-color: #ffffff !important; /* Linie sichtbar machen */
   margin: 15px 0 40px 0;
 }
 
