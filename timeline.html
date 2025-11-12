@@ -53,54 +53,15 @@ header p {
 #timeline { display:flex; height:130%; transform-origin:0 0; user-select:none; }
 #timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none; }
 
-/* ==================== FOOTER ==================== */
-footer {
-  padding: 60px;
-  text-align: center;
-  background: rgba(0,0,0,0.3); /* dunkler, halbtransparenter Hintergrund */
-  font-size: 1em;
-  color: #ffffff !important; /* zwingend weiße Schrift */
-  position: relative;
-  z-index: 1000;
+footer { 
+  padding:20px; text-align:center; background: rgba(0,0,0,0.3); font-size:1.4em; /* gleiche Größe wie Header p */
 }
-
-footer p {
-  margin: 5px 0;
-  font-size: 1.4em;
-  color: #ffffff !important; /* Schriftfarbe erzwingen */
-  text-shadow: 0.5px 0.5px 1px #00264d; /* leichter Schatten für bessere Lesbarkeit */
+footer a, footer button { color:#001a33; text-decoration:none; margin:5px; text-shadow:0.5px 0.5px 1px #000a14; }
+footer button { 
+  background-color:#0070ba; border:none; padding:10px 25px; cursor:pointer; border-radius:5px; font-size:18px; 
+  text-shadow:0.5px 0.5px 1px #000a14;
 }
-
-footer a {
-  color: #ffffff !important;
-  font-size: 1.2em;
-  text-decoration: none;
-  text-shadow: 0.5px 0.5px 1px #00264d;
-}
-
-footer button {
-  background-color: #0070ba;
-  border: none;
-  padding: 10px 25px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 1.3em;
-  color: #fff;
-  text-shadow: 0.5px 0.5px 1px #00264d;
-  transition: background-color 0.3s;
-}
-
-footer button:hover { 
-  background-color: #005a94; 
-}
-
-footer hr {
-  border: none;
-  height: 4px;
-  background-color: #ffffff !important; /* Linie sichtbar machen */
-  margin: 15px 0 40px 0;
-}
-
+footer button:hover { background-color:#005a94;}
 </style>
 </head>
 <body>
@@ -132,11 +93,8 @@ footer hr {
 <div id="minimap-wrapper"></div>
 
 <footer>
-  <p>Kontakt: Bei Fragen und Anregungen sehr gerne an 
-    <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a>
-  </p>
-  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über PayPal</button>
-  <hr>
+  <p>Kontakt: <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
+  <button onclick="window.open('https://www.paypal.com/donate','_blank')">Unterstützen über Paypal</button>
 </footer>
 
 <script>
