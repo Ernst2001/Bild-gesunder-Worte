@@ -155,8 +155,9 @@ footer hr {
   <h2>Wichtige Punkte, die mit einer faktengefüllten Timeline auffallen:</h2>
 
   <!-- Punkt 1 -->
-  <details open>
-    <summary style="color:#1F77B4;"><strong>1. Eine <u>Intelligenz</u> kann der Antike nicht abgesprochen werden!</strong></summary>
+  <details open class="point">
+    <summary><strong>1. Eine <u>Intelligenz</u> kann der Antike nicht abgesprochen werden!</strong></summary>
+    <!-- Originaltext unverändert -->
     <ul>
       <li><strong>Archäologie:</strong>
         <ul>
@@ -189,8 +190,8 @@ footer hr {
   </details>
 
   <!-- Punkt 2 -->
-  <details>
-    <summary style="color:#FF7F0E;"><strong>2. Eine hohe <u>Bevölkerungsvermehrung</u> kann der Antike nicht abgesprochen werden!</strong></summary>
+  <details class="point">
+    <summary><strong>2. Eine hohe <u>Bevölkerungsvermehrung</u> kann der Antike nicht abgesprochen werden!</strong></summary>
     <ul>
       <li>Seit 1950 wurde genauer geschätzt. Die biblischen Zahlen passen genau dazu:
         <ul>
@@ -230,8 +231,8 @@ footer hr {
   </details>
 
   <!-- Punkt 3 -->
-  <details>
-    <summary style="color:#2CA02C;"><strong>3. Eine <u>höhere Lebenserwartung</u> kann ebenso nicht abgesprochen werden!</strong></summary>
+  <details class="point">
+    <summary><strong>3. Eine <u>höhere Lebenserwartung</u> kann ebenso nicht abgesprochen werden!</strong></summary>
     <ul>
       <li>Außerbiblisch geht alles Richtung höhere Lebensalter als heute
         <ul>
@@ -252,8 +253,8 @@ footer hr {
   </details>
 
   <!-- Punkt 4 -->
-  <details>
-    <summary style="color:#D62728;"><strong>4. Aufgrund von weit verbreiteten „Mythen“ kann die Wahrheit nicht gleich mit über Bord geworfen werden!</strong></summary>
+  <details class="point">
+    <summary><strong>4. Aufgrund von weit verbreiteten „Mythen“ kann die Wahrheit nicht gleich mit über Bord geworfen werden!</strong></summary>
     <ul>
       <li>Wenn alle Quellen in eine für uns unwahrscheinliche, bessere Richtung zeigen, deutet es ehrlicherweise an, dass wir heute „schlechter“ sind, oder?</li>
       <li>Man sollte den eigenen Stolz überwinden und sich kritisch hinterfragen. Die Moderne muss nicht besser sein als die „dummen Leute früher“.
@@ -265,8 +266,8 @@ footer hr {
   </details>
 
   <!-- Punkt 5 -->
-  <details>
-    <summary style="color:#9467BD;"><strong>5. <u>Wahrheit</u> ist in der Bibel das zentrale Thema. Passend zu diesen Berichten erkennt man die maßlosen Übertreibungen aller übrigen „gottlosen“ Völker!</strong></summary>
+  <details class="point">
+    <summary><strong>5. <u>Wahrheit</u> ist in der Bibel das zentrale Thema. Passend zu diesen Berichten erkennt man die maßlosen Übertreibungen aller übrigen „gottlosen“ Völker!</strong></summary>
     <ul>
       <li>Wahrheit ist in der Bibel ein durchgängiges Fundament:
         <ul>
@@ -283,16 +284,16 @@ footer hr {
   </details>
 
   <!-- Punkt 6 -->
-  <details>
-    <summary style="color:#8C564B;"><strong>6. Biblische <u>Berichte passen zu</u> den zeitgemäßen historischen <u>Ereignissen</u>!</strong></summary>
+  <details class="point">
+    <summary><strong>6. Biblische <u>Berichte passen zu</u> den zeitgemäßen historischen <u>Ereignissen</u>!</strong></summary>
     <ul>
       <li>Schreibweise, Sprachen, Intelligenz, Beobachtungen, Redensarten (z.B. Mose, Abraham, Daniel, usw.)</li>
     </ul>
   </details>
 
   <!-- Punkt 7 -->
-  <details>
-    <summary style="color:#E377C2;"><strong>7. <u>Prophetien/Prädiktionen</u> sind fast auf jeder Seite der Bibel zu finden und <u>bestätigen</u> offensichtlich den einen <u>Gott</u>, der außerhalb von Zeit existiert!</strong></summary>
+  <details class="point">
+    <summary><strong>7. <u>Prophetien/Prädiktionen</u> sind fast auf jeder Seite der Bibel zu finden und <u>bestätigen</u> offensichtlich den einen <u>Gott</u>, der außerhalb von Zeit existiert!</strong></summary>
     <ul>
       <li>Die Summe an Prophetie ist natürlicherweise unerklärbar. Alle Versuche scheitern trotzdem.
         <ul>
@@ -317,8 +318,8 @@ footer hr {
   </details>
 
   <!-- Punkt 8 -->
-  <details>
-    <summary style="color:#17BECF;"><strong>8. Die <u>Übereinstimmung der einzelnen Bibelbücher</u> ist übernatürlich</strong></summary>
+  <details class="point">
+    <summary><strong>8. Die <u>Übereinstimmung der einzelnen Bibelbücher</u> ist übernatürlich</strong></summary>
     <ul>
       <li>Einzigartiger Weise gibt es eine <u>vollständige zusammenhängende Chronologie</u> von Adam bis Jesus (und bis in die Zukunft mit großer Ausführlichkeit bzgl. der letzten 3,5 Jahre Gerichtszeit)</li>
       <li>Die Summe an Prophetie ist natürlicherweise unerklärbar. Alle Versuche scheitern trotzdem.
@@ -347,7 +348,7 @@ footer hr {
   margin: 40px auto;
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  font-size: 1.4em;
+  font-size: 1.3em;
 }
 
 #important-points h2 {
@@ -357,22 +358,22 @@ footer hr {
 }
 
 #important-points details {
-  margin-bottom: 15px;
-  padding: 10px;
+  margin-bottom: 10px;
+  padding: 15px;
   border-radius: 8px;
   background-color: #f9f9f9;
+  transition: background-color 0.3s ease;
 }
 
-#important-points details[open] {
-  background-color: #eef5fc;
+#important-points details:nth-child(even) {
+  background-color: #f3f3f3;
 }
 
 #important-points summary {
   cursor: pointer;
   outline: none;
   font-weight: bold;
-  font-size: 1.2em;
-  margin-bottom: 5px;
+  font-size: 1.1em;
 }
 
 /* Ende Text */
