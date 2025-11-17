@@ -90,12 +90,15 @@ button.main-btn:hover {
   max-width: 60%; /* wie bei deinem Header */
 }
 .section a {
-  max-width: 90%; /* Text wird nicht zu breit */
   color: #001a33;
   font-size: 1.4em;
   text-decoration: none;
   font-weight: bold;
-  display: inline-block;
+
+  /* WICHTIG */
+  display: block;        /* Block erlaubt Zeilenumbruch */
+  flex: 1 1 auto;       /* Flex-Kind kann in der Breite wachsen/klein werden */
+  margin-right: 20px;    /* Abstand zum Bild */
 }
 .section img {
   width: 250px;
