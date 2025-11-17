@@ -84,25 +84,27 @@ button.main-btn:hover {
 /* Sektionen */
 .section {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin: 20px auto;
-  max-width: 700px;
-  flex-wrap: wrap;
+  max-width: 60%; /* wie bei deinem Header */
 }
 .section a {
   color: #001a33;
   font-size: 1.4em;
   text-decoration: none;
   font-weight: bold;
+
+  /* WICHTIG */
+  display: block;        /* Block erlaubt Zeilenumbruch */
+  flex: 1 1 auto;       /* Flex-Kind kann in der Breite wachsen/klein werden */
+  margin-right: 20px;    /* Abstand zum Bild */
 }
-.section a:hover { text-decoration: underline; }
 .section img {
-  width: 180px;
+  width: 250px;
   height: auto;
   border-radius: 10px;
   margin-left: 20px;
-  box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
 }
 
 /* === Footer (Timeline-Stil) ================================================ */
@@ -174,12 +176,12 @@ footer hr {
 </header>
 
 <div class="section">
-  <a href="https://www.youtube.com/@BildgesunderWorte" target="_blank">Link: Weltbildvergleich und Timelineanalyse auf Youtube (siehe Reiter Youtube)</a>
+  <a href="https://www.youtube.com/@BildgesunderWorte" target="_blank">Link: Weltbildvergleich und Timelineanalyse auf Youtube <br>(siehe Reiter Youtube)</a>
   <img src="images/youtube_bgW_preview.jpg" alt="YouTube BgW Vorschau">
 </div>
 
 <div class="section">
-  <a href="https://www.youtube.com/@GesundeLieder" target="_blank">Link: Eigene Cover von geistlichen Liedern (siehe Reiter Youtube)</a>
+  <a href="https://www.youtube.com/@GesundeLieder" target="_blank">Link: Eigene Cover von geistlichen Liedern <br>(siehe Reiter Youtube)</a>
   <img src="images/youtube_lieder_preview.jpg" alt="YouTube Lieder Vorschau">
 </div>
 
