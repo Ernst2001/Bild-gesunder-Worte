@@ -84,25 +84,24 @@ button.main-btn:hover {
 /* Sektionen */
 .section {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin: 20px auto;
   max-width: 700px;
-  flex-wrap: wrap;
+/*  flex-wrap: wrap; <-vorher */
 }
 .section a {
+  max-width: 60%; /* Text wird nicht zu breit */
   color: #001a33;
   font-size: 1.4em;
   text-decoration: none;
   font-weight: bold;
 }
-.section a:hover { text-decoration: underline; }
 .section img {
   width: 250px;
   height: auto;
   border-radius: 10px;
-  margin-left: auto;
-  box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  margin-left: 20px;
 }
 
 /* === Footer (Timeline-Stil) ================================================ */
