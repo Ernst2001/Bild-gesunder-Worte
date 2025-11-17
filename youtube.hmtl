@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YouTube – Bild gesunder Worte</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<nav>
+  <a href="index.html">Startseite</a>
+  <a href="timeline.html">Timeline / Zeitstrahl</a>
+  <a href="youtube.html">YouTube</a>
+  <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
+  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über PayPal</a>
+</nav>
+
+<header>
+  <h1>YouTube Bereich</h1>
+  <h2>Hier findest du alle Videos zu Weltbildvergleich, Timeline und geistlichen Liedern.</h2>
+</header>
+
+<div class="section">
+  <a href="https://www.youtube.com/@BildgesunderWorte" target="_blank">
+    Kanal 1: Weltbildvergleich und Timelineanalyse
+  </a>
+  <img src="images/youtube_bgW_preview.jpg">
+</div>
+
+<div class="section">
+  <a href="https://www.youtube.com/@GesundeLieder" target="_blank">
+    Kanal 2: Geistliche Lieder
+  </a>
+  <img src="images/youtube_lieder_preview.jpg">
+</div>
+
+<footer> … dein Footer … </footer>
+
+</body>
+</html>
