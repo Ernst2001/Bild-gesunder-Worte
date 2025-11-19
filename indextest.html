@@ -242,28 +242,7 @@ footer hr {
 </style>
 </head>
 
-<script>
-function toggleBGWMenu() {
-  document.querySelector(".bgw-menu").classList.toggle("show");
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-  let page = location.pathname.split("/").pop().replace(".html", "");
-  if(page === "") page = "index"; // falls Startseite root ist
-
-  document.querySelectorAll(".bgw-menu a").forEach(a => {
-    if (a.dataset.page === page) {
-      a.classList.add("active");
-    }
-  });
-});
-</script>
-
-
-
-  
 <body>
-
 
 <!-- Navigation -->
 <nav class="bgw-nav">
@@ -328,5 +307,22 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<script>
+function toggleBGWMenu() {
+  document.querySelector(".bgw-menu").classList.toggle("show");
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  let page = location.pathname.split("/").pop().replace(".html", "");
+  if(page === "") page = "index"; // falls Startseite root ist
+
+  document.querySelectorAll(".bgw-menu a").forEach(a => {
+    if (a.dataset.page === page) {
+      a.classList.add("active");
+    }
+  });
+});
+</script>
+  
 </body>
 </html>
