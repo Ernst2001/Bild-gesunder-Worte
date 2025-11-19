@@ -19,77 +19,67 @@ body {
 }
 
 /* ===== BGW Navigation für alle Seiten ===== */
+/* ===== BGW Navigation – funktionierende Version ===== */
 .bgw-nav {
-  background: rgba(0,0,0,0.3);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  font-size: 19px;
-  display: flex;
-  justify-content: center; /* zentriert das Menü auf Desktop */
-  align-items: center;
-  padding: 12px 20px;
-  gap: 20px;               /* Abstand zwischen Burger und Menü */
+  background: rgba(0,0,0,0.3) !important;
+  padding: 0 !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
 
-/* Menü-Liste */
 .bgw-menu {
   list-style: none;
-  display: flex;           /* Horizontal auf Desktop */
-  margin: 0;
-  padding: 0;
-  gap: 30px;
+  display: flex !important;
+  gap: 25px;
 }
 
-/* Menü-Links */
 .bgw-menu li a {
-  color: #fff;
-  text-decoration: none;
+  color: white;
+  font-size: 19px;
   font-weight: bold;
-  transition: color 0.3s;
+  text-decoration: none;
+  padding: 2px 4px;
+  border-radius: 2px;
+  cursor: pointer;
 }
-.bgw-menu li a:hover,
-.bgw-menu li a.active {
+
+.bgw-menu li a:hover {
+  background: rgba(255,255,255,0.25);
   color: #ffd700;
 }
 
-/* Burger Button (für Mobilgeräte) */
-.bgw-burger {
-  display: none;           /* nur auf Mobile sichtbar */
-  font-size: 1.8em;
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  position: absolute;
-  right: 20px;             /* oben rechts */
-  top: 12px;
+.bgw-menu li a.active {
+  background: rgba(255,255,255,0.5);
+  color: #00264d;
+  border-bottom: 3px solid #ffd700;
 }
 
-/* ===== Responsive für kleine Bildschirme ===== */
-@media (max-width: 768px) {
-  .bgw-nav {
-    justify-content: flex-start; /* Burger links/rechts anpassen */
-    padding: 12px 20px;
-  }
-  .bgw-menu {
-    flex-direction: column; 
-    display: none;          /* versteckt bis Burger klick */
-    width: 100%;
-    text-align: center;
-    margin-top: 50px;       /* Platz unter Burger */
-    gap: 15px;
-    background: rgba(0,0,0,0.5);
-    padding: 10px 0;
-    border-radius: 5px;
-  }
-  .bgw-menu.show {
-    display: flex; 
-  }
-  .bgw-burger {
-    display: block; 
-  }
+.bgw-burger {
+  display: none;
+  font-size: 2em;
+  color: white;
+  cursor: pointer;
 }
+
+@media (max-width: 700px) {
+  .bgw-nav { justify-content: space-between !important; padding: 2px !important; }
+  .bgw-burger { display: block !important; }
+  .bgw-menu {
+    flex-direction: column !important;
+    width: 100%;
+    display: none;
+    background: rgba(0,0,0,0.4);
+    padding: 10px 0;
+    gap: 10px;
+  }
+  .bgw-menu.show { display: flex; }
+  .bgw-menu li a { font-size: 1.4em; padding: 10px; }
+}
+
 
 
 
