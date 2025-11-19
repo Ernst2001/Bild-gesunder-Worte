@@ -7,92 +7,92 @@
 <style>
 
   /* === Navigation global ===================================================== */
+/* =============================
+   BGW Navigation (konfliktfrei)
+   ============================= */
 
-.navbar {
-  background: rgba(0,0,0,0.35);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
+.bgw-nav {
+  background: rgba(0,0,0,0.3);
+  padding: 10px 0;
   position: sticky;
   top: 0;
-  z-index: 20;
-}
-
-/* Logo / Text links */
-.nav-brand {
-  color: white;
-  font-size: 1.4em;
-  font-weight: bold;
-}
-
-/* Link-Bereich */
-.nav-links {
-  list-style: none;
+  z-index: 50;
   display: flex;
-  gap: 20px;
-  margin: 0;
-  padding: 0;
+  justify-content: center;
+  align-items: center;
 }
 
-.nav-links li a {
+.bgw-menu {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.bgw-menu li a {
   color: white;
-  font-weight: bold;
   text-decoration: none;
-  font-size: 1.1em;
-  padding: 6px 8px;
+  font-weight: bold;
+  font-size: 19px;
+  padding: 5px 10px;
   border-radius: 4px;
 }
 
-.nav-links li a:hover {
-  color: #ffd700;
-}
-
-/* === Aktiver Reiter ====================================================== */
-
-.nav-links li a.active {
+/* Hover */
+.bgw-menu li a:hover {
   background: rgba(255,255,255,0.25);
   color: #ffd700;
 }
 
-/* === Hamburger-Menü für kleine Bildschirme =============================== */
-
-.nav-toggle {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.8em;
-  cursor: pointer;
-  display: none;
+/* Aktiver Menüpunkt */
+.bgw-menu li a.active {
+  background: rgba(255,255,255,0.5);
+  color: #00264d;
+  font-weight: bold;
+  border-bottom: 3px solid #ffd700;
 }
 
-/* responsive ab 800px */
-@media (max-width: 800px) {
-  .nav-toggle {
+/* Burger-Button (Mobil) */
+.bgw-burger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2em;
+  color: white;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+/* Mobile Ansicht */
+@media (max-width: 700px) {
+  .bgw-nav {
+    justify-content: space-between;
+    padding: 10px 20px;
+  }
+
+  .bgw-burger {
     display: block;
   }
 
-  .nav-links {
-    position: absolute;
-    top: 55px;
-    left: 0;
-    width: 100%;
-    background: rgba(0,0,0,0.4);
+  .bgw-menu {
     flex-direction: column;
-    align-items: center;
+    width: 100%;
     display: none;
-    padding: 20px 0;
+    background: rgba(0,0,0,0.4);
+    padding: 10px 0;
   }
 
-  .nav-links.show {
+  .bgw-menu.show {
     display: flex;
   }
 
-  .nav-links li a {
-    font-size: 1.3em;
+  .bgw-menu li a {
+    font-size: 1.4em;
     padding: 10px;
   }
 }
+
 
   
   /* === GLOBALE STILE (wie Timeline) ========================================== */
@@ -238,41 +238,38 @@ footer hr {
 </head>
 
 <script>
-function toggleMenu() {
-  document.querySelector(".nav-links").classList.toggle("show");
+function toggleBGWMenu() {
+  document.querySelector(".bgw-menu").classList.toggle("show");
 }
 
-// Aktiven Menüpunkt markieren
+// Aktiven Link setzen
 window.addEventListener("DOMContentLoaded", () => {
-  const page = location.pathname.split("/").pop().replace(".html","");
-  const links = document.querySelectorAll(".nav-links a");
-
-  links.forEach(a => {
-    if (a.dataset.page === page) {
+  const current = location.pathname.split("/").pop().replace(".html", "");
+  document.querySelectorAll(".bgw-menu a").forEach(a => {
+    if (a.dataset.page === current) {
       a.classList.add("active");
     }
   });
 });
 </script>
 
+
   
 <body>
 
 
 <!-- Navigation -->
-<nav class="navbar">
-  <div class="nav-brand">BgW</div>
-
-  <button class="nav-toggle" onclick="toggleMenu()">☰</button>
-
-  <ul class="nav-links">
-    <li><a href="/index.html" data-page="index">Startseite</a></li>
-    <li><a href="/timeline.html" data-page="timeline">Timeline / Zeitstrahl</a></li>
-    <li><a href="/youtube.html" data-page="youtube">YouTube</a></li>
+<nav class="bgw-nav">
+  <button class="bgw-burger" onclick="toggleBGWMenu()">☰</button>
+  <ul class="bgw-menu">
+    <li><a href="index.html" data-page="index">Startseite</a></li>
+    <li><a href="timeline.html" data-page="timeline">Timeline</a></li>
+    <li><a href="youtube.html" data-page="youtube">YouTube</a></li>
     <li><a href="mailto:bildgesunderworte@gmail.com" data-page="kontakt">Kontakt</a></li>
-    <li><a href="https://www.paypal.com/donate" target="_blank">Unterstützen über PayPal</a></li>
+    <li><a href="https://www.paypal.com/donate" target="_blank">Unterstützen</a></li>
   </ul>
 </nav>
+
   
 <header>
   <h1>Bild gesunder Worte</h1>
