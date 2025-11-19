@@ -149,12 +149,19 @@ footer hr {
 <body>
 
 
-<nav>
-  <a href="index.html">Startseite</a>
-  <a href="timeline.html">Timeline / Zeitstrahl</a>
-  <a href="youtube.html" target="_blank">YouTube</a>
-  <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
-  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über PayPal</a>
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="nav-brand">BgW</div>
+
+  <button class="nav-toggle" onclick="toggleMenu()">☰</button>
+
+  <ul class="nav-links">
+    <li><a href="/index.html" data-page="index">Startseite</a></li>
+    <li><a href="/timeline.html" data-page="timeline">Timeline / Zeitstrahl</a></li>
+    <li><a href="/youtube.html" data-page="youtube">YouTube</a></li>
+    <li><a href="mailto:bildgesunderworte@gmail.com" data-page="kontakt">Kontakt</a></li>
+    <li><a href="https://www.paypal.com/donate" target="_blank">Unterstützen über PayPal</a></li>
+  </ul>
 </nav>
   
 <header>
