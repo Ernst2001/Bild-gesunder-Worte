@@ -190,6 +190,7 @@ footer hr {
 </head>
 <body>
 
+
 <!-- Navigation -->
 <nav class="bgw-nav">
   <button class="bgw-burger" onclick="toggleBGWMenu()">☰</button>
@@ -198,7 +199,7 @@ footer hr {
     <li><a href="timeline.html" data-page="timeline">Timeline / Zeitstrahl</a></li>
     <li><a href="youtube.html" data-page="youtube">YouTube</a></li>
     <li><a href="mailto:bildgesunderworte@gmail.com" data-page="kontakt">Kontakt</a></li>
-    <li><a href="https://www.paypal.com/donate" target="_blank">Unterstützen</a></li>
+    <li><a href="https://www.paypal.com/donate" target="_blank">Unterstützen über Paypal</a></li>
   </ul>
 </nav>
 
@@ -260,17 +261,14 @@ function toggleBGWMenu() {
 
 window.addEventListener("DOMContentLoaded", () => {
   let page = location.pathname.split("/").pop().replace(".html", "");
-  if(page === "") page = "index"; // falls Startseite root ist
-
+  if(page === "") page = "index";
   document.querySelectorAll(".bgw-menu a").forEach(a => {
-    if (a.dataset.page === page) {
-      a.classList.add("active");
-    }
+    if(a.dataset.page === page) a.classList.add("active");
   });
-
   document.body.style.opacity = "1";
 });
 </script>
+
 
 
 </body>
