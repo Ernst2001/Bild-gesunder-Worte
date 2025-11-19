@@ -5,7 +5,97 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bild gesunder Worte</title>
 <style>
-/* === GLOBALE STILE (wie Timeline) ========================================== */
+
+  /* === Navigation global ===================================================== */
+
+.navbar {
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+/* Logo / Text links */
+.nav-brand {
+  color: white;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+/* Link-Bereich */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1.1em;
+  padding: 6px 8px;
+  border-radius: 4px;
+}
+
+.nav-links li a:hover {
+  color: #ffd700;
+}
+
+/* === Aktiver Reiter ====================================================== */
+
+.nav-links li a.active {
+  background: rgba(255,255,255,0.25);
+  color: #ffd700;
+}
+
+/* === Hamburger-Menü für kleine Bildschirme =============================== */
+
+.nav-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.8em;
+  cursor: pointer;
+  display: none;
+}
+
+/* responsive ab 800px */
+@media (max-width: 800px) {
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 55px;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.4);
+    flex-direction: column;
+    align-items: center;
+    display: none;
+    padding: 20px 0;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .nav-links li a {
+    font-size: 1.3em;
+    padding: 10px;
+  }
+}
+
+  
+  /* === GLOBALE STILE (wie Timeline) ========================================== */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
