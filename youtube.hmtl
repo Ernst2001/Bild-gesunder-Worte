@@ -148,13 +148,18 @@ footer hr {
 </head>
 <body>
 
-<nav>
-  <a href="index.html">Startseite</a>
-  <a href="timeline.html">Timeline / Zeitstrahl</a>
-  <a href="youtube.html" target="_blank">YouTube</a>
-  <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
-  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über PayPal</a>
+<!-- Navigation -->
+<nav class="bgw-nav">
+  <button class="bgw-burger" onclick="toggleBGWMenu()">☰</button>
+  <ul class="bgw-menu">
+    <li><a href="index.html" data-page="index">Startseite</a></li>
+    <li><a href="timeline.html" data-page="timeline">Timeline / Zeitstrahl</a></li>
+    <li><a href="youtube.html" data-page="youtube">YouTube</a></li>
+    <li><a href="mailto:bildgesunderworte@gmail.com" data-page="kontakt">Kontakt</a></li>
+    <li><a href="https://www.paypal.com/donate" target="_blank">Unterstützen</a></li>
+  </ul>
 </nav>
+
   
 <header>
   <h1>Bild gesunder Worte auf Youtube</h1>
@@ -205,6 +210,26 @@ window.addEventListener("DOMContentLoaded", () => {
   document.body.style.opacity = "1";
 });
 </script>
+
+<script>
+function toggleBGWMenu() {
+  document.querySelector(".bgw-menu").classList.toggle("show");
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  let page = location.pathname.split("/").pop().replace(".html", "");
+  if(page === "") page = "index"; // falls Startseite root ist
+
+  document.querySelectorAll(".bgw-menu a").forEach(a => {
+    if (a.dataset.page === page) {
+      a.classList.add("active");
+    }
+  });
+
+  document.body.style.opacity = "1";
+});
+</script>
+
 
 </body>
 </html>
