@@ -146,6 +146,26 @@ footer hr {
 }
 </style>
 </head>
+
+<script>
+function toggleMenu() {
+  document.querySelector(".nav-links").classList.toggle("show");
+}
+
+// Aktiven Menüpunkt markieren
+window.addEventListener("DOMContentLoaded", () => {
+  const page = location.pathname.split("/").pop().replace(".html","");
+  const links = document.querySelectorAll(".nav-links a");
+
+  links.forEach(a => {
+    if (a.dataset.page === page) {
+      a.classList.add("active");
+    }
+  });
+});
+</script>
+
+  
 <body>
 
 
