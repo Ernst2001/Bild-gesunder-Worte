@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="widtha=device-width,initial-scale=1" />
 <title>Fakten statt Mythen: Timeline</title>
 <style>
 body {
@@ -18,26 +18,109 @@ body {
 }
 
 nav {
-  background: rgba(0,0,0,0.3);  /* schwarze Farbe mit 30% Deckkraft */
+  background: rgba(0,0,0,0.3);
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 16px 0;
-  position: sticky;  /* bleibt beim Scrollen oben */
+  position: sticky;
   top: 0;
   z-index: 10;
   font-size: 22px !important;
 }
 
 nav a {
-  color: #fff;  /* weiße Links */
+  color: #fff;
   text-decoration: none;
   margin: 0 15px;
   font-weight: bold;
 }
 
 nav a:hover {
-  color: #ffd700;  /* Gold beim Hover */
+  color: #ffd700;
+}
+
+  /* === Navigation global ===================================================== */
+
+.bgw-nav {
+  background: rgba(0,0,0,0.3) !important;
+  padding: 2px 0 !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
+
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.bgw-nav * {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.bgw-menu {
+  list-style: none;
+  display: flex !important;
+  gap: 25px;
+}
+
+.bgw-menu li a {
+  color: white;
+  font-size: 19px;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 2px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.bgw-menu li a:hover {
+  background: rgba(255,255,255,0.25);
+  color: #ffd700;
+}
+
+.bgw-menu li a.active {
+  background: rgba(255,255,255,0.5);
+  color: #00264d;
+  border-bottom: 3px solid #ffd700;
+}
+
+.bgw-burger {
+  display: none;
+  font-size: 2em;
+  color: white;
+  cursor: pointer;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .bgw-nav {
+    justify-content: space-between !important;
+    padding: 2px 2px !important;
+  }
+
+  .bgw-burger {
+    display: block !important;
+  }
+
+  .bgw-menu {
+    flex-direction: column !important;
+    width: 100%;
+    display: none;
+    background: rgba(0,0,0,0.4);
+    padding: 10px 0;
+    gap: 10px;
+  }
+
+  .bgw-menu.show {
+    display: flex;
+  }
+
+  .bgw-menu li a {
+    font-size: 1.4em;
+    padding: 10px;
+  }
 }
 
 
@@ -124,13 +207,17 @@ footer hr {
 </head>
 <body>
 
-<nav>
-  <a href="index.html">Startseite</a>
-  <a href="timeline.html">Timeline / Zeitstrahl</a>
-  <a href="https://www.youtube.com/@BgW-Kanal" target="_blank">YouTube</a>
-  <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
-  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über Paypal</a>
+<nav class="bgw-nav">
+  <button class="bgw-burger" onclick="toggleBGWMenu()">☰</button>
+  <ul class="bgw-menu">
+    <li><a href="index.html" data-page="index">Startseite</a></li>
+    <li><a href="timeline.html" data-page="timeline">Timeline / Zeitstrahl</a></li>
+    <li><a href="youtube.html" data-page="youtube">YouTube</a></li>
+    <li><a href="mailto:bildgesunderworte@gmail.com" data-page="kontakt">Kontakt</a></li>
+    <li><a href="https://www.paypal.com/donate" target="_blank">Unterstützen über Paypal</a></li>
+  </ul>
 </nav>
+
 
 <header>
   <h1>Fakten statt Mythen: Die Geschichte im Zeitstrahl</h1>
@@ -648,7 +735,26 @@ wrapper.addEventListener('touchend', e => {
 window.onload = () => {
   document.body.style.opacity = "1";
 };
-  
+
 </script>
+  
+<script>
+function toggleBGWMenu() {
+  document.querySelector(".bgw-menu").classList.toggle("show");
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  let page = location.pathname.split("/").pop().replace(".html", "");
+  if(page === "") page = "index";
+
+  document.querySelectorAll(".bgw-menu a").forEach(a => {
+    if (a.dataset.page === page) {
+      a.classList.add("active");
+    }
+  });
+});
+</script>
+
+  
 </body>
 </html>
