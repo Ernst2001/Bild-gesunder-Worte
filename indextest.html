@@ -7,36 +7,42 @@
 <style>
 
   /* === Navigation global ===================================================== */
-/* =============================
-   BGW Navigation (konfliktfrei)
-   ============================= */
+/* ===== BGW Navigation – konfliktfreie Version ===== */
 
 .bgw-nav {
-  background: rgba(0,0,0,0.3);
-  padding: 10px 0;
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: rgba(0,0,0,0.3) !important;
+  padding: 10px 0 !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
+
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
 
+/* Override ALL inherited nav styles */
+.bgw-nav * {
+  all: unset;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Neues Menü */
 .bgw-menu {
-  display: flex;
   list-style: none;
-  gap: 20px;
-  padding: 0;
-  margin: 0;
+  display: flex !important;
+  gap: 25px;
 }
 
 .bgw-menu li a {
   color: white;
-  text-decoration: none;
-  font-weight: bold;
   font-size: 19px;
-  padding: 5px 10px;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 6px 10px;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 /* Hover */
@@ -49,38 +55,36 @@
 .bgw-menu li a.active {
   background: rgba(255,255,255,0.5);
   color: #00264d;
-  font-weight: bold;
   border-bottom: 3px solid #ffd700;
 }
 
-/* Burger-Button (Mobil) */
+/* Burger Button */
 .bgw-burger {
   display: none;
-  background: none;
-  border: none;
   font-size: 2em;
   color: white;
   cursor: pointer;
-  margin-right: 20px;
 }
 
-/* Mobile Ansicht */
+/* Mobile */
 @media (max-width: 700px) {
+
   .bgw-nav {
-    justify-content: space-between;
-    padding: 10px 20px;
+    justify-content: space-between !important;
+    padding: 10px 20px !important;
   }
 
   .bgw-burger {
-    display: block;
+    display: block !important;
   }
 
   .bgw-menu {
-    flex-direction: column;
+    flex-direction: column !important;
     width: 100%;
     display: none;
     background: rgba(0,0,0,0.4);
     padding: 10px 0;
+    gap: 10px;
   }
 
   .bgw-menu.show {
@@ -92,6 +96,7 @@
     padding: 10px;
   }
 }
+
 
 
   
@@ -242,16 +247,18 @@ function toggleBGWMenu() {
   document.querySelector(".bgw-menu").classList.toggle("show");
 }
 
-// Aktiven Link setzen
 window.addEventListener("DOMContentLoaded", () => {
-  const current = location.pathname.split("/").pop().replace(".html", "");
+  let page = location.pathname.split("/").pop().replace(".html", "");
+  if(page === "") page = "index"; // falls Startseite root ist
+
   document.querySelectorAll(".bgw-menu a").forEach(a => {
-    if (a.dataset.page === current) {
+    if (a.dataset.page === page) {
       a.classList.add("active");
     }
   });
 });
 </script>
+
 
 
   
