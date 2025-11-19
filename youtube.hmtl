@@ -26,9 +26,10 @@ body {
   z-index: 10;
   font-size: 19px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* zentriert das Menü auf Desktop */
   align-items: center;
   padding: 12px 20px;
+  gap: 20px;               /* Abstand zwischen Burger und Menü */
 }
 
 /* Menü-Liste */
@@ -37,7 +38,7 @@ body {
   display: flex;           /* Horizontal auf Desktop */
   margin: 0;
   padding: 0;
-  gap: 30px;               /* Abstand zwischen Links */
+  gap: 30px;
 }
 
 /* Menü-Links */
@@ -54,28 +55,39 @@ body {
 
 /* Burger Button (für Mobilgeräte) */
 .bgw-burger {
-  display: none;           /* Standardmäßig nur auf Mobile sichtbar */
+  display: none;           /* nur auf Mobile sichtbar */
   font-size: 1.8em;
   background: none;
   border: none;
   color: #fff;
   cursor: pointer;
+  position: absolute;
+  right: 20px;             /* oben rechts */
+  top: 12px;
 }
 
 /* ===== Responsive für kleine Bildschirme ===== */
 @media (max-width: 768px) {
+  .bgw-nav {
+    justify-content: flex-start; /* Burger links/rechts anpassen */
+    padding: 12px 20px;
+  }
   .bgw-menu {
-    flex-direction: column; /* Untereinander auf Mobile */
-    display: none;          /* Standardmäßig versteckt */
+    flex-direction: column; 
+    display: none;          /* versteckt bis Burger klick */
     width: 100%;
     text-align: center;
+    margin-top: 50px;       /* Platz unter Burger */
     gap: 15px;
+    background: rgba(0,0,0,0.5);
+    padding: 10px 0;
+    border-radius: 5px;
   }
   .bgw-menu.show {
-    display: flex;          /* Sichtbar wenn Burger geklickt */
+    display: flex; 
   }
   .bgw-burger {
-    display: block;         /* Burger-Button einblenden */
+    display: block; 
   }
 }
 
