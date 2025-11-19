@@ -1,1 +1,211 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bild gesunder Worte</title>
+<style>
+/* === GLOBALE STILE (wie Timeline) ========================================== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+  color: #001a33;
+  text-align: center;
+  font-size: 19px;
+  /* text-shadow entfernt */
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+/* Navigation */
+nav {
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  font-size: 19px;
+}
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+  /* text-shadow entfernt */
+}
+nav a:hover {
+  color: #ffd700;
+}
+
+/* Header (Timeline-Stil) */
+header {
+  text-align: center;
+  padding: 30px 20px 20px 20px;
+}
+header h1 {
+  font-size: 2.8em;
+  margin: 0 0 10px 0;
+}
+header h2 {
+  font-size: 1.4em;
+  color: #001a33;
+  /* text-shadow entfernt */
+  margin: 10px auto 30px auto;
+  max-width: 60%;
+  line-height: 1.5;
+}
+.mission {
+  font-size: 1.3em;
+  margin: 30px auto 50px;
+  max-width: 60%;
+}
+
+/* Hauptbutton (Timeline-Stil) */
+button.main-btn {
+  background-color: #0070ba;
+  color: #fff;
+  border: none;
+  padding: 12px 22px;
+  font-size: 1.1em;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 50px;
+  text-shadow: 0.5px 0.5px 1px #000a14;
+  transition: background-color 0.3s;
+}
+button.main-btn:hover {
+  background-color: #005a94;
+}
+
+/* Sektionen */
+.section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px auto;
+  max-width: 60%; /* wie bei deinem Header */
+}
+.section a {
+  color: #001a33;
+  font-size: 1.4em;
+  text-decoration: none;
+  font-weight: bold;
+
+  /* WICHTIG */
+  display: block;        /* Block erlaubt Zeilenumbruch */
+  flex: 1 1 auto;       /* Flex-Kind kann in der Breite wachsen/klein werden */
+  margin-right: 20px;    /* Abstand zum Bild */
+}
+.section img {
+  width: 250px;
+  height: auto;
+  border-radius: 10px;
+  margin-left: 20px;
+}
+
+/* === Footer (Timeline-Stil) ================================================ */
+footer {
+  padding: 60px;
+  text-align: center;
+  background: rgba(0,0,0,0.3);
+  font-size: 1em;
+  color: #ffffff;
+}
+footer p {
+  margin: 5px 0;
+  font-size: 1.2em; /* ca. 20% größer */
+  color: #ffffff;
+}
+footer a {
+  color: #ffffff;
+  font-size: 1.2em;
+  text-decoration: none;
+  text-shadow: 0.5px 0.5px 1px #00264d;
+}
+footer button {
+  background-color: #0070ba;
+  border: none;
+  padding: 10px 25px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1em;
+  color: #fff;
+  text-shadow: 0.5px 0.5px 1px #00264d;
+  transition: background-color 0.3s;
+}
+footer button:hover { background-color: #005a94; }
+footer hr {
+  border: none;
+  height: 4px;
+  background-color: #ffffff;
+  margin: 15px 0 40px 0;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Startseite</a>
+  <a href="timeline.html">Timeline / Zeitstrahl</a>
+  <a href="youtube.html" target="_blank">YouTube</a>
+  <a href="mailto:bildgesunderworte@gmail.com">Kontakt</a>
+  <a href="https://www.paypal.com/donate" target="_blank">Unterstützen über PayPal</a>
+</nav>
+  
+<header>
+  <h1>Bild gesunder Worte auf Youtube</h1>
+  <h2>Schaue dir die wichtigsten Punkte meines (des christlichen) Weltbildes an!</h2>
+<div class="mission">
+  <p><strong>Ich wünsche mir von jedem Menschen etwas ähnliches wie die Zusammenfassung! (Link unten)</strong></p>
+
+  <p>Wenn alle anderen Glaubens die Punkte aus der Reihe "Zusammenfassung" überprüfen, bin ich sicher, dass viele falsche Weltbilder sehr schnell verschwinden werden.</p>
+
+  <p>Damit auch viel Leid und Elend, die aufgrund von Lügen und Halbwahrheiten hervorgerufen werden.</p>
+
+  <p>Anhand der Timeline lassen sich die wichtigsten Punkte verständlich und ausreichend überprüfen, sodass man am Ende einen Stand absoluter Wahrheit finden kann!</p>
+
+  <p>Viel Freude beim Studieren der Vergangenheit!</p>
+
+  <p>PS: Die ange Serie (91 Video/24h) war mein erster Versuch, daher ist der teilweise sehr anstrengend und deshalb nur für sehr Interessierte zu empfehlen. Ein paar Punkte wie Bevölkerungsentwicklung, die Timeline Salomos und Jesu und andere in der Zusammenfassung angemerkt sind trotzdem sehenswert.</p>
+</div>
+  <button class="main-btn" onclick="window.location.href='timeline.html'">Zur Timeline / Zum Zeitstrahl</button>
+</header>
+
+<div class="section">
+  <a href="https://www.youtube.com/@BildgesunderWorte" target="_blank">Link: Weltbildvergleich und Timelineanalyse auf Youtube <br>(siehe Reiter Youtube)</a>
+  <img src="images/youtube_bgW_preview.jpg" alt="YouTube BgW Vorschau">
+</div>
+
+<div class="section">
+  <a href="https://www.youtube.com/@GesundeLieder" target="_blank">Link: Eigene Cover von geistlichen Liedern <br>(siehe Reiter Youtube)</a>
+  <img src="images/youtube_lieder_preview.jpg" alt="YouTube Lieder Vorschau">
+</div>
+
+<footer>
+  <p>
+    Kontakt: Bei Fragen und Anregungen sehr gerne an 
+    <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a>
+  </p>
+
+  <div>
+    <button onclick="window.open('https://www.paypal.com/donate','_blank')">
+      Unterstützen über PayPal
+    </button>
+  </div>
+
+  <hr>
+</footer>
+  
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  document.body.style.opacity = "1";
+});
+</script>
+
+</body>
+</html>
 
