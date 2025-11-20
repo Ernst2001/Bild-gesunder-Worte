@@ -7,7 +7,7 @@
 <style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
   color: #001a33;
   font-size: 18px;
@@ -17,51 +17,83 @@ body {
   transition: opacity 0.6s ease-in-out;
 }
 
+/* Header */
 header {
   text-align: center;
   padding: 40px 20px 20px 20px;
 }
-
 header h1 { font-size: 2.5em; margin-bottom: 10px; }
 header p { font-size: 1.3em; margin: 0; }
 
+/* Container */
 .container {
   max-width: 900px;
   margin: 0 auto;
   padding: 20px;
 }
 
+/* Abschnittsüberschriften */
 h2 {
   color: #00264d;
   font-size: 1.8em;
   margin-top: 40px;
   margin-bottom: 15px;
-  border-bottom: 2px solid #0070ba;
-  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-p { margin-bottom: 15px; }
+/* Icons */
+h2::before {
+  content: '⭐'; /* Standardicon, wird in Abschnitts-spezifisch überschrieben */
+  font-size: 1.5em;
+}
 
+/* Individuelle Icons */
+h2.ziel::before { content: '🎯'; }
+h2.motivation::before { content: '💡'; }
+h2.umfang::before { content: '📚'; }
+h2.team::before { content: '👥'; }
+
+/* Textabsätze */
+p {
+  margin-bottom: 18px;
+  background: rgba(255,255,255,0.2);
+  padding: 12px 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: background 0.3s;
+}
+p:hover {
+  background: rgba(255,255,255,0.35);
+}
+
+/* Hervorhebungen */
 .highlight {
   background: rgba(255, 215, 0, 0.15);
-  padding: 10px;
+  padding: 12px 15px;
   border-left: 5px solid #ffd700;
   margin: 15px 0;
+  border-radius: 6px;
 }
 
+/* Button zur Timeline */
 .button {
   display: inline-block;
   margin: 25px 0;
-  padding: 12px 25px;
+  padding: 14px 28px;
   background-color: #0070ba;
   color: #fff;
-  font-size: 1.1em;
+  font-size: 1.15em;
   text-decoration: none;
-  border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-  transition: background-color 0.3s;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: background-color 0.3s, transform 0.2s;
 }
-.button:hover { background-color: #005a94; }
+.button:hover {
+  background-color: #005a94;
+  transform: translateY(-2px);
+}
 
 /* Footer identisch */
 footer {
@@ -88,6 +120,7 @@ footer button {
   transition: background-color 0.3s;
 }
 footer button:hover { background-color: #005a94; }
+
 </style>
 </head>
 <body>
@@ -98,29 +131,32 @@ footer button:hover { background-color: #005a94; }
 </header>
 
 <div class="container">
-  <h2>Ziel des Projekts</h2>
+  <h2 class="ziel">Ziel des Projekts</h2>
   <p>
-    Das Projekt „Fakten statt Mythen“ verfolgt das Ziel, historische Ereignisse transparent und nachvollziehbar darzustellen. 
-    Es bietet eine klar strukturierte Übersicht, die Wissen verständlich aufbereitet.
+    Das Projekt <strong>„Fakten statt Mythen“</strong> hat das Ziel, historische Ereignisse transparent, verständlich und nachvollziehbar darzustellen.
+    Alle Inhalte werden auf Basis überprüfbarer Quellen erstellt.
   </p>
 
-  <h2>Motivation</h2>
+  <h2 class="motivation">Motivation</h2>
   <p>
-    Viele historische Zusammenhänge werden heute verzerrt dargestellt oder vergessen. 
-    Dieses Projekt möchte durch Fakten-basierte Darstellung Klarheit schaffen und Mythen entkräften.
+    In unserer Zeit verschwimmen Fakten und Mythen oft. Dieses Projekt möchte ein klares Bild der Geschichte vermitteln 
+    und gleichzeitig aufzeigen, wie Wissen richtig interpretiert wird.
   </p>
 
-  <h2>Projektumfang</h2>
+  <h2 class="umfang">Projektumfang</h2>
   <p>
-    Neben der chronologischen Darstellung von Ereignissen bietet das Projekt tiefergehende Hintergrundinformationen, Quellenangaben und weiterführende Literatur.
+    Neben einer chronologischen Übersicht bietet das Projekt detaillierte Hintergrundinformationen, Quellenangaben und weiterführende Literatur, 
+    die ein tieferes Verständnis ermöglichen.
   </p>
 
-  <a href="timeline.html" class="button">Zur interaktiven Timeline</a>
+  <div class="highlight">
+    Direkt zur vollständigen Übersicht: <a href="timeline.html" class="button">Interaktive Timeline öffnen</a>
+  </div>
 
-  <h2>Team / Initiator</h2>
+  <h2 class="team">Team / Initiator</h2>
   <p>
-    Hinter dem Projekt steht ein engagiertes Team, das Wert auf wissenschaftliche Genauigkeit und verständliche Darstellung legt. 
-    Jede Information wird geprüft und transparent aufgeführt.
+    Ein engagiertes Team von Fachleuten prüft jede Information sorgfältig und stellt sicher, dass sie korrekt und verständlich präsentiert wird. 
+    Transparenz und Nachvollziehbarkeit sind unsere obersten Prinzipien.
   </p>
 </div>
 
