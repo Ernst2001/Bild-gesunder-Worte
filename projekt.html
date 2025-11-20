@@ -8,6 +8,7 @@
 <style>
 /* === Navigation global ===================================================== */
 .bgw-nav {
+  height: 55px !important;
   background: rgba(0,0,0,0.3) !important;
   padding: 0px 0 !important;
   position: sticky !important;
@@ -34,9 +35,11 @@
 
 /* Fix: exakt wie Index-Seite */
 .bgw-menu li a {
-  line-height: 1.2 !important;
   text-shadow: none !important;
   padding: 2px 4px !important;  
+  line-height: 55px !important;   /* sorgt dafür, dass die Links zentriert sind */
+  display: flex !important;
+  align-items: center !important;
 }
 
 .bgw-menu {
