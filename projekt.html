@@ -10,9 +10,12 @@ body {
   font-family: Arial, sans-serif;
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
   color: #001a33;
-  line-height: 1.6;
   font-size: 18px;
+  line-height: 1.6;
   text-shadow: 0.3px 0.3px 0.8px #000a14;
+  overflow-x: hidden;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
 }
 
 header {
@@ -20,24 +23,15 @@ header {
   padding: 40px 20px 20px 20px;
 }
 
-header h1 {
-  font-size: 2.5em;
-  margin-bottom: 10px;
-}
+header h1 { font-size: 2.5em; margin-bottom: 10px; }
+header p { font-size: 1.3em; margin: 0; }
 
-header p {
-  font-size: 1.3em;
-  margin: 0;
-}
-
-/* Container für Inhalte */
 .container {
   max-width: 900px;
   margin: 0 auto;
   padding: 20px;
 }
 
-/* Abschnittsüberschriften */
 h2 {
   color: #00264d;
   font-size: 1.8em;
@@ -47,17 +41,37 @@ h2 {
   padding-bottom: 5px;
 }
 
-/* Absätze */
-p {
-  margin-bottom: 15px;
-}
+p { margin-bottom: 15px; }
 
-/* Optional: wichtige Punkte hervorheben */
 .highlight {
   background: rgba(255, 215, 0, 0.15);
   padding: 10px;
   border-left: 5px solid #ffd700;
   margin: 15px 0;
+}
+
+/* Timeline-Container */
+#timeline-wrapper {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+  margin: 20px 0;
+  border: 1px solid rgba(0,0,0,0.2);
+  cursor: grab;
+}
+#timeline {
+  display: flex;
+  height: 100%;
+  transform-origin: 0 0;
+  user-select: none;
+}
+#timeline img {
+  height: 100%;
+  flex-shrink: 0;
+  object-fit: cover;
+  -webkit-user-drag: none;
+  user-drag: none;
 }
 
 /* Footer */
@@ -71,17 +85,8 @@ footer {
   z-index: 1000;
 }
 
-footer p {
-  margin: 5px 0;
-}
-
-footer p a {
-  color: #ffffff;
-  text-decoration: none;
-  text-shadow: 0.5px 0.5px 1px #00264d;
-  font-size: 0.9em;
-}
-
+footer p { margin: 5px 0; font-size:0.9em; }
+footer p a { color: #ffffff; text-decoration: none; text-shadow: 0.5px 0.5px 1px #00264d; }
 footer button {
   background-color: #0070ba;
   border: none;
@@ -116,26 +121,19 @@ footer button:hover { background-color: #005a94; }
     Dieses Projekt möchte durch Fakten-basierte Darstellung Klarheit schaffen und Mythen entkräften.
   </p>
 
-  <h2>Umsetzung</h2>
+  <h2>Interaktive Timeline</h2>
   <p>
-    Die Inhalte basieren auf sorgfältiger Recherche und werden in einer interaktiven Timeline sowie ergänzenden Texten präsentiert. 
-    Ziel ist es, sowohl visuell als auch inhaltlich ein professionelles und ansprechendes Erlebnis zu schaffen.
+    Hier sehen Sie die wichtigsten Ereignisse im Überblick. Sie können die Timeline per Maus oder Touch bewegen und zoomen, 
+    um Details zu erforschen.
   </p>
-
-  <div class="highlight">
-    <strong>Besonderheit:</strong> Die Timeline erlaubt direkte Vergleiche zwischen Epochen und zeigt Zusammenhänge auf einen Blick.
+  <div id="timeline-wrapper">
+    <div id="timeline"></div>
   </div>
 
   <h2>Team / Initiator</h2>
   <p>
     Hinter dem Projekt steht ein engagiertes Team, das Wert auf wissenschaftliche Genauigkeit und verständliche Darstellung legt. 
     Jede Information wird geprüft und transparent aufgeführt.
-  </p>
-
-  <h2>Kontakt & Unterstützung</h2>
-  <p>
-    Für Fragen oder Anregungen können Sie uns jederzeit kontaktieren. 
-    Unterstützen Sie das Projekt, um die unabhängige und faktenbasierte Aufbereitung von Geschichte langfristig zu sichern.
   </p>
 </div>
 
@@ -147,6 +145,93 @@ footer button:hover { background-color: #005a94; }
   <button>Unterstützen über PayPal</button>
 </footer>
 
+<script>
+// === TIMELINE-BILDER =========================================================
+const timelineWrapper = document.getElementById('timeline-wrapper');
+const timeline = document.getElementById('timeline');
+const totalPages = 17; // Anzahl Bilder für die Timeline
+
+for (let i = 1; i <= totalPages; i++) {
+  const img = document.createElement('img');
+  img.src = `images/Seite${i}.png`;
+  img.alt = `Seite ${i}`;
+  timeline.appendChild(img);
+}
+
+// === ZUSTAND ===============================================================
+let scale = 0.7, targetScale = 0.7;
+let translateX = 0, translateY = 0;
+let targetTranslateX = 0, targetTranslateY = 0;
+let isDragging = false, startX, startY;
+
+// Drag
+timelineWrapper.addEventListener('mousedown', e => {
+  isDragging = true;
+  startX = e.clientX - targetTranslateX;
+  startY = e.clientY - targetTranslateY;
+  timelineWrapper.style.cursor = 'grabbing';
+});
+document.addEventListener('mouseup', () => { isDragging = false; timelineWrapper.style.cursor = 'grab'; });
+document.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  targetTranslateX = e.clientX - startX;
+  targetTranslateY = e.clientY - startY;
+  applyBounds();
+});
+
+// Zoom mit Mausrad
+timelineWrapper.addEventListener('wheel', e => {
+  e.preventDefault();
+  const rect = timelineWrapper.getBoundingClientRect();
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
+  const zoomFactor = Math.exp(-e.deltaY * 0.0015);
+  const newScale = Math.min(Math.max(0.3, scale * zoomFactor), 5);
+  const contentX = (mouseX - translateX) / scale;
+  const contentY = (mouseY - translateY) / scale;
+  targetTranslateX = mouseX - contentX * newScale;
+  targetTranslateY = mouseY - contentY * newScale;
+  targetScale = newScale;
+  applyBounds();
+});
+
+// Grenzen
+function applyBounds() {
+  const wrapperRect = timelineWrapper.getBoundingClientRect();
+  const timelineWidth = timeline.scrollWidth * targetScale;
+  const timelineHeight = timeline.scrollHeight * targetScale;
+
+  if(timelineWidth <= wrapperRect.width) targetTranslateX = (wrapperRect.width - timelineWidth)/2;
+  else {
+    const minX = wrapperRect.width - timelineWidth;
+    const maxX = 0;
+    targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
+  }
+
+  if(timelineHeight <= wrapperRect.height) targetTranslateY = (wrapperRect.height - timelineHeight)/2;
+  else {
+    const minY = wrapperRect.height - timelineHeight;
+    const maxY = 0;
+    targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
+  }
+}
+
+// Animation Loop
+function animate() {
+  scale += (targetScale - scale) * 0.15;
+  translateX += (targetTranslateX - translateX) * 0.15;
+  translateY += (targetTranslateY - translateY) * 0.15;
+  timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  requestAnimationFrame(animate);
+}
+animate();
+
+// Drag auf Bildern verhindern
+timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
+
+// Fade-In
+window.onload = () => { document.body.style.opacity = "1"; };
+</script>
+
 </body>
 </html>
-
