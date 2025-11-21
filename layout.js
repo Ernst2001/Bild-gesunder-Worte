@@ -1,5 +1,5 @@
-// Navigation & Footer laden
-async function loadLayout() {
+// Layout laden + Fade-in
+window.addEventListener("DOMContentLoaded", async () => {
   // NAVIGATION
   const navHtml = await fetch("layout/nav.html").then(r => r.text());
   document.getElementById("layout-nav").innerHTML = navHtml;
@@ -8,8 +8,12 @@ async function loadLayout() {
   const footerHtml = await fetch("layout/footer.html").then(r => r.text());
   document.getElementById("layout-footer").innerHTML = footerHtml;
 
+  // Menü aktivieren
   activateMenu();
-}
+
+  // Fade-in
+  document.body.style.opacity = "1";
+});
 
 // Menü anzeigen / verstecken (Burger)
 function toggleBGWMenu() {
@@ -27,7 +31,3 @@ function activateMenu() {
     }
   });
 }
-
-window.addEventListener("DOMContentLoaded", () => {
-  loadLayout();
-});
