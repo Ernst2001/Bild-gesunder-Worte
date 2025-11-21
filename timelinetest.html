@@ -119,6 +119,7 @@ header p {
 #controls button:hover { background-color:#005a94; }
 
 #timeline-wrapper { 
+  height: calc(100vh - 200px); /* genug Platz für Header + Footer */
   width:100%; height:91vh; overflow:hidden; position:relative; cursor:grab; 
   margin:20px 0; border:1px solid rgba(0,0,0,0.2); 
 }
@@ -187,13 +188,17 @@ footer hr {
 
 <nav class="bgw-nav">
   <button class="bgw-burger" onclick="toggleBGWMenu()">☰</button>
-  <ul class="bgw-menu">
-    <li><a href="index.html" data-page="index">Startseite</a></li>
-    <li><a href="timeline.html" data-page="timeline">Timeline / Zeitstrahl</a></li>
-    <li><a href="youtube.html" data-page="youtube">YouTube</a></li>
-    <li><a href="mailto:bildgesunderworte@gmail.com" data-page="kontakt">Kontakt</a></li>
-    <li><a href="https://www.paypal.com/donate" target="_blank">Unterstützen über Paypal</a></li>
-  </ul>
+<ul class="bgw-menu">
+  <li><a href="index.html" data-page="index">Startseite</a></li>
+  <li><a href="projekt.html" data-page="projekt">Über das Projekt</a></li>
+  <li><a href="grundlagen.html" data-page="grundlagen">Grundlagen / Wahrheit</a></li>
+  <li><a href="timeline.html" data-page="timeline">Timeline / Zeitstrahl</a></li>
+  <li><a href="youtube.html" data-page="youtube">YouTube</a></li>
+  <li><a href="faq.html" data-page="faq">FAQ</a></li>
+  <li><a href="kontakt.html" data-page="kontakt">Kontakt</a></li>
+  <li><a href="unterstützen.html" target="_blank">Unterstützen über Paypal</a></li>
+</ul>
+
 </nav>
 
 
@@ -455,7 +460,7 @@ footer hr {
   
   
 <footer>
-  <p style="font-size: 1.4em; color:#ffffff; margin:5px 0;">
+  <p style="font-size:1.4em; color:#ffffff; margin:5px 0;">
     Kontakt: Bei Fragen und Anregungen sehr gerne an 
     <a href="mailto:bildgesunderworte@gmail.com" style="font-size:1.2em; color:#ffffff; text-decoration:none; text-shadow:0.5px 0.5px 1px #00264d;">
       bildgesunderworte@gmail.com
@@ -465,8 +470,16 @@ footer hr {
     Unterstützen über PayPal
   </button>
   <hr style="border:none; height:4px; background-color:#ffffff; margin:15px 0 40px 0;">
+
+  <!-- Kleiner Footer-Links-Bereich -->
+  <p style="font-size:0.7em; margin:5px 0;">
+    <a href="impressum.html" style="color:#ffffff; text-decoration:none; text-shadow:0.5px 0.5px 1px #00264d;">Impressum</a> | 
+    <a href="datenschutz.html" style="color:#ffffff; text-decoration:none; text-shadow:0.5px 0.5px 1px #00264d;">Datenschutzerklärung</a>
+  </p>
 </footer>
 
+
+  
 <script>
 // === TIMELINE-BILDER =========================================================
 const wrapper = document.getElementById('timeline-wrapper');
