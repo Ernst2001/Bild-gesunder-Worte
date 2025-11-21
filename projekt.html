@@ -27,8 +27,7 @@ body {
   transition: opacity 0.6s ease-in-out;
 }
 
-<!-- NAVIGATION UND FOOTER werden über layout.js geladen -->
-<div id="layout-nav"></div>
+
   
 header {
   text-align: center;
@@ -98,11 +97,18 @@ p {
 
 
 </style>
+  
 </head>
 
+  
 <body>
 
 
+
+<!-- NAVIGATION UND FOOTER werden über layout.js geladen -->
+<div id="layout-nav"></div>
+  
+  
 <header>
   <h1>Über das Projekt</h1>
   <p class="subtitle">Ein Überblick über Ziel, Motivation und den Aufbau der Timeline</p>
@@ -159,19 +165,18 @@ p {
 <script>
 window.addEventListener("DOMContentLoaded", () => {
   document.body.style.opacity = "1";
-});
 
-function toggleBGWMenu() {
-  document.querySelector(".bgw-menu").classList.toggle("show");
-}
-
-window.addEventListener("DOMContentLoaded", () => {
+  // Aktiven Menüpunkt markieren (kann auch in layout.js)
   let page = location.pathname.split("/").pop().replace(".html", "");
   if(page === "") page = "index";
   document.querySelectorAll(".bgw-menu a").forEach(a => {
     if (a.dataset.page === page) { a.classList.add("active"); }
   });
 });
+
+function toggleBGWMenu() {
+  document.querySelector(".bgw-menu").classList.toggle("show");
+}
 </script>
 
 </body>
