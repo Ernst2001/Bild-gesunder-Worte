@@ -18,7 +18,7 @@ body {
 /* === Navigation global ===================================================== */
 .bgw-nav {
   background: rgba(0,0,0,0.3) !important;
-  padding: 0px 0 !important;
+  padding: 14px 0 !important;
   position: sticky !important;
   top: 0 !important;
   z-index: 100 !important;
@@ -44,10 +44,10 @@ body {
 
 .bgw-menu li a {
   color: white;
-  font-size: 19px;
+  font-size: 22px; /* vorher vielleicht 22–24px */
   font-weight: bold;
   text-decoration: none;
-  padding: 2px 4px;
+  padding: 8px 12px; /* gleich anpassen für mehr „Höhe“ */
   border-radius: 2px;
   cursor: pointer;
 }
