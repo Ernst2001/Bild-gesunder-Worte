@@ -3,7 +3,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   // NAVIGATION LADEN ---------------------------------------------------------
-  fetch("nav.html")
+  fetch("layout/nav.html")
     .then(res => res.text())
     .then(html => {
       document.getElementById("layout-nav").innerHTML = html;
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // FOOTER LADEN -------------------------------------------------------------
-  fetch("footer.html")
+  fetch("layout/footer.html")
     .then(res => res.text())
     .then(html => {
       document.getElementById("layout-footer").innerHTML = html;
