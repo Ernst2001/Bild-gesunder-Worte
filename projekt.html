@@ -6,56 +6,58 @@
 <title>Über das Projekt – Bild gesunder Worte</title>
 
 <style>
-/* === Navigation global ===================================================== */
+/* === Navigation global ===================================================== *//* === Navigation global ===================================================== */
+
 .bgw-nav {
-  background: rgba(0,0,0,0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  background: rgba(0,0,0,0.3) !important;
+  padding: 0px 0 !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
+
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
-
-.bgw-menu {
-  list-style: none;
-  display: flex;
-  gap: 25px;
-  margin: 0;
-  padding: 0;
-}
-
-.bgw-menu li a {
-  display: flex;
-  align-items: center;
-  color: white;
-  font-size: 19px;       /* richtige Schriftgröße */
-  font-weight: bold;
-  padding: 0 4px;
-  text-decoration: none;
-  border-radius: 2px;
-  cursor: pointer;
-  text-shadow: none;
-}
-
-.bgw-menu li a:hover {
-  background: rgba(255,255,255,0.25);
-  color: #ffd700;
-}
-
-.bgw-menu li a.active {
-  background: rgba(255,255,255,0.5);
-  color: #00264d;
-  border-bottom: 3px solid #ffd700;
-}
-
-
 
 .bgw-nav * {
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
 
+/* Menü */
+.bgw-menu {
+  list-style: none;
+  display: flex !important;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+.bgw-menu li a {
+  color: white;
+  font-size: 19px;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 2px 4px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* Hover */
+.bgw-menu li a:hover {
+  background: rgba(255,255,255,0.25);
+  color: #ffd700;
+}
+
+/* Aktiver Menüpunkt */
+.bgw-menu li a.active {
+  background: rgba(255,255,255,0.5);
+  color: #00264d;
+  border-bottom: 3px solid #ffd700;
+}
+
+/* Burger Button */
 .bgw-burger {
   display: none;
   font-size: 2em;
@@ -63,14 +65,18 @@
   cursor: pointer;
 }
 
+/* Mobile */
 @media (max-width: 700px) {
+
   .bgw-nav {
     justify-content: space-between !important;
     padding: 2px 2px !important;
   }
+
   .bgw-burger {
     display: block !important;
   }
+
   .bgw-menu {
     flex-direction: column !important;
     width: 100%;
@@ -79,14 +85,17 @@
     padding: 10px 0;
     gap: 10px;
   }
+
   .bgw-menu.show {
     display: flex;
   }
+
   .bgw-menu li a {
     font-size: 1.4em;
     padding: 10px;
   }
 }
+
 
 /* === GLOBALE STILE ======================================================== */
 body {
