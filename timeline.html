@@ -267,6 +267,7 @@ header p {
   font-family: 'Georgia', 'Times New Roman', serif;
   line-height: 1.6;
   font-size: 1.3em;
+  text-align: left; /* linksbündig */
 }
 
 #important-points h2 {
@@ -277,8 +278,8 @@ header p {
 
 /* Allgemeine Styles für Details */
 #important-points details {
-  margin-bottom: 10px;
-  padding: 15px;
+  margin-bottom: 20px; /* etwas größerer Abstand zwischen Hauptpunkten */
+  padding: 15px 20px;
   border-radius: 8px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -286,6 +287,9 @@ header p {
 /* Abwechselnde Hintergrundfarbe */
 #important-points details:nth-child(even) {
   background-color: #f5f5f5;
+}
+#important-points details:nth-child(odd) {
+  background-color: #e8f0f8;
 }
 
 /* Punkt-spezifische dezente Farben */
@@ -305,9 +309,21 @@ header p {
   font-size: 1.15em;
 }
 
+/* Linksbündige Aufzählungen */
 #important-points ul {
   margin-top: 10px;
+  margin-left: 20px; /* Einrückung Unterpunkte */
 }
+
+#important-points ul ul {
+  margin-left: 25px; /* Unter-Unterpunkte noch weiter eingerückt */
+}
+
+/* Optional: größere Absätze zwischen Hauptpunkten */
+#important-points details + details {
+  margin-top: 30px;
+}
+
 
 /* Ende Text */
 </style>
