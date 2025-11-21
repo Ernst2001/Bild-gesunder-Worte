@@ -143,3 +143,29 @@ footer hr {
   background-color: #ffffff;
   margin: 15px 0 40px 0;
 }
+
+/* Timeline-Button ähnlich wie PayPal-Button, etwas größer */
+button.main-btn {
+  background-color: #0070ba;
+  border: none;
+  padding: 12px 28px;   /* etwas größer als der PayPal-Button */
+  font-size: 1.1em;     /* Schrift etwas größer */
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  text-shadow: 0.5px 0.5px 1px #00264d;
+  transition: background-color 0.3s;
+}
+
+button.main-btn:hover {
+  background-color: #005a94;
+}
+
+/* Mobile Anpassungen für Buttons */
+@media (max-width: 700px) {
+  button.main-btn,
+  footer button {
+    font-size: 1em;       /* etwas kleiner als auf Desktop */
+    padding: 10px 20px;   /* Platz wird reduziert */
+  }
+}
