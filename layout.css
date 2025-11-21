@@ -1,0 +1,132 @@
+/* === Navigation global ===================================================== */
+.bgw-nav {
+  background: rgba(0,0,0,0.3) !important;
+  padding: 0px 0 !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
+
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.bgw-nav * {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Menü */
+.bgw-menu {
+  list-style: none;
+  display: flex !important;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+.bgw-menu li a {
+  color: white;
+  font-size: 19px;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 2px 4px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* Hover */
+.bgw-menu li a:hover {
+  background: rgba(255,255,255,0.25);
+  color: #ffd700;
+}
+
+/* Aktiver Menüpunkt */
+.bgw-menu li a.active {
+  background: rgba(255,255,255,0.5);
+  color: #00264d;
+  border-bottom: 3px solid #ffd700;
+}
+
+/* Burger Button */
+.bgw-burger {
+  display: none;
+  font-size: 2em;
+  color: white;
+  cursor: pointer;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+
+  .bgw-nav {
+    justify-content: space-between !important;
+    padding: 2px 2px !important;
+  }
+
+  .bgw-burger {
+    display: block !important;
+  }
+
+  .bgw-menu {
+    flex-direction: column !important;
+    width: 100%;
+    display: none;
+    background: rgba(0,0,0,0.4);
+    padding: 10px 0;
+    gap: 10px;
+  }
+
+  .bgw-menu.show {
+    display: flex;
+  }
+
+  .bgw-menu li a {
+    font-size: 1.4em;
+    padding: 10px;
+  }
+}
+
+/* === Footer ============================================================== */
+footer {
+  padding: 60px;
+  text-align: center;
+  background: rgba(0,0,0,0.3);
+  color: #ffffff;
+  font-size: 1em;
+}
+
+footer p {
+  margin: 5px 0;
+  font-size: 1.2em;
+  color: #ffffff;
+}
+
+footer a {
+  color: #ffffff;
+  font-size: 1.2em;
+  text-decoration: none;
+  text-shadow: 0.5px 0.5px 1px #00264d;
+}
+
+footer button {
+  background-color: #0070ba;
+  border: none;
+  padding: 10px 25px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1em;
+  color: #fff;
+  text-shadow: 0.5px 0.5px 1px #00264d;
+}
+
+footer button:hover {
+  background-color: #005a94;
+}
+
+footer hr {
+  border: none;
+  height: 4px;
+  background-color: #ffffff;
+  margin: 15px 0 40px 0;
+}
