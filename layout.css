@@ -2,9 +2,6 @@
 body {
   opacity: 0;
   transition: opacity 0.6s ease-in-out;
-}
-
-body {
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
   color: #001a33;
   font-family: Arial, sans-serif;
@@ -12,17 +9,18 @@ body {
   text-align: center;
   opacity: 0; /* bleibt für Fade-in */
   transition: opacity 0.6s ease-in-out;
+  padding-top: 60px; /* Höhe der Nav anpassen */
 }
 
 
 /* === Navigation global ===================================================== */
 .bgw-nav {
-  background: rgba(0,0,0,0.3) !important;
-  padding: 14px 0 !important;
-  position: sticky !important;
+  position: fixed !important;
   top: 0 !important;
+  width: 100%; /* Wichtig, sonst wird sie nur so breit wie der Inhalt */
+  background: rgba(0,0,0,0.3) !important;
+  padding: 15px 0 !important;
   z-index: 100 !important;
-
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
