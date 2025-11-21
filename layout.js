@@ -1,33 +1,55 @@
-// Layout laden + Fade-in
-window.addEventListener("DOMContentLoaded", async () => {
-  // NAVIGATION
-  const navHtml = await fetch("layout/nav.html").then(r => r.text());
-  document.getElementById("layout-nav").innerHTML = navHtml;
+// --- Globale Layout-Funktionen: Navigation + Footer laden --------------------
 
-  // FOOTER
-  const footerHtml = await fetch("layout/footer.html").then(r => r.text());
-  document.getElementById("layout-footer").innerHTML = footerHtml;
+document.addEventListener("DOMContentLoaded", () => {
 
-  // Menü aktivieren
-  activateMenu();
+  // NAVIGATION LADEN ---------------------------------------------------------
+  fetch("nav.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("layout-nav").innerHTML = html;
+      initNavigation();
+      markActivePage();
+    })
+    .catch(err => console.error("Fehler beim Laden der Navigation:", err));
 
-  // Fade-in
-  document.body.style.opacity = "1";
+
+  // FOOTER LADEN -------------------------------------------------------------
+  fetch("footer.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("layout-footer").innerHTML = html;
+    })
+    .catch(err => console.error("Fehler beim Laden des Footers:", err));
 });
 
-// Menü anzeigen / verstecken (Burger)
-function toggleBGWMenu() {
-  document.querySelector(".bgw-menu").classList.toggle("show");
+
+// --- Navigation initialisieren (Burger-Menü etc.) ---------------------------
+
+function initNavigation() {
+  const burger = document.querySelector(".bgw-burger");
+  const menu   = document.querySelector(".bgw-menu");
+
+  if (burger && menu) {
+    burger.addEventListener("click", () => {
+      menu.classList.toggle("show");
+    });
+  }
 }
 
-// Aktive Seite markieren
-function activateMenu() {
-  let page = location.pathname.split("/").pop().replace(".html", "");
-  if (page === "") page = "index";
+
+// --- Aktiven Menüpunkt markieren --------------------------------------------
+
+function markActivePage() {
+  let page = location.pathname.split("/").pop();
+
+  if (page === "" || !page.includes(".html")) {
+    page = "index.html"; // Standard
+  }
 
   document.querySelectorAll(".bgw-menu a").forEach(a => {
-    if (a.dataset.page === page) {
+    if (a.getAttribute("href") === page) {
       a.classList.add("active");
     }
   });
 }
+
