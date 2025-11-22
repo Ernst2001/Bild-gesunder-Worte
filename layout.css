@@ -104,62 +104,60 @@ body {
 
 
 /* === Footer ============================================================== */
-
-#layout-footer footer {
-  padding: 3.75rem; /* 60px */
+footer {
+  padding: 3.75rem;
   text-align: center;
   background: rgba(0,0,0,0.3);
   color: #ffffff;
-  font-size: 1rem; /* Basis */
+  font-size: 1rem;
 }
 
-/* Großer Kontakt-Text */
-#layout-footer footer p:first-of-type {
-  font-size: 1.4rem;   /* Größer */
-  margin: 0.5rem 0;
-}
-
-/* Email im Kontakttext */
-#layout-footer footer p:first-of-type a {
-  font-size: 1.4rem;
+/* Haupt-Text: "Kontakt …" */
+footer p {
+  margin: 0.3125rem 0;
+  font-size: 1.25rem; /* Eine Stufe kleiner als vorher, gut lesbar */
   color: #ffffff;
-  text-decoration: none;
 }
 
-/* PayPal-Button */
-#layout-footer footer button {
+/* PayPal-Button (gleich groß wie Kontakttext) */
+footer button {
   background-color: #0070ba;
   border: none;
-  padding: 0.625rem 1.5625rem;
+  padding: 0.75rem 1.75rem;
   cursor: pointer;
   border-radius: 0.3125rem;
-  font-size: 1.4rem;  /* gleiche Größe wie Kontakttext */
+  font-size: 1.25rem; /* exakt gleiche Größe wie footer p */
   color: #fff;
   text-shadow: 0.03rem 0.03rem 0.06rem #00264d;
 }
 
-/* Hover */
-#layout-footer footer button:hover {
+footer button:hover {
   background-color: #005a94;
 }
 
-/* Trennlinie */
-#layout-footer footer hr {
+/* Impressum / Datenschutz – klein, aber eine Stufe größer als vorher */
+#layout-footer p:last-of-type {
+  font-size: 0.9rem;
+}
+
+#layout-footer p:last-of-type a {
+  font-size: 0.9rem;
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: 0.03rem 0.03rem 0.06rem #00264d;
+}
+
+footer hr {
   border: none;
   height: 0.25rem;
   background-color: #ffffff;
-  margin: 1rem 0 2.2rem 0;
+  margin: 0.9375rem 0 2.5rem 0;
 }
 
-/* Kleiner Impressum/Datenschutz-Bereich */
-#layout-footer footer p:last-of-type {
-  font-size: 0.75rem;
-  margin-top: 1.2rem;
+/* Mobile: Nur PayPal-Button, NICHT der Timeline-Button */
+@media (max-width: 700px) {
+  footer button {
+    font-size: 1.1rem;
+    padding: 0.625rem 1.25rem;
+  }
 }
-
-#layout-footer footer p:last-of-type a {
-  font-size: 0.75rem;
-  color: #ffffff;
-  text-decoration: none;
-}
-
