@@ -543,7 +543,7 @@ animate();
 // === VERHINDERT DRAG AUF TIMELINE-IMAGES ====================================
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// === STARTPOSITION NACH LADEZEIT ============================================
+// === STARTPOSITION NACH LADEZEIT ============================================ wird das nicht in js schon passieren?
 window.onload = () => {
   // Fade-In starten
   document.body.style.opacity = "1";
