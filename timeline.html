@@ -310,35 +310,30 @@ header p {
 }
 
 /* Entfernt den unerwünschten Abstand ÜBER den Listen */
-/* Entfernt den unerwünschten Abstand ÜBER den Listen */
+/* Oberste UL in #important-points */
 #important-points ul {
-  margin-top: 0;     
-  margin-left: 1.25rem;
+  margin: 0 0 1.5rem 1.25rem; /* oben:0, unten:1.5rem, links:1.25rem */
+  padding: 0;
+  list-style-position: inside;
 }
 
-/* Unterlisten */
+/* Unterlisten (UL innerhalb von UL) */
 #important-points ul ul {
-  margin-top: 0.4rem;
-  margin-left: 1.5625rem;
-}
-
-/* Titel einer Kategorie */
-#important-points li > strong {
-  display: block;
-  margin-top: 0.3rem;   /* kleiner Abstand nach Kategorie-Titel */
-  margin-bottom: 0.3rem;
-}
-
-/* Großer Abstand zwischen Kategorien (unter der Liste) */
-#important-points li > ul {
-  margin-bottom: 2.2rem;
-}
-
-/* Entfernt margin bei einfachen LI */
-#important-points li {
-  margin: 0;
+  margin: 0 0 1rem 1.5rem; /* kleinerer Abstand für Unterlisten */
   padding: 0;
 }
+
+/* LI-Abstände */
+#important-points li {
+  margin: 0.4rem 0; /* Abstand zwischen Listenelementen */
+  padding: 0;
+}
+
+/* Starker Abstand zwischen Kategorien (LI > UL) */
+#important-points li > ul {
+  margin-bottom: 2rem;
+}
+
 
   
 /* Optional: größere Absätze zwischen Hauptpunkten */
