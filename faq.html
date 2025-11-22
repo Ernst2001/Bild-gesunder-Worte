@@ -9,8 +9,7 @@
 <script src="js/layout.js" defer></script>
 
 <style>
-/* === GLOBALE SEITENSTILE ==================================================== */
-
+/* === GLOBALE STILE FÜR DIESE SEITE ======================================== */
 body {
   padding-top: 60px;
   margin: 0;
@@ -30,12 +29,12 @@ header {
 }
 
 header h1 {
-  font-size: 2.5em;
+  font-size: 2.3em;
   margin-bottom: 10px;
 }
 
 header p.subtitle {
-  font-size: 1.3em;
+  font-size: 1.2em;
   max-width: 60%;
   margin: 0 auto;
 }
@@ -45,204 +44,345 @@ header p.subtitle {
   margin: 0 auto;
   padding: 20px;
   text-align: left;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
 }
 
-/* --- FAQ SUCHFELD ---------------------------------------------------------- */
+/* Kategorien */
+#faq-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 25px 0 35px;
+}
 
+.cat-btn {
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.35);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.3s;
+  text-shadow: 0.4px 0.4px 1px #000a14;
+}
+
+.cat-btn:hover {
+  background: rgba(255,255,255,0.55);
+}
+
+.cat-btn.active {
+  background: #0070ba;
+  color: white;
+}
+
+/* Suchfeld */
 #faq-search {
   width: 100%;
-  padding: 12px 15px;
-  font-size: 1.1rem;
-  border-radius: 8px;
-  border: 1px solid #88a7be;
-  margin-bottom: 25px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  margin: 20px 0 25px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-/* --- ACCORDION STIL -------------------------------------------------------- */
-
+/* Fragen-Blöcke */
 .faq-item {
+  background: rgba(255,255,255,0.22);
   margin-bottom: 15px;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  padding-left: 55px; /* Platz für Nummer */
+  position: relative;
 }
 
+/* Nummerierung */
+.faq-item::before {
+  content: attr(data-number);
+  position: absolute;
+  left: 18px;
+  top: 16px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #003a6b;
+  opacity: 0.85;
+}
+
+/* Frage */
 .faq-question {
-  background: rgba(255,255,255,0.25);
-  padding: 15px;
+  width: 100%;
+  text-align: left;
+  padding: 14px 18px;
+  background: none;
+  border: none;
+  font-size: 1.15rem;
   font-weight: bold;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.25rem;
 }
 
-.faq-question:hover {
-  background: rgba(255,255,255,0.35);
-}
-
-.faq-icon {
-  font-size: 1.2rem;
-  transition: transform 0.3s;
-}
-
+/* Antwort */
 .faq-answer {
-  background: rgba(255,255,255,0.22);
-  padding: 15px;
   display: none;
-  line-height: 1.6;
+  padding: 0 18px 15px 18px;
+  line-height: 1.55;
 }
 
-.faq-answer p {
-  margin: 0;
+/* Symbol */
+.faq-question span {
+  font-size: 1.4rem;
 }
 
-/* --- ROTATION BEI OFFENEM ACCORDION --------------------------------------- */
-.faq-item.open .faq-icon {
-  transform: rotate(90deg);
-}
-
-/* --- RESPONSIVE ------------------------------------------------------------ */
+/* RESPONSIVE */
 @media (max-width: 700px) {
   .container {
     max-width: 95%;
     padding: 10px 15px;
   }
-
-  header h1 {
-    font-size: 2rem;
+  .faq-item {
+    padding-left: 45px;
   }
-
-  header p.subtitle {
-    font-size: 1.1rem;
-    max-width: 90%;
-  }
-
-  .faq-question {
-    font-size: 1.1rem;
+  .faq-item::before {
+    left: 12px;
   }
 }
 </style>
-</head>
 
+</head>
 <body>
 
 <!-- NAVIGATION -->
 <div id="layout-nav"></div>
 
 <header>
-  <h1>FAQ – Häufige Fragen</h1>
-  <p class="subtitle">Antworten auf häufige Fragen zu Projekt, Methode und Timeline</p>
+  <h1>FAQ – Häufig gestellte Fragen</h1>
+  <p class="subtitle">
+    Antworten auf häufige Fragen zu Wahrheit, Logik, Bibel, Timeline und dem Projekt.
+  </p>
 </header>
 
 <div class="container">
 
-  <!-- SUCHE -->
-  <input 
-    type="text"
-    id="faq-search"
-    placeholder="Nach Stichworten suchen … z.B. Wahrheit, Timeline, Glaube">
+  <!-- SUCHFELD -->
+  <input type="text" id="faq-search" placeholder="Suche nach Stichworten …">
 
-  <!-- FAQ LISTE -->
-  <div class="faq-list">
-
-    <!-- FAQ 1 -->
-    <div class="faq-item">
-      <div class="faq-question">
-        <span>Was ist das Ziel des Projekts „Bild gesunder Worte“?</span>
-        <span class="faq-icon">▶</span>
-      </div>
-      <div class="faq-answer">
-        <p>Das Projekt möchte Wahrheit sauber definieren, logisch herleiten und verständlich
-        darstellen. Dadurch soll jeder die eigene Denkgrundlage kritisch prüfen können.</p>
-      </div>
-    </div>
-
-    <!-- FAQ 2 -->
-    <div class="faq-item">
-      <div class="faq-question">
-        <span>Warum beginnt das Projekt mit der Definition von Wahrheit?</span>
-        <span class="faq-icon">▶</span>
-      </div>
-      <div class="faq-answer">
-        <p>Viele Diskussionen scheitern daran, dass Menschen unterschiedliche Begriffe verwenden.
-        Eine klare Definition von Wahrheit ist notwendig, um Denken sauber aufzubauen.</p>
-      </div>
-    </div>
-
-    <!-- FAQ 3 -->
-    <div class="faq-item">
-      <div class="faq-question">
-        <span>Wofür ist die Timeline gedacht?</span>
-        <span class="faq-icon">▶</span>
-      </div>
-      <div class="faq-answer">
-        <p>Sie zeigt historische Zusammenhänge, parallele Ereignisse und logische Abhängigkeiten.
-        Zudem macht sie sichtbar, wo unser Wissen endet und wo Glaube beginnt.</p>
-      </div>
-    </div>
-
-    <!-- FAQ 4 -->
-    <div class="faq-item">
-      <div class="faq-question">
-        <span>Kann man die Inhalte des Projekts kritisch hinterfragen?</span>
-        <span class="faq-icon">▶</span>
-      </div>
-      <div class="faq-answer">
-        <p>Ja, unbedingt. Kritik ist wichtig, um Wahrheit zu prüfen. Jeder Gedanke muss getestet
-        werden dürfen – sonst ist er nicht stabil.</p>
-      </div>
-    </div>
-
-    <!-- FAQ 5 -->
-    <div class="faq-item">
-      <div class="faq-question">
-        <span>Wie kann ich Fragen stellen oder Feedback geben?</span>
-        <span class="faq-icon">▶</span>
-      </div>
-      <div class="faq-answer">
-        <p>Einfach per Email:  
-          <a class="email-link" href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
-      </div>
-    </div>
-
+  <!-- KATEGORIE-NAVIGATION -->
+  <div id="faq-categories">
+    <button class="cat-btn active" data-filter="all">Alle</button>
+    <button class="cat-btn" data-filter="grundlagen">Grundlagen</button>
+    <button class="cat-btn" data-filter="logik">Logik</button>
+    <button class="cat-btn" data-filter="bibel">Bibel</button>
+    <button class="cat-btn" data-filter="timeline">Timeline</button>
+    <button class="cat-btn" data-filter="projekt">Projekt</button>
+    <button class="cat-btn" data-filter="sonstiges">Sonstiges</button>
   </div>
 
-</div>
+  <!-- FAQ LISTE – 30 FRAGEN -->
+  <div id="faq-list">
+
+    <!-- =================== GRUNDLAGEN =================== -->
+    <div class="faq-item" data-cat="grundlagen">
+      <button class="faq-question">Was ist Wahrheit? <span>➕</span></button>
+      <div class="faq-answer">Wahrheit ist eine Aussage, die mit der Realität übereinstimmt – unabhängig davon, was Menschen darüber denken.</div>
+    </div>
+
+    <div class="faq-item" data-cat="grundlagen">
+      <button class="faq-question">Kann man Wahrheit überhaupt erkennen? <span>➕</span></button>
+      <div class="faq-answer">Ja. Ein Teil der Wahrheit ist absolut sicher erkennbar, ein anderer nur glaubensbasiert.</div>
+    </div>
+
+    <div class="faq-item" data-cat="grundlagen logik">
+      <button class="faq-question">Warum ist eine klare Definition wichtig? <span>➕</span></button>
+      <div class="faq-answer">Weil jede Schlussfolgerung falsch wird, wenn der Ausgangsbegriff ungeklärt ist.</div>
+    </div>
+
+    <div class="faq-item" data-cat="grundlagen">
+      <button class="faq-question">Warum beginnen wir mit der Definition von Wahrheit? <span>➕</span></button>
+      <div class="faq-answer">Weil jedes Weltbild auf einer Grundannahme darüber beruht, was Wahrheit überhaupt ist.</div>
+    </div>
+
+    <!-- =================== LOGIK =================== -->
+    <div class="faq-item" data-cat="logik">
+      <button class="faq-question">Was bedeutet „sicheres Wissen“? <span>➕</span></button>
+      <div class="faq-answer">Sicheres Wissen ist das, was nicht anders sein kann, ohne sich selbst zu widersprechen.</div>
+    </div>
+
+    <div class="faq-item" data-cat="logik">
+      <button class="faq-question">Wieso spielt Vertrauen beim Denken eine Rolle? <span>➕</span></button>
+      <div class="faq-answer">Weil wir vieles nicht überprüfen können und daher einer Quelle vertrauen müssen.</div>
+    </div>
+
+    <div class="faq-item" data-cat="logik">
+      <button class="faq-question">Wie erkennt man Widersprüche im eigenen Denken? <span>➕</span></button>
+      <div class="faq-answer">Indem man die eigenen Grundannahmen explizit macht und prüft, ob sie sich gegenseitig ausschließen.</div>
+    </div>
+
+    <div class="faq-item" data-cat="logik">
+      <button class="faq-question">Was ist ein logischer Fehlschluss? <span>➕</span></button>
+      <div class="faq-answer">Ein Denkfehler, bei dem das Ergebnis nicht logisch aus den Voraussetzungen folgt.</div>
+    </div>
+
+    <!-- =================== BIBEL =================== -->
+    <div class="faq-item" data-cat="bibel">
+      <button class="faq-question">Warum spielt die Bibel eine zentrale Rolle? <span>➕</span></button>
+      <div class="faq-answer">Weil sie eine Quelle beansprucht, die übermenschlich zuverlässig ist.</div>
+    </div>
+
+    <div class="faq-item" data-cat="bibel">
+      <button class="faq-question">Ist die Bibel historisch zuverlässig? <span>➕</span></button>
+      <div class="faq-answer">Die archäologischen Befunde stimmen in hohem Maß mit den biblischen Ereignissen überein.</div>
+    </div>
+
+    <div class="faq-item" data-cat="bibel">
+      <button class="faq-question">Warum gibt es unterschiedliche Bibelübersetzungen? <span>➕</span></button>
+      <div class="faq-answer">Weil Sprachen sich verändern und Übersetzer unterschiedliche Methoden nutzen.</div>
+    </div>
+
+    <div class="faq-item" data-cat="bibel">
+      <button class="faq-question">Wie unterscheidet man Auslegung und Interpretation? <span>➕</span></button>
+      <div class="faq-answer">Auslegung ist das Herausfinden, was der Text ursprünglich meinte. Interpretation ist die Anwendung heute.</div>
+    </div>
+
+    <!-- =================== TIMELINE =================== -->
+    <div class="faq-item" data-cat="timeline">
+      <button class="faq-question">Was ist die Timeline? <span>➕</span></button>
+      <div class="faq-answer">Ein chronologisches Werkzeug, das biblische Geschichte mit anderen Quellen verknüpft.</div>
+    </div>
+
+    <div class="faq-item" data-cat="timeline">
+      <button class="faq-question">Warum wurde die Timeline erstellt? <span>➕</span></button>
+      <div class="faq-answer">Um Geschichte visuell verständlich zu machen und Zusammenhänge sichtbar zu machen.</div>
+    </div>
+
+    <div class="faq-item" data-cat="timeline">
+      <button class="faq-question">Wie genau ist die Timeline? <span>➕</span></button>
+      <div class="faq-answer">Sie zeigt, was 100% sicher ist – und wo Vertrauen notwendig bleibt.</div>
+    </div>
+
+    <div class="faq-item" data-cat="timeline">
+      <button class="faq-question">Kann die Timeline Fehler enthalten? <span>➕</span></button>
+      <div class="faq-answer">Ja. Alle menschlichen Daten sind begrenzt. Es werden stets die bestmöglichen Quellen genutzt.</div>
+    </div>
+
+    <!-- =================== PROJEKT =================== -->
+    <div class="faq-item" data-cat="projekt">
+      <button class="faq-question">Was ist das Ziel des Projekts? <span>➕</span></button>
+      <div class="faq-answer">Die Grundlage für klares Denken und ein kohärentes Weltbild zu bieten.</div>
+    </div>
+
+    <div class="faq-item" data-cat="projekt">
+      <button class="faq-question">Ist das Projekt religiös motiviert? <span>➕</span></button>
+      <div class="faq-answer">Es basiert auf logischer Analyse und führt dann zur Bibel – nicht umgekehrt.</div>
+    </div>
+
+    <div class="faq-item" data-cat="projekt">
+      <button class="faq-question">Steht das Projekt einer bestimmten Konfession nahe? <span>➕</span></button>
+      <div class="faq-answer">Nein. Es betrachtet die Bibel als Quelle, nicht als Tradition.</div>
+    </div>
+
+    <div class="faq-item" data-cat="projekt">
+      <button class="faq-question">Ist das Projekt abgeschlossen? <span>➕</span></button>
+      <div class="faq-answer">Nein, es wird laufend erweitert und verbessert.</div>
+    </div>
+
+    <!-- =================== SONSTIGES =================== -->
+    <div class="faq-item" data-cat="sonstiges">
+      <button class="faq-question">Kann ich eigene Fragen einreichen? <span>➕</span></button>
+      <div class="faq-answer">Ja, über die Kontaktseite können jederzeit Fragen eingereicht werden.</div>
+    </div>
+
+    <div class="faq-item" data-cat="sonstiges">
+      <button class="faq-question">Gibt es bald Videos zum Projekt? <span>➕</span></button>
+      <div class="faq-answer">Ja, es sind bereits Inhalte für YouTube in Arbeit.</div>
+    </div>
+
+    <div class="faq-item" data-cat="sonstiges">
+      <button class="faq-question">Kann ich die Timeline privat verwenden? <span>➕</span></button>
+      <div class="faq-answer">Ja, solange keine kommerzielle Nutzung erfolgt.</div>
+    </div>
+
+    <div class="faq-item" data-cat="sonstiges">
+      <button class="faq-question">Wie kann ich das Projekt unterstützen? <span>➕</span></button>
+      <div class="faq-answer">Über PayPal, Gebet, Weiterempfehlung oder Hinweise auf Verbesserungen.</div>
+    </div>
+
+    <div class="faq-item" data-cat="sonstiges">
+      <button class="faq-question">Warum diese Website ohne Werbung? <span>➕</span></button>
+      <div class="faq-answer">Um Inhalte frei von Ablenkung und wirtschaftlichen Motiven zu halten.</div>
+    </div>
+
+  </div> <!-- faq-list end -->
+
+</div> <!-- container end -->
 
 <!-- FOOTER -->
 <div id="layout-footer"></div>
 
+<!-- JAVASCRIPT -->
 <script>
-/* === Fade-in =============================================================== */
 window.addEventListener("DOMContentLoaded", () => {
   document.body.style.opacity = "1";
 });
 
-/* === ACCORDION FUNKTION ==================================================== */
+/* Accordion */
+document.addEventListener("click", e => {
+  if (!e.target.classList.contains("faq-question")) return;
 
-document.addEventListener("click", function(e) {
-  if (e.target.closest(".faq-question")) {
-    const item = e.target.closest(".faq-item");
-    item.classList.toggle("open");
-    const answer = item.querySelector(".faq-answer");
-    answer.style.display = item.classList.contains("open") ? "block" : "none";
+  const btn = e.target;
+  const ans = btn.nextElementSibling;
+  const symbol = btn.querySelector("span");
+
+  if (ans.style.display === "block") {
+    ans.style.display = "none";
+    symbol.textContent = "➕";
+  } else {
+    ans.style.display = "block";
+    symbol.textContent = "➖";
   }
 });
 
-/* === LIVE-SUCHE ============================================================ */
+/* Nummerierung automatisch erzeugen */
+const items = document.querySelectorAll(".faq-item");
+items.forEach((item, i) => {
+  const nr = (i + 1).toString().padStart(2, "0");
+  item.setAttribute("data-number", nr);
+});
 
-document.getElementById("faq-search").addEventListener("input", function() {
-  const filter = this.value.toLowerCase();
-  document.querySelectorAll(".faq-item").forEach(item => {
-    const text = item.innerText.toLowerCase();
-    item.style.display = text.includes(filter) ? "block" : "none";
+/* Kategorienfilter */
+const catBtns = document.querySelectorAll(".cat-btn");
+
+catBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    catBtns.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const filter = btn.dataset.filter;
+
+    items.forEach(item => {
+      const cat = item.dataset.cat.split(" ");
+
+      if (filter === "all" || cat.includes(filter)) {
+        item.style.display = "block";
+      } else {
+        item.style.display = "none";
+      }
+    });
   });
 });
 
+/* Suchfunktion */
+const searchField = document.getElementById("faq-search");
+
+searchField.addEventListener("input", () => {
+  const q = searchField.value.toLowerCase();
+  items.forEach(item => {
+    const txt = item.innerText.toLowerCase();
+    item.style.display = txt.includes(q) ? "block" : "none";
+  });
+});
 </script>
 
 </body>
