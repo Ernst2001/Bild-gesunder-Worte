@@ -112,21 +112,21 @@ footer {
   font-size: 1rem;
 }
 
-/* Haupt-Text: "Kontakt …" */
+/* Kontakttext – gleiche Größe wie PayPal */
 footer p {
   margin: 0.3125rem 0;
-  font-size: 1.25rem; /* Eine Stufe kleiner als vorher, gut lesbar */
+  font-size: 1rem; /* = PayPal-Button */
   color: #ffffff;
 }
 
-/* PayPal-Button (gleich groß wie Kontakttext) */
+/* PayPal-Button – minimal kleiner als Timeline-Button */
 footer button {
   background-color: #0070ba;
   border: none;
   padding: 0.75rem 1.75rem;
   cursor: pointer;
   border-radius: 0.3125rem;
-  font-size: 1.25rem; /* exakt gleiche Größe wie footer p */
+  font-size: 1rem; /* 0.1rem kleiner als Timeline (.button = 1.1rem) */
   color: #fff;
   text-shadow: 0.03rem 0.03rem 0.06rem #00264d;
 }
@@ -135,13 +135,10 @@ footer button:hover {
   background-color: #005a94;
 }
 
-/* Impressum / Datenschutz – klein, aber eine Stufe größer als vorher */
-#layout-footer p:last-of-type {
-  font-size: 0.9rem;
-}
-
-#layout-footer p:last-of-type a {
-  font-size: 0.9rem;
+/* Impressum / Datenschutz – 2 Stufen kleiner als Kontakt */
+#layout-footer footer p:last-of-type,
+#layout-footer footer p:last-of-type a {
+  font-size: 0.8rem;
   color: #ffffff;
   text-decoration: none;
   text-shadow: 0.03rem 0.03rem 0.06rem #00264d;
@@ -154,10 +151,10 @@ footer hr {
   margin: 0.9375rem 0 2.5rem 0;
 }
 
-/* Mobile: Nur PayPal-Button, NICHT der Timeline-Button */
+/* Mobile: PayPal bleibt proportional, Timeline wird NICHT überschrieben */
 @media (max-width: 700px) {
   footer button {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     padding: 0.625rem 1.25rem;
   }
 }
