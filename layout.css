@@ -3,7 +3,7 @@ body {
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
   color: #001a33;
   font-family: Arial, sans-serif;
-  font-size: 1rem; /* statt 19px */
+  font-size: 1.2rem; /* statt 19px */
   text-align: center;
   padding-top: 3.75rem; /* 60px */
   opacity: 0;
