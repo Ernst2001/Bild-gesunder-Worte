@@ -1,3 +1,10 @@
+/* Schriftgröße Richtwert */
+html {
+  font-size: 20px;
+}
+
+
+
 /* Fade-in beim Laden der Seite */
 body {
   background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
