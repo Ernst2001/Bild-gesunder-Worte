@@ -147,7 +147,7 @@ body {
 /* Impressum / Datenschutz (2 Stufen kleiner) */
 #layout-footer .footer-small,
 #layout-footer .footer-small a {
-  font-size: 0.7em;
+  font-size: 0.5em;
   color: #ffffff;
   text-decoration: none;
   text-shadow: 0.03rem 0.03rem 0.06rem #00264d;
