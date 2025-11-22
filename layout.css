@@ -131,12 +131,12 @@ body {
 /* Kontakttext */
 #layout-footer footer p {
   margin: 0.3rem 0;
-  font-size: 0.9em;                /* = 2rem (Kontakt & PayPal) */
+  font-size: 0.8rem;                /* = 2rem (Kontakt & PayPal) */
 }
 
 /* Mail-Link */
 #layout-footer footer p a {
-  font-size: 0.9em;                /* bleibt identisch groß */
+  font-size: 0.8rem;                /* bleibt identisch groß */
   color: #ffffff;
 }
 
@@ -147,7 +147,7 @@ body {
   padding: 0.75rem 1.75rem;
   cursor: pointer;
   border-radius: 0.35rem;
-  font-size: 0.9em;                /* = 2rem (wie Kontakttext) */
+  font-size: 0.8rem;                /* = 2rem (wie Kontakttext) */
   color: #fff;
   text-shadow: 0.03rem 0.03rem 0.06rem #00264d;
 }
@@ -159,7 +159,7 @@ body {
 /* Impressum & Datenschutz (4 Stufen kleiner) */
 #layout-footer footer .footer-small,
 #layout-footer footer .footer-small a {
-  font-size: 0.6em;              /* = 1rem → ~4 Stufen kleiner als 2rem */
+  font-size: 0.5rem;              /* = 1rem → ~4 Stufen kleiner als 2rem */
   color: #ffffff;
   text-decoration: none;
   text-shadow: 0.03rem 0.03rem 0.06rem #00264d;
@@ -178,7 +178,7 @@ body {
     font-size: 1.6rem;
   }
   #layout-footer footer button {
-    font-size: 1em;
+    font-size: 1rem;
     padding: 0.6rem 1.25rem;
   }
 }
