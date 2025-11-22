@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unterstützen – Bild gesunder Worte</title>
+
+<link rel="stylesheet" href="css/layout.css">
+<script src="js/layout.js" defer></script>
+
+<style>
+/* === GLOBALE STILE FÜR DIESE SEITE ======================================== */
+body {
+  padding-top: 60px;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+  color: #001a33;
+  font-size: 19px;
+  line-height: 1.6;
+  text-shadow: 0.3px 0.3px 0.8px #000a14;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+header {
+  text-align: center;
+  padding: 40px 20px 20px;
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+header p.subtitle {
+  font-size: 1.3em;
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 60%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+/* Überschrift + Icons */
+h2 {
+  color: #00264d;
+  font-size: 1.8rem;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+h2::before {
+  font-size: 1.5rem;
+}
+
+h2.warum::before { content: "📖"; }
+h2.verwendung::before { content: "🕊️"; }
+h2.dank::before { content: "🙏"; }
+h2.spenden::before { content: "💳"; }
+
+.container p {
+  background: rgba(255,255,255,0.22);
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  line-height: 1.6;
+}
+
+/* PayPal-Button (eigener Stil) */
+.paypal-btn {
+  display: inline-block;
+  background-color: #004a7c;
+  color: #fff;
+  padding: 14px 26px;
+  font-size: 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  margin: 25px 0;
+  transition: background-color 0.3s;
+  text-shadow: 0.5px 0.5px 1px #000a14;
+  border: none;
+}
+
+.paypal-btn:hover {
+  background-color: #00385d;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .container {
+    max-width: 95%;
+    padding: 10px 15px;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<div id="layout-nav"></div>
+
+<header>
+  <h1>Unterstützen</h1>
+  <p class="subtitle">Warum dieses Projekt Unterstützung gebrauchen kann – und wozu sie dient</p>
+</header>
+
+<div class="container">
+
+  <h2 class="warum">Warum Unterstützung sinnvoll ist</h2>
+  <p>
+    Dieses Projekt möchte biblische und historische Zusammenhänge klar, überprüfbar und ohne
+    Vorannahmen darstellen. Der Anspruch ist, Wahrheit nicht aus Tradition oder Gefühlen abzuleiten,
+    sondern aus einer logisch nachvollziehbaren Grundlage.  
+    <br><br>
+    Damit die Inhalte dauerhaft frei, werbefrei und unabhängig bleiben, ist freiwillige Unterstützung
+    eine Hilfe – aber keine Voraussetzung, um alles nutzen zu können.
+  </p>
+
+  <h2 class="verwendung">Wofür Unterstützung verwendet wird</h2>
+  <p>
+    Spenden dienen ausschließlich der Arbeit an diesem Projekt, unter anderem für:
+    <br>• langfristige Hosting- und Serverkosten  
+    <br>• technische Weiterentwicklung der Timeline  
+    <br>• Werkzeuge zur Text-, Quellen- oder Bildbearbeitung  
+    <br>• Recherchezeit und Ausarbeitung neuer Inhalte  
+    <br>• Sicherstellung, dass alles werbefrei und ohne externe Einflussnahme bleiben kann  
+  </p>
+
+  <h2 class="spenden">Unterstützen über PayPal</h2>
+  <p>
+    Wer das Projekt unterstützen möchte, kann dies hier tun.  
+    Jede Hilfe – auch kleine – trägt dazu bei, dass Inhalte weiterhin frei verfügbar bleiben können.
+  </p>
+
+  <button class="paypal-btn"
+          onclick="window.open('https://www.paypal.com/donate','_blank')">
+    Über PayPal unterstützen
+  </button>
+
+  <h2 class="dank">Ein sachlicher Hinweis</h2>
+  <p>
+    Unterstützung ist vollkommen freiwillig.  
+    Niemand soll sich verpflichtet fühlen.  
+    Dankbarkeit besteht nicht im Betrag, sondern im Vertrauen und im gemeinsamen Anliegen,
+    Wahrheit sauber, nachvollziehbar und unvoreingenommen zu betrachten.
+  </p>
+
+</div>
+
+<!-- FOOTER -->
+<div id="layout-footer"></div>
+
+</body>
+</html>
