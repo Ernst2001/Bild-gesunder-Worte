@@ -46,15 +46,16 @@ header p.subtitle {
 }
 
 .container {
-  max-width: 900px;
+  max-width: 65%;          /* breiter, wie bei Index */
   margin: 0 auto;
   padding: 20px;
   text-align: left;
+  font-size: 1.2rem;       /* Textgröße wie auf Index */
 }
 
 h2 {
   color: #00264d;
-  font-size: 1.8em;
+  font-size: 1.8rem;
   margin-top: 40px;
   display: flex;
   align-items: center;
@@ -62,7 +63,7 @@ h2 {
 }
 
 h2::before {
-  font-size: 1.5em;
+  font-size: 1.5rem;
 }
 
 h2.ziel::before { content: "🎯"; }
@@ -77,6 +78,7 @@ h2.vorteile::before { content: "✨"; }
   border-radius: 8px;
   margin-bottom: 18px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  line-height: 1.6;       /* wie Index */
 }
 
 .button {
