@@ -104,94 +104,62 @@ body {
 
 
 /* === Footer ============================================================== */
-footer {
+
+#layout-footer footer {
   padding: 3.75rem; /* 60px */
   text-align: center;
   background: rgba(0,0,0,0.3);
   color: #ffffff;
-  font-size: 1rem; /* Basisgröße */
+  font-size: 1rem; /* Basis */
 }
 
-/* Kontakttext + Mail */
-footer p:first-child {
-  margin: 0.3125rem 0; /* 5px */
-  font-size: 1.4rem; /* leicht vergrößert */
-  color: #ffffff;
+/* Großer Kontakt-Text */
+#layout-footer footer p:first-of-type {
+  font-size: 1.4rem;   /* Größer */
+  margin: 0.5rem 0;
 }
 
-footer p:first-child a {
+/* Email im Kontakttext */
+#layout-footer footer p:first-of-type a {
+  font-size: 1.4rem;
   color: #ffffff;
-  font-size: 1.4rem; /* gleiche Größe wie Text */
   text-decoration: none;
-  text-shadow: 0.03125rem 0.03125rem 0.0625rem #00264d;
 }
 
-/* Footer-Button „Unterstützen“ */
-footer button {
+/* PayPal-Button */
+#layout-footer footer button {
   background-color: #0070ba;
   border: none;
-  padding: 0.625rem 1.5625rem; /* 10px 25px */
+  padding: 0.625rem 1.5625rem;
   cursor: pointer;
-  border-radius: 0.3125rem; /* 5px */
-  font-size: 1.4rem; /* gleiche Größe wie Kontakttext */
+  border-radius: 0.3125rem;
+  font-size: 1.4rem;  /* gleiche Größe wie Kontakttext */
   color: #fff;
-  text-shadow: 0.03125rem 0.03125rem 0.0625rem #00264d;
+  text-shadow: 0.03rem 0.03rem 0.06rem #00264d;
 }
 
-footer button:hover {
+/* Hover */
+#layout-footer footer button:hover {
   background-color: #005a94;
 }
 
-/* Impressum/Datenschutz links klein halten */
-footer p:not(:first-child) {
-  margin: 0.3125rem 0; /* 5px */
-  font-size: 0.7rem; 
-  color: #ffffff;
-}
-
-footer p:not(:first-child) a {
-  font-size: 0.7rem;
-  color: #ffffff;
-  text-decoration: none;
-  text-shadow: 0.03125rem 0.03125rem 0.0625rem #00264d;
-}
-
-footer hr {
+/* Trennlinie */
+#layout-footer footer hr {
   border: none;
-  height: 0.25rem; /* 4px */
+  height: 0.25rem;
   background-color: #ffffff;
-  margin: 0.9375rem 0 2.5rem 0; /* 15px 0 40px 0 */
+  margin: 1rem 0 2.2rem 0;
 }
 
-/* Timeline-Button unverändert */
-button.main-btn {
-  background-color: #0070ba;
-  border: none;
-  padding: 0.75rem 1.75rem; /* 12px 28px */
-  font-size: 1.1rem; /* unverändert */
-  border-radius: 0.3125rem; /* 5px */
-  cursor: pointer;
-  color: #fff;
-  text-shadow: 0.03125rem 0.03125rem 0.0625rem #00264d;
-  transition: background-color 0.3s;
+/* Kleiner Impressum/Datenschutz-Bereich */
+#layout-footer footer p:last-of-type {
+  font-size: 0.75rem;
+  margin-top: 1.2rem;
 }
 
-button.main-btn:hover {
-  background-color: #005a94;
-}
-
-/* Mobile Anpassungen */
-@media (max-width: 700px) {
-  button.main-btn {
-    font-size: 1rem;      
-    padding: 0.625rem 1.25rem; /* 10px 20px */
-  }
-  footer button {
-    font-size: 1.2rem; /* proportional kleiner */
-    padding: 0.5rem 1rem;
-  }
-  footer p:first-child {
-    font-size: 1.2rem; /* Kontakttext mobil leicht kleiner */
-  }
+#layout-footer footer p:last-of-type a {
+  font-size: 0.75rem;
+  color: #ffffff;
+  text-decoration: none;
 }
 
