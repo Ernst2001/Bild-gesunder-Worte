@@ -112,26 +112,35 @@ footer {
   font-size: 1rem; /* Basisgröße */
 }
 
-footer p {
+/* E-Mail-Text größer */
+footer p:first-child {
   margin: 0.3125rem 0; /* 5px */
-  font-size: 1.2rem; /* statt 1.2em */
+  font-size: 1.6rem; /* ca. 4 Stufen größer als vorher 1.2rem */
+  color: #ffffff;
+}
+
+/* Andere Absätze, falls vorhanden */
+footer p:not(:first-child) {
+  margin: 0.3125rem 0;
+  font-size: 1.2rem; 
   color: #ffffff;
 }
 
 footer a {
   color: #ffffff;
-  font-size: 1.2rem;  /* statt 1.2em */
+  font-size: 1.6rem;  /* passend zur Mailtextgröße */
   text-decoration: none;
   text-shadow: 0.03125rem 0.03125rem 0.0625rem #00264d; /* 0.5px 0.5px 1px */
 }
 
+/* Footer-Button kleiner als Timeline-Button */
 footer button {
   background-color: #0070ba;
   border: none;
-  padding: 0.625rem 1.5625rem; /* 10px 25px */
+  padding: 0.5rem 1.25rem; /* kleiner als vorher */
   cursor: pointer;
   border-radius: 0.3125rem; /* 5px */
-  font-size: 1rem; /* statt 1em */
+  font-size: 0.9rem; /* zwei Stufen kleiner als Timeline-Button mit 1.1rem */
   color: #fff;
   text-shadow: 0.03125rem 0.03125rem 0.0625rem #00264d;
 }
@@ -147,12 +156,12 @@ footer hr {
   margin: 0.9375rem 0 2.5rem 0; /* 15px 0 40px 0 */
 }
 
-/* Timeline-Button ähnlich wie PayPal-Button, etwas größer */
+/* Timeline-Button unverändert */
 button.main-btn {
   background-color: #0070ba;
   border: none;
   padding: 0.75rem 1.75rem; /* 12px 28px */
-  font-size: 1.1rem; /* statt 1.1em */
+  font-size: 1.1rem; /* unverändert */
   border-radius: 0.3125rem; /* 5px */
   cursor: pointer;
   color: #fff;
@@ -164,11 +173,14 @@ button.main-btn:hover {
   background-color: #005a94;
 }
 
-/* Mobile Anpassungen für Buttons */
+/* Mobile Anpassungen */
 @media (max-width: 700px) {
-  button.main-btn,
-  footer button {
+  button.main-btn {
     font-size: 1rem;      
     padding: 0.625rem 1.25rem; /* 10px 20px */
+  }
+  footer button {
+    font-size: 0.85rem; /* proportional kleiner */
+    padding: 0.5rem 1rem;
   }
 }
