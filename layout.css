@@ -103,71 +103,75 @@ body {
 }
 
 
-/* === Footer (jetzt 100% funktionierend) ================================= */
+/* === FOOTER (bereinigt & funktionssicher) =============================== */
 
-/* Footer-Hülle und evtl. inneres <footer> */
-#layout-footer,
+/* Hülle, die layout.js lädt */
+#layout-footer {
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Eigentliches Footer-Element */
 #layout-footer footer {
-  font-size: 2rem;  /* Basis für alles */
+  font-size: 2rem;               /* Basisgröße: Kontakt & PayPal = groß */
   padding: 3.75rem;
   text-align: center;
   background: rgba(0,0,0,0.3);
   color: #ffffff;
 }
 
-#layout-footer {
-  background: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
+/* Kontakttext */
+#layout-footer footer p {
+  margin: 0.3rem 0;
+  font-size: 1em;                /* = 2rem (Kontakt & PayPal) */
 }
 
-/* Kontakttext = gleiche Größe wie PayPal */
-#layout-footer p {
-  margin: 0.3125rem 0;
-  font-size: 1em;   /* 2rem */
+/* Mail-Link */
+#layout-footer footer p a {
+  font-size: 1em;                /* bleibt identisch groß */
   color: #ffffff;
 }
 
 /* PayPal-Button */
-#layout-footer button {
+#layout-footer footer button {
   background-color: #0070ba;
   border: none;
   padding: 0.75rem 1.75rem;
   cursor: pointer;
-  border-radius: 0.3125rem;
-  font-size: 1em;   /* 2rem */
+  border-radius: 0.35rem;
+  font-size: 1em;                /* = 2rem (wie Kontakttext) */
   color: #fff;
   text-shadow: 0.03rem 0.03rem 0.06rem #00264d;
 }
 
-#layout-footer button:hover {
+#layout-footer footer button:hover {
   background-color: #005a94;
 }
 
-/* Impressum / Datenschutz (2 Stufen kleiner) */
-#layout-footer .footer-small,
-#layout-footer .footer-small a {
-  font-size: 0.5em;
+/* Impressum & Datenschutz (4 Stufen kleiner) */
+#layout-footer footer .footer-small,
+#layout-footer footer .footer-small a {
+  font-size: 0.5em;              /* = 1rem → ~4 Stufen kleiner als 2rem */
   color: #ffffff;
   text-decoration: none;
   text-shadow: 0.03rem 0.03rem 0.06rem #00264d;
 }
 
-#layout-footer hr {
+#layout-footer footer hr {
   border: none;
   height: 0.25rem;
   background-color: #ffffff;
-  margin: 0.9375rem 0 2.5rem 0;
+  margin: 1rem 0 2.5rem 0;
 }
 
 /* Mobile */
 @media (max-width: 700px) {
-  #layout-footer,
   #layout-footer footer {
     font-size: 1.6rem;
   }
-  #layout-footer button {
+  #layout-footer footer button {
     font-size: 1em;
-    padding: 0.625rem 1.25rem;
+    padding: 0.6rem 1.25rem;
   }
 }
