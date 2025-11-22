@@ -149,12 +149,12 @@ body {
 /* Kontakttext */
 #layout-footer footer p {
   margin: 0.3rem 0;
-  font-size: 1.5rem !important;                /* = 2rem (Kontakt & PayPal) */
+  font-size: 1.3rem !important;                /* = 2rem (Kontakt & PayPal) */
 }
 
 /* Mail-Link */
 #layout-footer footer p a {
-  font-size: 1.5rem !important;                /* bleibt identisch groß */
+  font-size: 1.3rem !important;                /* bleibt identisch groß */
   color: #ffffff;
 }
 
@@ -165,7 +165,7 @@ body {
   padding: 0.75rem 1.75rem;
   cursor: pointer;
   border-radius: 0.35rem;
-  font-size: 1.5rem !important;                /* = 2rem (wie Kontakttext) */
+  font-size: 1.3rem !important;                /* = 2rem (wie Kontakttext) */
   color: #fff;
   text-shadow: 0.03rem 0.03rem 0.06rem #00264d;
 }
