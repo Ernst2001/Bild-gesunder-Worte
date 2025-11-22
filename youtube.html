@@ -25,7 +25,6 @@ body {
 
 
 
-
 /* Header (Timeline-Stil) */
 header {
   text-align: center;
@@ -118,28 +117,6 @@ header h2 {
 
 <div id="layout-footer"></div>
   
-<script>
-window.addEventListener("DOMContentLoaded", () => {
-  document.body.style.opacity = "1";
-});
-</script>
-
-<script>
-function toggleBGWMenu() {
-  document.querySelector(".bgw-menu").classList.toggle("show");
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-  let page = location.pathname.split("/").pop().replace(".html", "");
-  if(page === "") page = "index";
-  document.querySelectorAll(".bgw-menu a").forEach(a => {
-    if(a.dataset.page === page) a.classList.add("active");
-  });
-  document.body.style.opacity = "1";
-});
-</script>
-
-
 
 </body>
 </html>
