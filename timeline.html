@@ -319,6 +319,18 @@ header p {
   margin-left: 25px; /* Unter-Unterpunkte noch weiter eingerückt */
 }
 
+/* Abstand zwischen Kategorien (H3 → nächste Kategorie) */
+#important-points li > strong {
+  display: block;
+  margin-top: 2rem;  /* großer Abstand vor neuer Kategorie */
+  margin-bottom: 0.5rem; /* kleiner Abstand zu den Unterpunkten */
+}
+
+/* Listen enger aneinander */
+#important-points ul ul {
+  margin-top: 0.25rem; /* kleiner Abstand der Unterpunkte */
+}
+  
 /* Optional: größere Absätze zwischen Hauptpunkten */
 #important-points details + details {
   margin-top: 30px;
