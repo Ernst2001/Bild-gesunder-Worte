@@ -309,27 +309,37 @@ header p {
   font-size: 1.15em;
 }
 
-/* Linksbündige Aufzählungen */
+/* Entfernt den unerwünschten Abstand ÜBER den Listen */
+/* Entfernt den unerwünschten Abstand ÜBER den Listen */
 #important-points ul {
-  margin-top: 10px;
-  margin-left: 20px; /* Einrückung Unterpunkte */
+  margin-top: 0;     
+  margin-left: 1.25rem;
 }
 
+/* Unterlisten */
 #important-points ul ul {
-  margin-left: 25px; /* Unter-Unterpunkte noch weiter eingerückt */
+  margin-top: 0.4rem;
+  margin-left: 1.5625rem;
 }
 
-/* Abstand zwischen Kategorien (H3 → nächste Kategorie) */
+/* Titel einer Kategorie */
 #important-points li > strong {
   display: block;
-  margin-top: 2rem;  /* großer Abstand vor neuer Kategorie */
-  margin-bottom: 0.5rem; /* kleiner Abstand zu den Unterpunkten */
+  margin-top: 0.3rem;   /* kleiner Abstand nach Kategorie-Titel */
+  margin-bottom: 0.3rem;
 }
 
-/* Listen enger aneinander */
-#important-points ul ul {
-  margin-top: 0.25rem; /* kleiner Abstand der Unterpunkte */
+/* Großer Abstand zwischen Kategorien (unter der Liste) */
+#important-points li > ul {
+  margin-bottom: 2.2rem;
 }
+
+/* Entfernt margin bei einfachen LI */
+#important-points li {
+  margin: 0;
+  padding: 0;
+}
+
   
 /* Optional: größere Absätze zwischen Hauptpunkten */
 #important-points details + details {
