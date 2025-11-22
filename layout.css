@@ -115,6 +115,12 @@ body {
   color: #ffffff;
 }
 
+#layout-footer {
+  background: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
 /* Kontakttext = gleiche Größe wie PayPal */
 #layout-footer p {
   margin: 0.3125rem 0;
@@ -141,7 +147,7 @@ body {
 /* Impressum / Datenschutz (2 Stufen kleiner) */
 #layout-footer .footer-small,
 #layout-footer .footer-small a {
-  font-size: 0.5em;   /* 1rem */
+  font-size: 1em;
   color: #ffffff;
   text-decoration: none;
   text-shadow: 0.03rem 0.03rem 0.06rem #00264d;
