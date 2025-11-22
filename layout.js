@@ -3,7 +3,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   // NAVIGATION LADEN ---------------------------------------------------------
-  fetch("layout/nav.html")
+  fetch("/layout/nav.html")
     .then(res => res.text())
     .then(html => {
       document.getElementById("layout-nav").innerHTML = html;
@@ -12,15 +12,15 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(err => console.error("Fehler beim Laden der Navigation:", err));
 
-
   // FOOTER LADEN -------------------------------------------------------------
-  fetch("layout/footer.html")
+  fetch("/layout/footer.html")
     .then(res => res.text())
     .then(html => {
       document.getElementById("layout-footer").innerHTML = html;
     })
     .catch(err => console.error("Fehler beim Laden des Footers:", err));
 });
+
 
 
 // --- Navigation initialisieren (Burger-Menü etc.) ---------------------------
@@ -41,17 +41,14 @@ function initNavigation() {
 
 function markActivePage() {
   let page = location.pathname.split("/").pop();
-
-  if (page === "" || !page.includes(".html")) {
-    page = "index.html"; // Standard
-  }
+  if (!page) page = "index.html";
 
   document.querySelectorAll(".bgw-menu a").forEach(a => {
-    if (a.getAttribute("href") === page) {
-      a.classList.add("active");
-    }
+    const href = a.getAttribute("href").split("/").pop(); // nur Dateiname vergleichen
+    if (href === page) a.classList.add("active");
   });
 }
+
 
 
 // Ganz unten in layout.js oder in einem eigenen Script
