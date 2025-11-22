@@ -103,62 +103,64 @@ body {
 }
 
 
-/* === Footer (neu, doppelt so groß) ====================================== */
+/* === Footer (jetzt 100% funktionierend) ================================= */
 
-/* Wir skalieren NUR den Footer hoch */
-footer {
-  font-size: 2rem;              /* Basis für alles im Footer */
+/* Footer-Hülle und evtl. inneres <footer> */
+#layout-footer,
+#layout-footer footer {
+  font-size: 2rem;  /* Basis für alles */
   padding: 3.75rem;
   text-align: center;
   background: rgba(0,0,0,0.3);
   color: #ffffff;
 }
 
-/* Kontakttext = PayPal-Größe (Basis: 2rem) */
-footer p {
+/* Kontakttext = gleiche Größe wie PayPal */
+#layout-footer p {
   margin: 0.3125rem 0;
-  font-size: 1em;               /* 1 × 2rem = 2rem */
+  font-size: 1em;   /* 2rem */
   color: #ffffff;
 }
 
-/* PayPal-Button – gleiche Größe wie Kontakt */
-footer button {
+/* PayPal-Button */
+#layout-footer button {
   background-color: #0070ba;
   border: none;
   padding: 0.75rem 1.75rem;
   cursor: pointer;
   border-radius: 0.3125rem;
-  font-size: 1em;               /* 1 × 2rem = 2rem */
+  font-size: 1em;   /* 2rem */
   color: #fff;
   text-shadow: 0.03rem 0.03rem 0.06rem #00264d;
 }
 
-footer button:hover {
+#layout-footer button:hover {
   background-color: #005a94;
 }
 
-/* Impressum / Datenschutz – 2 Stufen kleiner */
-#layout-footer p:last-of-type,
-#layout-footer p:last-of-type a {
-  font-size: 0.5em;             /* 0.5 × 2rem = 1rem */
+/* Impressum / Datenschutz (2 Stufen kleiner) */
+#layout-footer .footer-small,
+#layout-footer .footer-small a {
+  font-size: 0.5em;   /* 1rem */
   color: #ffffff;
   text-decoration: none;
   text-shadow: 0.03rem 0.03rem 0.06rem #00264d;
 }
 
-footer hr {
+#layout-footer hr {
   border: none;
   height: 0.25rem;
   background-color: #ffffff;
   margin: 0.9375rem 0 2.5rem 0;
 }
 
-/* Mobile Anpassung */
+/* Mobile */
 @media (max-width: 700px) {
-  footer {
-    font-size: 1.6rem;          /* etwas kleiner auf Handy */
+  #layout-footer,
+  #layout-footer footer {
+    font-size: 1.6rem;
   }
-  footer button {
+  #layout-footer button {
     font-size: 1em;
     padding: 0.625rem 1.25rem;
   }
