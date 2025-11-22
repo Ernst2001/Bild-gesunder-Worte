@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ – Bild gesunder Worte</title>
+
+<link rel="stylesheet" href="css/layout.css">
+<script src="js/layout.js" defer></script>
+
+<style>
+/* === GLOBALE SEITENSTILE ==================================================== */
+
+body {
+  padding-top: 60px;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+  color: #001a33;
+  font-size: 19px;
+  line-height: 1.6;
+  text-shadow: 0.3px 0.3px 0.8px #000a14;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+header {
+  text-align: center;
+  padding: 40px 20px 20px;
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+header p.subtitle {
+  font-size: 1.3em;
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 65%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+/* --- FAQ SUCHFELD ---------------------------------------------------------- */
+
+#faq-search {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  border: 1px solid #88a7be;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+/* --- ACCORDION STIL -------------------------------------------------------- */
+
+.faq-item {
+  margin-bottom: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.faq-question {
+  background: rgba(255,255,255,0.25);
+  padding: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.25rem;
+}
+
+.faq-question:hover {
+  background: rgba(255,255,255,0.35);
+}
+
+.faq-icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s;
+}
+
+.faq-answer {
+  background: rgba(255,255,255,0.22);
+  padding: 15px;
+  display: none;
+  line-height: 1.6;
+}
+
+.faq-answer p {
+  margin: 0;
+}
+
+/* --- ROTATION BEI OFFENEM ACCORDION --------------------------------------- */
+.faq-item.open .faq-icon {
+  transform: rotate(90deg);
+}
+
+/* --- RESPONSIVE ------------------------------------------------------------ */
+@media (max-width: 700px) {
+  .container {
+    max-width: 95%;
+    padding: 10px 15px;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  header p.subtitle {
+    font-size: 1.1rem;
+    max-width: 90%;
+  }
+
+  .faq-question {
+    font-size: 1.1rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<div id="layout-nav"></div>
+
+<header>
+  <h1>FAQ – Häufige Fragen</h1>
+  <p class="subtitle">Antworten auf häufige Fragen zu Projekt, Methode und Timeline</p>
+</header>
+
+<div class="container">
+
+  <!-- SUCHE -->
+  <input 
+    type="text"
+    id="faq-search"
+    placeholder="Nach Stichworten suchen … z.B. Wahrheit, Timeline, Glaube">
+
+  <!-- FAQ LISTE -->
+  <div class="faq-list">
+
+    <!-- FAQ 1 -->
+    <div class="faq-item">
+      <div class="faq-question">
+        <span>Was ist das Ziel des Projekts „Bild gesunder Worte“?</span>
+        <span class="faq-icon">▶</span>
+      </div>
+      <div class="faq-answer">
+        <p>Das Projekt möchte Wahrheit sauber definieren, logisch herleiten und verständlich
+        darstellen. Dadurch soll jeder die eigene Denkgrundlage kritisch prüfen können.</p>
+      </div>
+    </div>
+
+    <!-- FAQ 2 -->
+    <div class="faq-item">
+      <div class="faq-question">
+        <span>Warum beginnt das Projekt mit der Definition von Wahrheit?</span>
+        <span class="faq-icon">▶</span>
+      </div>
+      <div class="faq-answer">
+        <p>Viele Diskussionen scheitern daran, dass Menschen unterschiedliche Begriffe verwenden.
+        Eine klare Definition von Wahrheit ist notwendig, um Denken sauber aufzubauen.</p>
+      </div>
+    </div>
+
+    <!-- FAQ 3 -->
+    <div class="faq-item">
+      <div class="faq-question">
+        <span>Wofür ist die Timeline gedacht?</span>
+        <span class="faq-icon">▶</span>
+      </div>
+      <div class="faq-answer">
+        <p>Sie zeigt historische Zusammenhänge, parallele Ereignisse und logische Abhängigkeiten.
+        Zudem macht sie sichtbar, wo unser Wissen endet und wo Glaube beginnt.</p>
+      </div>
+    </div>
+
+    <!-- FAQ 4 -->
+    <div class="faq-item">
+      <div class="faq-question">
+        <span>Kann man die Inhalte des Projekts kritisch hinterfragen?</span>
+        <span class="faq-icon">▶</span>
+      </div>
+      <div class="faq-answer">
+        <p>Ja, unbedingt. Kritik ist wichtig, um Wahrheit zu prüfen. Jeder Gedanke muss getestet
+        werden dürfen – sonst ist er nicht stabil.</p>
+      </div>
+    </div>
+
+    <!-- FAQ 5 -->
+    <div class="faq-item">
+      <div class="faq-question">
+        <span>Wie kann ich Fragen stellen oder Feedback geben?</span>
+        <span class="faq-icon">▶</span>
+      </div>
+      <div class="faq-answer">
+        <p>Einfach per Email:  
+          <a class="email-link" href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a></p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div id="layout-footer"></div>
+
+<script>
+/* === Fade-in =============================================================== */
+window.addEventListener("DOMContentLoaded", () => {
+  document.body.style.opacity = "1";
+});
+
+/* === ACCORDION FUNKTION ==================================================== */
+
+document.addEventListener("click", function(e) {
+  if (e.target.closest(".faq-question")) {
+    const item = e.target.closest(".faq-item");
+    item.classList.toggle("open");
+    const answer = item.querySelector(".faq-answer");
+    answer.style.display = item.classList.contains("open") ? "block" : "none";
+  }
+});
+
+/* === LIVE-SUCHE ============================================================ */
+
+document.getElementById("faq-search").addEventListener("input", function() {
+  const filter = this.value.toLowerCase();
+  document.querySelectorAll(".faq-item").forEach(item => {
+    const text = item.innerText.toLowerCase();
+    item.style.display = text.includes(filter) ? "block" : "none";
+  });
+});
+
+</script>
+
+</body>
+</html>
