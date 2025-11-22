@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grundlagen – Bild gesunder Worte</title>
+
+<link rel="stylesheet" href="css/layout.css">
+<script src="js/layout.js" defer></script>
+
+<style>
+/* === GLOBALE STILE FÜR DIESE SEITE ======================================== */
+body {
+  padding-top: 60px; /* Höhe der Nav */
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+  color: #001a33;
+  font-size: 19px;
+  line-height: 1.6;
+  text-shadow: 0.3px 0.3px 0.8px #000a14;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+header {
+  text-align: center;
+  padding: 40px 20px 20px;
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+header p.subtitle {
+  font-size: 1.3em;
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: left;
+}
+
+h2 {
+  color: #00264d;
+  font-size: 1.8em;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+h2::before {
+  font-size: 1.5em;
+}
+
+h2.ziel::before { content: "🎯"; }
+h2.motivation::before { content: "💡"; }
+h2.definition::before { content: "🧩"; }
+h2.logik::before { content: "🔍"; }
+h2.timeline::before { content: "📜"; }
+h2.vorteile::before { content: "✨"; }
+
+.container p {
+  background: rgba(255,255,255,0.22);
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.button {
+  display: inline-block;
+  background-color: #0070ba;
+  color: #fff;
+  padding: 12px 22px;
+  font-size: 1.1em;
+  border-radius: 6px;
+  text-decoration: none;
+  margin: 20px 0;
+  transition: background-color 0.3s;
+  text-shadow: 0.5px 0.5px 1px #000a14;
+}
+.button:hover {
+  background-color: #005a94;
+}
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .container {
+    max-width: 95%;
+    padding: 10px 15px;
+  }
+  h2 {
+    font-size: 1.5em;
+  }
+  .button {
+    font-size: 1em;
+    padding: 10px 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<div id="layout-nav"></div>
+
+<header>
+  <h1>Grundlagen – Das Fundament vor der Timeline</h1>
+  <p class="subtitle">Verstehen, was Wahrheit ist, bevor wir historische Ereignisse chronologisch betrachten.</p>
+</header>
+
+<div class="container">
+
+  <h2 class="ziel">Das Ziel dieser Seite</h2>
+  <p>
+    Bevor wir in die Timeline eintauchen, soll klar werden, was unter "Wahrheit" verstanden wird und wie wir
+    logisch überprüfbare Aussagen von Annahmen unterscheiden können. Nur so lässt sich Geschichte korrekt einordnen.
+  </p>
+
+  <h2 class="motivation">Warum ist das wichtig?</h2>
+  <p>
+    Viele Missverständnisse entstehen, weil Begriffe unklar verwendet werden. Wer die Grundlage der Wahrheit versteht,
+    kann erkennen, welche historischen Informationen belastbar sind und welche nur auf Vertrauen beruhen.
+  </p>
+
+  <h2 class="definition">Definition von Wahrheit</h2>
+  <p>
+    Wahrheit in diesem Projekt wird so definiert, dass sie <strong>überprüfbar, eindeutig und logisch konsistent</strong> ist.
+    Alles, was nicht eindeutig nachweisbar ist, gilt als Annahme oder Glaubenssache.
+  </p>
+
+  <h2 class="logik">Der logische Aufbau</h2>
+  <p>
+    Jeder Schritt basiert auf überprüfbaren Fakten. Vorgehensweise:
+    <br>• Zuerst bestimmen, was absolut sicher ist
+    <br>• Dann alles andere nach Vertrauensgrad sortieren
+    <br>• Diese Struktur auf historische Ereignisse anwenden
+    <br>• Parallelen und Zusammenhänge transparent machen
+  </p>
+
+  <h2 class="timeline">Die Timeline / der Zeitstrahl</h2>
+  <p>
+    Die Timeline stellt über 6.000 Jahre Geschichte dar, geordnet nach logischer Zuverlässigkeit.
+    Sie zeigt die Entwicklung von Menschen, Völkern und Ereignissen in einem klaren, nachvollziehbaren Ablauf.
+  </p>
+
+  <h2 class="vorteile">Worin liegt der Nutzen?</h2>
+  <p>
+    Wer die Grundlagen versteht, kann:
+    <br>• historische Zusammenhänge besser einordnen
+    <br>• falsche Grundannahmen schneller erkennen
+    <br>• ein stabiles Weltbild entwickeln, das rational und geistlich tragfähig ist
+  </p>
+
+  <a class="button" href="timeline.html">Zur Timeline / Zum Zeitstrahl</a>
+
+</div>
+
+<!-- FOOTER -->
+<div id="layout-footer"></div>
+
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  document.body.style.opacity = "1";
+});
+</script>
+
+</body>
+</html>
