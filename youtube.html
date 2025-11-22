@@ -116,7 +116,36 @@ header h2 {
 </div>
 
 <div id="layout-footer"></div>
-  
+
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("Seite geladen.");
+
+    // Teste, ob layout.js geladen wurde  -->GANZES SCRIPT NUR ZUM TESTEN
+    if (typeof initNavigation === "function") {
+        console.log("layout.js ist geladen und die Funktion initNavigation existiert.");
+    } else {
+        console.warn("layout.js wurde NICHT geladen oder initNavigation existiert nicht!");
+    }
+
+    // Teste, ob die Nav eingefügt wurde
+    const nav = document.getElementById("layout-nav");
+    if (nav && nav.innerHTML.trim() !== "") {
+        console.log("Navigation wurde eingefügt!");
+    } else {
+        console.warn("Navigation NICHT gefunden oder leer!");
+    }
+
+    // Teste, ob der Footer eingefügt wurde
+    const footer = document.getElementById("layout-footer");
+    if (footer && footer.innerHTML.trim() !== "") {
+        console.log("Footer wurde eingefügt!");
+    } else {
+        console.warn("Footer NICHT gefunden oder leer!");
+    }
+});
+</script>
+
 
 </body>
 </html>
