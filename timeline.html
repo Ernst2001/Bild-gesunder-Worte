@@ -545,8 +545,15 @@ timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
 // === STARTPOSITION NACH LADEZEIT ============================================
 window.onload = () => {
-  setTimeout(() => setView(startView), 150);
+  // Fade-In starten
+  document.body.style.opacity = "1";
+
+  // Timeline auf Startseite zentrieren, kleine Verzögerung für vollständiges Laden der Bilder
+  setTimeout(() => {
+    setView(startView);
+  }, 300);
 };
+
 
 // === TOUCH SUPPORT ==========================================================
 let touchStartDist = 0;
@@ -589,10 +596,7 @@ wrapper.addEventListener('touchend', e => {
   if (e.touches.length === 0) isDragging = false;
 });
 
-  // fade in auslösung
-window.onload = () => {
-  document.body.style.opacity = "1";
-};
+
 
 </script>
   
