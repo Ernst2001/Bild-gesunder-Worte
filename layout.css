@@ -112,41 +112,48 @@ footer {
   font-size: 1rem; /* Basisgröße */
 }
 
-/* E-Mail-Text größer */
+/* Kontakttext + Mail */
 footer p:first-child {
   margin: 0.3125rem 0; /* 5px */
-  font-size: 1.6rem; /* ca. 4 Stufen größer als vorher 1.2rem */
+  font-size: 1.4rem; /* leicht vergrößert */
   color: #ffffff;
 }
 
-/* Andere Absätze, falls vorhanden */
-footer p:not(:first-child) {
-  margin: 0.3125rem 0;
-  font-size: 1.2rem; 
+footer p:first-child a {
   color: #ffffff;
-}
-
-footer a {
-  color: #ffffff;
-  font-size: 1.6rem;  /* passend zur Mailtextgröße */
+  font-size: 1.4rem; /* gleiche Größe wie Text */
   text-decoration: none;
-  text-shadow: 0.03125rem 0.03125rem 0.0625rem #00264d; /* 0.5px 0.5px 1px */
+  text-shadow: 0.03125rem 0.03125rem 0.0625rem #00264d;
 }
 
-/* Footer-Button kleiner als Timeline-Button */
+/* Footer-Button „Unterstützen“ */
 footer button {
   background-color: #0070ba;
   border: none;
-  padding: 0.5rem 1.25rem; /* kleiner als vorher */
+  padding: 0.625rem 1.5625rem; /* 10px 25px */
   cursor: pointer;
   border-radius: 0.3125rem; /* 5px */
-  font-size: 0.9rem; /* zwei Stufen kleiner als Timeline-Button mit 1.1rem */
+  font-size: 1.4rem; /* gleiche Größe wie Kontakttext */
   color: #fff;
   text-shadow: 0.03125rem 0.03125rem 0.0625rem #00264d;
 }
 
 footer button:hover {
   background-color: #005a94;
+}
+
+/* Impressum/Datenschutz links klein halten */
+footer p:not(:first-child) {
+  margin: 0.3125rem 0; /* 5px */
+  font-size: 0.7rem; 
+  color: #ffffff;
+}
+
+footer p:not(:first-child) a {
+  font-size: 0.7rem;
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: 0.03125rem 0.03125rem 0.0625rem #00264d;
 }
 
 footer hr {
@@ -180,7 +187,11 @@ button.main-btn:hover {
     padding: 0.625rem 1.25rem; /* 10px 20px */
   }
   footer button {
-    font-size: 0.85rem; /* proportional kleiner */
+    font-size: 1.2rem; /* proportional kleiner */
     padding: 0.5rem 1rem;
   }
+  footer p:first-child {
+    font-size: 1.2rem; /* Kontakttext mobil leicht kleiner */
+  }
 }
+
