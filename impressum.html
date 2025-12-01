@@ -6,42 +6,129 @@
 <title>Impressum – Bild gesunder Worte</title>
 
 <link rel="stylesheet" href="css/layout.css">
+<script src="js/layout.js" defer></script>
+
+<style>
+/* === GLOBALE STILE (wie Projektseite) ==================================== */
+body {
+  padding-top: 60px;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+  color: #001a33;
+  font-size: 19px;
+  line-height: 1.6;
+  text-shadow: 0.3px 0.3px 0.8px #000a14;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+header {
+  text-align: center;
+  padding: 40px 20px 20px;
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+/* Container wie bei den Projektseiten */
+.container {
+  max-width: 60%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+/* Stile für H2 – gleiche Optik wie Projektseite */
+h2 {
+  color: #00264d;
+  font-size: 1.8rem;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+h2::before { font-size: 1.5rem; }
+h2.icon::before { content: "📝"; }
+
+/* Absatzboxen */
+.container p {
+  background: rgba(255,255,255,0.22);
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  line-height: 1.6;
+}
+</style>
+
 </head>
 
 <body>
 
+<!-- NAVIGATION UND FOOTER werden über layout.js geladen -->
 <div id="layout-nav"></div>
 
-<main style="max-width: 800px; margin: 50px auto; padding: 20px;">
+<header>
   <h1>Impressum</h1>
+</header>
 
-  <h2>Angaben gemäß § 5 TMG</h2>
+<div class="container">
 
-  <p><strong>Vor- und Nachname:</strong><br>
-  [Dein Name]</p>
-
-  <p><strong>Adresse:</strong><br>
-  [Straße + Hausnummer]<br>
-  [PLZ + Ort]</p>
-
-  <p><strong>Kontakt:</strong><br>
-    E-Mail: [E-Mail-Adresse]<br>
-    Telefon (optional)
+  <h2 class="icon">Angaben gemäß § 5 TMG</h2>
+  <p>
+    <strong>Verantwortlich:</strong><br>
+    [Dein Vor- und Nachname]<br>
+    [Straße + Hausnummer]<br>
+    [PLZ + Ort]
   </p>
 
-  <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
+  <p>
+    <strong>Kontakt:</strong><br>
+    E-Mail: [deine E-Mail-Adresse]<br>
+    Telefon: (optional)
+  </p>
 
-  <p>[Name & Adresse, identisch wie oben]</p>
+  <h2 class="icon">Verantwortlich nach § 55 Abs. 2 RStV</h2>
+  <p>
+    [Name, identisch wie oben]<br>
+    [Adresse, identisch wie oben]
+  </p>
 
-  <h2>Haftungsausschluss</h2>
-  <p>Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann ich jedoch keine Gewähr übernehmen.</p>
+  <h2 class="icon">Haftung für Inhalte</h2>
+  <p>
+    Die Inhalte dieser Seite wurden mit größter Sorgfalt erstellt. Für die Richtigkeit,
+    Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden.
+  </p>
 
-  <h2>Urheberrecht</h2>
-  <p>Die durch den Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Eine Vervielfältigung oder Verbreitung ist nur mit ausdrücklicher Zustimmung des Urhebers gestattet.</p>
+  <h2 class="icon">Urheberrecht</h2>
+  <p>
+    Die auf dieser Webseite erstellten Inhalte und Werke unterliegen dem deutschen Urheberrecht.
+    Eine Vervielfältigung, Bearbeitung oder Verbreitung ist nur mit ausdrücklicher Zustimmung
+    des Verantwortlichen gestattet.
+  </p>
 
-</main>
+</div>
 
+<!-- FOOTER -->
 <div id="layout-footer"></div>
+
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  document.body.style.opacity = "1";
+
+  // Aktiven Menüpunkt markieren (falls du im layout.js data-page nutzt)
+  let page = location.pathname.split("/").pop().replace(".html", "");
+  if(page === "") page = "index";
+  document.querySelectorAll(".bgw-menu a").forEach(a => {
+    if (a.dataset.page === page) { a.classList.add("active"); }
+  });
+});
+</script>
 
 </body>
 </html>
