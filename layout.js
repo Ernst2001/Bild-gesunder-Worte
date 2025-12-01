@@ -3,20 +3,20 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   // NAVIGATION LADEN ---------------------------------------------------------
-  fetch("layout/nav.html")
+  fetch("/layout/nav.html")
     .then(res => res.text())
     .then(html => {
       document.getElementById("layout-nav").innerHTML = html;
       initNavigation();
       markActivePage();
 
-    // Nach dem Einfügen der Navigation Body sichtbar machen:
-    document.body.style.opacity = "1";
-  })
-  .catch(err => console.error("Fehler beim Laden der Navigation:", err));
+      // Nach dem Einfügen der Navigation Body sichtbar machen:
+      document.body.style.opacity = "1";
+    })
+    .catch(err => console.error("Fehler beim Laden der Navigation:", err));
 
   // FOOTER LADEN -------------------------------------------------------------
-  fetch("layout/footer.html")
+  fetch("/layout/footer.html")
     .then(res => res.text())
     .then(html => {
       document.getElementById("layout-footer").innerHTML = html;
@@ -55,8 +55,8 @@ function markActivePage() {
 
 
 // Ganz unten in layout.js oder in einem eigenen Script
-window.addEventListener("load", () => {
-  document.body.style.opacity = "1";
-});
+//window.addEventListener("load", () => {
+//  document.body.style.opacity = "1";
+//});
 
 
