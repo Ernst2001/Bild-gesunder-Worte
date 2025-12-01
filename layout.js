@@ -3,7 +3,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   // NAVIGATION LADEN ---------------------------------------------------------
-  fetch("/layout/nav.html")
+  fetch("layout/nav.html")
     .then(res => res.text())
     .then(html => {
       document.getElementById("layout-nav").innerHTML = html;
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch(err => console.error("Fehler beim Laden der Navigation:", err));
 
   // FOOTER LADEN -------------------------------------------------------------
-  fetch("/layout/footer.html")
+  fetch("layout/footer.html")
     .then(res => res.text())
     .then(html => {
       document.getElementById("layout-footer").innerHTML = html;
