@@ -118,9 +118,6 @@ h2.icon::before { content: "📝"; }
 <div id="layout-footer"></div>
 
 <script>
-window.addEventListener("DOMContentLoaded", () => {
-  document.body.style.opacity = "1";
-
   // Aktiven Menüpunkt markieren (falls du im layout.js data-page nutzt)
   let page = location.pathname.split("/").pop().replace(".html", "");
   if(page === "") page = "index";
