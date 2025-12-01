@@ -9,8 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("layout-nav").innerHTML = html;
       initNavigation();
       markActivePage();
-    })
-    .catch(err => console.error("Fehler beim Laden der Navigation:", err));
+
+    // Nach dem Einfügen der Navigation Body sichtbar machen:
+    document.body.style.opacity = "1";
+  })
+  .catch(err => console.error("Fehler beim Laden der Navigation:", err));
 
   // FOOTER LADEN -------------------------------------------------------------
   fetch("layout/footer.html")
