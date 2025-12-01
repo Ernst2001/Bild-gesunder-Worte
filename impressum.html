@@ -117,15 +117,7 @@ h2.icon::before { content: "📝"; }
 <!-- FOOTER -->
 <div id="layout-footer"></div>
 
-<script>
-  // Aktiven Menüpunkt markieren (falls du im layout.js data-page nutzt)
-  let page = location.pathname.split("/").pop().replace(".html", "");
-  if(page === "") page = "index";
-  document.querySelectorAll(".bgw-menu a").forEach(a => {
-    if (a.dataset.page === page) { a.classList.add("active"); }
-  });
-});
-</script>
+
 
 </body>
 </html>
