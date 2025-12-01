@@ -52,7 +52,8 @@ function markActivePage() {
 
 
 // Ganz unten in layout.js oder in einem eigenen Script
-document.addEventListener("DOMContentLoaded", () => {
-    document.body.style.opacity = "1";
+window.addEventListener("load", () => {
+  document.body.style.opacity = "1";
 });
+
 
