@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quellen – Bild gesunder Worte</title>
+
+<link rel="stylesheet" href="css/layout.css">
+<script src="js/layout.js" defer></script>
+
+<style>
+/* === GLEICHER STIL WIE FAQ ========================================== */
+body {
+  padding-top: 60px;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+  color: #001a33;
+  font-size: 19px;
+  line-height: 1.6;
+  text-shadow: 0.3px 0.3px 0.8px #000a14;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+header {
+  text-align: center;
+  padding: 40px 20px 20px;
+}
+
+header h1 {
+  font-size: 2.3em;
+  margin-bottom: 10px;
+}
+
+header p.subtitle {
+  font-size: 1.2em;
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 65%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: left;
+  font-size: 1.15rem;
+}
+
+/* Kategorien */
+#src-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 25px 0 35px;
+}
+
+.cat-btn {
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.35);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.3s;
+  text-shadow: 0.4px 0.4px 1px #000a14;
+}
+
+.cat-btn:hover {
+  background: rgba(255,255,255,0.55);
+}
+
+.cat-btn.active {
+  background: #0070ba;
+  color: white;
+}
+
+/* Accordion-Blöcke */
+.src-item {
+  background: rgba(255,255,255,0.22);
+  margin-bottom: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  padding-left: 55px;
+  position: relative;
+}
+
+/* Nummerierung */
+.src-item::before {
+  content: attr(data-number);
+  position: absolute;
+  left: 18px;
+  top: 16px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #003a6b;
+  opacity: 0.85;
+}
+
+.src-question {
+  width: 100%;
+  text-align: left;
+  padding: 14px 18px;
+  background: none;
+  border: none;
+  font-size: 1.15rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.src-answer {
+  display: none;
+  padding: 0 18px 15px 18px;
+  line-height: 1.55;
+}
+
+.src-question span {
+  font-size: 1.4rem;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .container {
+    max-width: 95%;
+    padding: 10px 15px;
+  }
+  .src-item {
+    padding-left: 45px;
+  }
+  .src-item::before {
+    left: 12px;
+  }
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<div id="layout-nav"></div>
+
+<header>
+  <h1>Quellen</h1>
+  <p class="subtitle">
+    Übersicht über alle verwendeten Quellen zu Timeline, Videos, Zusammenfassungen und weiteren Materialien.
+  </p>
+</header>
+
+<div class="container">
+
+  <!-- KATEGORIE-BUTTONS -->
+  <div id="src-categories">
+    <button class="cat-btn active" data-filter="all">Alle</button>
+    <button class="cat-btn" data-filter="timeline">Timeline</button>
+    <button class="cat-btn" data-filter="youtube-serie">YouTube-Serie</button>
+    <button class="cat-btn" data-filter="youtube-zusammenfassung">YouTube-Zusammenfassung</button>
+    <button class="cat-btn" data-filter="weitere">Weitere</button>
+  </div>
+
+  <div id="src-list">
+
+    <!-- === TIMELINE === -->
+    <div class="src-item" data-cat="timeline">
+      <button class="src-question">Biblische Chronologie – Primärquellen <span>➕</span></button>
+      <div class="src-answer">
+        • Altes Testament – Masoretischer Text<br>
+        • Septuaginta – ergänzend zum Vergleich<br>
+        • Forschung von Roger Liebi, Schwerpunkt: Zeitpunkte im AT<br>
+        • Jüdische Geschichtsschreibung (Josephus als Zusatzreferenz)
+      </div>
+    </div>
+
+    <div class="src-item" data-cat="timeline">
+      <button class="src-question">Archäologie & historische Bezüge <span>➕</span></button>
+      <div class="src-answer">
+        • Funde zur davidischen Dynastie (Tel-Dan, Mescha-Stele)<br>
+        • Keilschrifttafeln aus Ninive<br>
+        • Datierungen der Königslisten (Vergleichsdaten für Assyrien/Babylonien)
+      </div>
+    </div>
+
+    <!-- === YOUTUBE SERIE === -->
+    <div class="src-item" data-cat="youtube-serie">
+      <button class="src-question">YouTube-Serie – Grundlagen der Wahrheit <span>➕</span></button>
+      <div class="src-answer">
+        • Video 1 – „Warum Wahrheit definiert werden muss“<br>
+        • Video 2 – „Logik und Ausgangspunkte“<br>
+        • Video 3 – „Wie zuverlässig ist Zeugenschaft?“<br>
+        • Video 4 – „Geschichte richtig lesen“
+      </div>
+    </div>
+
+    <div class="src-item" data-cat="youtube-serie">
+      <button class="src-question">YouTube-Serie – Timeline-Erläuterungen <span>➕</span></button>
+      <div class="src-answer">
+        • Teil 1 – Überblick und Struktur<br>
+        • Teil 2 – Von Adam bis Abraham<br>
+        • Teil 3 – Die Könige und Propheten<br>
+        • Teil 4 – Von Jesus bis heute
+      </div>
+    </div>
+
+    <!-- === YOUTUBE ZUSAMMENFASSUNG === -->
+    <div class="src-item" data-cat="youtube-zusammenfassung">
+      <button class="src-question">Zusammenfassungsvideos – Schnellüberblick <span>➕</span></button>
+      <div class="src-answer">
+        • „Timeline in 10 Minuten“ – Kurzüberblick<br>
+        • „Warum die Bibel historisch solide ist“ – kompakte Zusammenfassung<br>
+        • „Die wichtigsten 5 Funde“ – kurze Hervorhebungen
+      </div>
+    </div>
+
+    <!-- === WEITERE === -->
+    <div class="src-item" data-cat="weitere">
+      <button class="src-question">Weitere Quellen – Sekundärliteratur <span>➕</span></button>
+      <div class="src-answer">
+        • Wörterbücher & Lexika (Hebräisch/Griechisch)<br>
+        • Historische Kontextliteratur<br>
+        • Vergleich religiöser Ursprungstexte (als Gegenüberstellung)
+      </div>
+    </div>
+
+    <div class="src-item" data-cat="weitere">
+      <button class="src-question">Persönliche Recherchen & Notizen <span>➕</span></button>
+      <div class="src-answer">
+        • Eigene Auswertung von Datierungsmodellen<br>
+        • Interne Tabellen, Diagramme und Textanalysen<br>
+        • Ergänzende Vergleiche zwischen außer- und innerbiblischen Zeitangaben
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div id="layout-footer"></div>
+
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  document.body.style.opacity = "1";
+});
+
+/* Accordion */
+document.addEventListener("click", e => {
+  if (!e.target.classList.contains("src-question")) return;
+  
+  const btn = e.target;
+  const ans = btn.nextElementSibling;
+  const symbol = btn.querySelector("span");
+
+  if (ans.style.display === "block") {
+    ans.style.display = "none";
+    symbol.textContent = "➕";
+  } else {
+    ans.style.display = "block";
+    symbol.textContent = "➖";
+  }
+});
+
+/* Nummerierung */
+const items = document.querySelectorAll(".src-item");
+items.forEach((item, i) => {
+  const nr = (i + 1).toString().padStart(2, "0");
+  item.setAttribute("data-number", nr);
+});
+
+/* Kategorie-Filter */
+const catBtns = document.querySelectorAll(".cat-btn");
+
+catBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    catBtns.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const filter = btn.dataset.filter;
+
+    items.forEach(item => {
+      const cat = item.dataset.cat.split(" ");
+      item.style.display = (filter === "all" || cat.includes(filter)) ? "block" : "none";
+    });
+  });
+});
+</script>
+
+</body>
+</html>
