@@ -15,14 +15,47 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(err => console.error("Fehler beim Laden der Navigation:", err));
 
-  // FOOTER LADEN -------------------------------------------------------------
-  fetch("/layout/footer.html")
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById("layout-footer").innerHTML = html;
-    })
-    .catch(err => console.error("Fehler beim Laden des Footers:", err));
-});
+
+  
+// FOOTER LADEN -------------------------------------------------------------
+fetch("/layout/footer.html")
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById("layout-footer").innerHTML = html;
+
+    // --- Footer-Texte je nach Sprache setzen -------------------------------
+    const isDE = location.pathname.includes("/de/");
+    
+    // Kontakttext
+    const contactP = document.querySelector("#layout-footer footer p");
+    if (contactP) {
+      contactP.innerHTML = isDE
+        ? 'Kontakt: Bei Fragen und Anregungen sehr gerne an <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a>'
+        : 'Contact: For questions and suggestions please reach out to <a href="mailto:bildgesunderworte@gmail.com">bildgesunderworte@gmail.com</a>';
+    }
+
+    // PayPal-Button
+    const paypalBtn = document.querySelector("#layout-footer footer button");
+    if (paypalBtn) {
+      paypalBtn.textContent = isDE
+        ? "Unterstützen über PayPal"
+        : "Support via PayPal";
+    }
+
+    // Impressum & Datenschutz
+    const footerSmallLinks = document.querySelectorAll("#layout-footer footer .footer-small a");
+    if (footerSmallLinks.length === 2) {
+      if (isDE) {
+        footerSmallLinks[0].textContent = "Impressum";
+        footerSmallLinks[1].textContent = "Datenschutz";
+      } else {
+        footerSmallLinks[0].textContent = "Legal notice";
+        footerSmallLinks[1].textContent = "Privacy policy";
+      }
+    }
+  })
+  .catch(err => console.error("Fehler beim Laden des Footers:", err));
+
 
 
 
