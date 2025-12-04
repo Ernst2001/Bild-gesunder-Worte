@@ -9,7 +9,7 @@
 <script src="js/layout.js" defer></script>
 
 <style>
-/* === GLEICHER STIL WIE FAQ ========================================== */
+/* === GLOBALE STILE (wie FAQ) ========================================== */
 body {
   padding-top: 60px;
   margin: 0;
@@ -140,7 +140,7 @@ header p.subtitle {
 </head>
 <body>
 
-<!-- NAVIGATION -->
+<!-- NAVIGATION – wie FAQ -->
 <div id="layout-nav"></div>
 
 <header>
@@ -220,7 +220,7 @@ header p.subtitle {
       <div class="src-answer">
         • Wörterbücher & Lexika (Hebräisch/Griechisch)<br>
         • Historische Kontextliteratur<br>
-        • Vergleich religiöser Ursprungstexte (als Gegenüberstellung)
+        • Vergleich religiöser Ursprungstexte
       </div>
     </div>
 
@@ -229,7 +229,7 @@ header p.subtitle {
       <div class="src-answer">
         • Eigene Auswertung von Datierungsmodellen<br>
         • Interne Tabellen, Diagramme und Textanalysen<br>
-        • Ergänzende Vergleiche zwischen außer- und innerbiblischen Zeitangaben
+        • Vergleiche zwischen außer- und innerbiblischen Angaben
       </div>
     </div>
 
@@ -237,7 +237,7 @@ header p.subtitle {
 
 </div>
 
-<!-- FOOTER -->
+<!-- FOOTER – wie FAQ -->
 <div id="layout-footer"></div>
 
 <script>
@@ -271,14 +271,12 @@ items.forEach((item, i) => {
 
 /* Kategorie-Filter */
 const catBtns = document.querySelectorAll(".cat-btn");
-
 catBtns.forEach(btn => {
   btn.addEventListener("click", () => {
     catBtns.forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
 
     const filter = btn.dataset.filter;
-
     items.forEach(item => {
       const cat = item.dataset.cat.split(" ");
       item.style.display = (filter === "all" || cat.includes(filter)) ? "block" : "none";
