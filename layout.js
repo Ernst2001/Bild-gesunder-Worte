@@ -50,8 +50,20 @@ function markActivePage() {
     const href = a.getAttribute("href").split("/").pop(); // nur Dateiname vergleichen
     if (href === page) a.classList.add("active");
   });
-}
 
+
+
+
+  // Sprache aktiv setzen (für DE und EN)
+  const langLinks = document.querySelectorAll(".language-switch a");
+  langLinks.forEach(a => {
+    if (location.pathname.includes("/de/") && a.getAttribute("href").includes("/de/")) {
+      a.classList.add("active-lang");
+    } else if (location.pathname.includes("/en/") && a.getAttribute("href").includes("/en/")) {
+      a.classList.add("active-lang");
+    }
+  });
+}
 
 
 // Ganz unten in layout.js oder in einem eigenen Script
