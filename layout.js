@@ -109,6 +109,7 @@ function markActivePage() {
 // Ganz unten in layout.js oder in einem eigenen Script
 //window.addEventListener("load", () => {
 //  document.body.style.opacity = "1";
-//});
+  
+});
 
 
