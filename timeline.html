@@ -363,7 +363,7 @@ const extraMargin = 80;
 
 for (let i = 1; i <= totalPages; i++) {
   const img = document.createElement('img');
-  img.src = `images/Seite${i}.png`;
+  img.src = `/images/Seite${i}.png`;
   img.alt = `Seite ${i}`;
   timeline.appendChild(img);
 }
@@ -487,7 +487,7 @@ minimapWrapper.appendChild(viewRect);
 // === MINIMAP-BILDER ==========================================================
 for (let i = 1; i <= totalPages; i++) {
   const mini = document.createElement('img');
-  mini.src = `images/Seite${i}.png`;
+  mini.src = `/images/Seite${i}.png`;
   mini.style.height = '100%';
   mini.style.objectFit = 'cover';
   mini.style.flex = '1';
