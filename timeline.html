@@ -32,6 +32,8 @@ header p {
   text-shadow: 0.5px 0.5px 1px #000a14; 
 }
 
+
+  
 #controls { text-align:center; margin:20px; }
 #controls button { 
   background-color:#0070ba; color:#fff; border:none; 
@@ -48,6 +50,30 @@ header p {
 #timeline { display:flex; height:130%; transform-origin:0 0; user-select:none; }
 #timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none; }
 
+ /* Hinweise über 4 Buttons */
+  #view-hints {
+  max-width: 85%;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  color: #001a33;
+  text-align: left;
+}
+
+#view-hints h3 {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+
+#view-hints ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  font-size: 1.15em;
+}
+
+#view-hints li {
+  margin-bottom: 0.5rem;
+}
+
 
 </style>
 </head>
@@ -61,6 +87,18 @@ header p {
   <p>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</p>
 </header>
 
+<div id="view-hints">
+  <h3>Was fällt dir bei der Timeline auf in Bezug auf:</h3>
+  <ul>
+    <li>Wo haben extrem kluge Menschen gelebt? Wann geht es Richtung "Affenmensch"?</li>
+    <li>Ab wann ist aufgrund von Intelligenz keine dukumentierte Chronologie möglich?</li>
+    <li>Wo gab es die komplexesten Schriften? Passt das zu "primitiven" Menschen?</li>
+    <li>Wo sind die genialen Bauwerke entstanden, die teils heute nicht verstanden sind?</li>
+    <li>Ab welcher Zeit gibt es außerbiblische keine sichere Datierung mehr?</li>
+    <li>Wie schnell entstehen und verschwinden Völker?</li>
+  </ul>
+</div>
+  
 <div id="controls">
   <button onclick="setView(1)">Ansicht Anfang</button>
   <button onclick="setView(5)">Ansicht Sintflut</button>
