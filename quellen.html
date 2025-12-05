@@ -288,6 +288,27 @@ catBtns.forEach(btn => {
     });
   });
 });
+
+// Suche in Quellen
+const searchInput = document.getElementById("src-search-input");
+
+searchInput.addEventListener("input", () => {
+  const query = searchInput.value.toLowerCase();
+
+  items.forEach(item => {
+    const text = item.querySelector(".src-question").textContent.toLowerCase()
+               + " " 
+               + item.querySelector(".src-answer").textContent.toLowerCase();
+    
+    // Zeige Item nur, wenn Suchbegriff gefunden wurde
+    if (text.includes(query)) {
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+  });
+});
+
 </script>
 
 </body>
