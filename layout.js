@@ -93,24 +93,37 @@ function markActivePage() {
 
 
 
+ // --- Sprachumschaltung mit Mapping ---
+  const langLinks = document.querySelectorAll(".language-switch a");
 
-// Sprache aktiv setzen und Links dynamisch anpassen
-const langLinks = document.querySelectorAll(".language-switch a");
-langLinks.forEach(a => {
-  const currentFile = location.pathname.split("/").pop(); // z.B. "grundlagen.html"
-  const baseName = currentFile.replace("_en", "").replace(".html", ""); // z.B. "grundlagen"
+  // Mapping für Seiten, deren englischer Dateiname anders ist
+  const pageMap = {
+    "index.html": "index_en.html",
+    "projekt.html": "project_en.html",
+    "grundlagen.html": "basics_en.html",
+    "timeline.html": "timeline_en.html",
+    "faq.html": "faq_en.html",
+    "youtube.html": "youtube_en.html",
+    "quellen.html": "sources_en.html",
+    "kontakt.html": "contact_en.html",
+    "unterstuetzen.html": "support_en.html",
+    "impressum.html": "legal_en.html",
+    "datenschutz.html": "privacy_en.html"
+  };
 
-  if (a.getAttribute("href").includes("/de/")) {
-    a.href = "/de/" + baseName + ".html";
-    if (location.pathname.includes("/de/")) a.classList.add("active-lang");
-  } else if (a.getAttribute("href").includes("/en/")) {
-    a.href = "/en/" + baseName + "_en.html";
-    if (location.pathname.includes("/en/")) a.classList.add("active-lang");
-  }
-});
-
+  langLinks.forEach(a => {
+    if (a.getAttribute("href").includes("/de/")) {
+      // Deutsch: suche passenden deutschen Key
+      const deFile = Object.keys(pageMap).find(key => pageMap[key] === page) || page;
+      a.href = "/de/" + deFile;
+      if (location.pathname.includes("/de/")) a.classList.add("active-lang");
+    } else if (a.getAttribute("href").includes("/en/")) {
+      // Englisch: benutze Mapping oder fallback auf _en
+      a.href = "/en/" + (pageMap[page] || page.replace(".html","") + "_en.html");
+      if (location.pathname.includes("/en/")) a.classList.add("active-lang");
+    }
+  });
 }
-
 
 });
 
