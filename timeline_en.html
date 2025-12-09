@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Zentrale Navigation + Footer -->
+<link rel="stylesheet" href="/css/layout.css">
+<script src="/js/layout.js" defer></script>
+
+  
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Facts instead of myths: Timeline</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+  color: #001a33; /* dunkler Text für bessere Lesbarkeit */
+  overflow-x: hidden;
+  font-size: 19px;
+  text-shadow: 0.5px 0.5px 1px #000a14; /* minimaler Schatten */
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out; /*fade in */
+}
+
+
+header { text-align:center; padding:30px; }
+header h1 { margin:0; font-size:2.8em; }
+header p { 
+  margin-top:10px; font-size:1.4em; 
+  color:#001a33; 
+  text-shadow: 0.5px 0.5px 1px #000a14; 
+}
+
+
+  
+#controls { text-align:center; margin:20px; }
+#controls button { 
+  background-color:#0070ba; color:#fff; border:none; 
+  padding:12px 22px; margin:5px; border-radius:6px; cursor:pointer; 
+  font-size:1.1em; text-shadow:0.5px 0.5px 1px #000a14;
+}
+#controls button:hover { background-color:#005a94; }
+
+#timeline-wrapper { 
+  height: calc(100vh - 200px); /* genug Platz für Header + Footer */
+  width:100%; height:91vh; overflow:hidden; position:relative; cursor:grab; 
+  margin:20px 0; border:1px solid rgba(0,0,0,0.2); 
+}
+#timeline { display:flex; height:130%; transform-origin:0 0; user-select:none; }
+#timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none; }
+
+ /* Hinweise über 4 Buttons */
+  #view-hints {
+  max-width: 85%;
+  margin: 0px auto;
+  font-family: Arial, sans-serif;
+  color: #001a33;
+  text-align: left;
+}
+
+#view-hints h3 {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+
+#view-hints ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  font-size: 1.15em;
+}
+
+#view-hints li {
+  margin-bottom: 0.5rem;
+}
+
+  #view-hints {
+  display: flex;             /* Aktiviert Flexbox */
+  flex-direction: column;    /* Elemente untereinander */
+  align-items: center;       /* Zentriert den Block horizontal */
+}
+
+#view-hints h3, #view-hints ul {
+  text-align: left;          /* Inhalte bleiben linksbündig */
+  max-width: 1000px;          /* optional, damit es nicht zu breit wird */
+  width: 100%;
+}
+
+  #view-hints ul li {
+  white-space: nowrap; /* Verhindert Zeilenumbruch */
+}
+
+</style>
+</head>
+
+<body>
+<!-- NAVIGATION UND FOOTER werden über layout.js geladen -->
+<div id="layout-nav"></div>
+
+<header>
+  <h1>Facts instead of myths: History in a timeline</h1>
+  <p>An overview that allows comparison and brings the truth to light</p>
+</header>
+
+<div id="view-hints">
+  <h3>What strikes you about the timeline in relation to:</h3>
+  <ul>
+    <li>Where did extremely intelligent people live? When did they get closer to “ape-men”?</li>
+    <li>From when onward is it no longer possible to document a chronology due to reduced intelligence?</li>
+    <li>Where were the most complex writings found? Is this consistent with “primitive” people?</li>
+    <li>Where were the ingenious structures built that are still inexplicable today?</li>
+    <li>From what point onward is there no longer any reliable dating outside of the Bible?</li>
+    <li>How quickly do nations arise and disappear?</li>
+  </ul>
+</div>
+  
+<div id="controls">
+  <button onclick="setView(1)">View beginning</button>
+  <button onclick="setView(5)">View Flood</button>
+  <button onclick="setView(9)">View Turning Point</button>
+  <button onclick="setView(13)">View Modern Age</button>
+</div>
+
+<div id="timeline-wrapper">
+  <div id="timeline"></div>
+</div>
+
+<div id="minimap-wrapper"></div>
+
+<!-- ================== WICHTIGE PUNKTE (AKKORDEON) ================== -->
+<div id="important-points">
+  <h2>Important points that stand out with a fact-filled timeline:</h2>
+
+  <!-- Point 1 -->
+  <details open class="point point1">
+    <summary><strong>1. <u>High intelligence</u> cannot be denied in “early humans”! (throughout the entire documented period of eyewitness accounts)</strong></summary>
+    <ul>
+      <li><strong>Archeology – remarkable finds and unanswered questions:</strong>
+        <ul>
+          <li>Movement of boulders weighing <strong>well over 1,000 tons</strong></li>
+          <li>Precision cuts in extremely hard rock, technically almost impossible to explain (for some, “only possible with aliens”)</li>
+          <li>Nearly perfect symmetry/geometry in gigantic monuments</li>
+          <li>Sophisticated water supply and ventilation systems</li>
+          <li>The globe was already largely mapped in 1500+ BC (Polynesians)</li>
+          <li>In-depth astronomy evident in many buildings</li>
+          <li>Buildings designed to last for many thousands of years, more sustainable than today</li>
+          <li>No toxic chemicals – instead, a focus on health</li>
+          <li>Use of electricity very likely (battery finds)</li>
+          <li>Evidence of live skull surgery (healed drilled bones)</li>
+        </ul>
+      </li>
+      <li><strong>Written records:</strong>
+        <ul>
+          <li>Ancient texts demonstrate a high intellectual level—comparable to today's standards and higher; outstanding thinkers and geniuses appear in all eras.
+          <li>The Bible comprises over 200 different language styles—exceptional in its linguistic diversity, literary quality, and poetic expressiveness.</li>
+          <li>Even according to modern critics, the ancient books of the Bible are at least 2300 years old.
+            <ul>
+              <li>Why did the book with the greatest wisdom and appeal in antiquity come into being?</li>
+              <li>Why is there still no other bestseller of this magnitude today?</li>
+              <li>According to the Bible, the first writings may even have been created directly by contemporary eyewitnesses (Adam, Noah, Abraham, etc. from around 4000 BC); inspired and/or compiled 
+                by Moses around 1600 BC at the latest. </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><strong>Conclusion: Stupidity is completely out of the question! The documented, reliably known period clearly testifies to high intelligence!</strong> It is more in the direction of “more intelligent than today” – 
+        so not in the direction of monkey ancestry. If people were smart enough, why should there be no extra-biblical chronologies that allow for clear retrocalculations?
+        Why is there no intellectual regression in the entire documentation? Despite hundreds of thousands of years of assumed human history—with the use of fire, art, burials, etc., 
+        and sophisticated cave paintings dating back over 30,000 years—there is no documented phase of more primitive thinking.
+        Instead, the writings fit exactly with the Bible. (Excluding unknown assumptions in the dating)</li>
+    </ul>
+  </details>
+
+  <!-- Punkt 2 -->
+  <details class="point point2">
+    <summary><strong>2. A <u>high population growth rate</u> cannot be denied for “early humans”!</strong></summary>
+    <ul>
+      <li>Since 1950, the number of humans has been estimated/counted more “accurately.” The biblical figures fit in perfectly with this:
+        <ul>
+          <li>Why, then, can we not attribute a higher survival rate to “early humans”? If, in line with today's reality, significantly more people are consistently documented, 
+            no other conclusion makes sense or is logical!</li>
+          <li>If you are smart, you will find the solution to the cause of diseases more quickly!</li>
+        </ul>
+      </li>
+      <li>Historical demographic turning points, such as the plague around 1350 AD, show that modern reconstructions of the population curve are greatly smoothed out.
+        <ul>
+          <li>With 1/3 of the population dead, there should be a deep dip over a long period of time, rather than a direct “jump upwards” and a further slow rise as before. </li>
+        </ul>
+      </li>
+      <li>The Bible fits the “average” of non-biblical army sizes.
+        <ul>
+          <li>Modern historians reduce almost all numbers by a factor of 10! (in some cases by a factor of 100+) Supposedly, “they couldn't count beyond 50,000.”</li>
+          <li>Given their obviously higher intelligence, it goes without saying that they could count!
+            <ul>
+              <li>The Bible provides the simple solution: “chiefs over 1,000”; 1,000 chiefs therefore already equals 1,000,000 soldiers. So they couldn't count to 51 or 500?!
+                Anyone who doesn't come up with such a primitive idea can't call themselves clever, can they?</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Entire nations come and go within 500 years!
+        <ul>
+          <li>For example, 500 years ago, neither Russia nor the USA existed. </li>
+          <li>Northern Israel only existed for about 250 years (with 21 rulers).</li>
+          <li>Southern Israel (“Judah”) only existed for about 390 years (with 19 rulers).</li>
+          <li>During this short period, there were many battles, some with 400,000+ deaths.
+            <ul>
+              <li>Reduction: From a population of many millions to tens of thousands destroyed (modern equivalent: Holocaust, approx. 6,000,000 Jews killed).</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><strong>Conclusion: The Bible contains clearly realistic historical accounts!</strong> If ancient people were neither intellectually inferior nor organizationally incapable, 
+        there is no reason to deny the documented population growth!</strong></li>
+    </ul>
+  </details>
+
+  <!-- Point 3 -->
+  <details class="point point3">
+    <summary><strong>3. Consequently, a <u>higher life expectancy</u> cannot be denied either!</strong></summary>
+    <ul>
+      <li>Outside of the Bible, records point to higher ages than today
+        <ul>
+          <li>With over 40,000 years, the Sumerians are at the forefront of exaggerations</li>
+        </ul>
+      </li>
+      <li>If they cannot be particularly primitive, the biblical account makes sense:
+        <ul>
+          <li>According to scientific estimates, humans could live to be around 1,000 years old if all mutations were repaired – a perfect match for the Bible!</li>
+          <li>There is no hard limit at, say, 150 years. Today, everyone accepts 123 years. Over the last 500 years, there are enough documents of much older people. </li>
+        </ul>
+      </li>
+        <li>Architecture with a durability of well over 1000 years clearly points in the direction of thinking far more than 100 years ahead!
+        <ul>
+          <li>Such developments and construction methods fit perfectly with the biblical worldview, in which initially 900-year-olds and then 400-year-olds gathered and passed on knowledge. Today, we marvel
+          at some of the principles and inventions of the past. </li>
+        </ul>
+      <li>According to the Bible, in the beginning there was only plant-based food and plenty of exercise.
+        <ul>
+          <li>To this day, these factors remain among the most stable foundations for long-term health and a high quality of life! 
+            None of this fits with an “invention by rabbis around 200-300 BC.”</li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+  
+  <!-- Punkt 4 -->
+  <details class="point point4">
+    <summary><strong>4. <u>Truth</u> is the central theme of the Bible. In contrast to these accounts, one recognizes the excessive exaggerations of all other “godless” peoples!</strong></summary>
+    <ul>
+      <li>Truth is a consistent <strong>basic requirement</strong> in the Bible:
+        <ul>
+          <li>in the hope of eternal life, which <strong>God, who cannot lie</strong>, promised before eternal times; Titus 1:2</li>
+          <li>God calls His name to Moses <strong>“I am”</strong>: thus eternal and unchanging—it is fitting to say of Him, “He is THE truth.”</li>
+          <li>You shall <strong>not bear false witness</strong> against your neighbor. Exodus 20:16</li>
+          <li>You shall <strong>add nothing</strong> to the word that I command you, and you shall <strong>take nothing away</strong> from it, that you may keep the commandments of the LORD your God, 
+            which I command you. Deut. 4:2</li>
+          <li>You shall keep the whole word that I command you, to do it; you shall <strong>add nothing to it and take nothing away from it</strong>. Deuteronomy 13:1-2</li>
+          <li>If anyone <strong>adds to these things</strong>, God will add to him the plagues that are written in this book; and if anyone <strong>takes away</strong> from the words of the book of this 
+            prophecy, God will take away his part from the tree of life and from the holy city, which are written in this book. Rev. 22:18-19</li>
+        </ul>
+      </li>
+      <li><strong>Conclusion: There is no evidence that the biblical events are false or unrealistic. The sum total of the Bible is unsurpassably certain!</strong> (Not every translation, 
+        but the most accurate ones or the original text! In German - Elberfelder and Schlachter. English - King James Version)</li>
+    </ul>
+  </details>
+
+  <!-- Punkt 5 -->
+  <details class="point point5">
+    <summary><strong>5. Due to widespread “myths,” the truth cannot be thrown overboard!</strong></summary>
+    <ul>
+      <li>If all sources point in a direction that is unlikely for us but “better,” it honestly suggests that we are “worse” today, right?</li>
+      <li>One should overcome one's pride and question oneself critically. Modernity does not have to be better than the “primitive people of the past.”
+        <ul>
+          <li>This human arrogance is only completely exposed in the Bible—in keeping with the truth. </li>
+        </ul>
+      </li>
+      <li>The truth is usually somewhere in between. The Bible is the best “middle ground” and fits reality in everything that can be tested. Without supernatural beings (God, angels), there is always a need for explanation. 
+        It is not without reason that alien theories are becoming popular again, similar to the antediluvian Sumerian myth.
+    </ul>
+  </details>
+  
+  <!-- Punkt 6 -->
+  <details class="point point6">
+    <summary><strong>6. Biblical <u>accounts correspond to</u> contemporary historical <u>events</u>!</strong></summary>
+    <ul>
+      <li>Writing style, languages, intelligence, observations, idioms, rulers, titles of rulers, names of people and countries across time (e.g., Job, Moses, Abraham, Daniel, etc.)</li>
+    </ul>
+  </details>
+
+  <!-- Punkt 7 -->
+  <details class="point point7">
+    <summary><strong>7. <u>Prophecies/predictions</u> can be found on almost every page of the Bible and clearly <u>confirm</u> the one <u>God</u> who exists outside of time!</strong></summary>
+    <ul>
+      <li>The constant presence and large quantity of prophecy is inexplicable without God!
+        <ul>
+          <li>E.g., Daniel: Even if the book was written in 200 BC, its predictions are accurate to the day of Jesus' coming as Prince in 32 AD. Many more events for 2025+ AD are mentioned in it.</li>
+          <li>There are over 3,000 predictions in the Bible that have already been fulfilled. And there are no false predictions! (“Just predict enough, and something will come true” does not apply here! Nor is it 
+            “self-fulfilling”: Who would want to and be able to fulfill all the predictions about the Messiah?)
+            <ul>
+              <li>Approximately 400 fulfilled about Jesus Christ</li>
+              <li>&gt;180 fulfilled about the present future</li>
+            </ul>
+          </li>
+          <li>The Messiah is already announced in Eve</li>
+          <li>The first 10 patriarch names from Adam contain <strong>the Gospel of Jesus</strong> in sequence (approx. 4000-2600 BC!)
+            <ul>
+              <li>Are we to believe that rabbis came up with this in 200-300 BC?</li>
+            </ul>
+          </li>
+          <li>All subsequent reports and details correspond to and expand on this basic idea throughout, without the writers being able to consult each other, let alone understand everything that had gone before!
+            <ul>
+              <li>And this despite the fact that for rabbis the Gospel is blasphemy and they killed Jesus for it!</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><strong>Conclusion: Cannot be explained without inspiration from this timeless God!</strong></li>
+    </ul>
+  </details>
+  
+  <!-- Punkt 8 -->
+  <details class="point point8">
+    <summary><strong>8. The <u>consistency of the individual books of the Bible</u> is supernatural!</strong></summary>
+    <ul>
+      <li>Uniquely, there is a <u>complete and coherent chronology</u> from Adam to Jesus</li>
+      <li>even though approximately 40 authors wrote over a period of approximately 4100 (min. 1700) years!
+        <ul>
+          <li>Even the common scientific dating of only about 300 years does not explain this uniformity.</li>
+        </ul>
+      </li>
+      <li><strong>Conclusion: One must indeed be a fool not to believe in God Ps 14:1</strong>
+        <ul>
+          <li>But human pride often leads to exactly that: <strong>“Pride comes before a fall”</strong></li>
+          <li><strong>So we are now <u>ambassadors</u> for Christ, as though God were making his appeal through us; we implore you on Christ's behalf: <u>Be reconciled to God!</u> 2 Cor 5:20 
+            The opportunity to do so may pass us by today!</strong></li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+
+</div>
+
+<style>
+#important-points {
+  max-width: 85%;
+  margin: 40px auto;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  line-height: 1.6;
+  font-size: 1.3em;
+  text-align: left; /* linksbündig */
+}
+
+#important-points h2 {
+  font-size: 1.6em;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* Allgemeine Styles für Details */
+#important-points details {
+  margin-bottom: 20px; /* etwas größerer Abstand zwischen Hauptpunkten */
+  padding: 15px 20px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Abwechselnde Hintergrundfarbe */
+#important-points details:nth-child(even) {
+  background-color: #f5f5f5;
+}
+#important-points details:nth-child(odd) {
+  background-color: #e8f0f8;
+}
+
+/* Punkt-spezifische dezente Farben */
+.point1 summary { color: #2c3e50; }
+.point2 summary { color: #34495e; }
+.point3 summary { color: #16a085; }
+.point4 summary { color: #27ae60; }
+.point5 summary { color: #2980b9; }
+.point6 summary { color: #8e44ad; }
+.point7 summary { color: #d35400; }
+.point8 summary { color: #c0392b; }
+
+#important-points summary {
+  cursor: pointer;
+  outline: none;
+  font-weight: bold;
+  font-size: 1.15em;
+}
+
+/* Entfernt den unerwünschten Abstand ÜBER den Listen */
+/* Oberste UL in #important-points */
+#important-points ul {
+  margin: 0 0 1.5rem 1.25rem; /* oben:0, unten:1.5rem, links:1.25rem */
+  padding: 0;
+  list-style-position: inside;
+}
+
+/* Unterlisten (UL innerhalb von UL) */
+#important-points ul ul {
+  margin: 0 0 3rem 1.5rem; /* kleinerer Abstand für Unterlisten */
+  padding: 0;
+}
+
+/* LI-Abstände */
+#important-points li {
+  margin: 0.2rem 0; /* Abstand zwischen Listenelementen */
+  padding: 0;
+}
+
+/* Starker Abstand zwischen Kategorien (LI > UL) */
+#important-points li > ul {
+  margin-bottom: 0rem;
+}
+
+
+  
+/* Optional: größere Absätze zwischen Hauptpunkten */
+#important-points details + details {
+  margin-top: 25px;
+}
+
+
+/* Ende Text */
+</style>
+  
+  
+  
+<script>
+// === TIMELINE-BILDER =========================================================
+const wrapper = document.getElementById('timeline-wrapper');
+const timeline = document.getElementById('timeline');
+
+const totalPages = 17;
+const startView = 13;
+const extraMargin = 80;
+
+for (let i = 1; i <= totalPages; i++) {
+  const img = document.createElement('img');
+  img.src = `/de/images/Seite${i}.png`;
+  img.alt = `Seite ${i}`;
+  timeline.appendChild(img);
+}
+
+// === ZUSTAND =================================================================
+let scale = 0.7, targetScale = 0.7;
+let translateX = 0, translateY = 0;
+let targetTranslateX = 0, targetTranslateY = 0;
+let isDragging = false, startX, startY;
+
+// === DRAG IM HAUPTBEREICH ====================================================
+wrapper.addEventListener('mousedown', e => {
+  isDragging = true;
+  startX = e.clientX - targetTranslateX;
+  startY = e.clientY - targetTranslateY;
+  wrapper.style.cursor = 'grabbing';
+});
+document.addEventListener('mouseup', () => {
+  isDragging = false;
+  wrapper.style.cursor = 'grab';
+});
+document.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  targetTranslateX = e.clientX - startX;
+  targetTranslateY = e.clientY - startY;
+  applyBounds();
+});
+
+// === ZOOM MIT MAUSRAD ========================================================
+wrapper.addEventListener('wheel', e => {
+  e.preventDefault();
+  const rect = wrapper.getBoundingClientRect();
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
+  const currentScale = scale;
+  const currentTX = translateX;
+  const currentTY = translateY;
+  const zoomFactor = Math.exp(-e.deltaY * 0.0015);
+  const newScale = Math.min(Math.max(0.3, currentScale * zoomFactor), 5);
+  const contentX = (mouseX - currentTX) / currentScale;
+  const contentY = (mouseY - currentTY) / currentScale;
+  targetTranslateX = mouseX - contentX * newScale;
+  targetTranslateY = mouseY - contentY * newScale;
+  targetScale = newScale;
+  applyBounds();
+});
+
+// === BEGRENZUNG ==============================================================
+function applyBounds() {
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const timelineWidth = timeline.scrollWidth * targetScale;
+  const timelineHeight = timeline.scrollHeight * targetScale;
+  const visibleMarginX = wrapperRect.width * 0.05;
+  const visibleMarginY = wrapperRect.height * 0.05;
+
+  if (timelineWidth <= wrapperRect.width) {
+    targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
+  } else {
+    const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
+    const maxX = 0 - visibleMarginX + extraMargin;
+    targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
+  }
+
+  if (timelineHeight <= wrapperRect.height) {
+    targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
+  } else {
+    const minY = wrapperRect.height - timelineHeight + visibleMarginY;
+    const maxY = visibleMarginY;
+    targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
+  }
+}
+
+// === ANSICHT SETZEN ==========================================================
+function setView(page) {
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const img = timeline.children[page - 1];
+  if (!img) return;
+  const imgLeft = img.offsetLeft;
+  const imgWidth = img.offsetWidth;
+  const imgTop = img.offsetTop;
+  const imgHeight = img.offsetHeight;
+  targetScale = 0.7;
+  targetTranslateX = wrapperRect.width / 2 - (imgLeft + imgWidth / 2) * targetScale;
+  targetTranslateY = wrapperRect.height / 2 - (imgTop + imgHeight / 2) * targetScale;
+  applyBounds();
+}
+
+// === MINI-MAP ================================================================
+const minimapWrapper = document.getElementById('minimap-wrapper');
+minimapWrapper.style.position = 'fixed';
+minimapWrapper.style.bottom = '10px';
+minimapWrapper.style.left = '50%';
+minimapWrapper.style.transform = 'translateX(-50%)';
+minimapWrapper.style.width = '250px';
+minimapWrapper.style.height = '50px';
+minimapWrapper.style.border = '1px solid rgba(0,0,0,0.4)';
+minimapWrapper.style.background = 'rgba(0,0,0,0.3)';
+minimapWrapper.style.borderRadius = '6px';
+minimapWrapper.style.cursor = 'pointer';
+minimapWrapper.style.overflow = 'hidden';
+minimapWrapper.style.zIndex = '9999';
+
+const minimap = document.createElement('div');
+minimap.style.display = 'flex';
+minimap.style.height = '100%';
+minimap.style.width = '100%';
+minimap.style.position = 'relative';
+minimapWrapper.appendChild(minimap);
+
+const viewRect = document.createElement('div');
+viewRect.style.position = 'absolute';
+viewRect.style.top = '0';
+viewRect.style.left = '0';
+viewRect.style.height = '100%';
+viewRect.style.border = '2px solid #ffd700';
+viewRect.style.boxSizing = 'border-box';
+viewRect.style.background = 'rgba(255,215,0,0.1)';
+viewRect.style.cursor = 'grab';
+minimapWrapper.appendChild(viewRect);
+
+// === MINIMAP-BILDER ==========================================================
+for (let i = 1; i <= totalPages; i++) {
+  const mini = document.createElement('img');
+  mini.src = `/de/images/Seite${i}.png`;
+  mini.style.height = '100%';
+  mini.style.objectFit = 'cover';
+  mini.style.flex = '1';
+  mini.style.opacity = '0.7';
+  mini.style.userSelect = 'none';
+  mini.style.webkitUserDrag = 'none';
+  mini.draggable = false;
+  minimap.appendChild(mini);
+}
+
+// === KLICK & DRAG IN DER MINIMAP ============================================
+let isMiniDragging = false;
+let miniStartX = 0;
+minimapWrapper.addEventListener('mousedown', e => {
+  isMiniDragging = true;
+  miniStartX = e.clientX;
+});
+document.addEventListener('mouseup', () => { isMiniDragging = false; });
+document.addEventListener('mousemove', e => {
+  if (!isMiniDragging) return;
+  moveMinimapTo(e.clientX);
+});
+minimapWrapper.addEventListener('click', e => moveMinimapTo(e.clientX));
+
+function moveMinimapTo(clientX) {
+  const rect = minimapWrapper.getBoundingClientRect();
+  const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const timelineWidth = timeline.scrollWidth * targetScale;
+  targetTranslateX = -ratio * (timelineWidth - wrapperRect.width);
+  applyBounds();
+}
+
+// === UPDATE DER MINIMAP =====================================================
+function updateMinimap() {
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const timelineWidth = timeline.scrollWidth * scale;
+  const visibleRatio = wrapperRect.width / timelineWidth;
+  const fullWidth = minimapWrapper.clientWidth;
+  const rectWidth = Math.max(15, fullWidth * visibleRatio);
+  const scrollRatio = -translateX / (timelineWidth - wrapperRect.width);
+  const rectLeft = (fullWidth - rectWidth) * scrollRatio;
+  viewRect.style.width = rectWidth + 'px';
+  viewRect.style.left = rectLeft + 'px';
+}
+
+// === ANIMATION LOOP ==========================================================
+function animate() {
+  scale += (targetScale - scale) * 0.15;
+  translateX += (targetTranslateX - translateX) * 0.15;
+  translateY += (targetTranslateY - translateY) * 0.15;
+  timeline.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  updateMinimap();
+  requestAnimationFrame(animate);
+}
+animate();
+
+// === VERHINDERT DRAG AUF TIMELINE-IMAGES ====================================
+timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
+
+// === STARTPOSITION NACH LADEZEIT ============================================ wird das nicht in js schon passieren?
+window.onload = () => {
+  // Fade-In starten
+  document.body.style.opacity = "1";
+
+  // Timeline auf Startseite zentrieren, kleine Verzögerung für vollständiges Laden der Bilder
+  setTimeout(() => {
+    setView(startView);
+  }, 300);
+};
+
+
+// === TOUCH SUPPORT ==========================================================
+let touchStartDist = 0;
+let lastTouchX = 0, lastTouchY = 0;
+
+wrapper.addEventListener('touchstart', e => {
+  if (e.touches.length === 1) {
+    isDragging = true;
+    lastTouchX = e.touches[0].clientX - targetTranslateX;
+    lastTouchY = e.touches[0].clientY - targetTranslateY;
+  } else if (e.touches.length === 2) {
+    isDragging = false;
+    touchStartDist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+  }
+});
+
+wrapper.addEventListener('touchmove', e => {
+  e.preventDefault();
+  if (e.touches.length === 1 && isDragging) {
+    targetTranslateX = e.touches[0].clientX - lastTouchX;
+    targetTranslateY = e.touches[0].clientY - lastTouchY;
+    applyBounds();
+  } else if (e.touches.length === 2) {
+    const dist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    const rect = wrapper.getBoundingClientRect();
+    const zoomFactor = dist / touchStartDist;
+    targetScale = Math.min(Math.max(0.3, scale * zoomFactor), 5);
+    touchStartDist = dist;
+    applyBounds();
+  }
+}, { passive: false });
+
+wrapper.addEventListener('touchend', e => {
+  if (e.touches.length === 0) isDragging = false;
+});
+
+
+
+</script>
+  
+<script>
+function toggleBGWMenu() {
+  document.querySelector(".bgw-menu").classList.toggle("show");
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  let page = location.pathname.split("/").pop().replace(".html", "");
+  if(page === "") page = "index";
+
+  document.querySelectorAll(".bgw-menu a").forEach(a => {
+    if (a.dataset.page === page) {
+      a.classList.add("active");
+    }
+  });
+});
+</script>
+
+    <div id="layout-footer"></div>
+  
+</body>
+</html>
