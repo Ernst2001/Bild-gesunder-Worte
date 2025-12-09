@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="E">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sources – Sound Words</title>
+
+<link rel="stylesheet" href="/css/layout.css">
+<script src="/js/layout.js" defer></script>
+
+<style>
+/* === GLOBALE STILE (wie FAQ) ========================================== */
+body {
+  padding-top: 60px;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+  color: #001a33;
+  font-size: 19px;
+  line-height: 1.6;
+  text-shadow: 0.3px 0.3px 0.8px #000a14;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+header {
+  text-align: center;
+  padding: 40px 20px 20px;
+}
+
+header h1 {
+  font-size: 2.3em;
+  margin-bottom: 10px;
+}
+
+header p.subtitle {
+  font-size: 1.2em;
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 65%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: left;
+  font-size: 1.15rem;
+}
+
+/* Kategorien */
+#src-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 25px 0 35px;
+}
+
+.cat-btn {
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.35);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.3s;
+  text-shadow: 0.4px 0.4px 1px #000a14;
+}
+
+.cat-btn:hover {
+  background: rgba(255,255,255,0.55);
+}
+
+.cat-btn.active {
+  background: #0070ba;
+  color: white;
+}
+
+/* Accordion-Blöcke */
+.src-item {
+  background: rgba(255,255,255,0.22);
+  margin-bottom: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  padding-left: 55px;
+  position: relative;
+}
+
+/* Nummerierung */
+.src-item::before {
+  content: attr(data-number);
+  position: absolute;
+  left: 18px;
+  top: 16px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #003a6b;
+  opacity: 0.85;
+}
+
+.src-question {
+  width: 100%;
+  text-align: left;
+  padding: 14px 18px;
+  background: none;
+  border: none;
+  font-size: 1.15rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.src-answer {
+  display: none;
+  padding: 0 18px 15px 18px;
+  line-height: 1.55;
+}
+
+.src-question span {
+  font-size: 1.4rem;
+}
+
+#src-search-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  margin: 20px 0 25px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+  
+/* Responsive */
+@media (max-width: 700px) {
+  .container {
+    max-width: 95%;
+    padding: 10px 15px;
+  }
+  .src-item {
+    padding-left: 45px;
+  }
+  .src-item::before {
+    left: 12px;
+  }
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAVIGATION – wie FAQ -->
+<div id="layout-nav"></div>
+
+<header>
+  <h1>Sources</h1>
+  <p class="subtitle">
+    Overview of all sources used for timeline, videos, summaries, and other materials.
+  </p>
+</header>
+
+<div class="container">
+
+    <!-- SUCHFELD -->
+  <div id="src-search">
+    <input type="text" id="src-search-input" placeholder="Suche Quellen..." aria-label="Suche Quellen">
+  </div>
+  
+  <!-- KATEGORIE-BUTTONS -->
+  <div id="src-categories">
+    <button class="cat-btn active" data-filter="all">All</button>
+    <button class="cat-btn" data-filter="timeline">Timeline</button>
+    <button class="cat-btn" data-filter="youtube-series">YouTube-Series</button>
+    <button class="cat-btn" data-filter="youtube-summary">YouTube-Summary</button>
+    <button class="cat-btn" data-filter="more">More</button>
+  </div>
+
+  <div id="src-list">
+
+    <!-- === TIMELINE === -->
+    <div class="src-item" data-cat="timeline">
+      <button class="src-question">Biblical Chronology – Primary Sources <span>➕</span></button>
+      <div class="src-answer">
+        • Old Testament – Masoretic Text<br>
+        • Septuagint – supplementary for comparison<br>
+        • Research by Roger Liebi, focus: dates in the Old Testament<br>
+        • Jewish historiography (Josephus as additional reference)
+      </div>
+    </div>
+
+    <div class="src-item" data-cat="timeline">
+      <button class="src-question">Archeology & historical references <span>➕</span></button>
+      <div class="src-answer">
+        • Finds relating to the Davidic dynasty (Tel Dan, Mesha Stele)<br>
+        • Cuneiform tablets from Nineveh<br>
+        • Dating of the royal lists (comparative data for Assyria/Babylonia)
+      </div>
+    </div>
+
+    <!-- === YOUTUBE SERIE === -->
+    <div class="src-item" data-cat="youtube-series">
+      <button class="src-question">YouTube series – Fundamentals of Truth <span>➕</span></button>
+      <div class="src-answer">
+        • Video 1 – “Why Truth Must Be Defined”<br>
+        • Video 2 – “Logic and Starting Points”<br>
+        • Video 3 – “How Reliable Is Testimony?”<br>
+        • Video 4 – “Reading History Correctly”
+      </div>
+    </div>
+
+    <div class="src-item" data-cat="youtube-series">
+      <button class="src-question">YouTube series – Timeline explanations <span>➕</span></button>
+      <div class="src-answer">
+        • Part 1 – Overview and structure<br>
+        • Part 2 – From Adam to Abraham<br>
+        • Part 3 – The Kings and Prophets<br>
+        • Part 4 – From Jesus to Today
+      </div>
+    </div>
+
+    <!-- === YOUTUBE ZUSAMMENFASSUNG === -->
+    <div class="src-item" data-cat="youtube-summary">
+      <button class="src-question">Summary videos – Quick overview <span>➕</span></button>
+      <div class="src-answer">
+        • “Timeline in 10 Minutes” – Brief overview<br>
+        • “Why the Bible is historically sound” – Compact summary<br>
+        • “The 5 most important discoveries” – brief highlights
+      </div>
+    </div>
+
+    <!-- === WEITERE === -->
+    <div class="src-item" data-cat="more">
+      <button class="src-question">Further sources – Secondary literature <span>➕</span></button>
+      <div class="src-answer">
+        • Dictionaries & encyclopedias (Hebrew/Greek)<br>
+        • Historical contextual literature<br>
+        • Comparison of religious source texts
+      </div>
+    </div>
+
+    <div class="src-item" data-cat="more">
+      <button class="src-question">Personal research & notes <span>➕</span></button>
+      <div class="src-answer">
+        • Own evaluation of dating models<br>
+        • Internal tables, diagrams, and text analyses<br>
+        • Comparisons between extra-biblical and intra-biblical information
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- FOOTER – wie FAQ -->
+<div id="layout-footer"></div>
+
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  document.body.style.opacity = "1";
+});
+
+/* Accordion */
+document.addEventListener("click", e => {
+  if (!e.target.classList.contains("src-question")) return;
+  
+  const btn = e.target;
+  const ans = btn.nextElementSibling;
+  const symbol = btn.querySelector("span");
+
+  if (ans.style.display === "block") {
+    ans.style.display = "none";
+    symbol.textContent = "➕";
+  } else {
+    ans.style.display = "block";
+    symbol.textContent = "➖";
+  }
+});
+
+/* Nummerierung */
+const items = document.querySelectorAll(".src-item");
+items.forEach((item, i) => {
+  const nr = (i + 1).toString().padStart(2, "0");
+  item.setAttribute("data-number", nr);
+});
+
+/* Kategorie-Filter */
+const catBtns = document.querySelectorAll(".cat-btn");
+catBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    catBtns.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const filter = btn.dataset.filter;
+    items.forEach(item => {
+      const cat = item.dataset.cat.split(" ");
+      item.style.display = (filter === "all" || cat.includes(filter)) ? "block" : "none";
+    });
+  });
+});
+
+// Suche in Quellen
+const searchInput = document.getElementById("src-search-input");
+
+searchInput.addEventListener("input", () => {
+  const query = searchInput.value.toLowerCase();
+
+  items.forEach(item => {
+    const text = item.querySelector(".src-question").textContent.toLowerCase()
+               + " " 
+               + item.querySelector(".src-answer").textContent.toLowerCase();
+    
+    // Zeige Item nur, wenn Suchbegriff gefunden wurde
+    if (text.includes(query)) {
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+  });
+});
+
+
+</script>
+
+</body>
+</html>
