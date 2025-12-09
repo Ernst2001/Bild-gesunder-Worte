@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sound Words</title>
+
+<!-- Zentrale Navigation + Footer -->
+<link rel="stylesheet" href="/css/layout.css">
+<script src="/js/layout.js" defer></script>
+  
+<style>
+/* === GLOBALE STILE ========================================== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+  color: #001a33;
+  text-align: center;
+  font-size: 19px;
+  /* text-shadow entfernt */
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+
+
+/* Header (Timeline-Stil) */
+header {
+  text-align: center;
+  padding: 30px 20px 20px 20px;
+}
+header h1 {
+  font-size: 2.8em;
+  margin: 0 0 10px 0;
+}
+header h2 {
+  font-size: 1.4em;
+  color: #001a33;
+  /* text-shadow entfernt */
+  margin: 10px auto 30px auto;
+  max-width: 60%;
+  line-height: 1.5;
+}
+.mission {
+  font-size: 1.3em;
+  margin: 30px auto 50px;
+  max-width: 60%;
+}
+
+/* Sektionen */
+.section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px auto;
+  max-width: 60%; /* wie bei deinem Header */
+}
+.section a {
+  color: #001a33;
+  font-size: 1.4em;
+  text-decoration: none;
+  font-weight: bold;
+
+  /* WICHTIG */
+  display: block;        /* Block erlaubt Zeilenumbruch */
+  flex: 1 1 auto;       /* Flex-Kind kann in der Breite wachsen/klein werden */
+  margin-right: 20px;    /* Abstand zum Bild */
+}
+.section img {
+  width: 250px;
+  height: auto;
+  border-radius: 10px;
+  margin-left: 20px;
+}
+
+
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION UND FOOTER werden über layout.js geladen -->
+<div id="layout-nav"></div>
+  
+<header>
+  <h1>Sound Words on YouTube</h1>
+  <h2>Those who reveal their most fundamental beliefs—the thoughts that shape their entire lives—risk a great deal. That is why only a few people do so, 
+    usually only those who are truly certain of what they believe. Yet it would be important for everyone to thoroughly reflect on their own foundations 
+    so that good intentions have a solid basis and can be put into practice. </h2>
+<div class="mission">
+  
+  <p>That is exactly what I did with the series “ZSF1–15” (link below, in german). It offers a valuable opportunity to question one's own foundations. Because if these 
+    are wrong, you cannot pursue a good goal – no matter how benevolent or philanthropic your attitude may be. </p>
+
+  <p>I am convinced that if many people examine these results, false worldviews will disappear very quickly – and with them much of the suffering and misery that 
+    inevitably arises from lies and half-truths. </p>
+
+  <p>With the help of the timeline, the most important points can be checked in a comprehensible and traceable way, so that in the end, one can arrive at an unshakeable 
+    state of absolute truth on the most important points. A certainty that is supposedly no longer achievable today.
+
+  <p>Don't let anything stop you from setting the foundation of your life on the right course! The consequences will affect your entire future—every minute lost is gone forever.
+
+  <p><strong>PS:</strong> The long series (91 videos / 24 hours) was my first attempt. It is somewhat demanding and therefore more suitable for those who are very interested. 
+    Some sections—such as those on population development, the timeline of Solomon and Jesus, or others mentioned in the summary—are nevertheless worth watching, 
+    possibly at an increased playback speed.
+
+
+  <p>If you want to listen to spiritual songs, you can browse the song channel. A few songs are my own compositions.
+  <br>A CD with the first songs is in the works. If you would like to pre-order it, please feel free to write to us. (Price within the EU: €15 [+€10 shipping fee for shipping])</p>
+
+
+</div>
+
+</header>
+
+<div class="section">
+  <a href="https://www.youtube.com/@BildgesunderWorte" target="_blank">Link: Worldview comparison and timeline analysis on YouTube</a>
+  <img src="/en/images/youtube_bgW_preview.jpg" alt="YouTube BgW Vorschau">
+</div>
+
+<div class="section">
+  <a href="https://www.youtube.com/@GesundeLieder" target="_blank">Link: Own covers of spiritual songs</a>
+  <img src="/en/images/youtube_lieder_preview.jpg" alt="YouTube Lieder Vorschau">
+</div>
+
+<div id="layout-footer"></div>
+
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("Seite geladen.");
+
+    // Teste, ob layout.js geladen wurde  -->GANZES SCRIPT NUR ZUM TESTEN
+    if (typeof initNavigation === "function") {
+        console.log("layout.js ist geladen und die Funktion initNavigation existiert.");
+    } else {
+        console.warn("layout.js wurde NICHT geladen oder initNavigation existiert nicht!");
+    }
+
+    // Teste, ob die Nav eingefügt wurde
+    const nav = document.getElementById("layout-nav");
+    if (nav && nav.innerHTML.trim() !== "") {
+        console.log("Navigation wurde eingefügt!");
+    } else {
+        console.warn("Navigation NICHT gefunden oder leer!");
+    }
+
+    // Teste, ob der Footer eingefügt wurde
+    const footer = document.getElementById("layout-footer");
+    if (footer && footer.innerHTML.trim() !== "") {
+        console.log("Footer wurde eingefügt!");
+    } else {
+        console.warn("Footer NICHT gefunden oder leer!");
+    }
+});
+</script>
+
+
+</body>
+</html>
