@@ -1,1 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support – Sound Words</title>
 
+<link rel="stylesheet" href="/css/layout.css">
+<script src="/js/layout.js" defer></script>
+
+<style>
+/* === GLOBALE STILE FÜR DIESE SEITE ======================================== */
+body {
+  padding-top: 60px;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+  color: #001a33;
+  font-size: 19px;
+  line-height: 1.6;
+  text-shadow: 0.3px 0.3px 0.8px #000a14;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+header {
+  text-align: center;
+  padding: 40px 20px 20px;
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+header p.subtitle {
+  font-size: 1.3em;
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 60%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+/* Überschrift + Icons */
+h2 {
+  color: #00264d;
+  font-size: 1.8rem;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+h2::before {
+  font-size: 1.5rem;
+}
+
+h2.warum::before { content: "📖"; }
+h2.verwendung::before { content: "🕊️"; }
+h2.dank::before { content: "🙏"; }
+h2.spenden::before { content: "💳"; }
+
+.container p {
+  background: rgba(255,255,255,0.22);
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  line-height: 1.6;
+}
+
+/* PayPal-Button (eigener Stil) */
+.paypal-btn {
+  display: inline-block;
+  background-color: #004a7c;
+  color: #fff;
+  padding: 14px 26px;
+  font-size: 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  margin: 25px 0;
+  transition: background-color 0.3s;
+  text-shadow: 0.5px 0.5px 1px #000a14;
+  border: none;
+}
+
+.paypal-btn:hover {
+  background-color: #00385d;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .container {
+    max-width: 95%;
+    padding: 10px 15px;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<div id="layout-nav"></div>
+
+<header>
+  <h1>Support</h1>
+  <p class="subtitle">“Why this project could use support – and what that support is for.”</p>
+</header>
+
+<div class="container">
+
+<h2 class="warum">Why support is helpful</h2>
+<p>
+  This project aims to present biblical and historical contexts clearly, verifiably, and without
+  prior assumptions. Its goal is not to derive truth from tradition or feelings, but from a logically
+  comprehensible foundation based on early eyewitness accounts.
+  <br><br>
+  To keep the content permanently free and independent, voluntary support is helpful – but never
+  a requirement to access anything.
+</p>
+
+<h2 class="verwendung">How support is used</h2>
+<p>
+  Donations are used exclusively for work on this project, including:
+  <br>• Further development of the timeline
+  <br>• Tools for text, source, or image processing
+  <br>• Research time and preparation of new content
+  <br>• Ensuring that everything remains free and free from external influence
+</p>
+
+<h2 class="spenden">Support via PayPal</h2>
+<p>
+  Those who wish to support the project can do so here.<br>
+  Every contribution – even small ones – helps ensure the content can remain freely accessible.
+</p>
+
+<button class="paypal-btn"
+        onclick="window.open('https://www.paypal.com/donate','_blank')">
+  Support via PayPal
+</button>
+
+<h2 class="dank">A factual note</h2>
+<p>
+  Support is entirely voluntary.<br>
+  No one should feel obligated.<br>
+  Appreciation is not measured in the amount, but in the trust and the shared intention to view
+  truth carefully, transparently, and without bias.
+</p>
+
+
+</div>
+
+<!-- FOOTER -->
+<div id="layout-footer"></div>
+
+</body>
+</html>
