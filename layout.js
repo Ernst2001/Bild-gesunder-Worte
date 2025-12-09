@@ -94,15 +94,21 @@ function markActivePage() {
 
 
 
-  // Sprache aktiv setzen (für DE und EN)
-  const langLinks = document.querySelectorAll(".language-switch a");
-  langLinks.forEach(a => {
-    if (location.pathname.includes("/de/") && a.getAttribute("href").includes("/de/")) {
-      a.classList.add("active-lang");
-    } else if (location.pathname.includes("/en/") && a.getAttribute("href").includes("/en/")) {
-      a.classList.add("active-lang");
-    }
-  });
+// Sprache aktiv setzen und Links dynamisch anpassen
+const langLinks = document.querySelectorAll(".language-switch a");
+langLinks.forEach(a => {
+  const currentFile = location.pathname.split("/").pop(); // z.B. "grundlagen.html"
+  const baseName = currentFile.replace("_en", "").replace(".html", ""); // z.B. "grundlagen"
+
+  if (a.getAttribute("href").includes("/de/")) {
+    a.href = "/de/" + baseName + ".html";
+    if (location.pathname.includes("/de/")) a.classList.add("active-lang");
+  } else if (a.getAttribute("href").includes("/en/")) {
+    a.href = "/en/" + baseName + "_en.html";
+    if (location.pathname.includes("/en/")) a.classList.add("active-lang");
+  }
+});
+
 }
 
 
