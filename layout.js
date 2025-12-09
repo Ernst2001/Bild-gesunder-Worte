@@ -53,9 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
           privacyLink.href = "/de/datenschutz.html";
         } else {
           legalLink.textContent = "Legal Notice";
-          legalLink.href = "/en/legal.html";
+          legalLink.href = "/en/legal_en.html";
           privacyLink.textContent = "Privacy Policy";
-          privacyLink.href = "/en/privacy.html";
+          privacyLink.href = "/en/privacy_en.html";
         }
       }
 
