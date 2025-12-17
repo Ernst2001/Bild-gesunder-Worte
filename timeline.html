@@ -493,8 +493,8 @@ function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
-  const visibleMarginX = wrapperRect.width * 0.05;
-  const visibleMarginY = wrapperRect.height * 0.05;
+  const visibleMarginX = wrapperRect.width * 0.1;
+  const visibleMarginY = wrapperRect.height * 0.1;
 
   if (timelineWidth <= wrapperRect.width) {
     targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
