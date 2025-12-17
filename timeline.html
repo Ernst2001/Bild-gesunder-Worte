@@ -437,12 +437,13 @@ const totalPages = 18;
 const startView = 13;
 const extraMargin = 80;
 
-for (let i = 1; i <= totalPages; i++) {
+  for (let i = 1; i <= totalPages; i++) {
   const img = document.createElement('img');
-  img.src = `/de/images/Seite${i}.png`;
-  img.alt = `Seite ${i}`;
+  img.src = `/de/images/Seite${i}-1.png`; // <-- Hier das "-1" hinzufügen
+  img.alt = `Seite ${i}-1`;               // Optional: Alt-Text anpassen
   timeline.appendChild(img);
 }
+
 
 // === ZUSTAND =================================================================
 let scale = 0.7, targetScale = 0.7;
@@ -563,7 +564,7 @@ minimapWrapper.appendChild(viewRect);
 // === MINIMAP-BILDER ==========================================================
 for (let i = 1; i <= totalPages; i++) {
   const mini = document.createElement('img');
-  mini.src = `/de/images/Seite${i}.png`;
+  mini.src = `/de/images/Seite${i}-1.png`; // <--- hier ebenfalls "-1" hinzufügen
   mini.style.height = '100%';
   mini.style.objectFit = 'cover';
   mini.style.flex = '1';
