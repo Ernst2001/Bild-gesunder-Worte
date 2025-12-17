@@ -507,6 +507,7 @@ function applyBounds() {
   if (timelineHeight <= wrapperRect.height) {
     targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
   } else {
+    const bottomBuffer = 100; // zusätzliche Scrollfläche unten
     const minY = wrapperRect.height - timelineHeight + visibleMarginY;
     const maxY = visibleMarginY;
     targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
