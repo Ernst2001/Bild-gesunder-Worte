@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(res => res.text())
     .then(html => {
       document.getElementById("layout-footer").innerHTML = html;
-
+     
       // Kontakttext
       const contactP = document.querySelector("#footer-contact");
       if (contactP) {
@@ -41,6 +41,14 @@ document.addEventListener("DOMContentLoaded", () => {
           : "Support via PayPal";
       }
 
+    const year = new Date().getFullYear();
+    const c = document.querySelector("#footer-copyright");
+    if (c) {
+      c.textContent = isDE
+        ? `© ${year} bildgesunderworte. Inhalte und Musikaufnahmen dieser Website unterliegen dem Urheberrecht.`
+        : `© ${year} bildgesunderworte. Content and music recordings on this website are subject to copyright.`;
+    }
+      
       // Impressum / Datenschutz
       const legalLink = document.querySelector("#footer-legal");
       const privacyLink = document.querySelector("#footer-privacy");
