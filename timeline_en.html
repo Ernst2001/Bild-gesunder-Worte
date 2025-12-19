@@ -429,6 +429,11 @@ header p {
   
   
 <script>
+// === HILFSFUNKTION ===========================================================
+function pad2(n) {
+  return String(n).padStart(2, '0');
+}
+  
 // === TIMELINE-BILDER =========================================================
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
@@ -439,8 +444,8 @@ const extraMargin = 80;
 
 for (let i = 1; i <= totalPages; i++) {
   const img = document.createElement('img');
-  img.src = `/en/images/Seite_en${i}.png`;
-  img.alt = `Seite ${i}`;
+  img.src = `/en/images/Seite_en-${pad2(i)}.png`;
+  img.alt = `Page ${pad2(i)}`;
   timeline.appendChild(img);
 }
 
@@ -563,7 +568,7 @@ minimapWrapper.appendChild(viewRect);
 // === MINIMAP-BILDER ==========================================================
 for (let i = 1; i <= totalPages; i++) {
   const mini = document.createElement('img');
-  mini.src = `/en/images/Seite_en${i}.png`;
+  mini.src = `/en/images/Seite_en-${pad2(i)}.png`;
   mini.style.height = '100%';
   mini.style.objectFit = 'cover';
   mini.style.flex = '1';
