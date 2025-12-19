@@ -440,7 +440,6 @@ const timeline = document.getElementById('timeline');
 
 const totalPages = 17;
 const startView = 13;
-const extraMargin = 80;
 
 for (let i = 1; i <= totalPages; i++) {
   const img = document.createElement('img');
@@ -497,25 +496,29 @@ function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
-  const visibleMarginX = wrapperRect.width * 0.05;
-  const visibleMarginY = wrapperRect.height * 0.05;
 
+  const marginX = wrapperRect.width * 0.05;   // 5% Puffer links/rechts
+  const marginY = wrapperRect.height * 0.05;  // 5% Puffer oben/unten
+
+  // === HORIZONTAL ===
   if (timelineWidth <= wrapperRect.width) {
     targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
   } else {
-    const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
-    const maxX = 0 - visibleMarginX + extraMargin;
+    const minX = wrapperRect.width - timelineWidth - marginX;
+    const maxX = marginX;
     targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
   }
 
+  // === VERTICAL ===
   if (timelineHeight <= wrapperRect.height) {
     targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
   } else {
-    const minY = wrapperRect.height - timelineHeight + visibleMarginY;
-    const maxY = visibleMarginY;
+    const minY = wrapperRect.height - timelineHeight - marginY;
+    const maxY = marginY;
     targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
   }
 }
+
 
 // === ANSICHT SETZEN ==========================================================
 function setView(page) {
