@@ -97,6 +97,7 @@ body {
   cursor: pointer;
 }
 
+
 /* Standard / große Bildschirme */
 .bgw-nav {
   padding: 0.6rem 0;
@@ -129,13 +130,13 @@ body {
 
 
 
-
 /* Mobile */
 @media (max-width: 700px) {
 
+  /* Nav */
   .bgw-nav {
     justify-content: space-between !important;
-    padding: 0.125rem 0.125rem !important; /* 2px */
+    padding: 0.15rem 0 !important;  /* klein, konsistent */
   }
 
   .bgw-burger {
@@ -147,8 +148,8 @@ body {
     width: 100%;
     display: none;
     background: rgba(0,0,0,0.4);
-    padding: 0.625rem 0; /* 10px */
-    gap: 0.4rem; /* davor 0.625rem 10px */
+    padding: 0.25rem 0;  /* kleineres Padding */
+    gap: 0.25rem;       /* kleiner als vorher */
   }
 
   .bgw-menu.show {
@@ -156,10 +157,11 @@ body {
   }
 
   .bgw-menu li a {
-    font-size: 1.4rem; /* statt 1.4em → isoliert */
-    padding: 0.4rem; /* davor 0.625rem - 10px */
+    font-size: 1.2rem;       /* kleiner als vorher */
+    padding: 0.15rem 0.25rem; /* kleineres Padding */
   }
 }
+
 
 
 /* === FOOTER (bereinigt & funktionssicher) =============================== */
