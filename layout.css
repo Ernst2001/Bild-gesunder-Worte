@@ -103,6 +103,12 @@ body {
     padding-top: 0.4rem;
     padding-bottom: 0.4rem;
   }
+  
+  .bgw-menu li a {
+    max-width: 8.5rem;   /* ca. 160px */
+    text-align: center;
+    white-space: normal;
+  }
 }
 
 
