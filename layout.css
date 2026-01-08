@@ -40,40 +40,38 @@ body {
 
 /* === Navigation global ===================================================== */
 .bgw-nav {
-  position: fixed !important;
-  top: 0 !important;
+  position: fixed;
+  top: 0;
   width: 100%;
-  background: rgba(0,0,0,0.3) !important;
-  padding: 0.9375rem 0 !important; /* 15px */
-  z-index: 100 !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
+  background: rgba(0,0,0,0.3);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.25rem 0; /* klein & stabil */
 }
 
-.bgw-nav * {
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-/* Menü */
 .bgw-menu {
   list-style: none;
-  display: flex !important;
-  gap: 1.5625rem; /* 25px */
+  display: flex;
+  flex-wrap: wrap;          /* 🔑 wichtig */
+  justify-content: center;
+  gap: 0.5rem;
   margin: 0;
   padding: 0;
 }
 
 .bgw-menu li a {
   color: white;
-  font-size: 1.2rem; /* davor 1.375 - 22px */
+  font-size: 1.2rem;
   font-weight: bold;
   text-decoration: none;
-  padding: 0.5rem 0.75rem; /* 8px 12px */
-  border-radius: 0.125rem; /* 2px */
-  cursor: pointer;
+  padding: 0.2rem 0.5rem;   /* dauerhaft klein */
   line-height: 1.15;
+  border-radius: 0.125rem;
+  cursor: pointer;
+  white-space: normal;
+  text-align: center;
 }
 
 /* Hover */
@@ -98,60 +96,25 @@ body {
 }
 
 
-/* Standard / große Bildschirme */
-.bgw-nav {
-  padding: 0.6rem 0;
-}
-.bgw-menu li a {
-  padding: 0.35rem 0.6rem;
-}
-
-/* Mittelgroße Bildschirme / Zeilenumbruch erlaubt */
-@media (max-width: 2200px) {
-  .bgw-nav {
-    padding: 0.10rem 0;
-  }
-  .bgw-menu li a {
-    padding: 0.1rem 0.2rem;
-  }
-}
-
-/* Mobile */
-@media (max-width: 700px) {
-  .bgw-nav {
-    padding: 0.10rem 0; /* kleiner als vorher */
-  }
-  .bgw-menu li a {
-    padding: 0.10rem 0.2rem; /* kleiner als vorher */
-    font-size: 1.2rem;       /* evtl. etwas kleiner als 1.4rem */
-  }
-}
-
-
 
 
 /* Mobile */
 @media (max-width: 700px) {
-
-  /* Nav */
   .bgw-nav {
-    justify-content: space-between !important;
-    padding: 0.10rem 0 !important;  /* klein, konsistent */
+    justify-content: space-between;
+    padding: 0.2rem 0.4rem;
   }
 
   .bgw-burger {
-    display: block !important;
+    display: block;
   }
 
   .bgw-menu {
-    flex-direction: column !important;
+    display: none;
+    flex-direction: column;
     width: 100%;
-    display: flex !important;
-    flex-wrap: wrap;  /* erlaubt Umbruch */
-    justify-content: center;
     background: rgba(0,0,0,0.4);
-    padding: 0.10rem 0;  /* kleineres Padding */
-    gap: 0.15rem;       /* kleiner als vorher */
+    gap: 0.2rem;
   }
 
   .bgw-menu.show {
@@ -159,10 +122,12 @@ body {
   }
 
   .bgw-menu li a {
-    font-size: 1.2rem;       /* kleiner als vorher */
-    padding: 0.10rem 0.10rem; /* kleineres Padding */
+    padding: 0.25rem;
+    font-size: 1.2rem;
   }
 }
+
+
 
 
 
