@@ -146,7 +146,9 @@ body {
   .bgw-menu {
     flex-direction: column !important;
     width: 100%;
-    display: none;
+    display: flex !important;
+    flex-wrap: wrap;  /* erlaubt Umbruch */
+    justify-content: center;
     background: rgba(0,0,0,0.4);
     padding: 0.10rem 0;  /* kleineres Padding */
     gap: 0.15rem;       /* kleiner als vorher */
