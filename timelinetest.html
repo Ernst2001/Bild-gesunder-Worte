@@ -3,8 +3,8 @@
 <head>
 
 <!-- Zentrale Navigation + Footer -->
-<link rel="stylesheet" href="css/layout.css">
-<script src="js/layout.js" defer></script>
+<link rel="stylesheet" href="/css/layout.css">
+<script src="/js/layout.js" defer></script>
 
   
 <meta charset="utf-8" />
@@ -32,6 +32,8 @@ header p {
   text-shadow: 0.5px 0.5px 1px #000a14; 
 }
 
+
+  
 #controls { text-align:center; margin:20px; }
 #controls button { 
   background-color:#0070ba; color:#fff; border:none; 
@@ -42,12 +44,51 @@ header p {
 
 #timeline-wrapper { 
   height: calc(100vh - 200px); /* genug Platz für Header + Footer */
-  width:100%; height:91vh; overflow:hidden; position:relative; cursor:grab; 
+  width:104%; height:100vh; overflow:hidden; position:relative; cursor:grab; 
   margin:20px 0; border:1px solid rgba(0,0,0,0.2); 
 }
 #timeline { display:flex; height:130%; transform-origin:0 0; user-select:none; }
 #timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none; }
 
+ /* Hinweise über 4 Buttons */
+  #view-hints {
+  max-width: 85%;
+  margin: 0px auto;
+  font-family: Arial, sans-serif;
+  color: #001a33;
+  text-align: left;
+}
+
+#view-hints h3 {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+
+#view-hints ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  font-size: 1.15em;
+}
+
+#view-hints li {
+  margin-bottom: 0.5rem;
+}
+
+  #view-hints {
+  display: flex;             /* Aktiviert Flexbox */
+  flex-direction: column;    /* Elemente untereinander */
+  align-items: center;       /* Zentriert den Block horizontal */
+}
+
+#view-hints h3, #view-hints ul {
+  text-align: left;          /* Inhalte bleiben linksbündig */
+  max-width: 1000px;          /* optional, damit es nicht zu breit wird */
+  width: 100%;
+}
+
+  #view-hints ul li {
+  white-space: nowrap; /* Verhindert Zeilenumbruch */
+}
 
 </style>
 </head>
@@ -61,6 +102,19 @@ header p {
   <p>Eine Übersicht, die vergleichen lässt und Wahrheit ans Licht bringt</p>
 </header>
 
+<div id="view-hints">
+  <h3>Was fällt dir bei der Timeline auf in Bezug auf:</h3>
+  <ul>
+    <li>Wo haben extrem kluge Menschen gelebt? Wann geht es Richtung "Affenmensch"?</li>
+    <li>Ab wann ist aufgrund von weniger Intelligenz keine dokumentierte Chronologie möglich?</li>
+    <li>Wo gab es die komplexesten Schriften? Passt das zu "primitiven" Menschen?</li>
+    <li>Wo sind die genialen Bauwerke entstanden, die teils heute unerklärbar sind?</li>
+    <li>Ab welcher Zeit gibt es außerbiblisch keine sichere Datierung mehr?</li>
+    <li>Wie schnell entstehen und verschwinden Völker?</li>
+    <li>Wie wahrscheinlich ist es, dass nur ein Buch trotz ca. 40 Autoren die gesamte Geschichte rückdatierbar festhält?</li>
+  </ul>
+</div>
+  
 <div id="controls">
   <button onclick="setView(1)">Ansicht Anfang</button>
   <button onclick="setView(5)">Ansicht Sintflut</button>
@@ -80,13 +134,13 @@ header p {
 
   <!-- Punkt 1 -->
   <details open class="point point1">
-    <summary><strong>1. Eine <u>hohe Intelligenz</u> kann der Antike nicht abgesprochen werden!</strong></summary>
+    <summary><strong>1. Eine <u>hohe Intelligenz</u> kann "Urmenschen" nicht abgesprochen werden! (während der gesamten dokumentierten Zeitzeugen-Zeit)</strong></summary>
     <ul>
-      <li><strong>Archäologie:</strong>
+      <li><strong>Archäologie – bemerkenswerte Funde und offene Fragen:</strong>
         <ul>
-          <li>Steine <strong>weit über 1000 Tonnen</strong> wurden bewegt</li>
-          <li>Fast unmögliche Schnitte in härtesten Fels</li>
-          <li>Nahezu perfekte Symmetrien bei gigantischen Monumenten</li>
+          <li>Bewegung von Gesteinsblöcken mit <strong>weit mehr als 1.000 Tonnen</strong> Masse</li>
+          <li>Präzisionsschnitte in extrem hartem Gestein, technisch kaum erklärbar (für manche "nur mit Aliens" möglich)</li>
+          <li>Nahezu perfekte Symmetrien/Geometrien bei gigantischen Monumenten</li>
           <li>Ausgeklügelte Wasserversorgungs- und Lüftungssysteme</li>
           <li>Der Globus war bereits 1500+ v. Chr. weitgehend kartographiert (Polynesier)</li>
           <li>Tiefgehende Sternkunde in vielen Bauwerken ersichtlich</li>
@@ -98,59 +152,67 @@ header p {
       </li>
       <li><strong>Schriftliche Überlieferungen:</strong>
         <ul>
-          <li>Viele Schriften der Antike mit eindeutig hoher Intelligenz vorhanden (vergleichbar zu heute und sogar höher, dazu in allen dokumentierten Zeiten Genies in der Geschichte vorhanden)
-          <li>Die Bibel enthält über 200 Sprachstile – einzigartig in Schönheit, Sprache, Poesie und Vielfalt</li>
-          <li>Die alten Bibelbücher sind selbst nach modernen Kritikern ca. 2300 Jahre alt
+          <li>Antike Texte belegen ein hohes intellektuelles Niveau – vergleichbar mit heutigen Standards und höher; in allen Epochen treten herausragende Denker und Genies auf.
+          <li>Die Bibel umfasst über 200 unterschiedliche Sprach- und Stilformen – außergewöhnlich in sprachlicher Vielfalt, literarischer Qualität und poetischer Ausdruckskraft.</li>
+          <li>Die alten Bibelbücher sind selbst nach modernen Kritikern min. 2300 Jahre alt
             <ul>
               <li>Wieso entstand das Buch mit der größten Weisheit und Attraktivität in der Antike?</li>
               <li>Wieso gibt es heute noch keinen anderen Bestseller dieser Reichweite?</li>
-              <li>Gemäß der Bibel entstanden die ersten Schriften vielleicht sogar direkt bei den Zeitzeugen (Adam, Noah, Abraham usw. ca. 4000 v. Chr.); spätestens bei Mose ca. 1600 v. Chr. kompiliert und/oder inspiriert.</li>
+              <li>Gemäß der Bibel entstanden die ersten Schriften vielleicht sogar direkt bei den Zeitzeugen (Adam, Noah, Abraham usw. ab ca. 4000 v. Chr.); spätestens bei Mose ca. 1600 v. Chr. kompiliert 
+                und/oder inspiriert.</li>
             </ul>
           </li>
         </ul>
       </li>
-      <li><strong>Fazit: Dummheit ist daher völlig ausgeschlossen! Die dokumentierte, sicher bekannte Zeit zeugt eindeutig von hoher Intelligenz!</strong> Es geht eher Richtung „intelligenter als heute“ – also nicht in die Richtung von Affenabstammung. Wenn nun die Leute so schlau waren, wieso sollte es dann keine außerbiblischen Chronologien geben, die eindeutige Rückrechnungen zulassen?</li>
+      <li><strong>Fazit: Dummheit ist völlig ausgeschlossen! Die dokumentierte, sicher bekannte Zeit zeugt eindeutig von hoher Intelligenz!</strong> Es geht eher Richtung „intelligenter als heute“ – 
+        also nicht in die Richtung von Affenabstammung. Wenn nun die Leute schlau genug waren, wieso sollte es dann keine außerbiblischen Chronologien geben, die eindeutige Rückrechnungen zulassen?
+        Wieso sieht man keine intellektuelle Rückwärtsentwicklung in der gesamten Dokumentation? Trotz hunderttausender Jahre angenommener Menschheitsgeschichte – mit Feuergebrauch, Kunst, Bestattungen etc. 
+        und hochentwickelten Höhlenmalereien seit über 30.000 Jahren – fehlt jede dokumentierte Phase primitiverer Denkfähigkeit.
+        Stattdessen passen die Schriften genau zur Bibel. (Bei Ausklammerung unbekannter Annahmen in der Datierung)</li>
     </ul>
   </details>
 
   <!-- Punkt 2 -->
   <details class="point point2">
-    <summary><strong>2. Eine <u>hohe Bevölkerungsvermehrung</u> kann der Antike nicht abgesprochen werden!</strong></summary>
+    <summary><strong>2. Eine <u>hohe Bevölkerungsvermehrung</u> kann den "Urmenschen" nicht abgesprochen werden!</strong></summary>
     <ul>
-      <li>Seit 1950 wurde die Anzahl an Menschen "vollständiger" geschätzt. Die biblischen Zahlen passen genau dazu:
+      <li>Seit 1950 wurde die Anzahl an Menschen "vollständiger" geschätzt / gezählt. Die biblischen Zahlen passen genau dazu:
         <ul>
-          <li>Wieso können wir den Antiken dann keine höhere Überlebensfähigkeit zutrauen? Wenn einheitlich von wesentlich mehr Menschen dokumentiert wird, ist kein anderer Schluss sinnvoll und logisch!</li>
+          <li>Wieso können wir den "Urmenschen" dann keine höhere Überlebensfähigkeit zutrauen? Wenn durchgängig, passend zur heutigen Realität wesentlich mehr Menschen dokumentiert werden, 
+            ist kein anderer Schluss sinnvoll und logisch!</li>
+          <li>Wenn man schlau ist, kommt man bei Krankheiten schneller auf die Lösung der Ursache!</li>
         </ul>
       </li>
-      <li>Wenn man schlau ist, kommt man bei Krankheiten schneller auf die Lösung der Ursache!</li>
-      <li>Moderne Schätzungen z.B. bei der Pest 1350 n. Chr. zeigen, dass die modern angenommene Bevölkerungskurve „geschönt“ ist.
+      <li>Historische demografische Einschnitte, etwa die Pest um 1350 n. Chr., zeigen, dass moderne Rekonstruktionen der Bevölkerungskurve stark geglättet sind.
         <ul>
-          <li>Bei 1/3 Toter müsste ein tiefer Einschnitt über lange Zeit entstehen, statt direkt ein "Sprung nach oben" und weitere langsame Steigung wie davor</li>
+          <li>Bei 1/3 Toter müsste über lange Zeit ein tiefer Einschnitt entstehen, statt direkt ein "Sprung nach oben" und weitere langsame Steigung wie davor</li>
         </ul>
       </li>
-      <li>Die Bibel passt zum Durchschnitt außerbiblischer Armeegrößen
+      <li>Die Bibel passt zum "Durchschnitt" außerbiblischer Armeegrößen
         <ul>
           <li>Moderne Historiker reduzieren fast alle Zahlen um das 10fache! (teils über Faktor 100) Angeblich "konnten die nicht über 50.000 zählen".</li>
           <li>Durch die bereits offensichtlich höhere Intelligenz ist selbstverständlich, dass sie zählen konnten!
             <ul>
-              <li>Die Bibel gibt die einfache Lösung: „Oberste über 1000“: 1000 Oberste ergibt also 1.000.000 Soldaten – wer nicht auf so eine primitive Idee kommt, kann sich nicht klüger nennen, oder?</li>
+              <li>Die Bibel gibt die einfache Lösung: „Oberste über 1000“; 1000 Oberste ergibt also bereits 1.000.000 Soldaten. Die konnten also nicht bis 51 oder 500 zählen?!
+                Wer nicht auf so eine primitive Idee kommt, kann sich nicht klüger nennen, oder?</li>
             </ul>
           </li>
         </ul>
       </li>
       <li>Innerhalb von 500 Jahren kommen und gehen ganze Nationen!
         <ul>
-          <li>Z.B. existierten vor 500 Jahren nicht einmal Russland und die USA</li>
+          <li>Vor 500 Jahren existierten z.B. weder Russland noch die USA.</li>
           <li>Nordisrael bestand nur ca. 250 Jahre (mit 21 Herrschern)</li>
           <li>Südisrael („Juda“) bestand nur ca. 390 Jahre (mit 19 Herrschern)</li>
           <li>In dieser kurzen Zeit gab es viele Schlachten mit teils 400.000+ Toten
             <ul>
-              <li>Von einem viele-Millionen-Volk auf Zehntausende vernichtet (modern erneut: Holocaust 6.000.000 Juden getötet)</li>
+              <li>Reduktion: Von einem viele-Millionen-Volk auf Zehntausende vernichtet (modern erneut: Holocaust ca. 6.000.000 Juden getötet)</li>
             </ul>
           </li>
         </ul>
       </li>
-      <li><strong>Fazit: Die Bibel enthält eine deutlich realistische Geschichtsschreibung!</strong> Solange die Menschen früher nicht dumm waren, kann man ihnen die dokumentierte Vermehrung nicht absprechen!</strong></li>
+      <li><strong>Fazit: Die Bibel enthält eine deutlich realistische Geschichtsschreibung!</strong> Wenn antike Menschen weder intellektuell unterlegen noch organisatorisch unfähig waren, 
+        gibt es keinen Grund, ihnen die dokumentierte Bevölkerungsvermehrung abzusprechen!</strong></li>
     </ul>
   </details>
 
@@ -163,50 +225,59 @@ header p {
           <li>Sumerer sind mit über 40.000 Jahre an der Spitze der Übertreibungen</li>
         </ul>
       </li>
-      <li>Wenn die nicht besonders dumm sein können, macht nur der biblische Bericht Sinn:
+      <li>Wenn die nicht besonders primitiv sein können, macht der biblische Bericht Sinn:
         <ul>
           <li>Gemäß wissenschaftlichen Schätzungen könnten Menschen bei Reparatur aller Mutationen an die 1000 Jahre leben – Punktlandung zur Bibel!</li>
+          <li>Es gibt keine harte Grenze bei z.B. 150 Jahren. 123 Jahre akzeptiert heute jeder. In den letzten 500 Jahren gibt es genug Dokumente von wesentlich älteren Menschen.</li>
         </ul>
       </li>
         <li>Architektur mit weit über 1000 Jahre Haltbarkeit, zeigt deutlich in die Richtung, dass man viel mehr als 100 Jahre voraus denkt!
         <ul>
-          <li>Solche Entwicklungen und Bauweisen passen perfekt zum biblischen Weltbild, bei dem anfangs 900 Jährige Wissen weitergetragen haben</li>
+          <li>Solche Entwicklungen und Bauweisen passen perfekt zum biblischen Weltbild, bei dem anfangs 900 - dann 400 Jährige Wissen gesammelt und weitergetragen haben. Heute staunt man
+          über manche Grundlagen und Erfindungen von früher.</li>
         </ul>
       <li>Laut Bibel gab es anfangs nur pflanzliche Nahrung und viel Bewegung.
         <ul>
-          <li>Bis heute eine der zuverlässigsten Lösungen für die meisten Gesundheitsprobleme!</li>
-        </ul>
-      </li>
-    </ul>
-  </details>
-
-  <!-- Punkt 4 -->
-  <details class="point point4">
-    <summary><strong>4. Aufgrund von weit verbreiteten „Mythen“ kann die Wahrheit nicht gleich mit über Bord geworfen werden!</strong></summary>
-    <ul>
-      <li>Wenn alle Quellen in eine für uns unwahrscheinliche, aber "bessere" Richtung zeigen, deutet es ehrlicherweise an, dass wir heute „schlechter“ sind, oder?</li>
-      <li>Man sollte den eigenen Stolz überwinden und sich kritisch hinterfragen. Die Moderne muss nicht besser sein als die „dummen Leute früher“.
-        <ul>
-          <li>Diese menschliche negative Eigenschaft wird nur in der Bibel bloßgestellt – passend zu Wahrheit</li>
+          <li>Diese Faktoren gehören bis heute zu den stabilsten Grundlagen für langfristige Gesundheit und hohe Lebensqualität! 
+            Das passt alles zusammen nicht zu einer "Erfindung von Rabbinern um 200-300 v.Chr."</li>
         </ul>
       </li>
     </ul>
   </details>
   
-  <!-- Punkt 5 -->
-  <details class="point point5">
-    <summary><strong>5. <u>Wahrheit</u> ist in der Bibel das zentrale Thema. Passend zu diesen Berichten erkennt man die maßlosen Übertreibungen aller übrigen „gottlosen“ Völker!</strong></summary>
+  <!-- Punkt 4 -->
+  <details class="point point4">
+    <summary><strong>4. <u>Wahrheit</u> ist in der Bibel das zentrale Thema. Passend zu diesen Berichten erkennt man die maßlosen Übertreibungen aller übrigen „gottlosen“ Völker!</strong></summary>
     <ul>
       <li>Wahrheit ist in der Bibel eine durchgängige <strong>Grundvoraussetzung</strong>:
         <ul>
           <li>in der Hoffnung des ewigen Lebens, das <strong>Gott, der nicht lügen kann</strong>, verheißen hat vor ewigen Zeiten; Tit 1,2</li>
+          <li>Gott nennt Seinen Namen bei Mose <strong>"Ich bin"</strong>: Also ewig und unveränderlich - zu Ihm kann man trefflich sagen "Er ist DIE Wahrheit"</li>
           <li>Du sollst <strong>kein falsches Zeugnis ablegen</strong> gegen deinen Nächsten. 2. Mo 20,16</li>
-          <li>Ihr sollt <strong>nichts hinzutun</strong> zu dem Wort, das ich euch gebiete, und sollt <strong>nichts davon wegnehmen</strong>, damit ihr die Gebote des HERRN, eures Gottes, haltet, die ich euch gebiete. 5. Mo 4,2</li>
+          <li>Ihr sollt <strong>nichts hinzutun</strong> zu dem Wort, das ich euch gebiete, und sollt <strong>nichts davon wegnehmen</strong>, damit ihr die Gebote des HERRN, eures Gottes, haltet, 
+            die ich euch gebiete. 5. Mo 4,2</li>
           <li>Das ganze Wort, das ich euch gebiete, das sollt ihr halten, es zu tun; du sollst <strong>nichts hinzufügen und nichts davon wegnehmen</strong>. 5. Mo 13,1-2</li>
-          <li>Wenn jemand <strong>zu diesen Dingen hinzufügt</strong>, so wird Gott ihm die Plagen hinzufügen, die in diesem Buch geschrieben sind; und wenn jemand von den Worten des Buches dieser Weissagung <strong>wegnimmt</strong>, so wird Gott sein Teil wegnehmen von dem Baum des Lebens und aus der heiligen Stadt, wovon in diesem Buch geschrieben ist. Off 22,18-19</li>
+          <li>Wenn jemand <strong>zu diesen Dingen hinzufügt</strong>, so wird Gott ihm die Plagen hinzufügen, die in diesem Buch geschrieben sind; und wenn jemand von den Worten des Buches dieser 
+            Weissagung <strong>wegnimmt</strong>, so wird Gott sein Teil wegnehmen von dem Baum des Lebens und aus der heiligen Stadt, wovon in diesem Buch geschrieben ist. Off 22,18-19</li>
         </ul>
       </li>
-      <li><strong>Fazit: Es gibt keinen Beweis, dass die biblischen Ereignisse gelogen oder unrealistisch sind. Die Summe der Bibel ist unübertreffbar sicher!</strong> (Nicht jede Übersetzung, sondern die genauesten! In DE Elberfelder und Schlachter)</li>
+      <li><strong>Fazit: Es gibt keinen Beweis, dass die biblischen Ereignisse gelogen oder unrealistisch sind. Die Summe der Bibel ist unübertreffbar sicher!</strong> (Nicht jede Übersetzung, 
+        sondern die genauesten bzw. der Urtext! In deutsch - Elberfelder und Schlachter)</li>
+    </ul>
+  </details>
+
+  <!-- Punkt 5 -->
+  <details class="point point5">
+    <summary><strong>5. Aufgrund von weit verbreiteten „Mythen“ kann die Wahrheit nicht mit über Bord geworfen werden!</strong></summary>
+    <ul>
+      <li>Wenn alle Quellen in eine für uns unwahrscheinliche, aber "bessere" Richtung zeigen, deutet es ehrlicherweise an, dass wir heute „schlechter“ sind, oder?</li>
+      <li>Man sollte den eigenen Stolz überwinden und sich kritisch hinterfragen. Die Moderne muss nicht besser sein als die „primitiven Leute früher“.
+        <ul>
+          <li>Diese menschliche Überheblichkeit wird nur in der Bibel vollkommen bloßgestellt – passend zu Wahrheit.</li>
+        </ul>
+      </li>
+      <li>Die Wahrheit ist normalerweise irgendwo dazwischen. Die Bibel ist der beste "Mittelweg" und passt bei allem Prüfbaren zur Realität. Ohne überirdische Wesen (Gott, Engel) bleibt immer Erklärungsnot, 
+        nicht ohne Grund werden Alientheorien wieder populär, ähnlich wie bei dem vorsintflutlichen Sumerermythos.</li>
     </ul>
   </details>
   
@@ -220,27 +291,32 @@ header p {
 
   <!-- Punkt 7 -->
   <details class="point point7">
-    <summary><strong>7. <u>Prophetien/Prädiktionen</u> sind fast auf jeder Seite der Bibel zu finden und <u>bestätigen</u> offensichtlich den einen <u>Gott</u>, der außerhalb von Zeit existiert!</strong></summary>
+    <summary><strong>7. <u>Prophetien/Prädiktionen</u> sind fast auf jeder Seite der Bibel zu finden und <u>bestätigen</u> deutlich den einen <u>Gott</u>, der außerhalb von Zeit existiert!</strong></summary>
     <ul>
-      <li>Die Menge an Prophetie ist ohne Gott unerklärbar!
+      <li>Die permanent vorhandene und große Menge an Prophetie ist ohne Gott unerklärbar!
         <ul>
           <li>Z.B. Daniel: Selbst wenn das Buch 200 v. Chr. geschrieben wurde, reichen seine Vorhersagen auf den Tag genau auf Jesu Kommen als Fürst 32 n. Chr. Viele weitere Ereignisse für 2025+ n. Chr. stehen darin.</li>
-          <li>Über 3000 bereits erfüllte Vorhersagen sind in der Bibel. Dabei gibt es keine falsche Vorhersage! ("Nur genug vorhersagen, dann wird etwas eintreffen" trifft hier nicht zu! Genauso wenig "selffullfilling": Wer würde alle Vorhersagen zum Messias erfüllen wollen und können?)
+          <li>Über 3000 bereits erfüllte Vorhersagen sind in der Bibel. Dabei gibt es keine falsche Vorhersage! ("Nur genug vorhersagen, dann wird etwas eintreffen" trifft hier nicht zu! Genauso 
+            wenig "selffullfilling": Wer würde alle Vorhersagen zum Messias erfüllen wollen und können?)
             <ul>
               <li>Ca. 400 über Jesus Christus erfüllt</li>
               <li>&gt;180 über die heutige Zukunft erfüllt</li>
             </ul>
           </li>
           <li>Bei Eva wird bereits der Messias angekündigt</li>
-          <li>Die ersten 10 Patriarchen-Namen ab Adam beinhalten in Reihe <strong>das Evangelium Jesu</strong> (ca. 4000-2600 v. Chr.!)</li>
-          <li>Alle folgenden Berichte und Details entsprechen und erweitern durchgängig diesen Grundgedanken, ohne, dass sich die Schreiber absprechen konnten (geschweige denn alles Vorherige verstanden!)
+          <li>Die ersten 10 Patriarchen-Namen ab Adam beinhalten in Reihe <strong>das Evangelium Jesu</strong> (ca. 4000-2600 v. Chr.!)
             <ul>
-              <li>Und das, obwohl für Rabbis das Evangelium eine Gotteslästerung ist!</li>
+              <li>Das sollen sich Rabbis 200-300 v.Chr. ausgedacht haben?</li>
+            </ul>
+          </li>
+          <li>Alle folgenden Berichte und Details entsprechen und erweitern durchgängig diesen Grundgedanken, ohne, dass sich die Schreiber absprechen konnten geschweige denn alles Vorherige verstanden!
+            <ul>
+              <li>Und das, obwohl für Rabbis das Evangelium eine Gotteslästerung ist und sie Jesus dafür getötet haben!</li>
             </ul>
           </li>
         </ul>
       </li>
-      <li><strong>Fazit: Ohne „diesen“ Gott nicht erklärbar!</strong></li>
+      <li><strong>Fazit: Ohne Inspiration durch diesen zeitunabhängigen Gott nicht erklärbar!</strong></li>
     </ul>
   </details>
   
@@ -249,15 +325,16 @@ header p {
     <summary><strong>8. Die <u>Übereinstimmung der einzelnen Bibelbücher</u> ist übernatürlich!</strong></summary>
     <ul>
       <li>Einzigartiger Weise gibt es eine <u>vollständige und zusammenhängende Chronologie</u> von Adam bis Jesus</li>
-      <li>Trotz ca. 40 Autoren, die innerhalb von ca. 4100 (min. 1700) Jahren geschrieben haben!
+      <li>Obwohl ca. 40 Autoren innerhalb von ca. 4100 (min. 1700) Jahren geschrieben haben!
         <ul>
-          <li>Offiziell angeblich ca. 300 Jahre, was trotzdem unmöglich ist!</li>
+          <li>Selbst die gängige wissenschaftliche Datierung von nur etwa 300 Jahren erklärt diese Einheitlichkeit nicht.</li>
         </ul>
       </li>
       <li><strong>Fazit: Man muss tatsächlich ein Narr sein, um nicht an Gott zu glauben Ps 14,1</strong>
         <ul>
-          <li>Das wird man mit Stolz leider automatisch: <strong>"Hochmut kommt vor dem Fall"</strong></li>
-          <li><strong>So sind wir nun <u>Gesandte</u> für Christus, als ob Gott durch uns ermahnte; wir bitten an Christi statt: <u>Lasst euch versöhnen mit Gott!</u> 2. Kor 5,20</strong></li>
+          <li>Doch der menschliche Stolz führt leider oft genau dazu: <strong>"Hochmut kommt vor dem Fall"</strong></li>
+          <li><strong>So sind wir nun <u>Gesandte</u> für Christus, als ob Gott durch uns ermahnte; wir bitten an Christi statt: <u>Lasst euch versöhnen mit Gott!</u> 2. Kor 5,20 
+            Die Gelegenheit dazu kann heute noch vorbei gehen!</strong></li>
         </ul>
       </li>
     </ul>
@@ -353,20 +430,27 @@ header p {
   
   
 <script>
-// === TIMELINE-BILDER =========================================================
+// === HILFSFUNKTION ===========================================================
+function pad2(n) {
+  return String(n).padStart(2, '0');
+}
+  
+  // === TIMELINE-BILDER =========================================================
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
 
-const totalPages = 17;
+const totalPages = 18;
 const startView = 13;
 const extraMargin = 80;
 
-for (let i = 1; i <= totalPages; i++) {
+  for (let i = 1; i <= totalPages; i++) {
   const img = document.createElement('img');
-  img.src = `images/Seite${i}.png`;
-  img.alt = `Seite ${i}`;
+  img.src = `/de/images/Seite-${pad2(i)}.png`;
+  img.alt = `Seite ${pad2(i)}`;
+
   timeline.appendChild(img);
 }
+
 
 // === ZUSTAND =================================================================
 let scale = 0.7, targetScale = 0.7;
@@ -416,25 +500,29 @@ function applyBounds() {
   const wrapperRect = wrapper.getBoundingClientRect();
   const timelineWidth = timeline.scrollWidth * targetScale;
   const timelineHeight = timeline.scrollHeight * targetScale;
-  const visibleMarginX = wrapperRect.width * 0.05;
-  const visibleMarginY = wrapperRect.height * 0.05;
 
+  const marginX = wrapperRect.width * 0.05; // 5% Puffer links/rechts
+  const marginY = wrapperRect.height * 0.05; // 5% Puffer oben/unten
+
+  // === HORIZONTAL ===
   if (timelineWidth <= wrapperRect.width) {
     targetTranslateX = (wrapperRect.width - timelineWidth) / 2;
   } else {
-    const minX = wrapperRect.width - timelineWidth + visibleMarginX - extraMargin;
-    const maxX = 0 - visibleMarginX + extraMargin;
+    const minX = wrapperRect.width - timelineWidth - marginX;
+    const maxX = marginX;
     targetTranslateX = Math.min(maxX, Math.max(minX, targetTranslateX));
   }
 
+  // === VERTICAL ===
   if (timelineHeight <= wrapperRect.height) {
     targetTranslateY = (wrapperRect.height - timelineHeight) / 2;
   } else {
-    const minY = wrapperRect.height - timelineHeight + visibleMarginY;
-    const maxY = visibleMarginY;
+    const minY = wrapperRect.height - timelineHeight - marginY; // untere Grenze
+    const maxY = marginY; // obere Grenze
     targetTranslateY = Math.min(maxY, Math.max(minY, targetTranslateY));
   }
 }
+
 
 // === ANSICHT SETZEN ==========================================================
 function setView(page) {
@@ -487,7 +575,7 @@ minimapWrapper.appendChild(viewRect);
 // === MINIMAP-BILDER ==========================================================
 for (let i = 1; i <= totalPages; i++) {
   const mini = document.createElement('img');
-  mini.src = `images/Seite${i}.png`;
+  mini.src = `/de/images/Seite-${pad2(i)}.png`;
   mini.style.height = '100%';
   mini.style.objectFit = 'cover';
   mini.style.flex = '1';
