@@ -98,7 +98,7 @@ body {
 }
 
 /* Schmale Laptops / kleine Desktop-Bildschirme */
-@media (max-width: 1200px) {
+@media (max-width: 1500px) {
 
   /* Gesamthöhe der Nav reduzieren */
   .bgw-nav {
