@@ -111,10 +111,15 @@ body {
 
   .bgw-menu {
     display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
     flex-direction: column;
     width: 100%;
     background: rgba(0,0,0,0.4);
     gap: 0.2rem;
+    z-index: 999;
   }
 
   .bgw-menu.show {
