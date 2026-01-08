@@ -5,16 +5,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const isDE = location.pathname.includes("/de/");
   const navFile = isDE ? "/layout/nav.html" : "/layout/nav_en.html";
 
-  // --- NAVIGATION LADEN ---------------------------------------------------------
-  fetch(navFile)
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById("layout-nav").innerHTML = html;
+// --- NAVIGATION LADEN ---------------------------------------------------------
+fetch(navFile)
+  .then(res => res.text())
+  .then(html => {
+    const navContainer = document.getElementById("layout-nav");
+    navContainer.innerHTML = html;
+
+    // Warten, bis HTML wirklich im DOM ist
+    requestAnimationFrame(() => {
       initNavigation();
       markActivePage();
-      document.body.style.opacity = "1";
-    })
-    .catch(err => console.error("Fehler beim Laden der Navigation:", err));
+    });
+
+    document.body.style.opacity = "1";
+  })
+  .catch(err => console.error("Fehler beim Laden der Navigation:", err));
+
 
 
 
