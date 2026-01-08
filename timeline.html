@@ -85,10 +85,12 @@ header p {
   max-width: 1000px;          /* optional, damit es nicht zu breit wird */
   width: 100%;
 }
-
-  #view-hints ul li {
-  white-space: nowrap; /* Verhindert Zeilenumbruch */
+  
+#view-hints ul li {
+  white-space: normal;
+  word-break: break-word; /* oder break-all für wirklich aggressives Umbrechen */
 }
+
 
 </style>
 </head>
