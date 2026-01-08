@@ -49,7 +49,6 @@ body {
   justify-content: center;
   align-items: center;
   padding: 0.25rem 0; /* klein & stabil */
-  position: relative;
 }
 
 .bgw-menu {
