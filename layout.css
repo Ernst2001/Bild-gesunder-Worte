@@ -97,38 +97,35 @@ body {
   cursor: pointer;
 }
 
-/* Sehr große Bildschirme */
-@media (min-width: 1900px) {
-  .bgw-nav {
-    padding: 1rem 0;
-  }
-  .bgw-menu li a {
-    padding: 0.5rem 0.75rem;
-  }
+/* Standard / große Bildschirme */
+.bgw-nav {
+  padding: 0.6rem 0;
+}
+.bgw-menu li a {
+  padding: 0.35rem 0.6rem;
 }
 
-/* Große Bildschirme */
-@media (max-width: 1900px) and (min-width: 1600px) {
-  .bgw-nav {
-    padding: 0.5rem 0;
-  }
-  .bgw-menu li a {
-    padding: 0.35rem 0.6rem;
-  }
-}
-
-/* Mittlere Bildschirme / Zeilenumbruch erlaubt */
-@media (max-width: 1600px) and (min-width: 1200px) {
+/* Mittelgroße Bildschirme / Zeilenumbruch erlaubt */
+@media (max-width: 1600px) {
   .bgw-nav {
     padding: 0.25rem 0;
   }
   .bgw-menu li a {
-    padding: 0.2rem 0.5rem; /* viel kleiner */
-    max-width: 8.5rem;
-    white-space: normal;     /* erlaubt Umbruch */
-    line-height: 1.1;
+    padding: 0.2rem 0.5rem;
   }
 }
+
+/* Mobile */
+@media (max-width: 700px) {
+  .bgw-nav {
+    padding: 0.15rem 0; /* kleiner als vorher */
+  }
+  .bgw-menu li a {
+    padding: 0.15rem 0.4rem; /* kleiner als vorher */
+    font-size: 1.2rem;       /* evtl. etwas kleiner als 1.4rem */
+  }
+}
+
 
 
 
