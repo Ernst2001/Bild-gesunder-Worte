@@ -73,6 +73,7 @@ body {
   padding: 0.5rem 0.75rem; /* 8px 12px */
   border-radius: 0.125rem; /* 2px */
   cursor: pointer;
+  line-height: 1.15;
 }
 
 /* Hover */
