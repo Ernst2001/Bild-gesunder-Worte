@@ -86,9 +86,11 @@ header p {
   width: 100%;
 }
 
-  #view-hints ul li {
-  white-space: nowrap; /* Verhindert Zeilenumbruch */
+#view-hints ul li {
+  white-space: normal;
+  word-break: break-word; /* oder break-all für wirklich aggressives Umbrechen */
 }
+
 
 </style>
 </head>
