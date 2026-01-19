@@ -741,10 +741,11 @@ timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 // === STARTPOSITION WIRD DURCH loadDataset() GESETZT =========================
 window.onload = () => {
   document.body.style.opacity = "1";
-  // Button mit active-Klasse auswählen
-  const startBtn = document.querySelector(".dataset-btn.active");
+  // Weltgeschichte Button auswählen
+  const startBtn = document.querySelector(".dataset-btn[data-dataset='welt']");
   loadDataset("welt", startBtn);
 };
+
 
 
 
