@@ -91,6 +91,34 @@ header p {
   word-break: break-word; /* oder break-all für wirklich aggressives Umbrechen */
 }
 
+  /* ================= TIMELINE DATASET BUTTONS ================= */
+
+#timeline-datasets {
+  text-align: center;
+  margin: 10px 0 5px 0;
+}
+
+.dataset-btn {
+  background: #e6eef5;
+  color: #001a33;
+  border: 1px solid rgba(0,0,0,0.25);
+  padding: 8px 16px;
+  margin: 0 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.dataset-btn:hover {
+  background: #d4e4f2;
+}
+
+.dataset-btn.active {
+  background: #0070ba;
+  color: #fff;
+  font-weight: bold;
+}
+
 
 </style>
 </head>
@@ -116,6 +144,20 @@ header p {
     <li>Wie wahrscheinlich ist es, dass nur ein Buch trotz ca. 40 Autoren die gesamte Geschichte rückdatierbar festhält?</li>
   </ul>
 </div>
+
+  
+<div id="timeline-datasets">
+  <button class="dataset-btn" data-dataset="welt" onclick="loadDataset('welt', this)">
+    Weltgeschichte
+  </button>
+  <button class="dataset-btn" data-dataset="bibel" onclick="loadDataset('bibel', this)">
+    Nur biblische Chronologie
+  </button>
+  <!-- später -->
+  <!-- <button class="dataset-btn" data-dataset="arch" onclick="loadDataset('arch', this)">Archäologie</button> -->
+</div>
+
+
   
 <div id="controls">
   <button onclick="setView(1)">Ansicht Anfang</button>
@@ -436,6 +478,23 @@ header p {
 function pad2(n) {
   return String(n).padStart(2, '0');
 }
+
+// ================= DATASETS =================
+const datasets = {
+  welt: {
+    path: "/de/images/",
+    prefix: "Seite-",
+    pages: 18,
+    startView: 13
+  },
+  bibel: {
+    path: "/de/images/",
+    prefix: "Chrono-",
+    pages: 18,
+    startView: 13
+  }
+};
+
   
   // === TIMELINE-BILDER =========================================================
 const wrapper = document.getElementById('timeline-wrapper');
@@ -445,13 +504,54 @@ const totalPages = 18;
 const startView = 13;
 const extraMargin = 80;
 
-  for (let i = 1; i <= totalPages; i++) {
-  const img = document.createElement('img');
-  img.src = `/de/images/Seite-${pad2(i)}.png`;
-  img.alt = `Seite ${pad2(i)}`;
+// ================= DATASET LOADER =================
+function loadDataset(key, btn) {
+  const ds = datasets[key];
+  if (!ds) return;
 
-  timeline.appendChild(img);
+  // Timeline leeren
+  timeline.innerHTML = "";
+
+  // Bilder laden
+  for (let i = 1; i <= ds.pages; i++) {
+    const img = document.createElement("img");
+    img.src = `${ds.path}${ds.prefix}${pad2(i)}.png`;
+    img.alt = `${key} ${pad2(i)}`;
+    img.draggable = false;
+    timeline.appendChild(img);
+  }
+
+  // Minimap leeren und neu laden
+  minimap.innerHTML = "";
+  for (let i = 1; i <= ds.pages; i++) {
+    const mini = document.createElement("img");
+    mini.src = `${ds.path}${ds.prefix}${pad2(i)}.png`; // dynamisch
+    mini.style.height = '100%';
+    mini.style.objectFit = 'cover';
+    mini.style.flex = '1';
+    mini.style.opacity = '0.7';
+    mini.style.userSelect = 'none';
+    mini.style.webkitUserDrag = 'none';
+    mini.draggable = false;
+    minimap.appendChild(mini);
+  }
+
+  // Aktiven Button setzen
+  document.querySelectorAll(".dataset-btn").forEach(b =>
+    b.classList.remove("active")
+  );
+  if (btn) btn.classList.add("active");
+
+  // Zoom & Position reset
+  targetScale = scale = 0.7;
+  targetTranslateX = translateX = 0;
+  targetTranslateY = translateY = 0;
+
+  // Startansicht setzen
+  setTimeout(() => setView(ds.startView), 300);
 }
+
+
 
 
 // === ZUSTAND =================================================================
@@ -638,16 +738,16 @@ animate();
 // === VERHINDERT DRAG AUF TIMELINE-IMAGES ====================================
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// === STARTPOSITION NACH LADEZEIT ============================================ wird das nicht in js schon passieren?
+// === STARTPOSITION WIRD DURCH loadDataset() GESETZT =========================
 window.onload = () => {
-  // Fade-In starten
   document.body.style.opacity = "1";
-
-  // Timeline auf Startseite zentrieren, kleine Verzögerung für vollständiges Laden der Bilder
-  setTimeout(() => {
-    setView(startView);
-  }, 300);
+  // Weltgeschichte Button auswählen
+  const startBtn = document.querySelector(".dataset-btn[data-dataset='welt']");
+  loadDataset("welt", startBtn);
 };
+
+
+
 
 
 // === TOUCH SUPPORT ==========================================================
