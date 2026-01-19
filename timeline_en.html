@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="/css/layout.css">
 <script src="/js/layout.js" defer></script>
 
-  
+
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Facts instead of myths: Timeline</title>
@@ -91,6 +91,33 @@ header p {
   word-break: break-word; /* oder break-all für wirklich aggressives Umbrechen */
 }
 
+  #timeline-datasets {
+  text-align: center;
+  margin: 15px 0;
+}
+
+#timeline-datasets .dataset-btn {
+  background-color: #0070ba;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  text-shadow: 0.5px 0.5px 1px #000a14;
+  transition: background-color 0.3s;
+}
+
+#timeline-datasets .dataset-btn:hover {
+  background-color: #005a94;
+}
+
+#timeline-datasets .dataset-btn.active {
+  background-color: #ffd700;
+  color: #001a33;
+}
+
 
 </style>
 </head>
@@ -116,6 +143,19 @@ header p {
     <li>How likely is it that only one book, despite having approximately 40 authors, records the entire history in a way that can be traced back?</li>
   </ul>
 </div>
+
+<!-- ================== DATASET BUTTONS ================== -->
+<div id="timeline-datasets">
+  <button class="dataset-btn active" onclick="loadDataset('welt', this)">
+    World History
+  </button>
+  <button class="dataset-btn" onclick="loadDataset('bibel', this)">
+    Biblical Chronology Only
+  </button>
+  <!-- later -->
+  <!-- <button class="dataset-btn" onclick="loadDataset('arch', this)">Archaeology</button> -->
+</div>
+
   
 <div id="controls">
   <button onclick="setView(1)">View beginning</button>
@@ -635,7 +675,40 @@ animate();
 // === VERHINDERT DRAG AUF TIMELINE-IMAGES ====================================
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// === STARTPOSITION NACH LADEZEIT ============================================ wird das nicht in js schon passieren?
+// ================== DATASET LOGIC =====================
+let currentDataset = 'welt'; // default dataset
+
+function loadDataset(dataset, btn) {
+  currentDataset = dataset;
+
+  // Buttons aktiv/deaktiv
+  document.querySelectorAll('#timeline-datasets .dataset-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Alle Bilder im Timeline-Wrapper löschen
+  while (timeline.firstChild) {
+    timeline.removeChild(timeline.firstChild);
+  }
+
+  // Neue Bilder laden
+  for (let i = 1; i <= totalPages; i++) {
+    const img = document.createElement('img');
+    let prefix = '';
+    if (dataset === 'welt') prefix = 'Seite_en';        // World History
+    else if (dataset === 'bibel') prefix = 'chrono';    // Biblical Chronology
+    else if (dataset === 'arch') prefix = 'arch';       // optional, später
+
+    img.src = `/en/images/${prefix}-${pad2(i)}.png`;
+    img.alt = `Page ${pad2(i)}`;
+    timeline.appendChild(img);
+  }
+
+  // Auf die Startseite zentrieren
+  setView(startView);
+}
+
+  
+// === STARTPOSITION NACH LADEZEIT ============================================  
 window.onload = () => {
   // Fade-In starten
   document.body.style.opacity = "1";
