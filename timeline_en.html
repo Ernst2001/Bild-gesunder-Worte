@@ -696,7 +696,7 @@ function loadDataset(dataset, btn) {
     const img = document.createElement('img');
     let prefix = '';
     if (dataset === 'welt') prefix = 'Seite_en';        // World History
-    else if (dataset === 'bibel') prefix = 'chrono';    // Biblical Chronology
+    else if (dataset === 'bibel') prefix = 'chrono_en';
     else if (dataset === 'arch') prefix = 'arch';       // optional, später
 
     img.src = `/en/images/${prefix}-${pad2(i)}.png`;
