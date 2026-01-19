@@ -91,32 +91,34 @@ header p {
   word-break: break-word; /* oder break-all für wirklich aggressives Umbrechen */
 }
 
-  #timeline-datasets {
+#timeline-datasets {
   text-align: center;
-  margin: 15px 0;
+  margin: 10px 0 5px 0;
 }
 
-#timeline-datasets .dataset-btn {
-  background-color: #0070ba;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  margin: 4px;
+.dataset-btn {
+  background: #e6eef5;            /* hellblauer Hintergrund */
+  color: #001a33;                 /* dunkler Text */
+  border: 1px solid rgba(0,0,0,0.25);
+  padding: 8px 16px;
+  margin: 0 5px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1em;
-  text-shadow: 0.5px 0.5px 1px #000a14;
-  transition: background-color 0.3s;
+  font-weight: normal;             /* normal für Default */
+  transition: background 0.3s;
 }
 
-#timeline-datasets .dataset-btn:hover {
-  background-color: #005a94;
+.dataset-btn:hover {
+  background: #d4e4f2;             /* dunkler beim Hover */
 }
 
-#timeline-datasets .dataset-btn.active {
-  background-color: #ffd700;
-  color: #001a33;
+.dataset-btn.active {
+  background: #0070ba;             /* dunkelblau wie bei Deutsch */
+  color: #fff;                     /* weißer Text */
+  font-weight: bold;               /* fett wie bei Deutsch */
 }
+
 
 
 </style>
