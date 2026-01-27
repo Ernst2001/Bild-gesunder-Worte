@@ -679,7 +679,14 @@ timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 // ================== DATASET LOGIC =====================
 let currentDataset = 'welt'; // default dataset
 
-function loadDataset(dataset, btn) {
+  function loadDataset(dataset, btn) {
+
+  // === RESET TRANSFORM (PUNKT 2) =====================
+  scale = targetScale = 0.7;
+  translateX = targetTranslateX = 0;
+  translateY = targetTranslateY = 0;
+  timeline.style.transform = 'translate(0px,0px) scale(0.7)';
+
   currentDataset = dataset;
 
   // Buttons aktiv/deaktiv
@@ -692,22 +699,43 @@ function loadDataset(dataset, btn) {
   }
 
   // Neue Bilder laden
-  for (let i = 1; i <= totalPages; i++) {
-    const img = document.createElement('img');
-    let prefix = '';
-    if (dataset === 'welt') prefix = 'Seite_en';        // World History
-    else if (dataset === 'bibel') prefix = 'chrono_en';
-    else if (dataset === 'arch') prefix = 'arch';       // optional, später
+// === PREFIX ======================================================
+let prefix = '';
+if (dataset === 'welt') prefix = 'Seite_en';
+else if (dataset === 'bibel') prefix = 'chrono_en';
+else if (dataset === 'arch') prefix = 'arch';
 
-    img.src = `/en/images/${prefix}-${pad2(i)}.png`;
-    img.alt = `Page ${pad2(i)}`;
-    timeline.appendChild(img);
-  }
+// === TIMELINE + MINIMAP LEEREN ==================================
+timeline.innerHTML = '';
+minimap.innerHTML = '';
 
-  // Auf die Startseite zentrieren
-  setView(startView);
+// === NEU LADEN ==================================================
+for (let i = 1; i <= totalPages; i++) {
+
+  // Timeline
+  const img = document.createElement('img');
+  img.src = `/en/images/${prefix}-${pad2(i)}.png`;
+  img.alt = `Page ${pad2(i)}`;
+  img.draggable = false;
+  timeline.appendChild(img);
+
+  // Minimap
+  const mini = document.createElement('img');
+  mini.src = `/en/images/${prefix}-${pad2(i)}.png`;
+  mini.style.height = '100%';
+  mini.style.flex = '1';
+  mini.style.objectFit = 'cover';
+  mini.style.opacity = '0.7';
+  mini.draggable = false;
+  minimap.appendChild(mini);
 }
 
+
+  // Auf die Startseite zentrieren
+  setTimeout(() => {
+    setView(startView);
+  }, 50);
+}
   
 // === STARTPOSITION NACH LADEZEIT ============================================  
 window.onload = () => {
