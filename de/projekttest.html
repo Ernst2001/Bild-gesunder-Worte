@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Über das Projekt – Bild gesunder Worte</title>
+
+<link rel="stylesheet" href="/css/layout.css">
+<script src="/js/layout.js" defer></script>
+
+  
+<style>
+/* === Navigation global ===================================================== */
+
+
+/* === GLOBALE STILE ======================================================== */
+body {
+  padding-top: 60px; /* Höhe der Nav */
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+  color: #001a33;
+  font-size: 19px;
+  line-height: 1.6;
+  text-shadow: 0.3px 0.3px 0.8px #000a14;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+
+  
+header {
+  text-align: center;
+  padding: 40px 20px 20px;
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+header p.subtitle {
+  font-size: 1.3em;
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 60%;          /* breiter, wie bei Index */
+  margin: 0 auto;
+  padding: 20px;
+  text-align: left;
+  font-size: 1.2rem;       /* Textgröße wie auf Index */
+}
+
+h2 {
+  color: #00264d;
+  font-size: 1.8rem;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+h2::before {
+  font-size: 1.5rem;
+}
+
+h2.ziel::before { content: "🎯"; }
+h2.motivation::before { content: "💡"; }
+h2.ansatz::before { content: "🔍"; }
+h2.timeline::before { content: "📜"; }
+h2.vorteile::before { content: "✨"; }
+
+.container p {
+  background: rgba(255,255,255,0.22);
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  line-height: 1.6;       /* wie Index */
+}
+
+.button {
+  display: inline-block;
+  background-color: #0070ba;
+  color: #fff;
+  padding: 12px 22px;
+  font-size: 1.1em;
+  border-radius: 6px;
+  text-decoration: none;
+  margin: 20px 0;
+  transition: background-color 0.3s;
+  text-shadow: 0.5px 0.5px 1px #000a14;
+}
+.button:hover {
+  background-color: #005a94;
+}
+
+
+</style>
+  
+</head>
+
+  
+<body>
+
+
+
+<!-- NAVIGATION UND FOOTER werden über layout.js geladen -->
+<div id="layout-nav"></div>
+  
+  
+<header>
+  <h1>Über das Projekt</h1>
+  <p class="subtitle">Ein Überblick über Ziel, Motivation und den Aufbau der Timeline</p>
+</header>
+
+<div class="container">
+
+  <h2 class="ziel">Das Ziel des Projekts</h2>
+  <p>
+    Das Projekt „Bild gesunder Worte“ hat das Ziel, Wahrheit klar, definiert und nachvollziehbar
+    darzustellen. Unklare Begriffe führen zu unklarem Denken – und unklarer Orientierung.  
+    Darum beginnt alles mit einer logischen und vollständig überprüfbaren Definition von Wahrheit.
+    Nur so lässt sich Geschichte korrekt einordnen. 
+  </p>
+
+  <h2 class="motivation">Warum dieses Projekt?</h2>
+  <p>
+    Viele Weltbilder stehen auf unsicherem Fundament. Oft basiert eine Überzeugung auf Vertrauen,
+    das nie überprüft wurde oder gar nicht überprüft werden kann. Dieses Projekt soll jedem Menschen ermöglichen, die "Basis seines Denkens"
+    zu hinterfragen – und gegebenenfalls zu korrigieren. Wer die Grundlage der Wahrheit versteht, kann erkennen, welche historischen Informationen 
+    belastbar sind und welche nur auf unberechtigtem Vertrauen beruhen. 
+  </p>
+
+  <h2 class="ansatz">Methodischer Ansatz</h2>
+  <p>
+    Alle Schritte folgen einem klaren logischen Aufbau:  
+    <br>• Präzise Definition von Wahrheit  
+    <br>• Darauf aufbauend Analyse, was tatsächlich „absolut gewusst“ werden kann  
+    <br>• Zuordnung aller weiteren Erkenntnisse nach Vertrauensgrad  
+    <br>• Übertragung dieser Struktur auf historische Ereignisse  
+  </p>
+
+  <h2 class="timeline">Die Timeline / Der Zeitstrahl</h2>
+  <p>
+    Die Timeline fasst über 6.000 Jahre biblische und außerbiblische Geschichte in eine
+    visuell nachvollziehbare Struktur. Sie zeigt Zusammenhänge, parallele Ereignisse und
+    damit auch ganz deutlich, welche Art von Menschen früher gelebt haben und in welche Richtung die Vergangenheit weist. 
+    Sie ist ein Werkzeug für jeden, der logische Zusammenhänge in der Geschichte verstehen will und eine große Hilfe für das Bibelstudium.
+    Besonders durch den einheitlichen Maßstab wird die Entwicklung von Menschen, Völkern und Ereignissen in einem klaren, nachvollziehbaren Ablauf deutlich. 
+  </p>
+
+  <a class="button" href="timeline.html">Zur Timeline / Zum Zeitstrahl</a>
+
+  <h2 class="vorteile">Worin liegt der Wert?</h2>
+  <p>
+    Die Kombination aus sauberer Logik, klarer Definition und chronologischem Überblick ermöglicht es,
+    falsche Grundannahmen schnell zu entlarven – und ein stabiles Weltbild aufzubauen, das sowohl
+    geistlich als auch rational tragfähig ist.
+  </p>
+
+</div>
+
+<!-- NAVIGATION UND FOOTER werden über layout.js geladen -->
+<div id="layout-footer"></div>
+
+
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  document.body.style.opacity = "1";
+
+  // Aktiven Menüpunkt markieren (kann auch in layout.js)
+  let page = location.pathname.split("/").pop().replace(".html", "");
+  if(page === "") page = "index";
+  document.querySelectorAll(".bgw-menu a").forEach(a => {
+    if (a.dataset.page === page) { a.classList.add("active"); }
+  });
+});
+
+function toggleBGWMenu() {
+  document.querySelector(".bgw-menu").classList.toggle("show");
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ – Bild gesunder Worte</title>
+
+<link rel="stylesheet" href="/css/layout.css">
+<script src="/js/layout.js" defer></script>
+
+<style>
+/* === GLOBALE STILE FÜR DIESE SEITE ======================================== */
+body {
+  padding-top: 60px;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+  color: #001a33;
+  font-size: 19px;
+  line-height: 1.6;
+  text-shadow: 0.3px 0.3px 0.8px #000a14;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+header {
+  text-align: center;
+  padding: 40px 20px 20px;
+}
+
+header h1 {
+  font-size: 2.3em;
+  margin-bottom: 10px;
+}
+
+header p.subtitle {
+  font-size: 1.2em;
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 65%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: left;
+  font-size: 1.15rem;
+}
+
+/* Kategorien */
+#faq-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 25px 0 35px;
+}
+
+.cat-btn {
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.35);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.3s;
+  text-shadow: 0.4px 0.4px 1px #000a14;
+}
+
+.cat-btn:hover {
+  background: rgba(255,255,255,0.55);
+}
+
+.cat-btn.active {
+  background: #0070ba;
+  color: white;
+}
+
+/* Suchfeld */
+#faq-search {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  margin: 20px 0 25px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* Fragen-Blöcke */
+.faq-item {
+  background: rgba(255,255,255,0.22);
+  margin-bottom: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  padding-left: 55px; /* Platz für Nummer */
+  position: relative;
+}
+
+/* Nummerierung */
+.faq-item::before {
+  content: attr(data-number);
+  position: absolute;
+  left: 18px;
+  top: 16px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #003a6b;
+  opacity: 0.85;
+}
+
+/* Frage */
+.faq-question {
+  width: 100%;
+  text-align: left;
+  padding: 14px 18px;
+  background: none;
+  border: none;
+  font-size: 1.15rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Antwort */
+.faq-answer {
+  display: none;
+  padding: 0 18px 15px 18px;
+  line-height: 1.55;
+}
+
+/* Symbol */
+.faq-question span {
+  font-size: 1.4rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .container {
+    max-width: 95%;
+    padding: 10px 15px;
+  }
+  .faq-item {
+    padding-left: 45px;
+  }
+  .faq-item::before {
+    left: 12px;
+  }
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<div id="layout-nav"></div>
+
+<header>
+  <h1>FAQ – Häufig gestellte Fragen</h1>
+  <p class="subtitle">
+    Antworten auf häufige Fragen zu Wahrheit, Logik, Bibel, Timeline und dem Projekt.
+  </p>
+</header>
+
+<div class="container">
+
+  <!-- SUCHFELD -->
+  <input type="text" id="faq-search" placeholder="Suche nach Stichworten …">
+
+  <!-- KATEGORIE-NAVIGATION -->
+  <div id="faq-categories">
+    <button class="cat-btn active" data-filter="all">Alle</button>
+    <button class="cat-btn" data-filter="grundlagen">Grundlagen</button>
+    <button class="cat-btn" data-filter="logik">Logik</button>
+    <button class="cat-btn" data-filter="bibel">Bibel</button>
+    <button class="cat-btn" data-filter="timeline">Timeline</button>
+    <button class="cat-btn" data-filter="projekt">Projekt</button>
+    <button class="cat-btn" data-filter="sonstiges">Sonstiges</button>
+  </div>
+
+  <!-- FAQ LISTE – 30 FRAGEN -->
+  <div id="faq-list">
+
+    <!-- =================== GRUNDLAGEN =================== -->
+    <div class="faq-item" data-cat="grundlagen">
+      <button class="faq-question">Was ist Wahrheit? <span>➕</span></button>
+      <div class="faq-answer">Neue eigene Definition: Wahr ist das, was von mindestens einer Person bestätigt wird, die
+      <br>1. 100% ehrlich ist,</be>
+      <br>2. 100% der relevanten Informationen über die Sache hat und</be>
+      <br>3. diese auch zu 100% versteht.</be>
+      <br>Für weitere Erklärungen siehe Reiter "Grundlagen / Wahrheit". Bei Kritik oder Verbesserungsvorschlägen bitte melden. 
+        Die Definition muss so perfekt wie möglich sein, damit alle Wahrheit finden können.</be>
+      </div>
+    </div>
+
+    <div class="faq-item" data-cat="grundlagen">
+      <button class="faq-question">Kann man Wahrheit überhaupt erkennen? <span>➕</span></button>
+      <div class="faq-answer">Ja. Ein Teil der Wahrheit ist absolut sicher erkennbar, aber ein wesentlich größerer Teil ist nur glaubensbasiert. Die Wissenschaft bietet keine bessere Definition von Wahrheit 
+        und hilft daher in entscheidenden Punkten zur Natur fast genau so wenig wie die Philosophie.</div>
+    </div>
+
+    <div class="faq-item" data-cat="grundlagen logik">
+      <button class="faq-question">Warum ist eine klare Definition wichtig? <span>➕</span></button>
+      <div class="faq-answer">Weil jede Schlussfolgerung falsch wird, wenn der Ausgangsbegriff ungeklärt ist. Dazu fehlen bisher die grundlegenden Kriterien für Wahrheit, die zwangsläufig dazu gehören und ohne 
+        die man sich nie sicher sein kann.</div>
+    </div>
+
+    <div class="faq-item" data-cat="grundlagen">
+      <button class="faq-question">Warum beginnen wir mit der Definition von Wahrheit? <span>➕</span></button>
+      <div class="faq-answer">Weil jedes (vernünftige) Weltbild auf einer Grundannahme darüber beruht, was Wahrheit überhaupt ist.</div>
+    </div>
+
+    <!-- =================== LOGIK =================== -->
+    <div class="faq-item" data-cat="logik">
+      <button class="faq-question">Was bedeutet „sicheres Wissen“? <span>➕</span></button>
+      <div class="faq-answer">Sicheres Wissen ist das, was jemand bezeugen kann, der alle relevanten Informationen dazu hat und diese versteht. 
+      <br>Wie dein aktueller Name ist, kannst du oder deine Eltern am besten bezeugen (wenn du ehrlich bist). Das ist einfaches "sicheres Wissen". (Damit auch = Wahrheit)
+      <br>So geht jeder im Alltag und z.B. vor Gericht mit Wahrheit um. Interessanterweise jedoch nicht bei der Definition von Wahrheit, was ein bisschen auf die Verlogenheit des Menschen hindeutet.</div>
+    </div>
+
+    <div class="faq-item" data-cat="logik">
+      <button class="faq-question">Wieso spielt Vertrauen beim Denken eine Rolle? <span>➕</span></button>
+      <div class="faq-answer">Weil wir vieles nicht überprüfen können und daher mindestens einer Quelle vertrauen müssen.</div>
+    </div>
+
+    <div class="faq-item" data-cat="logik">
+      <button class="faq-question">Wie erkennt man Widersprüche im eigenen Denken? <span>➕</span></button>
+      <div class="faq-answer">Indem man die eigenen Grundannahmen explizit macht und prüft, ob sie sich gegenseitig ausschließen bzw. widersprechen. Beim Atheismus sind gravierende Widersprüche und 
+        ewiges "Nichtwissen" automatisch vorhanden. Alle anderen "Religionen" haben keine vergleichbare sinnvolle, widerspruchsfreie und überprüfbare Geschichte.</div>
+    </div>
+
+    <div class="faq-item" data-cat="logik">
+      <button class="faq-question">Was ist ein logischer Fehlschluss? <span>➕</span></button>
+      <div class="faq-answer">Ein Denkfehler, bei dem das Ergebnis nicht logisch aus den Voraussetzungen folgt.</div>
+    </div>
+
+    <!-- =================== BIBEL =================== -->
+    <div class="faq-item" data-cat="bibel">
+      <button class="faq-question">Warum spielt die Bibel eine zentrale Rolle? <span>➕</span></button>
+      <div class="faq-answer">Weil sie historisch zusammenhängend ein komplettes Weltbild liefert, das seit tausenden Jahren den Kritikern standhält. 
+        <br>Sie ist durchdrungen vom Anspruch auf Wahrheit und belegt es durch strenge "Nicht-lügen" Regeln sowie klare Nachweise der Unveränderbarkeit.
+        <br>Von Gott vorhergesagte Ereignisse sind zu 100% richtig eingetroffen, was jeweils ein Beweis für Gottes Wort ist und war.
+        <br>Sie ist die einzige übermenschliche Quelle, die zuverlässig ist. Damit haben wir eine sichere Quelle von Wahrheit.
+        <br>Dazu ist sie in Übereinstimmung mit Jesus Christus, der als einziger von allen Weltanschauungen als "sündlos" bezeichnet werden kann. Jesus selbst 
+        beansprucht Gott zu sein und selbst "Gottes Wort" = die Bibel zu sein. Unzählige Zitate des Alten Testaments durch Ihn bestätigen die einzelnen Bücher, die so 
+        eindeutig zur Bibel zuzuordnen sind.</div>
+    </div>
+
+    <div class="faq-item" data-cat="bibel">
+      <button class="faq-question">Ist die Bibel historisch zuverlässig? <span>➕</span></button>
+      <div class="faq-answer">Die archäologischen Befunde stimmen in hohem Maß mit den biblischen Ereignissen überein. 
+      <br>Vor 200 Jahren kannte man archäologisch noch keine historische Person der Bibel. Mittlerweile sind die wichtigsten Personen eindeutig gefunden worden sowie viele Ereignisse nachgewiesen. 
+      Jedes Jahr kommen viele neue Funde dazu. Gäbe es nicht so viel Widerstand gegen biblisch fundierte Ausgrabungen, würde vmtl. bereits schon alles nachgewiesen werden können.
+      <br>Die Genauigkeit der Bibel ist jedes Mal erstaundlich.</div>
+    </div>
+
+    <div class="faq-item" data-cat="bibel">
+      <button class="faq-question">Warum gibt es unterschiedliche Bibelübersetzungen? <span>➕</span></button>
+      <div class="faq-answer">Weil Sprachen sich verändern und Übersetzer unterschiedliche Methoden nutzen. Manche versuchen den hebräischen/griechischen Originaltext in z.B. jugendliche Sprache zu übersetzen um 
+      ihn attraktiver zu machen. Trotz teils guter Absicht wird allerdings die Genauigkeit der Worte dadurch zwangsläufig stark beeinträchtigt. Dadurch schleichen sich viele "Widersprüche" ein. Daher ist im 
+      Deutschen die Elberfelder die genaueste Übersetzung gefolgt von der Schlachter. Im Englischen ist die KJV am besten.</div>
+    </div>
+
+    <div class="faq-item" data-cat="bibel">
+      <button class="faq-question">Wie unterscheidet man Auslegung und Interpretation? <span>➕</span></button>
+      <div class="faq-answer">Auslegung = Exegese = die ursprüngliche Bedeutung.
+      Interpretation / Anwendung = Übertragung der Bedeutung in die heutige Zeit / praktische Konsequenz.</div>
+    </div>
+
+    <div class="faq-item" data-cat="bibel">
+      <button class="faq-question">Was ist das Evangelium von Jesus? <span>➕</span></button>
+      <div class="faq-answer">Evangelium: Aus dem Griechischen für "Frohe Botschaft"
+        <br>Während 4000 Jahre davor unterschiedliche Epochen durchlebt wurden z.B. mit dem Gesetz Moses, das die Menschen offensichtlich nicht besonders froh machen konnte, kam schlussendlich der lange angekündigte
+      Messias (Gott selbst) auf die Erde und übernahm die Verantwortung für die Sünde. Er hat den freien Willen erschaffen deshalb könnte man Ihn für die Sünde verantwortlich machen obwohl Er alles dagegenn getan hat,
+      dass die Sünde nicht entsteht. Aber bei freiem Willen und ohne vollständige Beweise, dass Gott nicht lügt, ist es 100% sicher, dass sich irgendwann jemand gegen das gute entscheidet.
+      <br>Die frohe Botschaft ist eine absolute Kehrtwende von allem, was man sich ausdenken kann. Statt Versklavung durch Sünde oder Gesetz werden wir aus reiner Gnade gerettet. Notwendig ist dafür nur ein
+      kindlicher Glaube an Jesus als dem Retter. Jeder, der einsieht, dass er verloren ist (und das ist offensichtlich solange man dem Tod nicht ausweichen kann), kann zu Gott um Vergebung beten. Wenn man das ehrlich 
+        und aufrichtig tut, verändert Gott durch den Heiligen Geist die Herzen und man wird unerklärbar froh und verwandelt sich immer mehr in das Bild Jesu. Bei mir persönlich kann ich von einer völligen Freiheit 
+        zeugen, das schlechte Gewissen war augenblicklich weg und ich hatte reinen Frieden und dadurch die größte Freude, die ich jemals hatte. Kein Geld und Ereignis der Welt kann an diese Freude heranreichen.
+      Deshalb ist verständlich, dass die ersten Christen allen irdischen Besitz und ihr eigenes Leben für diese neue "Idee" wegwerfen konnten. Der Herr Jesus gibt die Hoffnung des ewigen Lebens durch Seine eigene
+      Auferstehung, die historisch sicherer ist, als jedes andere Ereignis. Dafür hat Gott gesorgt und deshalb ist das Christentum in kürzester Zeit ohne Internet, ohne Macht und Gewalt sondern mit reiner persönlicher
+      Verkündigung und Heilungswundern auf die ganze Erde verbreitet worden. Menschlich ist das nicht nachzuahmen oder zu erklären und es bleibt ein einmaliges Phänomen.
+      <br>[Röm 1,16] Denn ich schäme mich des Evangeliums nicht, denn es ist Gottes Kraft zum Heil <strong>jedem Glaubenden</strong>..
+      <br>[Apg 3,18-19] Gott aber hat so erfüllt, was er durch den Mund <strong>aller</strong> Propheten zuvor verkündigt hat, dass sein Christus leiden sollte. So tut nun Buße und <strong>bekehrt euch, damit eure Sünden ausgetilgt werden</strong>..
+      <br>[2. Kor 5,20-21] So sind wir nun Gesandte für Christus, als ob Gott durch uns ermahnte; <strong>wir bitten an Christi statt:</strong> Lasst euch versöhnen mit Gott! Den, der Sünde nicht kannte, hat er für uns zur Sünde 
+        gemacht, damit wir Gottes Gerechtigkeit würden in ihm.</div>
+    </div>
+    
+    <!-- =================== TIMELINE =================== -->
+    <div class="faq-item" data-cat="timeline">
+      <button class="faq-question">Was ist die Timeline? <span>➕</span></button>
+      <div class="faq-answer">Ein chronologisches Werkzeug, das biblische Geschichte mit anderen Quellen verknüpft und eindeutige Rückschlüsse über den historischen Zustand und Verlauf ermöglicht.</div>
+    </div>
+
+    <div class="faq-item" data-cat="timeline">
+      <button class="faq-question">Warum wurde die Timeline erstellt? <span>➕</span></button>
+      <div class="faq-answer">Um Geschichte visuell verständlich und Zusammenhänge sichtbar zu machen. Wenn man Geschichte von tausenden Jahren ohne Timeline liest, versteht man einen großen Teil kaum. 
+      Daher war das für mich von Anfang an essentiell. Nach langer Arbeit damit ist sie noch wichtiger geworden.</div>
+    </div>
+
+    <div class="faq-item" data-cat="timeline">
+      <button class="faq-question">Wie genau ist die Timeline? <span>➕</span></button>
+      <div class="faq-answer"> Die biblische Chronologie ist laut Roger Liebi aufs Jahr und z.B. beim Kommen Jesu auf den Tag genau. Selbst mit +/-100 Jahren wäre das trotzdem völlig ausreichend um falsche Weltbilder
+        ablehnen zu können.
+        <br>Außerbiblische Datierungen sind sehr zweifelhaft da z.B. großes Vertrauen auf die Richtigkeit von radiometrischen Datierungen gelegt wird obwohl diese unzählige Male völlig daneben liegen und es 
+        offensichtliche unbeherrschte Annahmen gibt. Ganz deutlich wird es um den biblischen Zeitpunkt der Flut. Ab ca. dieser Zeit ist außerbiblisch nichts mehr genau, meistens jongliert man da bereits mit +/-500 
+        Jahren und mehr. D.h. das bestätigt die globale Vernichtung von allem. 
+        <br>Die Ägyptologie ist genau wie die Sumerologie in die Länge gezogen. Viele Experten widersprechen sich und manche fordern eine kürzere Zeit. Es gibt entgegen der Bibel keine eindeutige zusammenhängende
+        Chronologie obwohl die Menschen offensichtlich klug genug dafür waren. Die ganze Information passt auch in die Zeit nach der Sintflut. (Die Sumerer Zeit vor der Flut bleibt natürlich davor)
+        </div>
+    </div>
+
+    <div class="faq-item" data-cat="timeline">
+      <button class="faq-question">Kann die Timeline Fehler enthalten? <span>➕</span></button>
+      <div class="faq-answer">Menschliche Fehler sind natürlich möglich und teilweise schon korrigiert.
+       Wenn es andere widerspruchslose Chronologien zur Bibel gibt, bitte um Info. Es werden stets die bestmöglichen Quellen genutzt aber außerbiblische Datierungen bleiben unsicher, wenn sie nicht zur (richtigen) 
+        biblischen Chronologie passen. Letztendlich ist die Information der ehrlichen Augenzeugen als einzige verlässlich. Wenn Gott selbst bezeugt, dass er die Menschen inspiriert hat, ist die höchste Genauigkeit
+      nur so zu finden.</div>
+    </div>
+
+    <!-- =================== PROJEKT =================== -->
+    <div class="faq-item" data-cat="projekt">
+      <button class="faq-question">Was ist das Ziel des Projekts? <span>➕</span></button>
+      <div class="faq-answer">Die Grundlage für klares Denken und ein kohärentes Weltbild zu bieten. Gleichzeitig sollen Lügen und Halbwahrheiten aufgedeckt werden um Schaden von uns abzuwenden.</div>
+    </div>
+
+    <div class="faq-item" data-cat="projekt">
+      <button class="faq-question">Ist das Projekt religiös motiviert? <span>➕</span></button>
+      <div class="faq-answer">Es basiert auf logischer Analyse und führt dann zur Bibel – nicht umgekehrt. Wenn die Bibel als nicht vertrauenswürdig entlarvt wird, bin ich der erste, der nicht mehr daran glaubt.
+      Allerdings wird es nach über 2000 Jahren recht schwer, das zu tun wenn gleichzeitig mehr und mehr Bestätigungen zur Bibel ausgegraben werden. Wer mit einer vernünftigen Definition von Wahrheit
+      nach Wahrheit sucht, wird merken, dass es sehr schwer sein wird etwas vergleichbares zu finden. Wenn du meinst es gibt etwas, gerne Bescheid geben.</div>
+    </div>
+
+    <div class="faq-item" data-cat="projekt">
+      <button class="faq-question">Steht das Projekt einer bestimmten Konfession nahe? <span>➕</span></button>
+      <div class="faq-answer">Nein. Es betrachtet die Bibel als Quelle, nicht als Tradition.</div>
+    </div>
+
+    <div class="faq-item" data-cat="projekt">
+      <button class="faq-question">Ist das Projekt abgeschlossen? <span>➕</span></button>
+      <div class="faq-answer">Nein, es wird laufend erweitert und verbessert.</div>
+    </div>
+
+    <!-- =================== SONSTIGES =================== -->
+    <div class="faq-item" data-cat="sonstiges">
+      <button class="faq-question">Kann ich eigene Fragen einreichen? <span>➕</span></button>
+      <div class="faq-answer">Ja, über die Kontaktseite können jederzeit Fragen eingereicht werden.</div>
+    </div>
+
+    <div class="faq-item" data-cat="sonstiges">
+      <button class="faq-question">Gibt es bald neue Videos zum Projekt? <span>➕</span></button>
+      <div class="faq-answer">Ja, es sind bereits weitere Inhalte für YouTube in Arbeit.</div>
+    </div>
+
+    <div class="faq-item" data-cat="sonstiges">
+      <button class="faq-question">Kann ich die Timeline privat verwenden? <span>➕</span></button>
+      <div class="faq-answer">Ja, solange keine kommerzielle Nutzung erfolgt. Für das Bibelstudium empfehle ich es ausdrücklich.</div>
+    </div>
+
+    <div class="faq-item" data-cat="sonstiges">
+      <button class="faq-question">Wie kann ich das Projekt unterstützen? <span>➕</span></button>
+      <div class="faq-answer">Gerne über Gebet, PayPal, Weiterempfehlung oder Hinweise auf Verbesserungen.</div>
+    </div>
+
+    <div class="faq-item" data-cat="sonstiges">
+      <button class="faq-question">Warum diese Website ohne Werbung? <span>➕</span></button>
+      <div class="faq-answer">Um Inhalte frei von Ablenkung und wirtschaftlichen Motiven zu halten.</div>
+    </div>
+
+  </div> <!-- faq-list end -->
+
+</div> <!-- container end -->
+
+<!-- FOOTER -->
+<div id="layout-footer"></div>
+
+<script>
+/* Accordion */
+document.addEventListener("click", e => {
+  if (!e.target.classList.contains("faq-question")) return;
+
+  const btn = e.target;
+  const ans = btn.nextElementSibling;
+  const symbol = btn.querySelector("span");
+
+  if (ans.style.display === "block") {
+    ans.style.display = "none";
+    symbol.textContent = "➕";
+  } else {
+    ans.style.display = "block";
+    symbol.textContent = "➖";
+  }
+});
+
+/* Nummerierung automatisch erzeugen */
+const items = document.querySelectorAll(".faq-item");
+items.forEach((item, i) => {
+  const nr = (i + 1).toString().padStart(2, "0");
+  item.setAttribute("data-number", nr);
+});
+
+/* Kategorienfilter */
+const catBtns = document.querySelectorAll(".cat-btn");
+
+catBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    catBtns.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const filter = btn.dataset.filter;
+
+    items.forEach(item => {
+      const cat = item.dataset.cat.split(" ");
+
+      if (filter === "all" || cat.includes(filter)) {
+        item.style.display = "block";
+      } else {
+        item.style.display = "none";
+      }
+    });
+  });
+});
+
+/* Suchfunktion */
+const searchField = document.getElementById("faq-search");
+
+searchField.addEventListener("input", () => {
+  const q = searchField.value.toLowerCase();
+  items.forEach(item => {
+    const txt = item.innerText.toLowerCase();
+    item.style.display = txt.includes(q) ? "block" : "none";
+  });
+});
+</script>
+
+</body>
+</html>

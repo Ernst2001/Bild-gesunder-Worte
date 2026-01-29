@@ -1,0 +1,250 @@
+/* Schriftgröße Richtwert */
+html {
+  font-size: 19px;
+}
+
+.main-btn {
+  display: inline-block;
+  background-color: #0070ba;
+  color: #fff;
+  padding: 12px 22px;
+  font-size: 1.3em;
+  border-radius: 6px;
+  text-decoration: none;
+  margin: 20px 0;
+  transition: background-color 0.3s;
+  text-shadow: 0.5px 0.5px 1px #000a14;
+  text-align: center;
+}
+
+.main-btn:hover, .button:hover {
+  background-color: #005a94;
+  cursor: pointer;
+}
+
+
+/* Fade-in beim Laden der Seite */
+body {
+  background: linear-gradient(120deg, #a2c1d8, #c3d9e8);
+  color: #001a33;
+  font-family: Arial, sans-serif;
+  font-size: 1.2rem; /* statt 19px */
+  text-align: center;
+  padding-top: 3.75rem; /* 60px */
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+  line-height: 1.6;
+  text-shadow: 0.01875rem 0.01875rem 0.05rem #000a14; /* 0.3px 0.3px 0.8px */
+}
+
+
+/* === Navigation global ===================================================== */
+.bgw-nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.3);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.25rem 0; /* klein & stabil */
+}
+
+.bgw-menu {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;          /* 🔑 wichtig */
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.bgw-menu li a {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 0.2rem 0.5rem;   /* dauerhaft klein */
+  line-height: 1.15;
+  border-radius: 0.125rem;
+  cursor: pointer;
+  white-space: normal;
+  text-align: center;
+}
+
+/* Hover */
+.bgw-menu li a:hover {
+  background: rgba(255,255,255,0.25);
+  color: #ffd700;
+}
+
+/* Aktiver Menüpunkt */
+.bgw-menu li a.active {
+  background: rgba(255,255,255,0.5);
+  color: #00264d;
+  border-bottom: 0.1875rem solid #ffd700; /* 3px */
+}
+
+/* Burger Button */
+.bgw-burger {
+  display: none;
+  font-size: 2rem; /* statt 2em */
+  color: white;
+  cursor: pointer;
+}
+
+
+
+
+/* Mobile */
+@media (max-width: 700px) {
+  .bgw-nav {
+    justify-content: space-between;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .bgw-burger {
+    display: block;
+  }
+
+  .bgw-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    width: 100%;
+    background: rgba(0,0,0,0.4);
+    gap: 0.2rem;
+    z-index: 999;
+  }
+
+  .bgw-menu.show {
+    display: flex;
+  }
+
+  .bgw-menu li a {
+    padding: 0.25rem;
+    font-size: 1.2rem;
+  }
+}
+
+
+
+
+
+/* === FOOTER (bereinigt & funktionssicher) =============================== */
+
+/* Hülle, die layout.js lädt */
+#layout-footer {
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Eigentliches Footer-Element */
+#layout-footer footer {
+  font-size: 2rem;               /* Basisgröße: Kontakt & PayPal = groß */
+  padding: 3.75rem;
+  text-align: center;
+  background: rgba(0,0,0,0.3);
+  color: #ffffff;
+}
+
+/* Kontakttext */
+#layout-footer footer p {
+  margin: 0.3rem 0;
+  font-size: 1.2rem !important;                /* = 2rem (Kontakt & PayPal) */
+}
+
+/* Mail-Link */
+#layout-footer footer p a {
+  font-size: 1.2rem !important;                /* bleibt identisch groß */
+  color: #ffffff;
+}
+
+/* PayPal-Button */
+#layout-footer footer button {
+  background-color: #0070ba;
+  border: none;
+  padding: 0.75rem 1.75rem;
+  cursor: pointer;
+  border-radius: 0.35rem;
+  font-size: 1.2rem !important;                /* = 2rem (wie Kontakttext) */
+  color: #fff;
+  text-shadow: 0.03rem 0.03rem 0.06rem #00264d;
+}
+
+#layout-footer footer button:hover {
+  background-color: #005a94;
+}
+
+/* Impressum & Datenschutz (4 Stufen kleiner) */
+#layout-footer footer .footer-small,
+#layout-footer footer .footer-small a {
+  font-size: 1rem !important;              /* = 1rem → ~4 Stufen kleiner als 2rem */
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: 0.03rem 0.03rem 0.06rem #00264d;
+}
+
+#layout-footer footer hr {
+  border: none;
+  height: 0.25rem;
+  background-color: #ffffff;
+  margin: 1rem 0 2.5rem 0;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+
+  /* Button */
+  .main-btn {
+    padding: 10px 18px;
+    font-size: 1em;
+  }
+
+  /* Footer */
+  #layout-footer footer {
+    font-size: 1.6rem;
+  }
+  #layout-footer footer button {
+    font-size: 1.2rem;
+    padding: 0.6rem 1.25rem;
+  }
+
+  /* Sections */
+  .section {
+    flex-direction: column;
+    align-items: center;
+  }
+  .section a {
+    margin: 0 0 10px 0;
+    text-align: center;
+  }
+  .section img {
+    margin: 0 0 20px 0;
+    width: 80%;
+  }
+
+}
+
+/* Aktive Sprache hervorheben */
+.language-switch a.active-lang {
+  background-color: rgba(255, 215, 0, 0.3); /* dezentes Gold */
+  color: #001a33; /* dunkler Text, gut lesbar auf hellem Hintergrund */
+  border-radius: 3px;
+  padding: 2px 6px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Hover-Effekt */
+.language-switch a:hover {
+  background-color: rgba(255, 215, 0, 0.2);
+  color: #001a33;
+}
+
