@@ -504,6 +504,29 @@ let currentDataset = 'welt'; // Standard-Dataset als String
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
 
+// === MINI-MAP BASIS (MUSS VOR loadDataset EXISTIEREN) ========================
+const minimapWrapper = document.getElementById('minimap-wrapper');
+minimapWrapper.style.position = 'fixed';
+minimapWrapper.style.bottom = '10px';
+minimapWrapper.style.left = '50%';
+minimapWrapper.style.transform = 'translateX(-50%)';
+minimapWrapper.style.width = '250px';
+minimapWrapper.style.height = '50px';
+minimapWrapper.style.border = '1px solid rgba(0,0,0,0.4)';
+minimapWrapper.style.background = 'rgba(0,0,0,0.3)';
+minimapWrapper.style.borderRadius = '6px';
+minimapWrapper.style.cursor = 'pointer';
+minimapWrapper.style.overflow = 'hidden';
+minimapWrapper.style.zIndex = '9999';
+
+const minimap = document.createElement('div');
+minimap.style.display = 'flex';
+minimap.style.height = '100%';
+minimap.style.width = '100%';
+minimap.style.position = 'relative';
+minimapWrapper.appendChild(minimap);
+
+  
 // === INITIALE TIMELINE-BEFÜLLUNG (wie EN) =========================
 function initTimeline() {
   const ds = datasets[currentDataset]; // aktuelles Dataset-Objekt
@@ -696,27 +719,6 @@ function setView(page) {
   applyBounds();
 }
 
-// === MINI-MAP ================================================================
-const minimapWrapper = document.getElementById('minimap-wrapper');
-minimapWrapper.style.position = 'fixed';
-minimapWrapper.style.bottom = '10px';
-minimapWrapper.style.left = '50%';
-minimapWrapper.style.transform = 'translateX(-50%)';
-minimapWrapper.style.width = '250px';
-minimapWrapper.style.height = '50px';
-minimapWrapper.style.border = '1px solid rgba(0,0,0,0.4)';
-minimapWrapper.style.background = 'rgba(0,0,0,0.3)';
-minimapWrapper.style.borderRadius = '6px';
-minimapWrapper.style.cursor = 'pointer';
-minimapWrapper.style.overflow = 'hidden';
-minimapWrapper.style.zIndex = '9999';
-
-const minimap = document.createElement('div');
-minimap.style.display = 'flex';
-minimap.style.height = '100%';
-minimap.style.width = '100%';
-minimap.style.position = 'relative';
-minimapWrapper.appendChild(minimap);
 
 const viewRect = document.createElement('div');
 viewRect.style.position = 'absolute';
@@ -785,12 +787,8 @@ window.onload = () => {
   // Fade-In starten
   document.body.style.opacity = "1";
 
-  // Startansicht setzen, kleine Verzögerung für Bilder-Ladezeit
-  setTimeout(() => {
-    setView(startView);
-  }, 300);
+  loadDataset(currentDataset);
 };
-
 
 
 
