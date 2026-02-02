@@ -779,17 +779,17 @@ animate();
 // === VERHINDERT DRAG AUF TIMELINE-IMAGES ====================================
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
-// === STARTPOSITION WIRD DURCH loadDataset() GESETZT =========================
+// === STARTPOSITION NACH LADEZEIT ============================================
 window.onload = () => {
+  // Fade-In starten
   document.body.style.opacity = "1";
 
-  // Timeline initial laden
-  initTimeline();
-
-  // Startansicht dynamisch aus dem aktuellen Dataset setzen
-  const ds = datasets[currentDataset];
-  setTimeout(() => setView(ds.startView), 300);
+  // Startansicht setzen, kleine Verzögerung für Bilder-Ladezeit
+  setTimeout(() => {
+    setView(startView);
+  }, 300);
 };
+
 
 
 
