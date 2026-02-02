@@ -495,37 +495,54 @@ const datasets = {
   }
 };
 
-  // Globale Variable für das aktuell aktive Dataset
-let currentDataset = datasets.welt; // Standard-Dataset
+// Globale Variable für das aktuell aktive Dataset
+let currentDataset = datasets.welt; // Standard-Dataset als Objekt
 
   
   // === TIMELINE-BILDER =========================================================
 const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
 
-const totalPages = 18;
-const startView = 13;
+// === INITIALE TIMELINE-BEFÜLLUNG (wie EN) =========================
+const initDataset = datasets[currentDataset];
+
+for (let i = 1; i <= initDataset.pages; i++) {
+  const img = document.createElement("img");
+  img.src = `${initDataset.path}${initDataset.prefix}${pad2(i)}.png`;
+  img.alt = `${currentDataset} ${pad2(i)}`;
+  img.draggable = false;
+  timeline.appendChild(img);
+}
+
+  
+let totalPages = 18;
+let startView = 13;
 const extraMargin = 80;
 
 // ================= DATASET LOADER =================
 function loadDataset(key, btn) {
   const ds = datasets[key];
   if (!ds) return;
-
-  currentDataset = ds; // 👈 Schritt 2: aktuelles Dataset merken
+  
+  currentDataset = key; // ✅ bleibt immer 'welt' oder 'bibel'
 
   
   // Timeline leeren
   timeline.innerHTML = "";
 
-  // Bilder laden
-  for (let i = 1; i <= ds.pages; i++) {
-    const img = document.createElement("img");
-    img.src = `${ds.path}${ds.prefix}${pad2(i)}.png`;
-    img.alt = `${key} ${pad2(i)}`;
-    img.draggable = false;
-    timeline.appendChild(img);
-  }
+// Gesamtseiten dynamisch setzen
+totalPages = ds.pages;
+startView = ds.startView;
+
+// Bilder laden
+for (let i = 1; i <= totalPages; i++) {
+  const img = document.createElement("img");
+  img.src = `${ds.path}${ds.prefix}${pad2(i)}.png`;
+  img.alt = `${key} ${pad2(i)}`;
+  img.draggable = false;
+  timeline.appendChild(img);
+}
+
 
   // Minimap leeren und neu laden
   minimap.innerHTML = "";
@@ -542,19 +559,19 @@ function loadDataset(key, btn) {
     minimap.appendChild(mini);
   }
 
-  // Aktiven Button setzen
-  document.querySelectorAll(".dataset-btn").forEach(b =>
-    b.classList.remove("active")
-  );
-  if (btn) btn.classList.add("active");
+// Aktiven Button setzen
+document.querySelectorAll(".dataset-btn").forEach(b => {
+  b.classList.remove("active");
+  if (b.dataset.dataset === key) b.classList.add("active");
+});
 
   // Zoom & Position reset
   targetScale = scale = 0.7;
   targetTranslateX = translateX = 0;
   targetTranslateY = translateY = 0;
 
-  // Startansicht setzen
-  setTimeout(() => setView(ds.startView), 300);
+// Startansicht dynamisch aus Dataset setzen
+setTimeout(() => setView(ds.startView), 300);
 }
 
 
@@ -680,21 +697,6 @@ viewRect.style.background = 'rgba(255,215,0,0.1)';
 viewRect.style.cursor = 'grab';
 minimapWrapper.appendChild(viewRect);
 
-// === MINIMAP-BILDER ==========================================================
-minimap.innerHTML = "";
-  
-for (let i = 1; i <= totalPages; i++) {
-  const mini = document.createElement('img');
-  mini.src = `${currentDataset.path}${currentDataset.prefix}${pad2(i)}.png`;
-  mini.style.height = '100%';
-  mini.style.objectFit = 'cover';
-  mini.style.flex = '1';
-  mini.style.opacity = '0.7';
-  mini.style.userSelect = 'none';
-  mini.style.webkitUserDrag = 'none';
-  mini.draggable = false;
-  minimap.appendChild(mini);
-}
 
 // === KLICK & DRAG IN DER MINIMAP ============================================
 let isMiniDragging = false;
@@ -749,12 +751,12 @@ timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 // === STARTPOSITION WIRD DURCH loadDataset() GESETZT =========================
 window.onload = () => {
   document.body.style.opacity = "1";
-  // Weltgeschichte Button auswählen
-  const startBtn = document.querySelector(".dataset-btn[data-dataset='welt']");
-  loadDataset("welt", startBtn);
+
+  // Startansicht setzen (wie EN)
+  setTimeout(() => {
+    setView(startView);
+  }, 300);
 };
-
-
 
 
 
