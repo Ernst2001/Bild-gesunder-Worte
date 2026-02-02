@@ -494,9 +494,9 @@ const datasets = {
     startView: 13
   }
 };
-
+  
 // Globale Variable für das aktuell aktive Dataset
-let currentDataset = datasets.welt; // Standard-Dataset als Objekt
+let currentDataset = 'welt'; // Standard-Dataset als String
 
   
   // === TIMELINE-BILDER =========================================================
@@ -504,15 +504,47 @@ const wrapper = document.getElementById('timeline-wrapper');
 const timeline = document.getElementById('timeline');
 
 // === INITIALE TIMELINE-BEFÜLLUNG (wie EN) =========================
-const initDataset = datasets[currentDataset];
+function initTimeline() {
+  const ds = datasets[currentDataset]; // Dataset-Objekt
 
-for (let i = 1; i <= initDataset.pages; i++) {
-  const img = document.createElement("img");
-  img.src = `${initDataset.path}${initDataset.prefix}${pad2(i)}.png`;
-  img.alt = `${currentDataset} ${pad2(i)}`;
-  img.draggable = false;
-  timeline.appendChild(img);
+  // Timeline leeren
+  timeline.innerHTML = "";
+
+  // Bilder laden
+  for (let i = 1; i <= ds.pages; i++) {
+    const img = document.createElement("img");
+    img.src = `${ds.path}${ds.prefix}${pad2(i)}.png`;
+    img.alt = `${currentDataset} ${pad2(i)}`;
+    img.draggable = false;
+    img.ondragstart = () => false; // 🔹 verhindert wirklich Drag
+    timeline.appendChild(img);
+  }
+
+  // Minimap initial befüllen
+  minimap.innerHTML = "";
+  for (let i = 1; i <= ds.pages; i++) {
+    const mini = document.createElement("img");
+    mini.src = `${ds.path}${ds.prefix}${pad2(i)}.png`;
+    mini.style.height = '100%';
+    mini.style.objectFit = 'cover';
+    mini.style.flex = '1';
+    mini.style.opacity = '0.7';
+    mini.style.userSelect = 'none';
+    mini.style.webkitUserDrag = 'none';
+    mini.draggable = false;
+    minimap.appendChild(mini);
+  }
+
+  // Buttons aktiv setzen
+  document.querySelectorAll(".dataset-btn").forEach(b => {
+    b.classList.remove("active");
+    if (b.dataset.dataset === currentDataset) b.classList.add("active");
+  });
 }
+
+// Init beim Laden der Seite
+initTimeline();
+
 
   
 let totalPages = 18;
@@ -752,11 +784,14 @@ timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 window.onload = () => {
   document.body.style.opacity = "1";
 
-  // Startansicht setzen (wie EN)
-  setTimeout(() => {
-    setView(startView);
-  }, 300);
+  // Timeline initial laden
+  initTimeline();
+
+  // Startansicht dynamisch aus dem aktuellen Dataset setzen
+  const ds = datasets[currentDataset];
+  setTimeout(() => setView(ds.startView), 300);
 };
+
 
 
 
