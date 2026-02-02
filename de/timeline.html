@@ -543,10 +543,8 @@ function initTimeline() {
   });
 }
 
-// Init beim Laden der Seite
-initTimeline();
-
-  
+// === INIT BEIM LADEN DER SEITE ===
+// initTimeline() entfällt, direkt loadDataset nutzen
 let totalPages = 18;
 let startView = 13;
 const extraMargin = 80;
@@ -571,11 +569,11 @@ function loadDataset(key, btn) {
     img.src = `${ds.path}${ds.prefix}${pad2(i)}.png`;
     img.alt = `${key} ${pad2(i)}`;
     img.draggable = false;
-    img.ondragstart = () => false; // sicherstellen
+    img.ondragstart = () => false;
     timeline.appendChild(img);
   }
   
-  // Minimap leeren & neu laden
+  // === MINIMAP LEEREN & NEU LADEN ===
   minimap.innerHTML = "";
   for (let i = 1; i <= totalPages; i++) {
     const mini = document.createElement("img");
@@ -586,25 +584,21 @@ function loadDataset(key, btn) {
       flex: '1',
       opacity: '0.7',
       userSelect: 'none',
-      webkitUserDrag: 'none'
+      WebkitUserDrag: 'none' // Korrektur: W3C-konform
     });
     mini.draggable = false;
     minimap.appendChild(mini);
   }
 
-  // Button aktiv setzen
+
+  // === AKTIVEN DATASET-BUTTON SETZEN ===
   document.querySelectorAll(".dataset-btn").forEach(b => {
     b.classList.remove("active");
     if (b.dataset.dataset === key) b.classList.add("active");
   });
 
-  // Zoom & Position reset (falls doch noch nötig?)
-  //targetScale = scale = 0.7;
-  //targetTranslateX = translateX = 0;
-  //targetTranslateY = translateY = 0;
-
-  // Startansicht setzen, Zoom/Position beibehalten
-  setTimeout(() => setView(ds.startView), 100);
+  // === STARTANSICHT SETZEN, ZOOM & POSITION BEIBEHALTEN ===
+  setTimeout(() => setView(ds.startView), 50);
 }
 
 
@@ -614,7 +608,7 @@ function loadDataset(key, btn) {
 let scale = 0.7, targetScale = 0.7;
 let translateX = 0, translateY = 0;
 let targetTranslateX = 0, targetTranslateY = 0;
-let isDragging = false, startX, startY;
+let isDragging = false, startX = 0, startY = 0;
 
 // === DRAG IM HAUPTBEREICH ====================================================
 wrapper.addEventListener('mousedown', e => {
@@ -683,6 +677,7 @@ function applyBounds() {
 
 
 // === ANSICHT SETZEN ==========================================================
+// ✅ Änderung: startView korrekt beim Dataset-Wechsel, ohne scale zu überschreiben
 function setView(page) {
   const wrapperRect = wrapper.getBoundingClientRect();
   const img = timeline.children[page - 1];
@@ -691,9 +686,11 @@ function setView(page) {
   const imgWidth = img.offsetWidth;
   const imgTop = img.offsetTop;
   const imgHeight = img.offsetHeight;
-  targetScale = 0.7;
+
+  // Nur Translate setzen, scale bleibt, damit Drag/Zoom unverändert
   targetTranslateX = wrapperRect.width / 2 - (imgLeft + imgWidth / 2) * targetScale;
   targetTranslateY = wrapperRect.height / 2 - (imgTop + imgHeight / 2) * targetScale;
+
   applyBounds();
 }
 
