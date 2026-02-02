@@ -495,6 +495,9 @@ const datasets = {
   }
 };
 
+  // Globale Variable für das aktuell aktive Dataset
+let currentDataset = datasets.welt; // Standard-Dataset
+
   
   // === TIMELINE-BILDER =========================================================
 const wrapper = document.getElementById('timeline-wrapper');
@@ -509,6 +512,9 @@ function loadDataset(key, btn) {
   const ds = datasets[key];
   if (!ds) return;
 
+  currentDataset = ds; // 👈 Schritt 2: aktuelles Dataset merken
+
+  
   // Timeline leeren
   timeline.innerHTML = "";
 
@@ -675,9 +681,11 @@ viewRect.style.cursor = 'grab';
 minimapWrapper.appendChild(viewRect);
 
 // === MINIMAP-BILDER ==========================================================
+minimap.innerHTML = "";
+  
 for (let i = 1; i <= totalPages; i++) {
   const mini = document.createElement('img');
-  mini.src = `/de/images/Seite-${pad2(i)}.png`;
+  mini.src = `${currentDataset.path}${currentDataset.prefix}${pad2(i)}.png`;
   mini.style.height = '100%';
   mini.style.objectFit = 'cover';
   mini.style.flex = '1';
