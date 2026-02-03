@@ -41,11 +41,17 @@ header p {
   font-size:1.1em; text-shadow:0.5px 0.5px 1px #000a14;
 }
 #controls button:hover { background-color:#005a94; }
-
+  
 #timeline-wrapper { 
   height: calc(100vh - 200px); /* genug Platz für Header + Footer */
-  width:104%; height:100vh; overflow:hidden; position:relative; cursor:grab; 
-  margin:20px 0; border:1px solid rgba(0,0,0,0.2); 
+  width:104%;
+  height:100vh;
+  overflow:hidden;
+  position:relative;
+  z-index: 10;        /* <<< HIER HINZUFÜGEN */
+  cursor:grab; 
+  margin:20px 0;
+  border:1px solid rgba(0,0,0,0.2); 
 }
 #timeline { display:flex; height:130%; transform-origin:0 0; user-select:none; }
 #timeline img { height:100%; display:block; flex-shrink:0; object-fit:cover; -webkit-user-drag:none; user-drag:none; }
