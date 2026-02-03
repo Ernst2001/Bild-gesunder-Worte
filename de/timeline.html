@@ -480,11 +480,15 @@ header p {
   
   
 <script>
+  // === SPRACHE UND BASISPFAD ==================================================
+const isDE = location.pathname.includes("/de/");
+const imgBasePath = isDE ? "/de/images/" : "/en/images/";
+  
 // === HILFSFUNKTION ===========================================================
 function pad2(n) {
   return String(n).padStart(2, '0');
 }
-
+  
 // ================= DATASETS =================
 const datasets = {
   welt: {
@@ -592,22 +596,24 @@ function loadDataset(key, btn) {
 totalPages = ds.seiten;
 startView = ds.startAnsicht;
 
+// === DATASET-PFAD DEFINIEREN ===
+let imgBasePath = '';
+if (currentDataset === 'welt') imgBasePath = '/de/images/';
+else if (currentDataset === 'bibel') imgBasePath = '/de/images/';
+  
 // Bilder laden
 for (let i = 1; i <= totalPages; i++) {
   const img = document.createElement("img");
-  img.src = `${ds.pfad}${ds.praefix}${pad2(i)}.png`;
-  img.alt = `${key} ${pad2(i)}`;
+  img.src  = `${imgBasePath}${ds.praefix}${pad2(i)}.png`;
+  img.alt = `${currentDataset} ${pad2(i)}`;
   img.draggable = false;
   img.ondragstart = () => false;
   timeline.appendChild(img);
-}
 
   
   // === MINIMAP LEEREN & NEU LADEN ===
-minimap.innerHTML = "";
-for (let i = 1; i <= totalPages; i++) {
   const mini = document.createElement("img");
-  mini.src = `${ds.pfad}${ds.praefix}${pad2(i)}.png`;
+  mini.src = `${imgBasePath}${ds.praefix}${pad2(i)}.png`;
   Object.assign(mini.style, {
     height: '100%',
     objectFit: 'cover',
@@ -621,7 +627,7 @@ for (let i = 1; i <= totalPages; i++) {
 }
 
 
-
+  
   // === AKTIVEN DATASET-BUTTON SETZEN ===
   document.querySelectorAll(".dataset-btn").forEach(b => {
     b.classList.remove("active");
