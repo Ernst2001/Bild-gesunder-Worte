@@ -789,10 +789,13 @@ animate();
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
 // === STARTPOSITION NACH LADEZEIT ============================================
-window.addEventListener("load", () => {
-  document.body.style.opacity = "1";
+window.addEventListener("DOMContentLoaded", () => {
   loadDataset(currentDataset);
 });
+setTimeout(() => {
+  setView(datasets[currentDataset].startAnsicht);
+}, 300);
+
 
 
 
