@@ -789,13 +789,10 @@ animate();
 timeline.querySelectorAll('img').forEach(img => img.ondragstart = () => false);
 
 // === STARTPOSITION NACH LADEZEIT ============================================
-window.onload = () => {
-  // Fade-In starten
+window.addEventListener("load", () => {
   document.body.style.opacity = "1";
-
   loadDataset(currentDataset);
-};
-
+});
 
 
 
